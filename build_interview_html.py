@@ -416,7 +416,6 @@ CSS = r"""
   --shadow: 0 1px 3px rgba(0,0,0,.4);
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--bg);
