@@ -859,7 +859,7 @@ JS = r"""
     const card = matchCards[matchIndex];
     card.classList.add('search-current');
     setExpanded(card, true);
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.scrollIntoView({ behavior: 'auto', block: 'center' });
     searchStats.textContent = (matchIndex + 1) + ' / ' + matchCards.length;
     updateSearchNavButtons();
   }
@@ -964,7 +964,7 @@ JS = r"""
   window.addEventListener('scroll', () => {
     backTop.classList.toggle('visible', window.scrollY > 400);
   });
-  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'auto' }));
 
   const saved = localStorage.getItem('interview-theme');
   if (saved) document.documentElement.setAttribute('data-theme', saved);
