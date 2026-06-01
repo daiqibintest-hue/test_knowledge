@@ -933,20 +933,32 @@ JS = r"""
 
   updateSearchNavButtons();
 
+  function setActiveNav(id) {
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const id = e.target.id;
-        navLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-        });
+        setActiveNav(e.target.id);
       }
     });
   }, { rootMargin: '-30% 0px -60% 0px' });
   sections.forEach(s => observer.observe(s));
 
   navLinks.forEach(a => {
-    a.addEventListener('click', () => sidebar.classList.remove('open'));
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      sidebar.classList.remove('open');
+      setActiveNav(id);
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      history.replaceState(null, '', '#' + id);
+    });
   });
   menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
 
