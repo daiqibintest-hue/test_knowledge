@@ -596,7 +596,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         </div>
       </div>
     </article>
-    <article class="card" data-idx="14" data-search="14. 你写了 1000+ 测试用例，怎么分类管理？    按&quot;模块 → 场景 → 优先级&quot;三级目录组织。比如`订单/工单管理 / 工单创建 / P0_正常流程`、`订单/工单管理 / 工单创建 / P1_异常分支`。同时打标签：`@smoke @regression @ai @performance @security`。Pytest 用 mark，TestLink 用 Suite + Tag。每个版本按标签筛选执行。   ">
+    <article class="card" data-idx="14" data-search="14. 你写了 1000+ 测试用例，怎么分类管理？    按&quot;模块 → 场景 → 优先级&quot;三级目录组织。比如`工单管理 / 工单创建 / P0_正常流程`、`工单管理 / 工单创建 / P1_异常分支`。同时打标签：`@smoke @regression @ai @performance @security`。Pytest 用 mark，TestLink 用 Suite + Tag。每个版本按标签筛选执行。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#14</span>
         <h3 class="card-title">14. 你写了 1000+ 测试用例，怎么分类管理？</h3>
@@ -606,7 +606,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>按&quot;模块 → 场景 → 优先级&quot;三级目录组织。比如<code>订单/工单管理 / 工单创建 / P0_正常流程</code>、<code>订单/工单管理 / 工单创建 / P1_异常分支</code>。同时打标签：<code>@smoke @regression @ai @performance @security</code>。Pytest 用 mark，TestLink 用 Suite + Tag。每个版本按标签筛选执行。</p></div>
+          <div class="answer-content"><p>按&quot;模块 → 场景 → 优先级&quot;三级目录组织。比如<code>工单管理 / 工单创建 / P0_正常流程</code>、<code>工单管理 / 工单创建 / P1_异常分支</code>。同时打标签：<code>@smoke @regression @ai @performance @security</code>。Pytest 用 mark，TestLink 用 Suite + Tag。每个版本按标签筛选执行。</p></div>
         </div>
       </div>
     </article>
@@ -1816,7 +1816,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         </div>
       </div>
     </article>
-    <article class="card" data-idx="96" data-search="5. 测试数据怎么管理？    三层：①静态基础数据（账号、角色）放 YAML 配置；②业务测试数据通过 fixture 动态造数（前置创建订单/工单，后置清理）；③敏感数据用 .env 或 Jenkins Credentials 注入。绝不把测试数据写死在代码里。   ">
+    <article class="card" data-idx="96" data-search="5. 测试数据怎么管理？    三层：①静态基础数据（账号、角色）放 YAML 配置；②业务测试数据通过 fixture 动态造数（前置创建工单，后置清理）；③敏感数据用 .env 或 Jenkins Credentials 注入。绝不把测试数据写死在代码里。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#96</span>
         <h3 class="card-title">5. 测试数据怎么管理？</h3>
@@ -1826,7 +1826,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>三层：</p><ul class="point-list"><li>①静态基础数据（账号、角色）放 YAML 配置</li><li>②业务测试数据通过 fixture 动态造数（前置创建订单/工单，后置清理）</li><li>③敏感数据用 .env 或 Jenkins Credentials 注入。绝不把测试数据写死在代码里。</li></ul></div>
+          <div class="answer-content"><p>三层：</p><ul class="point-list"><li>①静态基础数据（账号、角色）放 YAML 配置</li><li>②业务测试数据通过 fixture 动态造数（前置创建工单，后置清理）</li><li>③敏感数据用 .env 或 Jenkins Credentials 注入。绝不把测试数据写死在代码里。</li></ul></div>
         </div>
       </div>
     </article>
@@ -1858,7 +1858,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         </div>
       </div>
     </article>
-    <article class="card" data-idx="99" data-search="8. 接口依赖怎么处理？    ①YAML 里声明 `extract` 字段，提取响应字段到变量池；②下一个用例用 `${order_id}` 引用；③复杂依赖用 fixture 链式调用（如 &quot;创建订单/工单 fixture&quot; 被多个用例依赖）；④跨用例数据共享用 pytest 的 cache 或自定义 context。   ">
+    <article class="card" data-idx="99" data-search="8. 接口依赖怎么处理？    ①YAML 里声明 `extract` 字段，提取响应字段到变量池；②下一个用例用 `${order_id}` 引用；③复杂依赖用 fixture 链式调用（如 &quot;创建工单 fixture&quot; 被多个用例依赖）；④跨用例数据共享用 pytest 的 cache 或自定义 context。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#99</span>
         <h3 class="card-title">8. 接口依赖怎么处理？</h3>
@@ -1868,7 +1868,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①YAML 里声明 <code>extract</code> 字段，提取响应字段到变量池</li><li>②下一个用例用 <code>${order_id}</code> 引用</li><li>③复杂依赖用 fixture 链式调用（如 &quot;创建订单/工单 fixture&quot; 被多个用例依赖）</li><li>④跨用例数据共享用 pytest 的 cache 或自定义 context。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①YAML 里声明 <code>extract</code> 字段，提取响应字段到变量池</li><li>②下一个用例用 <code>${order_id}</code> 引用</li><li>③复杂依赖用 fixture 链式调用（如 &quot;创建工单 fixture&quot; 被多个用例依赖）</li><li>④跨用例数据共享用 pytest 的 cache 或自定义 context。</li></ul></div>
         </div>
       </div>
     </article>
@@ -1914,7 +1914,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         </div>
       </div>
     </article>
-    <article class="card" data-idx="103" data-search="12. fixture 你具体怎么用？    按作用域分四级：  - **session**：登录 token、数据库连接池——一次会话只执行一次；  - **module**：测试模块前置数据（如创建订单/工单用例集共用一个业务人员账号）；  - **class**：极少用；  - **function**：默认级别，每个用例独立的数据准备和清理。  用 yield 写前置 + 后置，autouse=True 用于全局拦截（如每个用例自动加 traceId）。   ">
+    <article class="card" data-idx="103" data-search="12. fixture 你具体怎么用？    按作用域分四级：  - **session**：登录 token、数据库连接池——一次会话只执行一次；  - **module**：测试模块前置数据（如创建工单用例集共用一个业务人员账号）；  - **class**：极少用；  - **function**：默认级别，每个用例独立的数据准备和清理。  用 yield 写前置 + 后置，autouse=True 用于全局拦截（如每个用例自动加 traceId）。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#103</span>
         <h3 class="card-title">12. fixture 你具体怎么用？</h3>
@@ -1925,7 +1925,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><p>按作用域分四级：</p>
-<ul><li><strong>session</strong>：登录 token、数据库连接池——一次会话只执行一次；</li><li><strong>module</strong>：测试模块前置数据（如创建订单/工单用例集共用一个业务人员账号）；</li><li><strong>class</strong>：极少用；</li><li><strong>function</strong>：默认级别，每个用例独立的数据准备和清理。</li></ul>
+<ul><li><strong>session</strong>：登录 token、数据库连接池——一次会话只执行一次；</li><li><strong>module</strong>：测试模块前置数据（如创建工单用例集共用一个业务人员账号）；</li><li><strong>class</strong>：极少用；</li><li><strong>function</strong>：默认级别，每个用例独立的数据准备和清理。</li></ul>
 <p>用 yield 写前置 + 后置，autouse=True 用于全局拦截（如每个用例自动加 traceId）。</p></div>
         </div>
       </div>
@@ -1944,7 +1944,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         </div>
       </div>
     </article>
-    <article class="card" data-idx="105" data-search="14. YAML 文件字段结构是怎样的？    我们的用例结构：    ```yaml  - case_name: 创建订单/工单_正常流程    description: 业务人员创建一个普通普通业务单据    request:      method: POST      url: /api/v1/orders      headers:        Authorization: Bearer ${user_token}      json:        title: 测试订单/工单_${timestamp}        client_id: ${client_id}        type: CIVIL    extract:      order_id: $.data.id      order_no: $.data.orderNo    assert:      - type: status_code        expect: 200      - type: jsonpath        path: $.code        expect: 0      - ">
+    <article class="card" data-idx="105" data-search="14. YAML 文件字段结构是怎样的？    我们的用例结构：    ```yaml  - case_name: 创建工单_正常流程    description: 业务人员创建一个普通业务单据    request:      method: POST      url: /api/v1/orders      headers:        Authorization: Bearer ${user_token}      json:        title: 测试工单_${timestamp}        client_id: ${client_id}        type: CIVIL    extract:      order_id: $.data.id      order_no: $.data.orderNo    assert:      - type: status_code        expect: 200      - type: jsonpath        path: $.code        expect: 0      - type: sq">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#105</span>
         <h3 class="card-title">14. YAML 文件字段结构是怎样的？</h3>
@@ -1955,15 +1955,15 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><p>我们的用例结构：</p>
-<pre class="code-block" data-lang="yaml"><code>- case_name: 创建订单/工单_正常流程
-  description: 业务人员创建一个普通普通业务单据
+<pre class="code-block" data-lang="yaml"><code>- case_name: 创建工单_正常流程
+  description: 业务人员创建一个普通业务单据
   request:
     method: POST
     url: /api/v1/orders
     headers:
       Authorization: Bearer ${user_token}
     json:
-      title: 测试订单/工单_${timestamp}
+      title: 测试工单_${timestamp}
       client_id: ${client_id}
       type: CIVIL
   extract:
@@ -2027,7 +2027,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         </div>
       </div>
     </article>
-    <article class="card" data-idx="109" data-search="18. 你怎么处理接口之间的数据依赖？    ①线性依赖：用 extract 提取上一步结果给下一步；②fixture 依赖：把&quot;创建订单/工单&quot;做成 fixture，被多个用例引用；③避免跨文件依赖，每个测试文件自闭环；④用例失败不影响后续用例（用 try/finally 清理或独立 fixture）。   ">
+    <article class="card" data-idx="109" data-search="18. 你怎么处理接口之间的数据依赖？    ①线性依赖：用 extract 提取上一步结果给下一步；②fixture 依赖：把&quot;创建工单&quot;做成 fixture，被多个用例引用；③避免跨文件依赖，每个测试文件自闭环；④用例失败不影响后续用例（用 try/finally 清理或独立 fixture）。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#109</span>
         <h3 class="card-title">18. 你怎么处理接口之间的数据依赖？</h3>
@@ -2037,7 +2037,7 @@ mark.hl { background: #fef08a; color: #1a1d21; padding: 0 .1em; border-radius: 2
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①线性依赖：用 extract 提取上一步结果给下一步</li><li>②fixture 依赖：把&quot;创建订单/工单&quot;做成 fixture，被多个用例引用</li><li>③避免跨文件依赖，每个测试文件自闭环</li><li>④用例失败不影响后续用例（用 try/finally 清理或独立 fixture）。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①线性依赖：用 extract 提取上一步结果给下一步</li><li>②fixture 依赖：把&quot;创建工单&quot;做成 fixture，被多个用例引用</li><li>③避免跨文件依赖，每个测试文件自闭环</li><li>④用例失败不影响后续用例（用 try/finally 清理或独立 fixture）。</li></ul></div>
         </div>
       </div>
     </article>
@@ -2103,7 +2103,7 @@ def case_data():
         </div>
       </div>
     </article>
-    <article class="card" data-idx="114" data-search="23. Pytest 参数化怎么写？      ```python  @pytest.mark.parametrize(&quot;input,expected&quot;, [      (&quot;正常订单/工单&quot;, 200),      (&quot;&quot;, 400),      (&quot;a&quot;*256, 400),  ])  def test_create_case(input, expected):      ...  ```    我们一般从 YAML 读数据动态参数化，让用例和数据完全分离。   ">
+    <article class="card" data-idx="114" data-search="23. Pytest 参数化怎么写？      ```python  @pytest.mark.parametrize(&quot;input,expected&quot;, [      (&quot;正常工单&quot;, 200),      (&quot;&quot;, 400),      (&quot;a&quot;*256, 400),  ])  def test_create_case(input, expected):      ...  ```    我们一般从 YAML 读数据动态参数化，让用例和数据完全分离。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#114</span>
         <h3 class="card-title">23. Pytest 参数化怎么写？</h3>
@@ -2114,7 +2114,7 @@ def case_data():
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><pre class="code-block" data-lang="python"><code>@pytest.mark.parametrize(&quot;input,expected&quot;, [
-    (&quot;正常订单/工单&quot;, 200),
+    (&quot;正常工单&quot;, 200),
     (&quot;&quot;, 400),
     (&quot;a&quot;*256, 400),
 ])
@@ -2829,7 +2829,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
       
       <div class="cards-grid">
         
-    <article class="card" data-idx="162" data-search="1. 你做性能测试的完整流程是什么？    7 步：①需求分析（哪个接口、多少 QPS、SLA）；②场景设计（基准、负载、压力、稳定性、容量）；③环境与数据准备（独立压测环境，造 50 万订单/工单数据）；④脚本开发（JMeter 录制 + 参数化 + 关联）；⑤预压测（找瓶颈和脚本错误）；⑥正式压测；⑦报告（TPS、P95、错误率、资源使用 + 瓶颈定位 + 优化建议）。   ">
+    <article class="card" data-idx="162" data-search="1. 你做性能测试的完整流程是什么？    7 步：①需求分析（哪个接口、多少 QPS、SLA）；②场景设计（基准、负载、压力、稳定性、容量）；③环境与数据准备（独立压测环境，造 50 万工单数据）；④脚本开发（JMeter 录制 + 参数化 + 关联）；⑤预压测（找瓶颈和脚本错误）；⑥正式压测；⑦报告（TPS、P95、错误率、资源使用 + 瓶颈定位 + 优化建议）。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#162</span>
         <h3 class="card-title">1. 你做性能测试的完整流程是什么？</h3>
@@ -2839,7 +2839,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>7 步：</p><ul class="point-list"><li>①需求分析（哪个接口、多少 QPS、SLA）</li><li>②场景设计（基准、负载、压力、稳定性、容量）</li><li>③环境与数据准备（独立压测环境，造 50 万订单/工单数据）</li><li>④脚本开发（JMeter 录制 + 参数化 + 关联）</li><li>⑤预压测（找瓶颈和脚本错误）</li><li>⑥正式压测</li><li>⑦报告（TPS、P95、错误率、资源使用 + 瓶颈定位 + 优化建议）。</li></ul></div>
+          <div class="answer-content"><p>7 步：</p><ul class="point-list"><li>①需求分析（哪个接口、多少 QPS、SLA）</li><li>②场景设计（基准、负载、压力、稳定性、容量）</li><li>③环境与数据准备（独立压测环境，造 50 万工单数据）</li><li>④脚本开发（JMeter 录制 + 参数化 + 关联）</li><li>⑤预压测（找瓶颈和脚本错误）</li><li>⑥正式压测</li><li>⑦报告（TPS、P95、错误率、资源使用 + 瓶颈定位 + 优化建议）。</li></ul></div>
         </div>
       </div>
     </article>
@@ -3280,10 +3280,10 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="194" data-search="33. 订单/工单数据 50 万+，你是怎么造数的？    两种方式：①SQL 直接 insert（最快，但需要绕过业务校验，谨慎使用）；②接口造数脚本（Python + 多线程调用创建接口，符合业务流程但慢）。50 万数据通常用 SQL 批量导入，加冷数据 + 部分热数据，模拟真实分布。   ">
+    <article class="card" data-idx="194" data-search="33. 工单数据 50 万+，你是怎么造数的？    两种方式：①SQL 直接 insert（最快，但需要绕过业务校验，谨慎使用）；②接口造数脚本（Python + 多线程调用创建接口，符合业务流程但慢）。50 万数据通常用 SQL 批量导入，加冷数据 + 部分热数据，模拟真实分布。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#194</span>
-        <h3 class="card-title">33. 订单/工单数据 50 万+，你是怎么造数的？</h3>
+        <h3 class="card-title">33. 工单数据 50 万+，你是怎么造数的？</h3>
         <button type="button" class="toggle-btn" aria-label="展开答案">展开</button>
       </header>
       <div class="card-body" hidden>
@@ -4010,7 +4010,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="245" data-search="30. 一条业务问题可能有多个合理答案，怎么评估？    不追求精确匹配，而是看：①关键事实点覆盖率（如赔偿计算的&quot;经济补偿+赔偿金&quot;两层都要提）；②是否引用正确规范条款编号；③是否避免明确错误（错引规范条款/编造数字）。多答案合理时只要满足以上即算通过。   ">
+    <article class="card" data-idx="245" data-search="30. 一条业务问题可能有多个合理答案，怎么评估？    不追求精确匹配，而是看：①关键事实点覆盖率（如费用计算的&quot;基础费+服务费&quot;两层都要提）；②是否引用正确规范条款编号；③是否避免明确错误（错引规范条款/编造数字）。多答案合理时只要满足以上即算通过。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#245</span>
         <h3 class="card-title">30. 一条业务问题可能有多个合理答案，怎么评估？</h3>
@@ -4020,7 +4020,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>不追求精确匹配，而是看：</p><ul class="point-list"><li>①关键事实点覆盖率（如赔偿计算的&quot;经济补偿+赔偿金&quot;两层都要提）</li><li>②是否引用正确规范条款编号</li><li>③是否避免明确错误（错引规范条款/编造数字）。多答案合理时只要满足以上即算通过。</li></ul></div>
+          <div class="answer-content"><p>不追求精确匹配，而是看：</p><ul class="point-list"><li>①关键事实点覆盖率（如费用计算的&quot;基础费+服务费&quot;两层都要提）</li><li>②是否引用正确规范条款编号</li><li>③是否避免明确错误（错引规范条款/编造数字）。多答案合理时只要满足以上即算通过。</li></ul></div>
         </div>
       </div>
     </article>
@@ -4066,7 +4066,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="249" data-search="34. 用户输入模糊问题，AI 怎么测试？    ①构造模糊 query（&quot;这个订单 8 年前的问题现在还能申诉吗&quot;——缺主体、业务类型、地区）；②看 AI 是否反问澄清；③或给出多种可能解读的回答；④不能编造完整事实回答（这是幻觉）。   ">
+    <article class="card" data-idx="249" data-search="34. 用户输入模糊问题，AI 怎么测试？    ①构造模糊 query（&quot;这个工单 8 年前的问题现在还能申诉吗&quot;——缺主体、业务类型、地区）；②看 AI 是否反问澄清；③或给出多种可能解读的回答；④不能编造完整事实回答（这是幻觉）。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#249</span>
         <h3 class="card-title">34. 用户输入模糊问题，AI 怎么测试？</h3>
@@ -4076,11 +4076,11 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①构造模糊 query（&quot;这个订单 8 年前的问题现在还能申诉吗&quot;——缺主体、业务类型、地区）</li><li>②看 AI 是否反问澄清</li><li>③或给出多种可能解读的回答</li><li>④不能编造完整事实回答（这是幻觉）。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①构造模糊 query（&quot;这个工单 8 年前的问题现在还能申诉吗&quot;——缺主体、业务类型、地区）</li><li>②看 AI 是否反问澄清</li><li>③或给出多种可能解读的回答</li><li>④不能编造完整事实回答（这是幻觉）。</li></ul></div>
         </div>
       </div>
     </article>
-    <article class="card" data-idx="250" data-search="35. 用户输入错别字，AI 怎么测试？    构造错别字测试集（一字、谐音、形近、漏字），如&quot;劳动合同被违发解除&quot;。预期 AI 仍能理解并答对，但 robustness 下降在 5% 内可接受。   ">
+    <article class="card" data-idx="250" data-search="35. 用户输入错别字，AI 怎么测试？    构造错别字测试集（一字、谐音、形近、漏字），如&quot;报销单据被驳会&quot;（驳回→驳会）。预期 AI 仍能理解并答对，但 robustness 下降在 5% 内可接受。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#250</span>
         <h3 class="card-title">35. 用户输入错别字，AI 怎么测试？</h3>
@@ -4090,7 +4090,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>构造错别字测试集（一字、谐音、形近、漏字），如&quot;劳动合同被违发解除&quot;。预期 AI 仍能理解并答对，但 robustness 下降在 5% 内可接受。</p></div>
+          <div class="answer-content"><p>构造错别字测试集（一字、谐音、形近、漏字），如&quot;报销单据被驳会&quot;（驳回→驳会）。预期 AI 仍能理解并答对，但 robustness 下降在 5% 内可接受。</p></div>
         </div>
       </div>
     </article>
@@ -4416,7 +4416,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="274" data-search="59. 你们企业知识库问答是怎么接入 RAG 的？    架构：①知识库（产品手册、业务 SOP、服务协议、内部 FAQ + 历史工单）；②文档解析（PDF + OCR）；③切分（按规范条款结构，每条一个 Chunk）；④Embedding（bge-large-zh）；⑤向量库（Milvus）；⑥检索（向量 + 关键词混合）；⑦Rerank；⑧通用大模型服务模型生成。   ">
+    <article class="card" data-idx="274" data-search="59. 你们企业知识库问答是怎么接入 RAG 的？    架构：①知识库（产品手册、业务 SOP、服务协议、内部 FAQ + 历史工单）；②文档解析（PDF + OCR）；③切分（按规范条款结构，每条一个 Chunk）；④Embedding（bge-large-zh）；⑤向量库（Milvus）；⑥检索（向量 + 关键词混合）；⑦Rerank；⑧大模型生成。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#274</span>
         <h3 class="card-title">59. 你们企业知识库问答是怎么接入 RAG 的？</h3>
@@ -4426,7 +4426,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>架构：</p><ul class="point-list"><li>①知识库（产品手册、业务 SOP、服务协议、内部 FAQ + 历史工单）</li><li>②文档解析（PDF + OCR）</li><li>③切分（按规范条款结构，每条一个 Chunk）</li><li>④Embedding（bge-large-zh）</li><li>⑤向量库（Milvus）</li><li>⑥检索（向量 + 关键词混合）</li><li>⑦Rerank</li><li>⑧通用大模型服务模型生成。</li></ul></div>
+          <div class="answer-content"><p>架构：</p><ul class="point-list"><li>①知识库（产品手册、业务 SOP、服务协议、内部 FAQ + 历史工单）</li><li>②文档解析（PDF + OCR）</li><li>③切分（按规范条款结构，每条一个 Chunk）</li><li>④Embedding（bge-large-zh）</li><li>⑤向量库（Milvus）</li><li>⑥检索（向量 + 关键词混合）</li><li>⑦Rerank</li><li>⑧大模型生成。</li></ul></div>
         </div>
       </div>
     </article>
@@ -5027,7 +5027,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="317" data-search="8. 不同地区规则差异怎么测试？    ①知识库 metadata 标记地区（如《北京市劳动合同规定》）；②query 中带地区信息时优先检索地区规则；③测试集覆盖主要地区（北上广深 + 部分二线）；④无地区指定时使用通用业务规则。   ">
+    <article class="card" data-idx="317" data-search="8. 不同地区规则差异怎么测试？    ①知识库 metadata 标记地区（如《北京地区业务办理细则》）；②query 中带地区信息时优先检索地区规则；③测试集覆盖主要地区（北上广深 + 部分二线）；④无地区指定时使用通用业务规则。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#317</span>
         <h3 class="card-title">8. 不同地区规则差异怎么测试？</h3>
@@ -5037,7 +5037,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①知识库 metadata 标记地区（如《北京市劳动合同规定》）</li><li>②query 中带地区信息时优先检索地区规则</li><li>③测试集覆盖主要地区（北上广深 + 部分二线）</li><li>④无地区指定时使用通用业务规则。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①知识库 metadata 标记地区（如《北京地区业务办理细则》）</li><li>②query 中带地区信息时优先检索地区规则</li><li>③测试集覆盖主要地区（北上广深 + 部分二线）</li><li>④无地区指定时使用通用业务规则。</li></ul></div>
         </div>
       </div>
     </article>
@@ -5069,17 +5069,17 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="320" data-search="11. 通用大模型服务在你们系统里扮演什么角色？    作为通用大模型服务用于答案生成。在 RAG 链路中：检索完成后把用户 query 和召回片段一起送入模型，由它生成专业回答。优势是可结合企业知识库和业务上下文，表达更贴近真实业务。   ">
+    <article class="card" data-idx="320" data-search="11. 大模型在你们系统里扮演什么角色？    通用大模型在系统里担任 RAG 链路的生成层。检索完成后把用户 query 和召回片段一起送入模型，由它生成专业回答。优势是可结合企业知识库和业务上下文，表达更贴近真实业务。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#320</span>
-        <h3 class="card-title">11. 通用大模型服务在你们系统里扮演什么角色？</h3>
+        <h3 class="card-title">11. 大模型在你们系统里扮演什么角色？</h3>
         <button type="button" class="toggle-btn" aria-label="展开答案">展开</button>
       </header>
       <div class="card-body" hidden>
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>作为通用大模型服务用于答案生成。在 RAG 链路中：检索完成后把用户 query 和召回片段一起送入模型，由它生成专业回答。优势是可结合企业知识库和业务上下文，表达更贴近真实业务。</p></div>
+          <div class="answer-content"><p>通用大模型在系统里担任 RAG 链路的生成层。检索完成后把用户 query 和召回片段一起送入模型，由它生成专业回答。优势是可结合企业知识库和业务上下文，表达更贴近真实业务。</p></div>
         </div>
       </div>
     </article>
@@ -5293,21 +5293,21 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="336" data-search="27. 执行材料具体包括哪些业务文档？    约 15 类：执行申请书、强制执行通知书、查封冻结申请书、终结本次执行裁定书、执行和解协议、参与分配申请书、悬赏公告等。每类有独立模板和测试用例。   ">
+    <article class="card" data-idx="336" data-search="27. 系统生成的业务文档具体包括哪些？    约 15 类：服务合同、报价单、审批单、变更通知书、结算单、对账单、验收报告、整改通知书、续约协议、终止通知书等。每类有独立模板和测试用例。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#336</span>
-        <h3 class="card-title">27. 执行材料具体包括哪些业务文档？</h3>
+        <h3 class="card-title">27. 系统生成的业务文档具体包括哪些？</h3>
         <button type="button" class="toggle-btn" aria-label="展开答案">展开</button>
       </header>
       <div class="card-body" hidden>
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>约 15 类：执行申请书、强制执行通知书、查封冻结申请书、终结本次执行裁定书、执行和解协议、参与分配申请书、悬赏公告等。每类有独立模板和测试用例。</p></div>
+          <div class="answer-content"><p>约 15 类：服务合同、报价单、审批单、变更通知书、结算单、对账单、验收报告、整改通知书、续约协议、终止通知书等。每类有独立模板和测试用例。</p></div>
         </div>
       </div>
     </article>
-    <article class="card" data-idx="337" data-search="28. 业务文档生成的数据来源是什么？    ①工单主表（orders）：基础信息；②业务对象表（parties）：姓名、身份证、地址；③账单表（fees）：金额；④业务机构表（courts）：业务机构名称、地址；⑤人工输入（业务人员补充字段）。   ">
+    <article class="card" data-idx="337" data-search="28. 业务文档生成的数据来源是什么？    ①工单主表（orders）：基础信息；②业务对象表（customers）：姓名、身份证、地址；③账单表（fees）：金额；④业务机构表（orgs）：机构名称、地址；⑤人工输入（业务人员补充字段）。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#337</span>
         <h3 class="card-title">28. 业务文档生成的数据来源是什么？</h3>
@@ -5317,7 +5317,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①工单主表（orders）：基础信息</li><li>②业务对象表（parties）：姓名、身份证、地址</li><li>③账单表（fees）：金额</li><li>④业务机构表（courts）：业务机构名称、地址</li><li>⑤人工输入（业务人员补充字段）。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①工单主表（orders）：基础信息</li><li>②业务对象表（customers）：姓名、身份证、地址</li><li>③账单表（fees）：金额</li><li>④业务机构表（orgs）：机构名称、地址</li><li>⑤人工输入（业务人员补充字段）。</li></ul></div>
         </div>
       </div>
     </article>
@@ -5377,7 +5377,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="342" data-search="33. 智能通知通知的业务目标是什么？    ①按业务阶段自动触发对应通知（新建、开庭、判决、执行）；②按客户分群推送差异化内容；③提升运营触达/通知到达率和转化率；④减少人工客服工作量。核心指标：策略命中率、用户响应率、投诉率。   ">
+    <article class="card" data-idx="342" data-search="33. 智能通知通知的业务目标是什么？    ①按业务阶段自动触发对应通知（创建、受理、处理、完成）；②按客户分群推送差异化内容；③提升运营触达/通知到达率和转化率；④减少人工客服工作量。核心指标：策略命中率、用户响应率、投诉率。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#342</span>
         <h3 class="card-title">33. 智能通知通知的业务目标是什么？</h3>
@@ -5387,7 +5387,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①按业务阶段自动触发对应通知（新建、开庭、判决、执行）</li><li>②按客户分群推送差异化内容</li><li>③提升运营触达/通知到达率和转化率</li><li>④减少人工客服工作量。核心指标：策略命中率、用户响应率、投诉率。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①按业务阶段自动触发对应通知（创建、受理、处理、完成）</li><li>②按客户分群推送差异化内容</li><li>③提升运营触达/通知到达率和转化率</li><li>④减少人工客服工作量。核心指标：策略命中率、用户响应率、投诉率。</li></ul></div>
         </div>
       </div>
     </article>
@@ -5405,7 +5405,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="344" data-search="35. 通知自动分类有哪些类别？    约 20 类：新建通知、开庭通知、判决送达、执行通知、和解邀约、运营触达提醒（分多个阶段）、风险提示、节日问候、营销活动、政策解读等。每类有独立模板和触发规则。   ">
+    <article class="card" data-idx="344" data-search="35. 通知自动分类有哪些类别？    约 20 类：创建通知、受理通知、处理进度通知、完成结算通知、续约邀约、运营触达提醒（分多个阶段）、风险提示、节日问候、营销活动、政策解读等。每类有独立模板和触发规则。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#344</span>
         <h3 class="card-title">35. 通知自动分类有哪些类别？</h3>
@@ -5415,7 +5415,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>约 20 类：新建通知、开庭通知、判决送达、执行通知、和解邀约、运营触达提醒（分多个阶段）、风险提示、节日问候、营销活动、政策解读等。每类有独立模板和触发规则。</p></div>
+          <div class="answer-content"><p>约 20 类：创建通知、受理通知、处理进度通知、完成结算通知、续约邀约、运营触达提醒（分多个阶段）、风险提示、节日问候、营销活动、政策解读等。每类有独立模板和触发规则。</p></div>
         </div>
       </div>
     </article>
@@ -5489,7 +5489,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="350" data-search="41. 通知延迟发送怎么测试？    ①定时发送：指定时间点发送（如开庭前 1 天）；②间隔发送：避免短时间内多条；③工作时间（白天 9:00-21:00）；④节假日策略。模拟时间通过修改服务器时间或注入测试时间。   ">
+    <article class="card" data-idx="350" data-search="41. 通知延迟发送怎么测试？    ①定时发送：指定时间点发送（如办理截止前 1 天）；②间隔发送：避免短时间内多条；③工作时间（白天 9:00-21:00）；④节假日策略。模拟时间通过修改服务器时间或注入测试时间。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#350</span>
         <h3 class="card-title">41. 通知延迟发送怎么测试？</h3>
@@ -5499,7 +5499,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul class="point-list"><li>①定时发送：指定时间点发送（如开庭前 1 天）</li><li>②间隔发送：避免短时间内多条</li><li>③工作时间（白天 9:00-21:00）</li><li>④节假日策略。模拟时间通过修改服务器时间或注入测试时间。</li></ul></div>
+          <div class="answer-content"><ul class="point-list"><li>①定时发送：指定时间点发送（如办理截止前 1 天）</li><li>②间隔发送：避免短时间内多条</li><li>③工作时间（白天 9:00-21:00）</li><li>④节假日策略。模拟时间通过修改服务器时间或注入测试时间。</li></ul></div>
         </div>
       </div>
     </article>
@@ -5531,7 +5531,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="353" data-search="44. 误发通知算什么级别问题？    看影响：①发错号码（隐私泄露）= P0；②发错内容（如把和解通知发给反方）= P0；③发错时间（深夜骚扰）= P1；④格式错误（字段未填充）= P1；⑤过期通知（已开庭还发提醒）= P2。   ">
+    <article class="card" data-idx="353" data-search="44. 误发通知算什么级别问题？    看影响：①发错号码（隐私泄露）= P0；②发错内容（如把 A 客户的通知发给 B 客户）= P0；③发错时间（深夜骚扰）= P1；④格式错误（字段未填充）= P1；⑤过期通知（已办结还发提醒）= P2。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#353</span>
         <h3 class="card-title">44. 误发通知算什么级别问题？</h3>
@@ -5541,7 +5541,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>看影响：</p><ul class="point-list"><li>①发错号码（隐私泄露）= P0</li><li>②发错内容（如把和解通知发给反方）= P0</li><li>③发错时间（深夜骚扰）= P1</li><li>④格式错误（字段未填充）= P1</li><li>⑤过期通知（已开庭还发提醒）= P2。</li></ul></div>
+          <div class="answer-content"><p>看影响：</p><ul class="point-list"><li>①发错号码（隐私泄露）= P0</li><li>②发错内容（如把 A 客户的通知发给 B 客户）= P0</li><li>③发错时间（深夜骚扰）= P1</li><li>④格式错误（字段未填充）= P1</li><li>⑤过期通知（已办结还发提醒）= P2。</li></ul></div>
         </div>
       </div>
     </article>
@@ -6705,7 +6705,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="435" data-search="14. 核心业务流程是否需要 E2E 自动化？    需要，但只覆盖 1-2 条主路径。比如&quot;业务人员登录 → 创建订单/工单 → 生成业务文档 → 通知通知&quot;这条核心流程必有 E2E。其他用接口组合验证。   ">
+    <article class="card" data-idx="435" data-search="14. 核心业务流程是否需要 E2E 自动化？    需要，但只覆盖 1-2 条主路径。比如&quot;业务人员登录 → 创建工单 → 生成业务文档 → 通知通知&quot;这条核心流程必有 E2E。其他用接口组合验证。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#435</span>
         <h3 class="card-title">14. 核心业务流程是否需要 E2E 自动化？</h3>
@@ -6715,7 +6715,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p>需要，但只覆盖 1-2 条主路径。比如&quot;业务人员登录 → 创建订单/工单 → 生成业务文档 → 通知通知&quot;这条核心流程必有 E2E。其他用接口组合验证。</p></div>
+          <div class="answer-content"><p>需要，但只覆盖 1-2 条主路径。比如&quot;业务人员登录 → 创建工单 → 生成业务文档 → 通知通知&quot;这条核心流程必有 E2E。其他用接口组合验证。</p></div>
         </div>
       </div>
     </article>
@@ -8258,7 +8258,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
       
       <div class="cards-grid">
         
-    <article class="card scenario" data-idx="542" data-search="场景 1：RAG 问答答案错误 用户问&quot;劳动合同被违法解除怎么赔偿？&quot;系统回答引用了民间借贷相关规范条款。如何定位？     按链路逐层定位：    1. **看检索日志**：拿 query 调 RAG 检索接口，看 Top-K 召回了哪些 chunk。  2. **判断检索 vs 生成**：     - 如果召回的就是借贷 chunk → 检索问题；     - 如果召回了售后规则 chunk 但模型答退款 → 生成问题。  3. **检索问题排查**：     - **Query 理解**：用 Embedding 试算 query 向量，看是否与售后规则 chunk 距离更近；     - **Chunk 切分**：劳动规范条款款是否切得太碎；     - **TopK**：是不是只取了 Top-1 没召回真正相关的；     - **Rerank**：rerank 模型是否错把借贷排前；     - **关键词检索**：是否&quot;违法解除&quot;&quot;赔偿&quot;未触发关键词匹配。  4. **生成问题排查**：Prompt 中是否强制&quot;基于上下文&quot;、温度是否过高。  5. **修复**：①加售后规">
+    <article class="card scenario" data-idx="542" data-search="场景 1：RAG 问答答案错误 用户问&quot;会员到期后的退费规则？&quot;系统回答却引用了采购报销相关规范条款。如何定位？     按链路逐层定位：    1. **看检索日志**：拿 query 调 RAG 检索接口，看 Top-K 召回了哪些 chunk。  2. **判断检索 vs 生成**：     - 如果召回的就是采购报销 chunk → 检索问题；     - 如果召回了退费规则 chunk 但模型答成采购流程 → 生成问题。  3. **检索问题排查**：     - **Query 理解**：用 Embedding 试算 query 向量，看是否与采购报销 chunk 距离更近；     - **Chunk 切分**：退费规则条款是否切得太碎；     - **TopK**：是不是只取了 Top-1 没召回真正相关的；     - **Rerank**：rerank 模型是否错把采购报销排前；     - **关键词检索**：是否&quot;退费&quot;&quot;到期&quot;未触发关键词匹配。  4. **生成问题排查**：Prompt 中是否强制&quot;基于上下文&quot;、温度是否过高。  5. **修复**：①加退">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#542</span>
         <h3 class="card-title">场景 1：RAG 问答答案错误</h3>
@@ -8268,12 +8268,12 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="problem-block">
           <span class="badge badge-problem">问题</span>
-          <p>用户问&quot;劳动合同被违法解除怎么赔偿？&quot;系统回答引用了民间借贷相关规范条款。如何定位？</p>
+          <p>用户问&quot;会员到期后的退费规则？&quot;系统回答却引用了采购报销相关规范条款。如何定位？</p>
         </div>
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><p>按链路逐层定位：</p>
-<ol><li><strong>看检索日志</strong>：拿 query 调 RAG 检索接口，看 Top-K 召回了哪些 chunk。</li><li><strong>判断检索 vs 生成</strong>：<ul><li>如果召回的就是借贷 chunk → 检索问题；</li><li>如果召回了售后规则 chunk 但模型答退款 → 生成问题。</li></ul></li><li><strong>检索问题排查</strong>：<ul><li><strong>Query 理解</strong>：用 Embedding 试算 query 向量，看是否与售后规则 chunk 距离更近；</li><li><strong>Chunk 切分</strong>：劳动规范条款款是否切得太碎；</li><li><strong>TopK</strong>：是不是只取了 Top-1 没召回真正相关的；</li><li><strong>Rerank</strong>：rerank 模型是否错把借贷排前；</li><li><strong>关键词检索</strong>：是否&quot;违法解除&quot;&quot;赔偿&quot;未触发关键词匹配。</li></ul></li><li><strong>生成问题排查</strong>：Prompt 中是否强制&quot;基于上下文&quot;、温度是否过高。</li><li><strong>修复</strong>：①加售后规则关键词词典；②调 TopK 到 5；③加 Rerank；④Prompt 加强约束；⑤回归 Golden Set。</li><li><strong>防止再发</strong>：把这条 query 加入回归集；建立&quot;答案-引用类别一致性&quot;自动校验脚本。</li></ol></div>
+<ol><li><strong>看检索日志</strong>：拿 query 调 RAG 检索接口，看 Top-K 召回了哪些 chunk。</li><li><strong>判断检索 vs 生成</strong>：<ul><li>如果召回的就是采购报销 chunk → 检索问题；</li><li>如果召回了退费规则 chunk 但模型答成采购流程 → 生成问题。</li></ul></li><li><strong>检索问题排查</strong>：<ul><li><strong>Query 理解</strong>：用 Embedding 试算 query 向量，看是否与采购报销 chunk 距离更近；</li><li><strong>Chunk 切分</strong>：退费规则条款是否切得太碎；</li><li><strong>TopK</strong>：是不是只取了 Top-1 没召回真正相关的；</li><li><strong>Rerank</strong>：rerank 模型是否错把采购报销排前；</li><li><strong>关键词检索</strong>：是否&quot;退费&quot;&quot;到期&quot;未触发关键词匹配。</li></ul></li><li><strong>生成问题排查</strong>：Prompt 中是否强制&quot;基于上下文&quot;、温度是否过高。</li><li><strong>修复</strong>：①加退费规则关键词词典；②调 TopK 到 5；③加 Rerank；④Prompt 加强约束；⑤回归 Golden Set。</li><li><strong>防止再发</strong>：把这条 query 加入回归集；建立&quot;答案-引用类别一致性&quot;自动校验脚本。</li></ol></div>
         </div>
       </div>
     </article>
@@ -8354,7 +8354,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card scenario" data-idx="547" data-search="场景 6：AI 回答正确但引用来源错误 RAG 问答中，答案看起来正确，但引用的知识片段不是答案来源。这是问题吗？       **是严重问题**，尤其在业务场景。原因：    1. **可解释性丧失**：用户无法核对答案是否可靠。  2. **业务场景必须有据可查**：业务人员/法官引用错误条文等于失信。  3. **背后可能是幻觉**：答案&quot;看似正确&quot;可能是模型凭记忆补全，而真实知识库没有这块内容——下次同样问法可能就错了。  4. **风险传导**：用户基于答案做决策却引用错误，后果由谁负责？    **测试与防护**：    - **自动校验**：用 LLM-as-Judge 评估&quot;答案中每个事实点是否都在引用片段中&quot;；  - **强制约束**：Prompt 改为&quot;只能基于以下引用回答，未提及的事实不许补充&quot;；  - **后置校验**：提取答案中的规范条款编号 vs 引用片段中的规范条款编号比对；  - **回归集**：把这类样本纳入 Golden Set；  - **UI 设计**：让用户可一键看引用原文，相关片段高亮。    判定原则：业务场景宁可拒识也不能引用错。   ">
+    <article class="card scenario" data-idx="547" data-search="场景 6：AI 回答正确但引用来源错误 RAG 问答中，答案看起来正确，但引用的知识片段不是答案来源。这是问题吗？       **是严重问题**，尤其在业务场景。原因：    1. **可解释性丧失**：用户无法核对答案是否可靠。  2. **业务场景必须有据可查**：业务人员引用错误条款等于失信。  3. **背后可能是幻觉**：答案&quot;看似正确&quot;可能是模型凭记忆补全，而真实知识库没有这块内容——下次同样问法可能就错了。  4. **风险传导**：用户基于答案做决策却引用错误，后果由谁负责？    **测试与防护**：    - **自动校验**：用 LLM-as-Judge 评估&quot;答案中每个事实点是否都在引用片段中&quot;；  - **强制约束**：Prompt 改为&quot;只能基于以下引用回答，未提及的事实不许补充&quot;；  - **后置校验**：提取答案中的规范条款编号 vs 引用片段中的规范条款编号比对；  - **回归集**：把这类样本纳入 Golden Set；  - **UI 设计**：让用户可一键看引用原文，相关片段高亮。    判定原则：业务场景宁可拒识也不能引用错。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#547</span>
         <h3 class="card-title">场景 6：AI 回答正确但引用来源错误</h3>
@@ -8369,7 +8369,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><p><strong>是严重问题</strong>，尤其在业务场景。原因：</p>
-<ol><li><strong>可解释性丧失</strong>：用户无法核对答案是否可靠。</li><li><strong>业务场景必须有据可查</strong>：业务人员/法官引用错误条文等于失信。</li><li><strong>背后可能是幻觉</strong>：答案&quot;看似正确&quot;可能是模型凭记忆补全，而真实知识库没有这块内容——下次同样问法可能就错了。</li><li><strong>风险传导</strong>：用户基于答案做决策却引用错误，后果由谁负责？</li></ol>
+<ol><li><strong>可解释性丧失</strong>：用户无法核对答案是否可靠。</li><li><strong>业务场景必须有据可查</strong>：业务人员引用错误条款等于失信。</li><li><strong>背后可能是幻觉</strong>：答案&quot;看似正确&quot;可能是模型凭记忆补全，而真实知识库没有这块内容——下次同样问法可能就错了。</li><li><strong>风险传导</strong>：用户基于答案做决策却引用错误，后果由谁负责？</li></ol>
 <p><strong>测试与防护</strong>：</p>
 <ul><li><strong>自动校验</strong>：用 LLM-as-Judge 评估&quot;答案中每个事实点是否都在引用片段中&quot;；</li><li><strong>强制约束</strong>：Prompt 改为&quot;只能基于以下引用回答，未提及的事实不许补充&quot;；</li><li><strong>后置校验</strong>：提取答案中的规范条款编号 vs 引用片段中的规范条款编号比对；</li><li><strong>回归集</strong>：把这类样本纳入 Golden Set；</li><li><strong>UI 设计</strong>：让用户可一键看引用原文，相关片段高亮。</li></ul>
 <p>判定原则：业务场景宁可拒识也不能引用错。</p></div>
@@ -8406,7 +8406,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
       
       <div class="cards-grid">
         
-    <article class="card" data-idx="549" data-search="1. &quot;策略命中率 95%+&quot;——命中率怎么算？    **公式**：命中率 = AI 推荐通知策略与人工标注最优策略一致的样本数 / 总测试样本数 × 100%。    - 分母：1000 条业务人员人工标注的历史通知场景，覆盖 20 个类别。  - 分子：策略系统输出与人工标注一致的条数。  - 统计周期：月度，由我汇总后业务负责人确认。  - 数据来源：测试日志 + 人工标注 Excel + 策略系统输出对账。   ">
+    <article class="card" data-idx="549" data-search="1. &quot;策略命中率 95%+&quot;——命中率怎么算？    **公式**：命中率 = AI 推荐通知策略与人工标注最优策略一致的样本数 / 总测试样本数 × 100%。    - 分母：1000 条业务人员人工标注的历史通知场景，覆盖 20 个类别。  - 分子：策略系统输出与人工标注一致的条数。  - 统计周期：月度，由我汇总后业务负责人确认。  - 数据来源：测试日志 + 人工标注 Excel + 策略系统输出对账。    **⚠️ 主动点破口径**：这是**标注集上的离线指标**，不等于线上真实命中率。面试官最爱追&quot;那线上是不是也 95%&quot;——你先点破，反而显得严谨。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#549</span>
         <h3 class="card-title">1. &quot;策略命中率 95%+&quot;——命中率怎么算？</h3>
@@ -8417,7 +8417,8 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><p><strong>公式</strong>：命中率 = AI 推荐通知策略与人工标注最优策略一致的样本数 / 总测试样本数 × 100%。</p>
-<ul><li>分母：1000 条业务人员人工标注的历史通知场景，覆盖 20 个类别。</li><li>分子：策略系统输出与人工标注一致的条数。</li><li>统计周期：月度，由我汇总后业务负责人确认。</li><li>数据来源：测试日志 + 人工标注 Excel + 策略系统输出对账。</li></ul></div>
+<ul><li>分母：1000 条业务人员人工标注的历史通知场景，覆盖 20 个类别。</li><li>分子：策略系统输出与人工标注一致的条数。</li><li>统计周期：月度，由我汇总后业务负责人确认。</li><li>数据来源：测试日志 + 人工标注 Excel + 策略系统输出对账。</li></ul>
+<p><strong>⚠️ 主动点破口径</strong>：这是<strong>标注集上的离线指标</strong>，不等于线上真实命中率。面试官最爱追&quot;那线上是不是也 95%&quot;——你先点破，反而显得严谨。</p></div>
         </div>
       </div>
     </article>
@@ -8451,7 +8452,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="552" data-search="4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？    **公式**：弱网功能正常率 = 在弱网场景下功能可成功完成的用例数 / 弱网测试集总用例数 × 100%。    - 弱网场景：6 种（高延迟、丢包 10%、丢包 30%、限速 3G、限速 2G、断网恢复）。  - 测试集：100 条核心业务用例（覆盖核心功能 + AI 问答 + 业务文档生成 + 通知发送）。  - &quot;可成功完成&quot;：核心功能可走通（允许重试、允许性能略降，但不能崩溃或数据错）。  - 统计周期：每版本上线前测一次。   ">
+    <article class="card" data-idx="552" data-search="4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？    **公式**：弱网功能正常率 = 在弱网场景下功能可成功完成的用例数 / 弱网测试集总用例数 × 100%。    - 弱网场景：6 种（高延迟、丢包 10%、丢包 30%、限速 3G、限速 2G、断网恢复）。  - 测试集：100 条核心业务用例（覆盖核心功能 + AI 问答 + 业务文档生成 + 通知发送）。  - &quot;可成功完成&quot;：核心功能可走通（允许重试、允许性能略降，但不能崩溃或数据错）。  - 统计周期：每版本上线前测一次。    **⚠️ 收窄口径**：说成&quot;**我自建的 100 条核心弱网用例集**的通过率&quot;，别说成&quot;整个平台弱网正常率&quot;。而且 99% 在弱网下偏高、不太可信，按真实数报（哪怕 95%）反而更稳。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#552</span>
         <h3 class="card-title">4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？</h3>
@@ -8462,7 +8463,8 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
           <div class="answer-content"><p><strong>公式</strong>：弱网功能正常率 = 在弱网场景下功能可成功完成的用例数 / 弱网测试集总用例数 × 100%。</p>
-<ul><li>弱网场景：6 种（高延迟、丢包 10%、丢包 30%、限速 3G、限速 2G、断网恢复）。</li><li>测试集：100 条核心业务用例（覆盖核心功能 + AI 问答 + 业务文档生成 + 通知发送）。</li><li>&quot;可成功完成&quot;：核心功能可走通（允许重试、允许性能略降，但不能崩溃或数据错）。</li><li>统计周期：每版本上线前测一次。</li></ul></div>
+<ul><li>弱网场景：6 种（高延迟、丢包 10%、丢包 30%、限速 3G、限速 2G、断网恢复）。</li><li>测试集：100 条核心业务用例（覆盖核心功能 + AI 问答 + 业务文档生成 + 通知发送）。</li><li>&quot;可成功完成&quot;：核心功能可走通（允许重试、允许性能略降，但不能崩溃或数据错）。</li><li>统计周期：每版本上线前测一次。</li></ul>
+<p><strong>⚠️ 收窄口径</strong>：说成&quot;<strong>我自建的 100 条核心弱网用例集</strong>的通过率&quot;，别说成&quot;整个平台弱网正常率&quot;。而且 99% 在弱网下偏高、不太可信，按真实数报（哪怕 95%）反而更稳。</p></div>
         </div>
       </div>
     </article>
@@ -8480,7 +8482,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="554" data-search="6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？    - **优化前**：每个版本人工回归 8 小时（1 个测试 1 天），自动化覆盖率 30%。  - **优化后**：自动化跑 30 分钟（pytest-xdist 并发 + 接口覆盖率 80%），人工只复核失败用例（约 1 小时）。  - **提升计算**：8 小时降到 1.5 小时 ≈ 81% 提升，加上夜间无人值守跑的间接效益约 90%。   ">
+    <article class="card" data-idx="554" data-search="6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？    - **优化前**：每个版本人工回归 8 小时（1 个测试 1 天），自动化覆盖率 30%。  - **优化后**：自动化跑 30 分钟（pytest-xdist 并发 + 接口覆盖率 80%），人工只复核失败用例（约 1 小时）。  - **提升计算**：8 小时降到 1.5 小时 ≈ 81% 提升，加上夜间无人值守跑的间接效益约 90%。    **⚠️ 别咬死 90%**：这是含间接收益的约数。被追问就退到硬数据——&quot;**机器执行从 8 小时压到 30 分钟**&quot;（下一题那条最铁），90% 当方向性描述就行。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#554</span>
         <h3 class="card-title">6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？</h3>
@@ -8490,7 +8492,8 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul><li><strong>优化前</strong>：每个版本人工回归 8 小时（1 个测试 1 天），自动化覆盖率 30%。</li><li><strong>优化后</strong>：自动化跑 30 分钟（pytest-xdist 并发 + 接口覆盖率 80%），人工只复核失败用例（约 1 小时）。</li><li><strong>提升计算</strong>：8 小时降到 1.5 小时 ≈ 81% 提升，加上夜间无人值守跑的间接效益约 90%。</li></ul></div>
+          <div class="answer-content"><ul><li><strong>优化前</strong>：每个版本人工回归 8 小时（1 个测试 1 天），自动化覆盖率 30%。</li><li><strong>优化后</strong>：自动化跑 30 分钟（pytest-xdist 并发 + 接口覆盖率 80%），人工只复核失败用例（约 1 小时）。</li><li><strong>提升计算</strong>：8 小时降到 1.5 小时 ≈ 81% 提升，加上夜间无人值守跑的间接效益约 90%。</li></ul>
+<p><strong>⚠️ 别咬死 90%</strong>：这是含间接收益的约数。被追问就退到硬数据——&quot;<strong>机器执行从 8 小时压到 30 分钟</strong>&quot;（下一题那条最铁），90% 当方向性描述就行。</p></div>
         </div>
       </div>
     </article>
@@ -8508,7 +8511,7 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         </div>
       </div>
     </article>
-    <article class="card" data-idx="556" data-search="8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？    **公式**：故障率 = 故障小时数 / 总服务小时数 × 100%。    - 月度统计，30 天 × 24 小时 = 720 小时。  - 0.5% 意味着月度故障 ≤ 3.6 小时。  - 数据来源：监控系统（Prometheus）+ 运维事故记录。  - &quot;故障&quot;定义：核心功能不可用或大面积错误率 &gt; 1%。   ">
+    <article class="card" data-idx="556" data-search="8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？    **⚠️ 建议从简历拿掉**：故障率是 SRE / 运维的生产可用性指标，测试岗不拥有、也无权背，面试官一句&quot;这你怎么对它负责&quot;就接不住。    若已经写了、被问到，把口径切回测试侧：&quot;这是平台整体可用性指标，我负责的是其中测试环节——确保没有因**漏测**导致的 P0 线上故障。&quot;把&quot;我对故障率负责&quot;换成&quot;我对漏测负责&quot;，立刻站得住。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#556</span>
         <h3 class="card-title">8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？</h3>
@@ -8518,12 +8521,12 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p><strong>公式</strong>：故障率 = 故障小时数 / 总服务小时数 × 100%。</p>
-<ul><li>月度统计，30 天 × 24 小时 = 720 小时。</li><li>0.5% 意味着月度故障 ≤ 3.6 小时。</li><li>数据来源：监控系统（Prometheus）+ 运维事故记录。</li><li>&quot;故障&quot;定义：核心功能不可用或大面积错误率 &gt; 1%。</li></ul></div>
+          <div class="answer-content"><p><strong>⚠️ 建议从简历拿掉</strong>：故障率是 SRE / 运维的生产可用性指标，测试岗不拥有、也无权背，面试官一句&quot;这你怎么对它负责&quot;就接不住。</p>
+<p>若已经写了、被问到，把口径切回测试侧：&quot;这是平台整体可用性指标，我负责的是其中测试环节——确保没有因<strong>漏测</strong>导致的 P0 线上故障。&quot;把&quot;我对故障率负责&quot;换成&quot;我对漏测负责&quot;，立刻站得住。</p></div>
         </div>
       </div>
     </article>
-    <article class="card" data-idx="557" data-search="9. &quot;问题定位准确率 95%&quot;——这个指标怎么统计？    **公式**：定位准确率 = 测试报告中明确指出问题根因的缺陷 / 总缺陷数 × 100%。    - &quot;明确指出根因&quot;判断标准：研发拿到缺陷单后无需再问就能修复，且最终修复点和测试报告中指出的位置一致。  - 数据来源：缺陷单 + 修复 commit 关联分析。  - 95% 体现 Allure 报告 + 日志 + 复现步骤的质量。   ">
+    <article class="card" data-idx="557" data-search="9. &quot;问题定位准确率 95%&quot;——这个指标怎么统计？    **⚠️ 建议从简历拿掉**：没人真在统计&quot;定位准确率&quot;，这是个倒推出来的伪指标，一问&quot;谁统计的、怎么采集的&quot;就露怯。    把它换成**讲机制、不报数字**：&quot;我的失败报告自动带上请求 / 响应 / SQL / traceId / 截图，研发基本不用回头问&#x27;什么场景、什么数据&#x27;就能直接复现。&quot;能力是真的，但不绑一个假的百分比。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#557</span>
         <h3 class="card-title">9. &quot;问题定位准确率 95%&quot;——这个指标怎么统计？</h3>
@@ -8533,12 +8536,12 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><p><strong>公式</strong>：定位准确率 = 测试报告中明确指出问题根因的缺陷 / 总缺陷数 × 100%。</p>
-<ul><li>&quot;明确指出根因&quot;判断标准：研发拿到缺陷单后无需再问就能修复，且最终修复点和测试报告中指出的位置一致。</li><li>数据来源：缺陷单 + 修复 commit 关联分析。</li><li>95% 体现 Allure 报告 + 日志 + 复现步骤的质量。</li></ul></div>
+          <div class="answer-content"><p><strong>⚠️ 建议从简历拿掉</strong>：没人真在统计&quot;定位准确率&quot;，这是个倒推出来的伪指标，一问&quot;谁统计的、怎么采集的&quot;就露怯。</p>
+<p>把它换成<strong>讲机制、不报数字</strong>：&quot;我的失败报告自动带上请求 / 响应 / SQL / traceId / 截图，研发基本不用回头问&#x27;什么场景、什么数据&#x27;就能直接复现。&quot;能力是真的，但不绑一个假的百分比。</p></div>
         </div>
       </div>
     </article>
-    <article class="card" data-idx="558" data-search="10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？    - **优化前**：缺陷平均修复时间 24 小时（含来回沟通时间）。  - **优化后**：平均 9.6 小时（接近 60% 提升）。  - 优化手段：①Allure 自动附请求/响应/SQL/traceId；②缺陷模板规范化；③IM 群即时同步。  - 数据来源：Jira 缺陷状态变更时间戳统计。   ">
+    <article class="card" data-idx="558" data-search="10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？    **⚠️ 建议从简历拿掉这个数字**：修复时长主要由开发决定，把&quot;开发效率提升 60%&quot;算成测试的功劳是硬蹭、易被戳。    改成定性、归到自己能控的环节：&quot;我规范了缺陷报告模板、强制附证据（请求 / 响应 / SQL / traceId），**研发复现成本明显下降、来回沟通变少**。&quot;讲你做了什么、带来什么，别背 24h→9.6h 这种精确数。   ">
       <header class="card-header" role="button" tabindex="0" aria-expanded="false">
         <span class="card-index">#558</span>
         <h3 class="card-title">10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？</h3>
@@ -8548,7 +8551,8 @@ sh &#x27;. .venv/bin/activate &amp;&amp; pip install -r requirements.txt -i http
         
         <div class="answer-block">
           <span class="badge badge-answer">答</span>
-          <div class="answer-content"><ul><li><strong>优化前</strong>：缺陷平均修复时间 24 小时（含来回沟通时间）。</li><li><strong>优化后</strong>：平均 9.6 小时（接近 60% 提升）。</li><li>优化手段：①Allure 自动附请求/响应/SQL/traceId；②缺陷模板规范化；③IM 群即时同步。</li><li>数据来源：Jira 缺陷状态变更时间戳统计。</li></ul></div>
+          <div class="answer-content"><p><strong>⚠️ 建议从简历拿掉这个数字</strong>：修复时长主要由开发决定，把&quot;开发效率提升 60%&quot;算成测试的功劳是硬蹭、易被戳。</p>
+<p>改成定性、归到自己能控的环节：&quot;我规范了缺陷报告模板、强制附证据（请求 / 响应 / SQL / traceId），<strong>研发复现成本明显下降、来回沟通变少</strong>。&quot;讲你做了什么、带来什么，别背 24h→9.6h 这种精确数。</p></div>
         </div>
       </div>
     </article>
