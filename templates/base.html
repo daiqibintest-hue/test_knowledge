@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}</title>
+  <style>
+    {{ css_content | safe }}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1>{{ sidebar_title }}</h1>
+        <div class="sub">含答案 · 共 {{ total_questions }} 题</div>
+      </div>
+      <ul class="nav-list">
+        {% for part in parts %}
+        <li><a href="#{{ part.id }}">{{ part.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar">
+        <button type="button" class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="search" placeholder="搜索题目、答案或关键词..." autocomplete="off">
+        </div>
+        <div class="search-nav">
+          <button type="button" id="searchPrev" disabled title="上一个 (Shift+Enter)">↑</button>
+          <button type="button" id="searchNext" disabled title="下一个 (Enter)">↓</button>
+        </div>
+        <span class="search-stats" id="searchStats"></span>
+        <div class="toolbar">
+          <button type="button" id="randomBtn">随机一题</button>
+          <button type="button" id="expandAll">全部展开</button>
+          <button type="button" id="collapseAll">全部折叠</button>
+          <button type="button" id="themeBtn">深色模式</button>
+        </div>
+      </header>
+
+      <main class="content">
+        {% if intro_html %}
+        <div class="intro">
+          {{ intro_html | safe }}
+        </div>
+        {% endif %}
+
+        {% for part in parts %}
+        <section class="part-section" id="{{ part.id }}">
+          <h2 class="part-title">{{ part.title }}</h2>
+          <p class="part-meta">{{ part.questions | length }} 题</p>
+          
+          {% if part.freeform_html %}
+          <div class="freeform-content">
+            {{ part.freeform_html | safe }}
+          </div>
+          {% endif %}
+
+          <div class="cards-grid">
+            {% for item in part.questions %}
+            <article class="card {% if item.type == 'scenario' %}scenario{% endif %}" 
+                     data-idx="{{ item.global_idx }}" 
+                     data-search="{{ item.search_text | attr_escape }}">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">#{{ item.global_idx }}</span>
+                <h3 class="card-title">{{ item.title }}</h3>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+                {% if item.problem_text %}
+                <div class="problem-block">
+                  <span class="badge badge-problem">场景问题</span>
+                  <p>{{ item.problem_text | inline_md | safe }}</p>
+                </div>
+                {% endif %}
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    {{ item.answer_html | safe }}
+                  </div>
+                </div>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+        {% endfor %}
+
+        <p class="no-results" id="noResults">未找到相关内容，请尝试其他关键词</p>
+      </main>
+    </div>
+  </div>
+
+  <button type="button" class="back-top" id="backTop" aria-label="回到顶部">↑</button>
+
+  <script>
+    {{ js_content | safe }}
+  </script>
+</body>
+</html>
