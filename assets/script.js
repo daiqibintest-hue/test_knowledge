@@ -147,7 +147,7 @@
     if (visibleCards.length > 0) {
       const randomCard = visibleCards[Math.floor(Math.random() * visibleCards.length)];
       setExpanded(randomCard, true);
-      randomCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      randomCard.scrollIntoView({ behavior: 'auto', block: 'center' });
       randomCard.classList.add('search-current');
       setTimeout(() => randomCard.classList.remove('search-current'), 2000);
     }
@@ -283,7 +283,7 @@
     const card = state.matchCards[state.matchIndex];
     card.classList.add('search-current');
     setExpanded(card, true);
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.scrollIntoView({ behavior: 'auto', block: 'center' });
     
     el.searchStats.textContent = `${state.matchIndex + 1} / ${state.matchCards.length}`;
     updateSearchNav();
@@ -358,7 +358,7 @@
       const target = document.getElementById(id);
       if (target) {
         el.sidebar.classList.remove('open');
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
         history.replaceState(null, '', `#${id}`);
       }
     });
@@ -366,7 +366,7 @@
 
   el.menuBtn.addEventListener('click', () => el.sidebar.classList.toggle('open'));
   window.addEventListener('scroll', () => el.backTop.classList.toggle('visible', window.scrollY > 500));
-  el.backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  el.backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'auto' }));
 
   // Theme
   function setTheme(theme) {
