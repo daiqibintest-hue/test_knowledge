@@ -17,7 +17,23 @@
 更新 Markdown 后，在本目录打开终端运行：
 
 ```bash
-py build_interview_html.py
+python3 build_interview_html.py
+```
+
+脚本默认读取 `测开面试_通用版_含答案.md`，并同步更新：
+
+- `interview-qa-general.html`
+- `测开面试_通用版_含答案.html`
+- `index.html`
+
+如需临时生成其他 Markdown 文件，可使用现有 `--input` / `--output` 参数：
+
+```bash
+python3 build_interview_html.py \
+  --input /Users/daiqibin/Downloads/knowledge-test/测开面经.md \
+  --output /tmp/mianshi.html \
+  --also-output "" \
+  --index-output ""
 ```
 
 ## 上传 GitHub 后预览
@@ -30,6 +46,8 @@ py build_interview_html.py
 4. `Build and deployment` 选择 `Deploy from a branch`。
 5. Branch 选择 `main`，目录选择 `/root`，保存。
 6. 等待 Pages 部署完成后，用 GitHub 给出的地址访问。
+
+本仓库的 Pages 入口是根目录下的 `index.html`，因此只要提交并推送最新生成的 `index.html`，Pages 会自动展示最新页面。
 
 最终访问地址通常类似：
 

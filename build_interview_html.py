@@ -37,6 +37,8 @@ def inline_md(text: str) -> str:
 # 圈号序号 ①-⑳，用于拆分为分行列表
 CN_CIRCLE_NUMS = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
 CN_SPLIT_RE = re.compile("(?=[" + CN_CIRCLE_NUMS + "])")
+BOLD_QUESTION_RE = re.compile(r"^\*\*(?P<title>[^*\n]*?/[^*\n]*?)\*\*(?P<rest>.*)$")
+TABLE_SEPARATOR_RE = re.compile(r":?-{3,}:?")
 
 
 def render_paragraph_text(text: str) -> str:
@@ -68,6 +70,70 @@ def render_paragraph_text(text: str) -> str:
         html_chunks.append(f'<ul class="point-list">{lis}</ul>')
 
     return "".join(html_chunks) if html_chunks else f"<p>{inline_md(text)}</p>"
+
+
+def is_table_row(line: str) -> bool:
+    stripped = line.strip()
+    return stripped.startswith("|") and stripped.endswith("|") and "|" in stripped[1:-1]
+
+
+def split_table_row(line: str) -> list[str]:
+    """拆分 Markdown 表格行，保留转义管道符为单元格内容。"""
+    row = line.strip()
+    if row.startswith("|"):
+        row = row[1:]
+    if row.endswith("|"):
+        row = row[:-1]
+
+    cells: list[str] = []
+    buf: list[str] = []
+    escaped = False
+    for ch in row:
+        if escaped:
+            if ch == "|":
+                buf.append("|")
+            else:
+                buf.append("\\")
+                buf.append(ch)
+            escaped = False
+        elif ch == "\\":
+            escaped = True
+        elif ch == "|":
+            cells.append("".join(buf).strip())
+            buf = []
+        else:
+            buf.append(ch)
+    if escaped:
+        buf.append("\\")
+    cells.append("".join(buf).strip())
+    return cells
+
+
+def is_table_separator(line: str) -> bool:
+    cells = split_table_row(line)
+    return bool(cells) and all(TABLE_SEPARATOR_RE.fullmatch(cell.strip()) for cell in cells)
+
+
+def render_table(lines: list[str]) -> str:
+    rows = [split_table_row(line) for line in lines]
+    header = rows[0]
+    body_rows = rows[2:]
+    col_count = len(header)
+
+    def padded(row: list[str]) -> list[str]:
+        return (row + [""] * col_count)[:col_count]
+
+    head_html = "".join(f"<th>{inline_md(cell)}</th>" for cell in padded(header))
+    body_html = "".join(
+        "<tr>" + "".join(f"<td>{inline_md(cell)}</td>" for cell in padded(row)) + "</tr>"
+        for row in body_rows
+    )
+    return (
+        '<div class="table-wrap"><table class="markdown-table">'
+        f"<thead><tr>{head_html}</tr></thead>"
+        f"<tbody>{body_html}</tbody>"
+        "</table></div>"
+    )
 
 
 def block_md(lines: list[str]) -> str:
@@ -102,6 +168,17 @@ def block_md(lines: list[str]) -> str:
                 i += 1
             code = escape("\n".join(code_lines))
             out.append(f'<pre class="code-block" data-lang="{escape(lang)}"><code>{code}</code></pre>')
+            continue
+
+        # 表格
+        if i + 1 < n and is_table_row(stripped) and is_table_separator(lines[i + 1].rstrip("\n")):
+            flush_paragraph(para_buf)
+            table_lines = [stripped, lines[i + 1].rstrip("\n")]
+            i += 2
+            while i < n and is_table_row(lines[i].rstrip("\n")):
+                table_lines.append(lines[i].rstrip("\n"))
+                i += 1
+            out.append(render_table(table_lines))
             continue
 
         # 无序列表
@@ -188,17 +265,98 @@ def block_md(lines: list[str]) -> str:
 
 
 def parse_md(content: str) -> dict:
+    content = content.lstrip("\ufeff")
     lines = content.splitlines(keepends=True)
     intro_lines: list[str] = []
     parts: list[dict] = []
     current_part: dict | None = None
     current_q: dict | None = None
     answer_buf: list[str] = []
-    in_answer = False
     global_idx = 0
 
+    def structural_scan() -> dict[str, int | str | bool]:
+        h1_count = h2_count = answer_markers = bold_questions = 0
+        first_h1_seen = False
+        first_h1_before_h2_has_next_h1 = False
+        in_code = False
+
+        for raw in lines:
+            line = raw.rstrip("\n")
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+
+            if line.startswith("# ") and not line.startswith("## "):
+                h1_count += 1
+                if first_h1_seen and h2_count == 0:
+                    first_h1_before_h2_has_next_h1 = True
+                first_h1_seen = True
+            elif line.startswith("## "):
+                h2_count += 1
+
+            if re.match(r"^\*\*答\*\*[：:]", line):
+                answer_markers += 1
+            if BOLD_QUESTION_RE.match(line):
+                bold_questions += 1
+
+        parser_mode = "bold_question" if bold_questions and not answer_markers else "heading_question"
+        return {
+            "mode": parser_mode,
+            "first_h1_is_intro": parser_mode == "bold_question" or first_h1_before_h2_has_next_h1,
+        }
+
+    scan = structural_scan()
+    mode = str(scan["mode"])
+    first_h1_is_intro = bool(scan["first_h1_is_intro"])
+    skipped_intro_h1 = False
+
+    def start_part(title: str):
+        nonlocal current_part
+        finish_part()
+        current_part = {
+            "id": f"part-{len(parts)}",
+            "title": title,
+            "questions": [],
+        }
+
+    def ensure_part():
+        if current_part is None:
+            start_part("未分组")
+
+    def start_question(title: str, rest: str = ""):
+        nonlocal current_q, answer_buf
+        ensure_part()
+        finish_question()
+        is_scenario = title.startswith("场景")
+        current_q = {
+            "type": "scenario" if is_scenario else "question",
+            "title": title,
+            "problem_text": "",
+            "answer_html": "",
+            "search_text": title,
+        }
+        answer_buf = []
+        rest = rest.strip()
+        if rest.startswith(("：", ":")):
+            rest = rest[1:].strip()
+        if rest:
+            append_answer_line(rest)
+
+    def append_part_line(raw: str):
+        if current_part is None:
+            if raw.strip() and raw.strip() != "---":
+                intro_lines.append(raw)
+            return
+        current_part.setdefault("freeform", []).append(raw)
+
+    def append_answer_line(raw: str):
+        answer_buf.append(raw)
+
     def finish_question():
-        nonlocal current_q, answer_buf, in_answer, global_idx
+        nonlocal current_q, answer_buf, global_idx
         if current_q is not None:
             global_idx += 1
             body = block_md(answer_buf) if answer_buf else ""
@@ -215,7 +373,6 @@ def parse_md(content: str) -> dict:
                 current_part["questions"].append(current_q)
         current_q = None
         answer_buf = []
-        in_answer = False
 
     def finish_part():
         nonlocal current_part
@@ -225,76 +382,68 @@ def parse_md(content: str) -> dict:
         current_part = None
 
     i = 0
+    in_code_block = False
     while i < len(lines):
         raw = lines[i]
         line = raw.rstrip("\n")
+        stripped = line.strip()
+        is_fence = stripped.startswith("```")
 
-        if line.startswith("# ") and not line.startswith("## "):
-            finish_part()
-            title = line[2:].strip()
-            if title == "测开面试题库（含答案版）":
+        if not in_code_block and line.startswith("# ") and not line.startswith("## "):
+            if mode == "heading_question" and not skipped_intro_h1 and first_h1_is_intro:
+                skipped_intro_h1 = True
+            elif mode == "heading_question":
+                start_part(line[2:].strip())
+            else:
+                if line[2:].strip():
+                    intro_lines.append(line[2:].strip())
+            i += 1
+            continue
+
+        if not in_code_block and line.startswith("## "):
+            title = line[3:].strip()
+            if mode == "bold_question":
+                start_part(title)
+            else:
+                start_question(title)
+            i += 1
+            continue
+
+        if not in_code_block and mode == "bold_question":
+            m_bold_q = BOLD_QUESTION_RE.match(line)
+            if m_bold_q:
+                start_question(m_bold_q.group("title").strip(), m_bold_q.group("rest"))
                 i += 1
                 continue
-            current_part = {
-                "id": f"part-{len(parts)}",
-                "title": title,
-                "questions": [],
-            }
-            i += 1
-            continue
 
-        if line.startswith("## "):
+        if not in_code_block and current_q is not None and stripped == "---":
             finish_question()
-            qtitle = line[3:].strip()
-            is_scenario = qtitle.startswith("场景")
-            current_q = {
-                "type": "scenario" if is_scenario else "question",
-                "title": qtitle,
-                "problem_text": "",
-                "answer_html": "",
-                "search_text": qtitle,
-            }
-            i += 1
-            continue
-
-        if current_part is None:
-            if line.strip() and not line.strip() == "---":
-                intro_lines.append(line)
             i += 1
             continue
 
         if current_q is None:
-            if "freeform" not in current_part:
-                current_part["freeform"] = []
-            current_part["freeform"].append(raw)
+            append_part_line(raw)
+            if is_fence:
+                in_code_block = not in_code_block
             i += 1
             continue
 
-        m_prob_only = re.match(r"^\*\*问题\*\*[：:]\s*(.*)$", line)
-        if m_prob_only:
+        m_prob_only = None if in_code_block else re.match(r"^\*\*问题\*\*[：:]\s*(.*)$", line)
+        if m_prob_only is not None:
             current_q["problem_text"] = m_prob_only.group(1).strip()
             i += 1
             continue
 
-        if re.match(r"^\*\*答\*\*[：:]", line):
-            in_answer = True
+        if not in_code_block and re.match(r"^\*\*答\*\*[：:]", line):
             rest = re.sub(r"^\*\*答\*\*[：:]\s*", "", line)
             if rest.strip():
-                answer_buf.append(rest)
+                append_answer_line(rest)
             i += 1
             continue
 
-        if in_answer or current_q is not None:
-            if line.strip() == "---":
-                finish_question()
-                i += 1
-                continue
-            if in_answer or (current_q and not current_q.get("answer_html")):
-                in_answer = True
-                answer_buf.append(raw)
-            i += 1
-            continue
-
+        append_answer_line(raw)
+        if is_fence:
+            in_code_block = not in_code_block
         i += 1
 
     finish_part()
@@ -306,6 +455,8 @@ def parse_md(content: str) -> dict:
         for l in buf:
             if l.startswith(">"):
                 items.append(l.lstrip("> ").strip())
+            elif not l.startswith("#"):
+                items.append(l.strip())
         if items:
             intro_html = "".join(f"<p>{inline_md(x)}</p>" for x in items)
 
@@ -334,7 +485,7 @@ def main():
     if not input_file.exists():
         raise SystemExit(f"找不到源文件: {input_file}")
 
-    content = input_file.read_text(encoding="utf-8")
+    content = input_file.read_text(encoding="utf-8-sig")
     data = parse_md(content)
 
     # Load Template
