@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：一个需求从评审到上线，你完整的测试流程是什么？ 1. 一个需求从评审到上线，你完整的测试流程是什么？ 1. 一个需求从评审到上线，你完整的测试流程是什么？    我把流程拆成 7 步：①需求评审（澄清边界、识别风险点）→②测试方案与计划（人力、时间、风险、准入准出标准）→③用例设计与评审（思维导图 + Xmind/TestLink，覆盖功能/接口/异常/性能/兼容）→④测试环境与数据准备（造数脚本、Mock 第三方）→⑤执行（冒烟→功能→接口自动化→回归→专项）→⑥缺陷管理（Jira 跟踪，每日站会推进）→⑦上线评估与报告（质量门禁、上线公告、灰度监控）。上线后还会做 24-48 小时的线上巡检与回归。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：1. 一个需求从评审到上线，你完整的测试流程是什么？">Q001：一个需求从评审到上线，你完整的测试流程是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 一个需求从评审到上线，你完整的测试流程是什么？">一个需求从评审到上线，你完整的测试流程是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：需求评审阶段，测试应该关注哪些风险？ 2. 需求评审阶段，测试应该关注哪些风险？ 2. 需求评审阶段，测试应该关注哪些风险？    六个维度：  - **需求完整性**：是否有边界条件、异常分支、空值/极值描述；  - **业务闭环**：上下游链路是否打通（比如工单状态变更是否同步账单、业务文档、通知模块）；  - **技术可行性**：接口契约是否定义、数据库表结构是否变更、是否依赖第三方；  - **可测性**：日志、监控、Mock、测试账号是否具备；  - **影响范围**：是否涉及历史数据迁移、是否影响存量用户；  - **合规与安全**：AI 产品类项目尤其关注内容合规、个人信息脱敏、权限隔离。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：2. 需求评审阶段，测试应该关注哪些风险？">Q002：需求评审阶段，测试应该关注哪些风险？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. 需求评审阶段，测试应该关注哪些风险？">需求评审阶段，测试应该关注哪些风险？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -788,9 +855,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：你怎么判断一个需求是否可以进入测试？ 3. 你怎么判断一个需求是否可以进入测试？ 3. 你怎么判断一个需求是否可以进入测试？    我们有明确的&quot;测试准入标准&quot;（DoR）：①PRD 终版冻结且评审通过；②UI/接口文档齐全；③研发提供冒烟报告，冒烟用例 100% 通过；④测试环境部署完成且可访问；⑤测试数据、依赖服务准备完毕；⑥提测邮件包含变更范围、影响模块、回归建议。任何一项不达标，我会发&quot;打回单&quot;并同步项目经理。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：3. 你怎么判断一个需求是否可以进入测试？">Q003：你怎么判断一个需求是否可以进入测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 你怎么判断一个需求是否可以进入测试？">你怎么判断一个需求是否可以进入测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -814,9 +883,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：测试计划一般包含哪些内容？ 5. 测试计划一般包含哪些内容？ 5. 测试计划一般包含哪些内容？    包含 9 个核心要素：  ①项目背景与目标；  ②测试范围与不测范围；  ③测试策略（手工/自动化/性能/AI 评估）；  ④资源与排期（人力分配、里程碑）；  ⑤风险识别与应对；  ⑥测试环境与数据；  ⑦准入准出标准；  ⑧交付物清单（报告、用例、自动化脚本）；  ⑨沟通机制。  我会用一页 A3 的形式输出，让产品/研发/老板一眼看完。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：5. 测试计划一般包含哪些内容？">Q004：测试计划一般包含哪些内容？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 测试计划一般包含哪些内容？">测试计划一般包含哪些内容？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -840,9 +911,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：测试报告一般包含哪些内容？ 6. 测试报告一般包含哪些内容？ 6. 测试报告一般包含哪些内容？    报告必含 8 项：版本信息、测试范围、用例执行情况（通过/失败/阻塞/跳过）、缺陷统计（按严重等级、模块、状态）、未关闭缺陷清单及风险评估、性能/AI 专项结果、遗留问题与建议、上线结论（同意/有条件同意/不同意）。AI 项目额外加：准确率、召回率、幻觉率、Prompt Injection 通过率等指标。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：6. 测试报告一般包含哪些内容？">Q005：测试报告一般包含哪些内容？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 测试报告一般包含哪些内容？">测试报告一般包含哪些内容？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -866,9 +939,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：缺陷生命周期是什么？ 7. 缺陷生命周期是什么？ 7. 缺陷生命周期是什么？    标准的缺陷生命周期流程为：  新建 (New) → 已指派 (Assigned) → 已打开 (Open) → 已修复 (Fixed) → 待验证 (Verified) → 已关闭 (Closed)。    中间包含以下特殊状态分支：  - **重新打开 (Reopen)**：验证不通过，退回研发；  - **已拒绝 (Rejected)**：研发认定不是 Bug，需同步产品/测试评审；  - **延期处理 (Deferred)**：暂不修复，需产品确认影响范围；  - **重复缺陷 (Duplicate)**：已有相同 Bug 记录。    每个状态都有明确的服务等级协议 (SLA) 响应要求：  - **P0 (紧急)**：当天必须关闭；  - **P1 (高)**：3 天内修复并关闭；  - **P2 (中)**：1 周内处理完成。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：7. 缺陷生命周期是什么？">Q006：缺陷生命周期是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 缺陷生命周期是什么？">缺陷生命周期是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -896,9 +971,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：如果产品临时改需求，你怎么保证质量？ 10. 如果产品临时改需求，你怎么保证质量？ 10. 如果产品临时改需求，你怎么保证质量？    首先评估变更范围（哪些用例失效、哪些新增、哪些回归需要重跑）→ 提交&quot;变更影响评估单&quot;，量化对测试工期的冲击 → 与产品/研发对齐：要么延期、要么砍范围、要么承担风险上线 → 如果必须上线，按风险优先级压缩用例（只跑核心路径 + 影响接口的自动化回归）→ 上线后加强监控。我会把决策邮件留档保护团队。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：10. 如果产品临时改需求，你怎么保证质量？">Q007：如果产品临时改需求，你怎么保证质量？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 如果产品临时改需求，你怎么保证质量？">如果产品临时改需求，你怎么保证质量？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -922,9 +999,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：怎么避免用例重复和遗漏？ 13. 怎么避免用例重复和遗漏？ 13. 怎么避免用例重复和遗漏？    两套机制：  - **避免遗漏**：用需求-用例追溯矩阵（RTM），每个需求条款必须对应至少一条用例；用思维导图按&quot;功能/接口/异常/兼容/性能/安全&quot;六维拉网；  - **避免重复**：用例库统一管理（TestLink/禅道），评审时按&quot;前置条件+操作步骤+断言&quot;做去重；自动化用例做参数化，把数据驱动和用例分离。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：13. 怎么避免用例重复和遗漏？">Q008：怎么避免用例重复和遗漏？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 怎么避免用例重复和遗漏？">怎么避免用例重复和遗漏？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -949,9 +1028,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：你写了 1000+ 测试用例，怎么分类管理？ 14. 你写了 1000+ 测试用例，怎么分类管理？ 14. 你写了 1000+ 测试用例，怎么分类管理？    按&quot;模块 → 场景 → 优先级&quot;三级目录组织。比如`工单管理 / 工单创建 / P0_正常流程`、`工单管理 / 工单创建 / P1_异常分支`。同时打标签：`@smoke @regression @ai @performance @security`。Pytest 用 mark，TestLink 用 Suite + Tag。每个版本按标签筛选执行。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：14. 你写了 1000+ 测试用例，怎么分类管理？">Q009：你写了 1000+ 测试用例，怎么分类管理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 你写了 1000+ 测试用例，怎么分类管理？">你写了 1000+ 测试用例，怎么分类管理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -975,9 +1056,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：如何制定测试计划？ 2. 如何制定测试计划？ 2. 如何制定测试计划？    五步：①需求分析（功能/范围/风险）；②资源评估（人力/时间）；③策略选择（手工/自动化/性能/AI）；④进度规划（里程碑）；⑤风险预案（延期/缩范围/带病发应对）。计划文档要 SMART 化（量化、可衡量、可追溯）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：2. 如何制定测试计划？">Q010：如何制定测试计划？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. 如何制定测试计划？">如何制定测试计划？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1001,9 +1084,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：如何组织用例评审？ 7. 如何组织用例评审？ 7. 如何组织用例评审？    ①提前 2 天发用例链接 + 评审议程；②评审会议 1 小时（覆盖度、可执行性、断言充分性）；③参与人产品+研发+测试；④记录改进点；⑤评审后 1 天内修订完毕；⑥关键模块二次评审。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：7. 如何组织用例评审？">Q011：如何组织用例评审？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 如何组织用例评审？">如何组织用例评审？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1027,9 +1112,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：如何组织缺陷复盘？ 8. 如何组织缺陷复盘？ 8. 如何组织缺陷复盘？    ①每周一次小复盘（本周缺陷分析）；②每版本一次大复盘（发布后 1 周）；③重大线上事故 24 小时内复盘；④用 5Why 找根因；⑤输出改进项有人有时限；⑥跟踪改进项落地。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：8. 如何组织缺陷复盘？">Q012：如何组织缺陷复盘？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 如何组织缺陷复盘？">如何组织缺陷复盘？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1053,9 +1140,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：产品需求不清楚，怎么沟通？ 16. 产品需求不清楚，怎么沟通？ 16. 产品需求不清楚，怎么沟通？    ①先自己列出疑问点和可能的解读；②带着问题找产品 1 对 1 澄清；③澄清结果写成需求补充 confluence 文档让产品确认；④涉及多角色的拉评审；⑤绝不用模糊需求开始测试。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：16. 产品需求不清楚，怎么沟通？">Q013：产品需求不清楚，怎么沟通？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 产品需求不清楚，怎么沟通？">产品需求不清楚，怎么沟通？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1079,9 +1168,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：举一个你和产品争议最大的需求。 27. 举一个你和产品争议最大的需求。 27. 举一个你和产品争议最大的需求。    案例：产品想做&quot;AI 自动生成专业建议&quot;但没有人工审核环节。我评估风险后指出：AI 输出可能引用错条款、遗漏免责声明、给出过度承诺。最后方案改成&quot;AI 草稿 + 业务人员审核后发布&quot;，并把高风险问题纳入回归集。这个答法比硬说&quot;零客诉&quot;更稳。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：27. 举一个你和产品争议最大的需求。">Q014：举一个你和产品争议最大的需求。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：27. 举一个你和产品争议最大的需求。">举一个你和产品争议最大的需求。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1105,9 +1196,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：你常用的黑盒测试用例设计方法有哪些？ 1. 你常用的黑盒测试用例设计方法有哪些？ 1. 你常用的黑盒测试用例设计方法有哪些？    按使用频率：①等价类划分；②边界值分析；③判定表（多条件组合）；④因果图（条件间有依赖约束）；⑤正交实验法（多因素多水平、组合爆炸时降维）；⑥场景法（业务流程，基本流 + 备选流）；⑦状态迁移法（状态机，如工单流转）；⑧错误推测法（经验驱动）。实际工作里 80% 用例靠&quot;等价类 + 边界值 + 场景法&quot;，判定表/因果图/正交用在特定复杂场景。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：1. 你常用的黑盒测试用例设计方法有哪些？">Q015：你常用的黑盒测试用例设计方法有哪些？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 你常用的黑盒测试用例设计方法有哪些？">你常用的黑盒测试用例设计方法有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1131,9 +1224,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：等价类划分怎么用？ 2. 等价类划分怎么用？ 2. 等价类划分怎么用？    把输入域划分成若干&quot;等价类&quot;，每个类里任取一个代表值，测试效果等同于测整个类，用少量用例覆盖大量输入。分两种：①有效等价类（合法输入）；②无效等价类（非法输入）。设计原则：有效等价类可以多个合并成一条用例覆盖，无效等价类每条单独一个用例（避免一条用例里多个非法输入互相屏蔽）。例：用户名要求 6-12 位字母数字 → 有效类「6-12 位合法字符」；无效类「&lt;6 位」「&gt;12 位」「含特殊字符」「空」各一条。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：2. 等价类划分怎么用？">Q016：等价类划分怎么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. 等价类划分怎么用？">等价类划分怎么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1157,9 +1252,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：边界值分析怎么用？为什么要重点测边界？ 3. 边界值分析怎么用？为什么要重点测边界？ 3. 边界值分析怎么用？为什么要重点测边界？    边界值是等价类的补充——大量缺陷集中在边界（`&lt;` 写成 `&lt;=`、数组越界、off-by-one）。取值取边界的&quot;上点、离点、内点&quot;：对区间 [1, 100]，测 1、100（上点/边界）、0、101（离点/刚越界）、50（内点）。开闭区间要分清：如果是 `0 &lt; x ≤ 100`，0 是离点（非法）、1 是上点（合法）。我习惯&quot;边界各取三点&quot;，比只测中间值能多抓到一类典型 Bug。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：3. 边界值分析怎么用？为什么要重点测边界？">Q017：边界值分析怎么用？为什么要重点测边界？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 边界值分析怎么用？为什么要重点测边界？">边界值分析怎么用？为什么要重点测边界？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1183,9 +1280,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：等价类和边界值通常怎么结合？ 4. 等价类和边界值通常怎么结合？ 4. 等价类和边界值通常怎么结合？    先等价类划分锁定&quot;测哪些类&quot;，再对每个数值型类的边界补边界值用例。比如&quot;年龄 0-150&quot;：等价类给出有效类 [0,150]、无效类（&lt;0）、（&gt;150）、非数字；边界值再补 -1、0、1、149、150、151。两者结合：等价类保证不漏类别，边界值保证每类的临界点被测到。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：4. 等价类和边界值通常怎么结合？">Q018：等价类和边界值通常怎么结合？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 等价类和边界值通常怎么结合？">等价类和边界值通常怎么结合？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1209,9 +1308,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：判定表法适合什么场景？怎么设计？ 5. 判定表法适合什么场景？怎么设计？ 5. 判定表法适合什么场景？怎么设计？    适合&quot;多个条件组合决定多个结果&quot;的场景（计费规则、权限判断、审批规则）。四要素：①条件桩（所有输入条件）；②动作桩（所有可能输出）；③条件项（每个条件取值组合，N 个条件有 2^N 列）；④动作项（每种组合对应的动作）。步骤：列条件 → 算组合 → 标动作 → 化简（合并无关项）。例：工单金额是否超阈值 × 是否高风险客户 × 是否资料齐全，对应自动通过、转人工审核、驳回补材料等动作。组合爆炸时配合正交法降维。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：5. 判定表法适合什么场景？怎么设计？">Q019：判定表法适合什么场景？怎么设计？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 判定表法适合什么场景？怎么设计？">判定表法适合什么场景？怎么设计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1235,9 +1336,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：因果图法和判定表是什么关系？ 6. 因果图法和判定表是什么关系？ 6. 因果图法和判定表是什么关系？    因果图是判定表的&quot;前置工具&quot;：当输入条件之间存在依赖（互斥、包含、要求、组合约束）时，先用因果图把&quot;原因（输入）→ 结果（输出）&quot;的逻辑关系和约束画出来（与/或/非、E 互斥/I 包含/O 唯一/R 要求/M 屏蔽），再转换成判定表，最后由判定表导出用例。纯独立条件用判定表就够，条件间有约束才需要因果图。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：6. 因果图法和判定表是什么关系？">Q020：因果图法和判定表是什么关系？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 因果图法和判定表是什么关系？">因果图法和判定表是什么关系？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1261,9 +1364,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：正交实验法解决什么问题？ 7. 正交实验法解决什么问题？ 7. 正交实验法解决什么问题？    解决&quot;多因素多水平导致组合爆炸&quot;。比如 5 个配置项各 3 种取值 = 3^5 = 243 种全组合，全测不现实。正交法用正交表（如 L18）挑出 18 组&quot;均匀分散、整齐可比&quot;的组合，用少量用例覆盖&quot;任意两因素的所有水平组合&quot;，能抓住大部分由&quot;两两交互&quot;引起的缺陷。代价是放弃了三因素以上的交互覆盖。兼容性测试（OS × 浏览器 × 分辨率）是典型应用。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：7. 正交实验法解决什么问题？">Q021：正交实验法解决什么问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 正交实验法解决什么问题？">正交实验法解决什么问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1287,9 +1392,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：场景法怎么用？ 8. 场景法怎么用？ 8. 场景法怎么用？    适合有明确业务流程的功能。把流程拆成&quot;基本流（正常主路径）+ 备选流（异常/分支路径）&quot;，每条&quot;基本流走到底&quot;或&quot;基本流 + 某条备选流&quot;构成一个场景，每个场景一条用例。例：工单流程基本流 = 创建工单 → 提交审批 → 审批通过 → 生成业务文档 → 发送通知 → 办结；备选流 = 资料缺失、审批驳回、文档生成失败、通知发送失败。场景法保证端到端链路被走通，是业务系统 E2E 用例的主要来源。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：8. 场景法怎么用？">Q022：场景法怎么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 场景法怎么用？">场景法怎么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1313,9 +1420,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：状态迁移法什么时候用？ 9. 状态迁移法什么时候用？ 9. 状态迁移法什么时候用？    被测对象有明确状态机时用（工单状态、审批流、通知发送状态）。步骤：①画状态迁移图（状态 + 触发事件 + 迁移）；②设计用例覆盖每个状态、每个合法迁移、每个非法迁移（如&quot;已关闭&quot;不能跳回&quot;处理中&quot;）。重点是非法迁移和并发迁移——这是状态机最容易出 Bug 的地方。工单状态流转就适合用这个方法测试。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：9. 状态迁移法什么时候用？">Q023：状态迁移法什么时候用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 状态迁移法什么时候用？">状态迁移法什么时候用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1339,9 +1448,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：错误推测法是什么？靠谱吗？ 10. 错误推测法是什么？靠谱吗？ 10. 错误推测法是什么？靠谱吗？    基于经验和直觉，推测系统&quot;哪里容易错&quot;，针对性补用例：空值、0、负数、超长、特殊字符、并发、重复提交、断网。它不是系统方法，不能单独用（会漏），但作为前几种方法的补充非常高效——很多老 Bug 模式（金额传 0、姓名带 emoji）靠它能快速命中。我会维护一个团队的&quot;易错点 checklist&quot;把经验沉淀下来。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：10. 错误推测法是什么？靠谱吗？">Q024：错误推测法是什么？靠谱吗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 错误推测法是什么？靠谱吗？">错误推测法是什么？靠谱吗？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1365,9 +1476,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：&quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？ 12. &quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？ 12. &quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？    等价类 + 边界值经典题：  ①有效等价类：0-150 的整数 → 取一个代表如 25；  ②边界值：-1、0、1、149、150、151（重点）；  ③无效等价类：负数、&gt;150、小数（25.5）、非数字（&quot;abc&quot;）、空、含空格、超大数（溢出）、前导零（&quot;007&quot;）、带正负号、全角数字。  答这题要点不在背全，而在体现&quot;先分类再补边界、有效类合并 / 无效类单列&quot;的思路。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：12. &quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？">Q025：&quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. &quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？">&quot;年龄输入框，要求 0-150 的整数&quot;，怎么设计用例？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1391,9 +1504,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：白盒测试的覆盖标准有哪些？强弱顺序？ 13. 白盒测试的覆盖标准有哪些？强弱顺序？ 13. 白盒测试的覆盖标准有哪些？强弱顺序？    由弱到强：①语句覆盖（每行执行一次，最弱）；②判定/分支覆盖（每个判断的真假都取到）；③条件覆盖（每个子条件的真假都取到）；④判定-条件覆盖（判定和条件都满足）；⑤条件组合覆盖（每个判断内子条件的所有组合）；⑥路径覆盖（所有可执行路径，最强但路径数可能爆炸）。工程上一般要求语句覆盖 + 分支覆盖达标（如 ≥80%），路径覆盖只在核心算法上追求。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：13. 白盒测试的覆盖标准有哪些？强弱顺序？">Q026：白盒测试的覆盖标准有哪些？强弱顺序？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 白盒测试的覆盖标准有哪些？强弱顺序？">白盒测试的覆盖标准有哪些？强弱顺序？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1417,9 +1532,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？ 16. 一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？ 16. 一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？    判定表 + 边界值 + 场景法组合：  ①梳理条件：金额档位、是否 VIP、是否使用减免券、减免券是否与折扣互斥；  ②判定表列组合，标每种组合的最终应收服务费；  ③边界值：分档临界值前后各取一点（如 999/1000/1001、4999/5000/5001）；  ④计算正确性：折扣和减免的先后顺序、四舍五入规则、最终金额精度（BigDecimal/DECIMAL）；  ⑤互斥规则：VIP 折扣和减免券不可叠加时是否按产品规则取值；  ⑥异常：金额为 0、负数、超大金额、重复提交、退款/撤销后的费用回退。  关键是先把&quot;组合规则&quot;用判定表穷举清楚，再用边界值守住档位临界，最后用 SQL 校验金额计算（呼应第三部分对账思路）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：16. 一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？">Q027：一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？">一个&quot;服务费分档 + VIP 折扣 + 减免券不可叠加&quot;的计费功能，怎么设计用例？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1443,9 +1560,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：常用测试用例设计方法 1&amp;2 / 常用测试用例设计方法 1&amp;2 / 常用测试用例设计方法  - 等价类划分、边界值分析、判定表（因果图）、正交实验法、场景法、错误推测法、状态迁移法。  - 实战常用组合：**边界值 + 等价类**覆盖输入校验，**场景法**覆盖业务流程，**判定表**处理多条件组合，**正交法**做大规模参数组合降维。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：1&amp;2 / 常用测试用例设计方法">Q028：常用测试用例设计方法</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1&amp;2 / 常用测试用例设计方法">常用测试用例设计方法</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1469,9 +1588,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：一个好的测试用例的特点 / 包含内容 3&amp;4 / 一个好的测试用例的特点 / 包含内容 3&amp;4 / 一个好的测试用例的特点 / 包含内容  - 特点：覆盖明确、可执行、可复现、独立、有明确预期结果、优先级清晰、便于维护。  - 内容：用例编号、标题、前置条件、测试步骤、测试数据、预期结果、实际结果、优先级、所属模块。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：3&amp;4 / 一个好的测试用例的特点 / 包含内容">Q029：一个好的测试用例的特点 / 包含内容</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3&amp;4 / 一个好的测试用例的特点 / 包含内容">一个好的测试用例的特点 / 包含内容</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1495,9 +1616,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：软件测试流程 6 / 软件测试流程 6 / 软件测试流程  需求评审 → 测试计划 → 用例设计与评审 → 测试环境准备 → 执行测试（冒烟→功能→集成→回归）→ 缺陷管理与跟踪 → 测试报告 → 上线验证 → 复盘。强调测试左移（需求阶段介入）与右移（线上监控）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：6 / 软件测试流程">Q030：软件测试流程</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / 软件测试流程">软件测试流程</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1521,9 +1644,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q031：黑盒测试怎么测出最多 bug 7 / 黑盒测试怎么测出最多 bug 7 / 黑盒测试怎么测出最多 bug  组合多种用例设计方法（边界值最易出 bug），重点覆盖边界/异常/并发/状态流转；结合探索式测试；按风险优先级投入；关注历史高频缺陷区域与新老功能交互。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：7 / 黑盒测试怎么测出最多 bug">Q031：黑盒测试怎么测出最多 bug</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7 / 黑盒测试怎么测出最多 bug">黑盒测试怎么测出最多 bug</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1547,9 +1672,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q032：测试标准怎么定 8 / 测试标准怎么定 8 / 测试标准怎么定  基于需求 + 验收标准 + 质量门禁（用例通过率、核心用例 100%、缺陷收敛、无遗留致命/严重缺陷、性能达标）。标准应可量化、可验证。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：8 / 测试标准怎么定">Q032：测试标准怎么定</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8 / 测试标准怎么定">测试标准怎么定</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1573,9 +1700,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q033：核心用例的定义 9 / 核心用例的定义 9 / 核心用例的定义  覆盖核心业务主流程、影响面大、一旦失败损失最大的用例（如下单支付主链路）。冒烟/回归优先执行，必须 100% 通过。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：9 / 核心用例的定义">Q033：核心用例的定义</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9 / 核心用例的定义">核心用例的定义</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1599,9 +1728,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q034：产品上线后/线上出现 bug 怎么处理 10&amp;11 / 产品上线后/线上出现 bug 怎么处理 10&amp;11 / 产品上线后/线上出现 bug 怎么处理  1. 评估影响范围与严重程度，先止血（回滚/降级/限流/开关关闭）。  2. 定位根因（日志、监控、复现）。  3. 修复并验证（优先热修或灰度）。  4. 回归相关功能，确认无连带影响。  5. 复盘：根因、流程漏洞、补充用例与监控，避免再次发生。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：10&amp;11 / 产品上线后/线上出现 bug 怎么处理">Q034：产品上线后/线上出现 bug 怎么处理</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10&amp;11 / 产品上线后/线上出现 bug 怎么处理">产品上线后/线上出现 bug 怎么处理</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1625,9 +1756,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q035：上线前发现影响小但改动代码多的 bug 12 / 上线前发现影响小但改动代码多的 bug 12 / 上线前发现影响小但改动代码多的 bug  评估风险与收益：改动大意味着回归成本与引入新 bug 风险高。若影响小且非阻塞，倾向**本次不改、记录跟踪、下个版本修复**；与产品/研发共同决策并留痕。优先保证上线稳定性。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q035</span>
-                <h3 class="card-title" title="原题：12 / 上线前发现影响小但改动代码多的 bug">Q035：上线前发现影响小但改动代码多的 bug</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12 / 上线前发现影响小但改动代码多的 bug">上线前发现影响小但改动代码多的 bug</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1651,9 +1784,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q036：怎么判断前端 bug 还是后端 bug / 前后端定位 13&amp;14 / 怎么判断前端 bug 还是后端 bug / 前后端定位 13&amp;14 / 怎么判断前端 bug 还是后端 bug / 前后端定位  抓包看请求与响应：  - 请求参数错误（前端没传对）→ 前端问题；  - 请求正确但响应数据/状态码错误 → 后端问题；  - 响应正确但页面展示错误 → 前端渲染问题。  结合后端日志、接口文档比对，必要时直接调接口（Postman/curl）排除前端。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q036</span>
-                <h3 class="card-title" title="原题：13&amp;14 / 怎么判断前端 bug 还是后端 bug / 前后端定位">Q036：怎么判断前端 bug 还是后端 bug / 前后端定位</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13&amp;14 / 怎么判断前端 bug 还是后端 bug / 前后端定位">怎么判断前端 bug 还是后端 bug / 前后端定位</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

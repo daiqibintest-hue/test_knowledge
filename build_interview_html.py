@@ -941,14 +941,15 @@ def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
             total += 1
             original_title = question.get("original_title") or question.get("title", "")
             display_idx = f"Q{local_idx:03d}"
-            display_title = f"{display_idx}：{clean_title_for_display(original_title)}"
+            clean_display_title = clean_title_for_display(original_title)
             question["original_title"] = original_title
             question["local_idx"] = local_idx
             question["display_idx"] = display_idx
-            question["display_title"] = display_title
+            question["display_title"] = clean_display_title
+            question["search_title"] = f"{display_idx}：{clean_display_title}"
             question["global_idx"] = total
             question["search_text"] = (
-                f"{display_title} {original_title} "
+                f"{question['search_title']} {original_title} "
                 + question.get("search_text", "")
             )
             part["questions"].append(question)
@@ -978,10 +979,13 @@ def render_nav(parts: list[dict], prefix: str, current_slug: str | None) -> str:
 def render_card(item: dict) -> str:
     scenario_cls = " scenario" if item.get("type") == "scenario" else ""
     source = item.get("source_file", "")
-    source_badge = f'<span class="badge source-badge">{escape(source)}</span>' if source else ""
     display_idx = item.get("display_idx") or f'#{item["global_idx"]}'
     display_title = item.get("display_title") or item.get("title", "")
     original_title = item.get("original_title", item.get("title", ""))
+    source_meta = f'<span>来源：{escape(source)}</span>' if source else ""
+    card_meta = ""
+    if source_meta:
+        card_meta = f'<div class="card-meta">{source_meta}</div>'
     problem = ""
     if item.get("problem_text"):
         problem = (
@@ -997,9 +1001,11 @@ def render_card(item: dict) -> str:
                      data-search="{attr_escape(item.get("search_text", ""))}">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">{escape(display_idx)}</span>
-                <h3 class="card-title" title="原题：{attr_escape(original_title)}">{escape(display_title)}</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：{attr_escape(original_title)}">{escape(display_title)}</h3>
+                  {card_meta}
+                </div>
                 <div class="card-actions">
-                  {source_badge}
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1056,7 +1062,7 @@ def build_search_index(parts: list[dict]) -> list[dict]:
             index.append({
                 "idx": item["global_idx"],
                 "display_idx": item.get("display_idx", f'#{item["global_idx"]}'),
-                "title": item.get("display_title", item.get("title", "")),
+                "title": item.get("search_title", item.get("display_title", item.get("title", ""))),
                 "original_title": item.get("original_title", item.get("title", "")),
                 "category": part["title"],
                 "url": url,
@@ -1155,7 +1161,7 @@ def render_index_page(data: dict, page_title: str, sidebar_title: str, css_conte
         {intro}
         <section class="home-hero">
           <h2 class="home-title">{escape(sidebar_title)}</h2>
-          <p class="home-sub">按章节浏览 · 共 {len(data["parts"])} 章 / {data["total_questions"]} 题。点击任一章节进入，或在上方搜索框全局检索。</p>
+          <p class="home-sub">{len(data["parts"])} 章 / {data["total_questions"]} 题 · 按技术主题归档</p>
         </section>
         {render_directory(data["parts"])}
 """

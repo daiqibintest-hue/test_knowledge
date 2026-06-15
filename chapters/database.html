@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：接口数据落库如何验证？ 19. 接口数据落库如何验证？ 19. 接口数据落库如何验证？    封装 mysql_util 在 Pytest 里直连数据库，执行 select 对比期望值。校验维度：①主表插入；②关联表（如工单-业务人员关系表）；③流水表/操作日志；④更新字段（updateTime、updater）；⑤逻辑删除标记。SQL 断言写在 YAML 里：`sql: &quot;SELECT status FROM orders WHERE id=${order_id}&quot;`、`expect: &quot;CLOSED&quot;`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：19. 接口数据落库如何验证？">Q001：接口数据落库如何验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 接口数据落库如何验证？">接口数据落库如何验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：接口返回成功但数据库没数据，你怎么定位？ 23. 接口返回成功但数据库没数据，你怎么定位？ 23. 接口返回成功但数据库没数据，你怎么定位？    ①确认接口是否走异步（消息队列），落库延迟；②看应用日志有没有&quot;swallow&quot;异常（try-catch 吞了）；③看事务是否被回滚——事务内异常但 catch 后没抛；④看是否使用 @Transactional 但调用方式错误（自调用失效）；⑤看 DB 是否走了主从，读到了未同步的从库。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：23. 接口返回成功但数据库没数据，你怎么定位？">Q002：接口返回成功但数据库没数据，你怎么定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. 接口返回成功但数据库没数据，你怎么定位？">接口返回成功但数据库没数据，你怎么定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -787,9 +854,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：常用 SQL 查询有哪些？ 1. 常用 SQL 查询有哪些？ 1. 常用 SQL 查询有哪些？    日常使用 SELECT、INSERT、UPDATE、DELETE、JOIN（INNER/LEFT/RIGHT）、GROUP BY、HAVING、ORDER BY、LIMIT、子查询、UNION、CASE WHEN、聚合函数（SUM/COUNT/AVG/MAX/MIN）、窗口函数（ROW_NUMBER/RANK）。测试常用是 JOIN 多表对账 + 聚合函数对总数。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：1. 常用 SQL 查询有哪些？">Q003：常用 SQL 查询有哪些？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 常用 SQL 查询有哪些？">常用 SQL 查询有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -813,9 +882,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：inner join、left join、right join 有什么区别？ 2. inner join、left join、right join 有什么区别？ 2. inner join、left join、right join 有什么区别？    - **INNER JOIN**：两表都匹配才返回；  - **LEFT JOIN**：左表全保留，右表无匹配则字段为 NULL；  - **RIGHT JOIN**：右表全保留。  测试时常用 LEFT JOIN 找&quot;主表有但关联表没有&quot;的脏数据。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：2. inner join、left join、right join 有什么区别？">Q004：inner join、left join、right join 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. inner join、left join、right join 有什么区别？">inner join、left join、right join 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -840,9 +911,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：group by 和 having 怎么用？ 3. group by 和 having 怎么用？ 3. group by 和 having 怎么用？    GROUP BY 按字段分组聚合，HAVING 对分组后的结果过滤（WHERE 不能用聚合函数）。例：找重复工单号  `SELECT order_no, COUNT(*) FROM orders GROUP BY order_no HAVING COUNT(*) &gt; 1`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：3. group by 和 having 怎么用？">Q005：group by 和 having 怎么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. group by 和 having 怎么用？">group by 和 having 怎么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -866,9 +939,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：order by 和 limit 怎么用？ 4. order by 和 limit 怎么用？ 4. order by 和 limit 怎么用？    ORDER BY field DESC/ASC 排序，LIMIT offset, count 分页。注意：分页排序字段不唯一会出现&quot;翻页重复&quot;，必须加唯一辅助字段（如 id）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：4. order by 和 limit 怎么用？">Q006：order by 和 limit 怎么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. order by 和 limit 怎么用？">order by 和 limit 怎么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -892,9 +967,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：count(*)、count(1)、count(字段) 有什么区别？ 5. count(*)、count(1)、count(字段) 有什么区别？ 5. count(*)、count(1)、count(字段) 有什么区别？    - **count(\*)**：统计所有行（含 NULL）；  - **count(1)**：等价于 count(\*)，性能在 InnoDB 中几乎无差异；  - **count(字段)**：统计该字段非 NULL 的行数。  测试覆盖率统计要选对，不然漏算。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：5. count(*)、count(1)、count(字段) 有什么区别？">Q007：count(*)、count(1)、count(字段) 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. count(*)、count(1)、count(字段) 有什么区别？">count(*)、count(1)、count(字段) 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -919,9 +996,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：索引是什么？ 6. 索引是什么？ 6. 索引是什么？    索引是加速查询的数据结构，MySQL InnoDB 默认 B+ 树。聚簇索引（主键）数据和索引在一起，二级索引存的是主键值需要回表。代价是写性能下降和占空间。我会用 EXPLAIN 看是否走索引。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：6. 索引是什么？">Q008：索引是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 索引是什么？">索引是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -945,9 +1024,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：什么情况下索引会失效？ 7. 什么情况下索引会失效？ 7. 什么情况下索引会失效？    经典 7 种：①左模糊 like &#x27;%x&#x27;；②字段做函数运算或类型转换；③or 连接非索引字段；④复合索引违反最左前缀；⑤ != / not in / not exists；⑥数据分布不均（MySQL 优化器判断全表扫更快）；⑦字符集不一致。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：7. 什么情况下索引会失效？">Q009：什么情况下索引会失效？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 什么情况下索引会失效？">什么情况下索引会失效？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -971,9 +1052,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：事务的 ACID 是什么？ 8. 事务的 ACID 是什么？ 8. 事务的 ACID 是什么？    - **A 原子性**：要么全成功要么全回滚；  - **C 一致性**：事务前后数据满足业务规则；  - **I 隔离性**：并发事务互不干扰；  - **D 持久性**：提交后即使宕机也不丢。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：8. 事务的 ACID 是什么？">Q010：事务的 ACID 是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 事务的 ACID 是什么？">事务的 ACID 是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -997,9 +1080,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：脏读、不可重复读、幻读是什么？ 9. 脏读、不可重复读、幻读是什么？ 9. 脏读、不可重复读、幻读是什么？    - **脏读**：读到其他事务未提交的数据；  - **不可重复读**：同一事务两次读同一行结果不同（其他事务 UPDATE 了）；  - **幻读**：同一事务两次范围查询结果数不同（其他事务 INSERT/DELETE 了）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：9. 脏读、不可重复读、幻读是什么？">Q011：脏读、不可重复读、幻读是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 脏读、不可重复读、幻读是什么？">脏读、不可重复读、幻读是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1023,9 +1108,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：MySQL 隔离级别有哪些？ 10. MySQL 隔离级别有哪些？ 10. MySQL 隔离级别有哪些？    RU（读未提交，脏读全有）、RC（读已提交，解决脏读）、RR（可重复读，解决不可重复读，MySQL 默认通过 MVCC 也基本解决幻读）、Serializable（串行化，全解决但性能差）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：10. MySQL 隔离级别有哪些？">Q012：MySQL 隔离级别有哪些？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. MySQL 隔离级别有哪些？">MySQL 隔离级别有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1049,9 +1136,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：你在项目中用 SQL 校验过哪些数据？ 11. 你在项目中用 SQL 校验过哪些数据？ 11. 你在项目中用 SQL 校验过哪些数据？    ①工单状态流转后，orders、order_status_log、order_assignee 三张表是否同步；②账单结算后 fee_main + fee_detail 总额是否一致；③通知发送后 notification_record 状态是否最终态；④报表数据是否等于源表聚合；⑤AI 业务文档生成后 business_documents 表元数据是否齐全。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：11. 你在项目中用 SQL 校验过哪些数据？">Q013：你在项目中用 SQL 校验过哪些数据？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 你在项目中用 SQL 校验过哪些数据？">你在项目中用 SQL 校验过哪些数据？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1075,9 +1164,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：工单状态流转后，数据库哪些表会变化？ 12. 工单状态流转后，数据库哪些表会变化？ 12. 工单状态流转后，数据库哪些表会变化？    至少四张：①orders 主表 status 字段；②order_status_log 流水表新增一条；③order_event 事件表（触发通知/业务文档的源）；④operation_log 操作审计表。我会写 SQL 一次性校验四张表的一致性。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：12. 工单状态流转后，数据库哪些表会变化？">Q014：工单状态流转后，数据库哪些表会变化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 工单状态流转后，数据库哪些表会变化？">工单状态流转后，数据库哪些表会变化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1101,9 +1192,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：账单结算后，如何校验金额？ 13. 账单结算后，如何校验金额？ 13. 账单结算后，如何校验金额？    四个角度：①明细求和 = 主单总额；②原始金额 + 计费金额 + 调整金额 + 服务费 = 总应收；③分笔收款累计 = 总实收；④BigDecimal 精度——SQL 用 ROUND(a*b, 2) 对比应用计算结果。我会写专门的对账 SQL 脚本，每个版本回归。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：13. 账单结算后，如何校验金额？">Q015：账单结算后，如何校验金额？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 账单结算后，如何校验金额？">账单结算后，如何校验金额？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1127,9 +1220,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：报表生成后，如何校验报表数据？ 14. 报表生成后，如何校验报表数据？ 14. 报表生成后，如何校验报表数据？    ①源表聚合 SQL 跑一遍，对比报表数；②时间口径（自然月/账期月）对齐；③过滤条件（已删除/作废）对齐；④跨库报表关注同步延迟；⑤抽样核对前 100 行明细。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：14. 报表生成后，如何校验报表数据？">Q016：报表生成后，如何校验报表数据？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 报表生成后，如何校验报表数据？">报表生成后，如何校验报表数据？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1153,9 +1248,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：数据同步失败如何定位？ 15. 数据同步失败如何定位？ 15. 数据同步失败如何定位？    ①确认同步链路：是 Canal/Debezium 监听 binlog，还是定时任务批量？②看同步组件日志有无错误；③看源端 binlog 是否生成、目标端是否消费；④看延迟监控（消费 Offset）；⑤看是否数据格式异常导致解析失败。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：15. 数据同步失败如何定位？">Q017：数据同步失败如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 数据同步失败如何定位？">数据同步失败如何定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1179,9 +1276,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：前端展示数据和数据库不一致，怎么排查？ 16. 前端展示数据和数据库不一致，怎么排查？ 16. 前端展示数据和数据库不一致，怎么排查？    ①F12 抓接口看返回——若一致则前端渲染问题；②若不一致看后端日志和 SQL 实际执行；③看是否走了缓存（Redis/CDN/浏览器）；④看主从延迟；⑤看事务是否提交。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：16. 前端展示数据和数据库不一致，怎么排查？">Q018：前端展示数据和数据库不一致，怎么排查？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 前端展示数据和数据库不一致，怎么排查？">前端展示数据和数据库不一致，怎么排查？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1205,9 +1304,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：接口返回数据和数据库不一致，可能是什么原因？ 17. 接口返回数据和数据库不一致，可能是什么原因？ 17. 接口返回数据和数据库不一致，可能是什么原因？    缓存未刷新、读写分离主从延迟、事务未提交即返回、字段处理逻辑（脱敏、转码）、多个数据源选错库、聚合计算和 DB 字段不在同一时间点。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：17. 接口返回数据和数据库不一致，可能是什么原因？">Q019：接口返回数据和数据库不一致，可能是什么原因？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 接口返回数据和数据库不一致，可能是什么原因？">接口返回数据和数据库不一致，可能是什么原因？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1231,9 +1332,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：缓存导致数据不一致，怎么验证？ 18. 缓存导致数据不一致，怎么验证？ 18. 缓存导致数据不一致，怎么验证？    ①直接读 Redis Key 看缓存值 vs DB 值；②清除 Redis 后再请求看是否恢复正确；③触发更新操作后看缓存是否失效；④看缓存过期策略和失效策略（更新策略：先更 DB 再删缓存）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：18. 缓存导致数据不一致，怎么验证？">Q020：缓存导致数据不一致，怎么验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 缓存导致数据不一致，怎么验证？">缓存导致数据不一致，怎么验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1257,9 +1360,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：多表数据一致性怎么测试？ 19. 多表数据一致性怎么测试？ 19. 多表数据一致性怎么测试？    写跨表对账 SQL：①主表行数 = 关联表去重行数（防漏）；②外键关联无孤儿数据；③枚举字段冗余字段同步；④定时跑对账脚本，差异落到对账差异表预警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：19. 多表数据一致性怎么测试？">Q021：多表数据一致性怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 多表数据一致性怎么测试？">多表数据一致性怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1283,9 +1388,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：财务数据怎么防止精度问题？ 20. 财务数据怎么防止精度问题？ 20. 财务数据怎么防止精度问题？    强制全链路 BigDecimal，数据库用 DECIMAL(18,2)，禁用 float/double；运算时设置 RoundingMode.HALF_UP；前端展示和落库分两个字段（展示可四舍五入，落库精确）；测试用 0.1+0.2、9999999.99 这类极值校验。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：20. 财务数据怎么防止精度问题？">Q022：财务数据怎么防止精度问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 财务数据怎么防止精度问题？">财务数据怎么防止精度问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1309,9 +1416,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：报表数据怎么验证？ 21. 报表数据怎么验证？ 21. 报表数据怎么验证？    报表三验证：①数据维度（聚合公式对）；②时间维度（账期口径对）；③权限维度（不同角色看到的范围正确）。手工跑源 SQL 重算一次对比。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：21. 报表数据怎么验证？">Q023：报表数据怎么验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. 报表数据怎么验证？">报表数据怎么验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1335,9 +1444,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：批处理任务结果怎么验证？ 22. 批处理任务结果怎么验证？ 22. 批处理任务结果怎么验证？    ①执行前后数据快照对比；②任务日志看处理总数、成功数、失败数；③失败数据是否进异常表；④幂等：重跑结果一致；⑤性能：执行时间在 SLA 内。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：22. 批处理任务结果怎么验证？">Q024：批处理任务结果怎么验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. 批处理任务结果怎么验证？">批处理任务结果怎么验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1361,9 +1472,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：数据迁移怎么测试？ 23. 数据迁移怎么测试？ 23. 数据迁移怎么测试？    ①迁移前后总行数一致；②抽样校验字段映射；③特殊字符、长字段、NULL、特殊编码全覆盖；④增量同步阶段验证一致性；⑤回滚预案验证；⑥业务连续性（迁移期间业务读写正常）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：23. 数据迁移怎么测试？">Q025：数据迁移怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. 数据迁移怎么测试？">数据迁移怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1387,9 +1500,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：大批量数据导入怎么测试？ 24. 大批量数据导入怎么测试？ 24. 大批量数据导入怎么测试？    ①数据规模（1万、10万、100万）逐级；②文件格式（CSV、Excel、特殊字符、BOM 头）；③异常数据是否能跳过并报告；④失败回滚或断点续传；⑤导入时业务接口性能不退化。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：24. 大批量数据导入怎么测试？">Q026：大批量数据导入怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. 大批量数据导入怎么测试？">大批量数据导入怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1413,9 +1528,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：如何设计对账测试？ 25. 如何设计对账测试？ 25. 如何设计对账测试？    ①明确对账维度（每日/每月、按客户/按产品）；②建立对账 SQL 模板（A 表汇总 vs B 表汇总）；③差异容忍度（0 或精度内）；④差异自动告警；⑤差异处理流程（人工/自动补单）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：25. 如何设计对账测试？">Q027：如何设计对账测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. 如何设计对账测试？">如何设计对账测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1439,9 +1556,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：服务器 CPU、内存、数据库指标如何？ 18. 服务器 CPU、内存、数据库指标如何？ 18. 服务器 CPU、内存、数据库指标如何？    怎么拿到的（被问最多的就是这句）：应用 CPU/内存看 **Grafana-Prometheus 大盘**，GC 看 **GC 日志 + `jstat -gcutil`**；DB 的 CPU/连接数/QPS 看 Grafana 或 `SHOW GLOBAL STATUS`，慢查询看慢日志；Redis 命中率看 `INFO stats`（keyspace_hits/misses）；连接池占用看 HikariCP 监控。    当时环境下的样例口径：应用 CPU 约 60-70%（4 核 8G）、堆 4G、Young GC 有波动但 Full GC 不能频繁出现；DB CPU 约 50%、连接数约 80/200、QPS 约 5000、慢查询要为 0 或能解释；Redis 命中率保持在较高水平。面试时要强调：这些数以压测报告和监控截图为准，不同接口、机器配置、数据量会不一样。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：18. 服务器 CPU、内存、数据库指标如何？">Q028：服务器 CPU、内存、数据库指标如何？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 服务器 CPU、内存、数据库指标如何？">服务器 CPU、内存、数据库指标如何？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1466,9 +1585,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：如何判断瓶颈在应用层、数据库层还是网络层？ 40. 如何判断瓶颈在应用层、数据库层还是网络层？ 40. 如何判断瓶颈在应用层、数据库层还是网络层？    分层定位：①Server 端 CPU/内存 高→应用层；②APM 显示 DB 调用慢→数据库层；③接口响应正常但客户端慢→网络/前端；④用 ping/traceroute 看网络；⑤用 top/iostat 看应用；⑥用慢 SQL/EXPLAIN 看 DB。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：40. 如何判断瓶颈在应用层、数据库层还是网络层？">Q029：如何判断瓶颈在应用层、数据库层还是网络层？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：40. 如何判断瓶颈在应用层、数据库层还是网络层？">如何判断瓶颈在应用层、数据库层还是网络层？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1492,9 +1613,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：SQL 慢导致接口慢，你怎么发现？ 41. SQL 慢导致接口慢，你怎么发现？ 41. SQL 慢导致接口慢，你怎么发现？    ①开启 MySQL slow_query_log，threshold 1 秒；②看 slow.log 找慢查询；③EXPLAIN 分析执行计划（type=ALL 是全表扫，rows 很多是没走索引）；④APM 的 SQL 监控直接看每条 SQL 耗时；⑤推动加索引或改写。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：41. SQL 慢导致接口慢，你怎么发现？">Q030：SQL 慢导致接口慢，你怎么发现？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：41. SQL 慢导致接口慢，你怎么发现？">SQL 慢导致接口慢，你怎么发现？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1518,9 +1641,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q031：数据库连接池耗尽怎么判断？ 44. 数据库连接池耗尽怎么判断？ 44. 数据库连接池耗尽怎么判断？    现象：①接口大量超时但 DB 本身不慢；②应用日志报 connection timeout；③数据库 show processlist 连接数不高；④HikariCP 监控显示 active=max。解决：调大 maxPoolSize，但根因是 SQL 慢导致连接占用时间长。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：44. 数据库连接池耗尽怎么判断？">Q031：数据库连接池耗尽怎么判断？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：44. 数据库连接池耗尽怎么判断？">数据库连接池耗尽怎么判断？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1544,9 +1669,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q032：接口超时但数据库不慢，可能是什么原因？ 46. 接口超时但数据库不慢，可能是什么原因？ 46. 接口超时但数据库不慢，可能是什么原因？    六种可能：①连接池耗尽排队；②线程池满；③第三方接口慢；④GC 停顿；⑤网络抖动；⑥锁竞争。逐个排除。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：46. 接口超时但数据库不慢，可能是什么原因？">Q032：接口超时但数据库不慢，可能是什么原因？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：46. 接口超时但数据库不慢，可能是什么原因？">接口超时但数据库不慢，可能是什么原因？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1570,9 +1697,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q033：是否看过数据库慢查询？ 50. 是否看过数据库慢查询？ 50. 是否看过数据库慢查询？    看过，每次压测后 dump slow.log 用 pt-query-digest 分析。关注：①Top 10 慢 SQL；②每条 SQL 平均/最大耗时；③扫描行数；④用 EXPLAIN 看执行计划。常见问题是缺索引、SQL 写法差。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：50. 是否看过数据库慢查询？">Q033：是否看过数据库慢查询？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：50. 是否看过数据库慢查询？">是否看过数据库慢查询？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1596,9 +1725,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q034：向量数据库的作用是什么？ 54. 向量数据库的作用是什么？ 54. 向量数据库的作用是什么？    存储文档向量并支持高效相似度检索（余弦/内积/欧氏）。主流：Milvus、Pinecone、Qdrant、Weaviate、PG vector。核心能力：高维向量索引（HNSW/IVF）、亿级扩展性、混合检索。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：54. 向量数据库的作用是什么？">Q034：向量数据库的作用是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：54. 向量数据库的作用是什么？">向量数据库的作用是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1622,9 +1753,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q035：用的什么向量数据库？ 65. 用的什么向量数据库？ 65. 用的什么向量数据库？    Milvus 2.x。原因：①开源可控；②性能好（HNSW 索引 100ms 内返回）；③支持标量过滤（按文档类型、权限标签筛选）；④活跃社区。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q035</span>
-                <h3 class="card-title" title="原题：65. 用的什么向量数据库？">Q035：用的什么向量数据库？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：65. 用的什么向量数据库？">用的什么向量数据库？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1648,9 +1781,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q036：数据库 MCP 有什么风险？ 8. 数据库 MCP 有什么风险？ 8. 数据库 MCP 有什么风险？    ①SQL 注入（自然语言→SQL 转换可能被恶意构造）；②权限失控（Agent 可能查到敏感表）；③误删（DROP/DELETE 被错误调用）；④数据泄露（脱敏失效）。必须只读账号 + 表级权限 + 操作审计 + 危险操作人工确认。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q036</span>
-                <h3 class="card-title" title="原题：8. 数据库 MCP 有什么风险？">Q036：数据库 MCP 有什么风险？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 数据库 MCP 有什么风险？">数据库 MCP 有什么风险？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1674,9 +1809,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q037：事务数（TPS） 13 / 事务数（TPS） 13 / 事务数（TPS）  TPS = 每秒处理事务数，一个&quot;事务&quot;可由一个或多个请求组成，是衡量系统吞吐的核心指标。需明确事务的业务边界（如&quot;一次完整下单&quot;算一个事务）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q037</span>
-                <h3 class="card-title" title="原题：13 / 事务数（TPS）">Q037：事务数（TPS）</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13 / 事务数（TPS）">事务数（TPS）</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1700,9 +1837,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q038：求平均值 1 / 求平均值 1 / 求平均值  `AVG()`，如 `SELECT AVG(score) FROM t;`">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q038</span>
-                <h3 class="card-title" title="原题：1 / 求平均值">Q038：求平均值</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1 / 求平均值">求平均值</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1726,9 +1865,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q039：排序 2 / 排序 2 / 排序  `ORDER BY 字段 [ASC|DESC]`">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q039</span>
-                <h3 class="card-title" title="原题：2 / 排序">Q039：排序</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2 / 排序">排序</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1752,9 +1893,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q040：去重 3 / 去重 3 / 去重  `DISTINCT`，如 `SELECT DISTINCT name FROM t;`  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q040</span>
-                <h3 class="card-title" title="原题：3 / 去重">Q040：去重</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3 / 去重">去重</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1778,9 +1921,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q041：查 10–15 岁的人 4 / 查 10–15 岁的人 4 / 查 10–15 岁的人  ```sql  SELECT * FROM person WHERE age BETWEEN 10 AND 15;  -- 等价于 age &gt;= 10 AND age &lt;= 15  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q041</span>
-                <h3 class="card-title" title="原题：4 / 查 10–15 岁的人">Q041：查 10–15 岁的人</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4 / 查 10–15 岁的人">查 10–15 岁的人</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1805,9 +1950,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q042：按年龄从大到小排序 5 / 按年龄从大到小排序 5 / 按年龄从大到小排序  ```sql  SELECT * FROM person ORDER BY age DESC;  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q042</span>
-                <h3 class="card-title" title="原题：5 / 按年龄从大到小排序">Q042：按年龄从大到小排序</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5 / 按年龄从大到小排序">按年龄从大到小排序</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1831,9 +1978,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q043：多表连接方式 6 / 多表连接方式 6 / 多表连接方式  - 内连接 `INNER JOIN`（取交集）；  - 左连接 `LEFT JOIN`（左表全保留）；  - 右连接 `RIGHT JOIN`（右表全保留）；  - 全连接 `FULL JOIN`（MySQL 不直接支持，用 UNION 模拟）；  - 交叉连接 `CROSS JOIN`（笛卡尔积）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q043</span>
-                <h3 class="card-title" title="原题：6 / 多表连接方式">Q043：多表连接方式</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / 多表连接方式">多表连接方式</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1857,9 +2006,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q044：关系型 vs 非关系型数据库 7&amp;8&amp;9 / 关系型 vs 非关系型数据库 7&amp;8&amp;9 / 关系型 vs 非关系型数据库  | 维度 | 关系型(MySQL/PostgreSQL) | 非关系型(Redis/MongoDB/ES) |  |---|---|---|  | 结构 | 表+行+列，固定 schema | 文档/KV/列族/图，灵活 |  | 事务 | 支持 ACID，强一致 | 多为最终一致(部分支持事务) |  | 关系 | 支持表关联、外键 | 弱关联，靠冗余 |  | 扩展 | 垂直扩展为主 | 水平扩展友好 |  | 场景 | 强一致、复杂查询/事务（订单、账务） | 高并发缓存(Redis)、海量灵活数据(Mongo)、检索(ES) |  | 传输内容 | 结构化数据（SQL 结果集/行记录） | 多样：KV、JSON 文档、序列化对象等 |   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q044</span>
-                <h3 class="card-title" title="原题：7&amp;8&amp;9 / 关系型 vs 非关系型数据库">Q044：关系型 vs 非关系型数据库</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7&amp;8&amp;9 / 关系型 vs 非关系型数据库">关系型 vs 非关系型数据库</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1883,9 +2034,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q045：存储过程 10 / 存储过程 10 / 存储过程  预先编译并存储在数据库中的一组 SQL 语句集合，可带参数、含逻辑控制，通过 `CALL` 调用。优点：减少网络交互、便于复用与封装、可统一权限控制；缺点：可维护性/可移植性差，业务逻辑下沉到 DB 不利于扩展。  &gt; 注意别把&quot;性能好&quot;说绝对：存储过程主要靠**减少应用与 DB 间的网络往返**在批量/多步操作上占优，单条简单 SQL 不一定比应用层更快；现代架构也更倾向把业务逻辑放在应用层而非 DB。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q045</span>
-                <h3 class="card-title" title="原题：10 / 存储过程">Q045：存储过程</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10 / 存储过程">存储过程</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1909,9 +2062,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q046：游标（cursor） 11 / 游标（cursor） 11 / 游标（cursor）  用于**逐行处理**查询结果集的数据库对象，可在结果集中前后移动、对每行单独操作。适合需要逐行处理的存储过程逻辑；缺点是逐行处理性能差，能用集合操作就避免用游标。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q046</span>
-                <h3 class="card-title" title="原题：11 / 游标（cursor）">Q046：游标（cursor）</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11 / 游标（cursor）">游标（cursor）</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1935,9 +2090,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q047：数据库读写操作模块封装 Q14：数据库读写操作模块封装 Q14：数据库读写操作模块封装    ```python  class DBUtil:      def __init__(self, cfg):          self.pool = PooledDB(pymysql, maxconnections=5, **cfg)  # 连接池        def query(self, sql, args=None):          conn = self.pool.connection()          try:              with conn.cursor(pymysql.cursors.DictCursor) as cur:                  cur.execute(sql, args)        # 参数化，防注入                  return cur.fetchall()          finally:              conn.close()                      # 归还连接池        def execute(self, sql, args=None):          conn = self.pool.connection()          try:              with conn.cursor() as cur:                  rows = cur.execute(sql, args)                  conn.commit()                 # 显式提交                  return rows          except Exception:              conn.rollback()                   # 失败回滚              raise          finally:              conn.close()  ```    **1. 用 `pymysql` 还是 SQLAlchemy**：轻量校验用 `pymysql`/`DBUtils` 足够；ORM 多、模型复杂用 SQLAlchemy。测试场景多用前者。    **2. 连接信息**：放 `config`，**按环境区分**（dev/test/prod），绝不硬编码。    **3. 连接池**：用，避免每次查询都建连/断连，提升并发稳定性。    **4. SQL 失败处理**：捕获异常 → 打印 SQL 和参数 → 抛 **清晰异常**，不吞掉。    **5. 查询结果与接口响应对账**：把查库结果和接口响应的关键字段做断言比对（见 Q15）。    **6. 增删改是否自动提交**：**显式 commit**，失败 **rollback**；不要依赖隐式提交。    **7. 查询后释放连接**：`finally` 里 `close()`（连接池场景是归还），或用 `with`，绝不泄漏连接。    **8. 防 SQL 注入**：**参数化查询**（`cur.execute(sql, args)`），永远不用字符串拼接 SQL。    **9. 避免测试 SQL 误操作生产**：环境隔离 + **只读账号** + 禁止无 `where` 的 `update/delete`（代码层做防呆校验）+ 生产库不接自动化。    **10. 多环境切换**：`config` 按 `env` 取连接配置，运行时通过参数选择。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q047</span>
-                <h3 class="card-title" title="原题：Q14：数据库读写操作模块封装">Q047：数据库读写操作模块封装</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14：数据库读写操作模块封装">数据库读写操作模块封装</h3>
+                  <div class="card-meta"><span>来源：04-数据库与数据校验.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">04-数据库与数据校验.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1995,9 +2152,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q048：接口返回成功但数据库没数据，如何定位 Q15：接口返回成功但数据库没数据，如何定位 Q15：接口返回成功但数据库没数据，如何定位    这是一道经典排查题，思路是 **从外到内、逐段确认**：    **1. 先看响应还是日志**：先确认接口 **真的** 返回成功——不只看 HTTP 200，要看 **业务码** 是否为成功（可能 200 但 `code` 非 0）。再结合应用日志。    **2. 确认请求参数正确**：是不是参数本身就没带对（比如 userId 传错），后端&quot;成功&quot;地处理了一个空操作。    **3. 确认是否写到别的库/表**：分库分表场景，可能写进了另一个分片，查错库了。    **4. 是否异步写入**：很多写操作走 **MQ 异步落库**，接口返回成功只代表消息发出去了，查太早自然没有 → 需要等待/轮询。    **5. 是否写缓存没落库 / 消息丢失**：先写 Redis 后异步落库，中间消息丢了。    **6. 是否事务回滚**：接口内后续步骤异常触发回滚，但响应已先返回成功（代码 bug）。    **7. 是否主从延迟**：写主库、查从库，主从同步有延迟 → 刚写完查从库查不到。    **8. 轮询等待**：针对异步，设计 **带超时的重试查询**（每隔 N 秒查一次，最多查 M 次），给异步留时间，避免误报。    **9. 业务代码问题 vs 脚本问题**：脚本查错库/查询条件写错 → **脚本问题**；参数对、时机对、库对，确实没写 → **业务 bug**。    **10. 用 traceId 定位全链路**：拿接口返回或日志里的 traceId，串起网关→服务→MQ→DB 的完整调用链，精确定位卡在哪一环。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q048</span>
-                <h3 class="card-title" title="原题：Q15：接口返回成功但数据库没数据，如何定位">Q048：接口返回成功但数据库没数据，如何定位</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15：接口返回成功但数据库没数据，如何定位">接口返回成功但数据库没数据，如何定位</h3>
+                  <div class="card-meta"><span>来源：04-数据库与数据校验.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">04-数据库与数据校验.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2031,9 +2190,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q049：使用 `pymysql`、SQLAlchemy 还是其他库？ Q14.1：使用 `pymysql`、SQLAlchemy 还是其他库？ Q14.1：使用 `pymysql`、SQLAlchemy 还是其他库？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 class DBUtil:     def __init__(self, cfg):         self.pool = PooledDB(pymysql, maxconnections=5, **cfg)  # 连接池      def query(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor(pymysql.cursors.DictCursor) as cur:                 cur.execute(sql, args)        # 参数化，防注入                 return cur.fetchall()         finally:             conn.close()                      # 归还连接池      def execute(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor() as cur:                 rows = cur.execute(sql, args)                 conn.commit()                 # 显式提交                 return rows         except Exception:             conn.rollback()                   # 失败回滚             raise         finally:             conn.close() 1. 用 pymysql 还是 SQLAlchemy：轻量校验用 pymysql/DBUtils 足够；ORM 多、模型复杂用 SQLAlchemy。测试场景多用前者。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q049</span>
-                <h3 class="card-title" title="原题：Q14.1：使用 `pymysql`、SQLAlchemy 还是其他库？">Q049：使用 `pymysql`、SQLAlchemy 还是其他库？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.1：使用 `pymysql`、SQLAlchemy 还是其他库？">使用 `pymysql`、SQLAlchemy 还是其他库？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2083,9 +2244,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q050：数据库连接信息存放在哪里？ Q14.2：数据库连接信息存放在哪里？ Q14.2：数据库连接信息存放在哪里？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 2. 连接信息：放 config，按环境区分（dev/test/prod），绝不硬编码。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q050</span>
-                <h3 class="card-title" title="原题：Q14.2：数据库连接信息存放在哪里？">Q050：数据库连接信息存放在哪里？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.2：数据库连接信息存放在哪里？">数据库连接信息存放在哪里？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2110,9 +2273,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q051：是否使用数据库连接池？ Q14.3：是否使用数据库连接池？ Q14.3：是否使用数据库连接池？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 class DBUtil:     def __init__(self, cfg):         self.pool = PooledDB(pymysql, maxconnections=5, **cfg)  # 连接池      def query(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor(pymysql.cursors.DictCursor) as cur:                 cur.execute(sql, args)        # 参数化，防注入                 return cur.fetchall()         finally:             conn.close()                      # 归还连接池      def execute(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor() as cur:                 rows = cur.execute(sql, args)                 conn.commit()                 # 显式提交                 return rows         except Exception:             conn.rollback()                   # 失败回滚             raise         finally:             conn.close() 3. 连接池：用，避免每次查询都建连/断连，提升并发稳定性。 7. 查询后释放连接：finally 里 close()（连接池场景是归还），或用 with，绝不泄漏连接。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q051</span>
-                <h3 class="card-title" title="原题：Q14.3：是否使用数据库连接池？">Q051：是否使用数据库连接池？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.3：是否使用数据库连接池？">是否使用数据库连接池？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2163,9 +2328,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q052：SQL 执行失败时如何处理？ Q14.4：SQL 执行失败时如何处理？ Q14.4：SQL 执行失败时如何处理？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 class DBUtil:     def __init__(self, cfg):         self.pool = PooledDB(pymysql, maxconnections=5, **cfg)  # 连接池      def query(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor(pymysql.cursors.DictCursor) as cur:                 cur.execute(sql, args)        # 参数化，防注入                 return cur.fetchall()         finally:             conn.close()                      # 归还连接池      def execute(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor() as cur:                 rows = cur.execute(sql, args)                 conn.commit()                 # 显式提交                 return rows         except Exception:             conn.rollback()                   # 失败回滚             raise         finally:             conn.close() 1. 用 pymysql 还是 SQLAlchemy：轻量校验用 pymysql/DBUtils 足够；ORM 多、模型复杂用 SQLAlchemy。测试场景多用前者。 4. SQL 失败处理：捕获异常 → 打印 SQL 和参数 → 抛 清晰异常，不吞掉。 8. 防 SQL 注入：参数化查询（cur.execute(sql, args)），永远不用字符串拼接 SQL。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q052</span>
-                <h3 class="card-title" title="原题：Q14.4：SQL 执行失败时如何处理？">Q052：SQL 执行失败时如何处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.4：SQL 执行失败时如何处理？">SQL 执行失败时如何处理？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2217,9 +2384,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q053：查询结果如何和接口响应进行断言？ Q14.5：查询结果如何和接口响应进行断言？ Q14.5：查询结果如何和接口响应进行断言？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 5. 查询结果与接口响应对账：把查库结果和接口响应的关键字段做断言比对（见 Q15）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q053</span>
-                <h3 class="card-title" title="原题：Q14.5：查询结果如何和接口响应进行断言？">Q053：查询结果如何和接口响应进行断言？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.5：查询结果如何和接口响应进行断言？">查询结果如何和接口响应进行断言？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2244,9 +2413,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q054：增删改操作后是否自动提交事务？ Q14.6：增删改操作后是否自动提交事务？ Q14.6：增删改操作后是否自动提交事务？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 6. 增删改是否自动提交：显式 commit，失败 rollback；不要依赖隐式提交。 9. 避免测试 SQL 误操作生产：环境隔离 + 只读账号 + 禁止无 where 的 update/delete（代码层做防呆校验）+ 生产库不接自动化。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q054</span>
-                <h3 class="card-title" title="原题：Q14.6：增删改操作后是否自动提交事务？">Q054：增删改操作后是否自动提交事务？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.6：增删改操作后是否自动提交事务？">增删改操作后是否自动提交事务？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2272,9 +2443,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q055：查询结束后如何释放连接？ Q14.7：查询结束后如何释放连接？ Q14.7：查询结束后如何释放连接？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 3. 连接池：用，避免每次查询都建连/断连，提升并发稳定性。 5. 查询结果与接口响应对账：把查库结果和接口响应的关键字段做断言比对（见 Q15）。 7. 查询后释放连接：finally 里 close()（连接池场景是归还），或用 with，绝不泄漏连接。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q055</span>
-                <h3 class="card-title" title="原题：Q14.7：查询结束后如何释放连接？">Q055：查询结束后如何释放连接？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.7：查询结束后如何释放连接？">查询结束后如何释放连接？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2301,9 +2474,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q056：如何防止 SQL 注入？ Q14.8：如何防止 SQL 注入？ Q14.8：如何防止 SQL 注入？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 class DBUtil:     def __init__(self, cfg):         self.pool = PooledDB(pymysql, maxconnections=5, **cfg)  # 连接池      def query(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor(pymysql.cursors.DictCursor) as cur:                 cur.execute(sql, args)        # 参数化，防注入                 return cur.fetchall()         finally:             conn.close()                      # 归还连接池      def execute(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor() as cur:                 rows = cur.execute(sql, args)                 conn.commit()                 # 显式提交                 return rows         except Exception:             conn.rollback()                   # 失败回滚             raise         finally:             conn.close() 1. 用 pymysql 还是 SQLAlchemy：轻量校验用 pymysql/DBUtils 足够；ORM 多、模型复杂用 SQLAlchemy。测试场景多用前者。 4. SQL 失败处理：捕获异常 → 打印 SQL 和参数 → 抛 清晰异常，不吞掉。 8. 防 SQL 注入：参数化查询（cur.execute(sql, args)），永远不用字符串拼接 SQL。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q056</span>
-                <h3 class="card-title" title="原题：Q14.8：如何防止 SQL 注入？">Q056：如何防止 SQL 注入？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.8：如何防止 SQL 注入？">如何防止 SQL 注入？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2355,9 +2530,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q057：如何避免测试 SQL 误操作生产数据？ Q14.9：如何避免测试 SQL 误操作生产数据？ Q14.9：如何避免测试 SQL 误操作生产数据？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 class DBUtil:     def __init__(self, cfg):         self.pool = PooledDB(pymysql, maxconnections=5, **cfg)  # 连接池      def query(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor(pymysql.cursors.DictCursor) as cur:                 cur.execute(sql, args)        # 参数化，防注入                 return cur.fetchall()         finally:             conn.close()                      # 归还连接池      def execute(self, sql, args=None):         conn = self.pool.connection()         try:             with conn.cursor() as cur:                 rows = cur.execute(sql, args)                 conn.commit()                 # 显式提交                 return rows         except Exception:             conn.rollback()                   # 失败回滚             raise         finally:             conn.close() 1. 用 pymysql 还是 SQLAlchemy：轻量校验用 pymysql/DBUtils 足够；ORM 多、模型复杂用 SQLAlchemy。测试场景多用前者。 4. SQL 失败处理：捕获异常 → 打印 SQL 和参数 → 抛 清晰异常，不吞掉。 8. 防 SQL 注入：参数化查询（cur.execute(sql, args)），永远不用字符串拼接 SQL。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q057</span>
-                <h3 class="card-title" title="原题：Q14.9：如何避免测试 SQL 误操作生产数据？">Q057：如何避免测试 SQL 误操作生产数据？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.9：如何避免测试 SQL 误操作生产数据？">如何避免测试 SQL 误操作生产数据？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2409,9 +2586,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q058：多环境数据库如何切换？ Q14.10：多环境数据库如何切换？ Q14.10：多环境数据库如何切换？ 答题要点：这道题可以从主问题「Q14：数据库读写操作模块封装」里拆开回答，重点说清楚结论、落地位置和边界。 10. 多环境切换：config 按 env 取连接配置，运行时通过参数选择。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q058</span>
-                <h3 class="card-title" title="原题：Q14.10：多环境数据库如何切换？">Q058：多环境数据库如何切换？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q14.10：多环境数据库如何切换？">多环境数据库如何切换？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2436,9 +2615,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q059：先看接口响应还是应用日志？ Q15.1：先看接口响应还是应用日志？ Q15.1：先看接口响应还是应用日志？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 1. 先看响应还是日志：先确认接口 真的 返回成功——不只看 HTTP 200，要看 业务码 是否为成功（可能 200 但 code 非 0）。再结合应用日志。 6. 是否事务回滚：接口内后续步骤异常触发回滚，但响应已先返回成功（代码 bug）。 10. 用 traceId 定位全链路：拿接口返回或日志里的 traceId，串起网关→服务→MQ→DB 的完整调用链，精确定位卡在哪一环。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q059</span>
-                <h3 class="card-title" title="原题：Q15.1：先看接口响应还是应用日志？">Q059：先看接口响应还是应用日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.1：先看接口响应还是应用日志？">先看接口响应还是应用日志？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2465,9 +2646,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q060：如何确认请求参数是否正确？ Q15.2：如何确认请求参数是否正确？ Q15.2：如何确认请求参数是否正确？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 1. 先看响应还是日志：先确认接口 真的 返回成功——不只看 HTTP 200，要看 业务码 是否为成功（可能 200 但 code 非 0）。再结合应用日志。 2. 确认请求参数正确：是不是参数本身就没带对（比如 userId 传错），后端&amp;quot;成功&amp;quot;地处理了一个空操作。 3. 确认是否写到别的库/表：分库分表场景，可能写进了另一个分片，查错库了。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q060</span>
-                <h3 class="card-title" title="原题：Q15.2：如何确认请求参数是否正确？">Q060：如何确认请求参数是否正确？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.2：如何确认请求参数是否正确？">如何确认请求参数是否正确？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2494,9 +2677,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q061：如何确认数据是否写入了其他库或其他表？ Q15.3：如何确认数据是否写入了其他库或其他表？ Q15.3：如何确认数据是否写入了其他库或其他表？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 1. 先看响应还是日志：先确认接口 真的 返回成功——不只看 HTTP 200，要看 业务码 是否为成功（可能 200 但 code 非 0）。再结合应用日志。 3. 确认是否写到别的库/表：分库分表场景，可能写进了另一个分片，查错库了。 4. 是否异步写入：很多写操作走 MQ 异步落库，接口返回成功只代表消息发出去了，查太早自然没有 → 需要等待/轮询。 5. 是否写缓存没落库 / 消息丢失：先写 Redis 后异步落库，中间消息丢了。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q061</span>
-                <h3 class="card-title" title="原题：Q15.3：如何确认数据是否写入了其他库或其他表？">Q061：如何确认数据是否写入了其他库或其他表？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.3：如何确认数据是否写入了其他库或其他表？">如何确认数据是否写入了其他库或其他表？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2524,9 +2709,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q062：是否可能是异步写入？ Q15.4：是否可能是异步写入？ Q15.4：是否可能是异步写入？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 1. 先看响应还是日志：先确认接口 真的 返回成功——不只看 HTTP 200，要看 业务码 是否为成功（可能 200 但 code 非 0）。再结合应用日志。 3. 确认是否写到别的库/表：分库分表场景，可能写进了另一个分片，查错库了。 4. 是否异步写入：很多写操作走 MQ 异步落库，接口返回成功只代表消息发出去了，查太早自然没有 → 需要等待/轮询。 5. 是否写缓存没落库 / 消息丢失：先写 Redis 后异步落库，中间消息丢了。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q062</span>
-                <h3 class="card-title" title="原题：Q15.4：是否可能是异步写入？">Q062：是否可能是异步写入？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.4：是否可能是异步写入？">是否可能是异步写入？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2554,9 +2741,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q063：是否可能先写入缓存或消息队列？ Q15.5：是否可能先写入缓存或消息队列？ Q15.5：是否可能先写入缓存或消息队列？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 1. 先看响应还是日志：先确认接口 真的 返回成功——不只看 HTTP 200，要看 业务码 是否为成功（可能 200 但 code 非 0）。再结合应用日志。 3. 确认是否写到别的库/表：分库分表场景，可能写进了另一个分片，查错库了。 4. 是否异步写入：很多写操作走 MQ 异步落库，接口返回成功只代表消息发出去了，查太早自然没有 → 需要等待/轮询。 5. 是否写缓存没落库 / 消息丢失：先写 Redis 后异步落库，中间消息丢了。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q063</span>
-                <h3 class="card-title" title="原题：Q15.5：是否可能先写入缓存或消息队列？">Q063：是否可能先写入缓存或消息队列？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.5：是否可能先写入缓存或消息队列？">是否可能先写入缓存或消息队列？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2584,9 +2773,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q064：是否存在事务回滚？ Q15.6：是否存在事务回滚？ Q15.6：是否存在事务回滚？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 6. 是否事务回滚：接口内后续步骤异常触发回滚，但响应已先返回成功（代码 bug）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q064</span>
-                <h3 class="card-title" title="原题：Q15.6：是否存在事务回滚？">Q064：是否存在事务回滚？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.6：是否存在事务回滚？">是否存在事务回滚？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2611,9 +2802,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q065：是否存在数据库主从延迟？ Q15.7：是否存在数据库主从延迟？ Q15.7：是否存在数据库主从延迟？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 7. 是否主从延迟：写主库、查从库，主从同步有延迟 → 刚写完查从库查不到。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q065</span>
-                <h3 class="card-title" title="原题：Q15.7：是否存在数据库主从延迟？">Q065：是否存在数据库主从延迟？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.7：是否存在数据库主从延迟？">是否存在数据库主从延迟？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2638,9 +2831,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q066：如何设计轮询等待和重试查询？ Q15.8：如何设计轮询等待和重试查询？ Q15.8：如何设计轮询等待和重试查询？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 4. 是否异步写入：很多写操作走 MQ 异步落库，接口返回成功只代表消息发出去了，查太早自然没有 → 需要等待/轮询。 8. 轮询等待：针对异步，设计 带超时的重试查询（每隔 N 秒查一次，最多查 M 次），给异步留时间，避免误报。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q066</span>
-                <h3 class="card-title" title="原题：Q15.8：如何设计轮询等待和重试查询？">Q066：如何设计轮询等待和重试查询？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.8：如何设计轮询等待和重试查询？">如何设计轮询等待和重试查询？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2666,9 +2861,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q067：如何判断是业务代码问题还是测试脚本问题？ Q15.9：如何判断是业务代码问题还是测试脚本问题？ Q15.9：如何判断是业务代码问题还是测试脚本问题？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 1. 先看响应还是日志：先确认接口 真的 返回成功——不只看 HTTP 200，要看 业务码 是否为成功（可能 200 但 code 非 0）。再结合应用日志。 9. 业务代码问题 vs 脚本问题：脚本查错库/查询条件写错 → 脚本问题；参数对、时机对、库对，确实没写 → 业务 bug。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q067</span>
-                <h3 class="card-title" title="原题：Q15.9：如何判断是业务代码问题还是测试脚本问题？">Q067：如何判断是业务代码问题还是测试脚本问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.9：如何判断是业务代码问题还是测试脚本问题？">如何判断是业务代码问题还是测试脚本问题？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2694,9 +2891,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q068：如何通过 traceId 定位完整调用链？ Q15.10：如何通过 traceId 定位完整调用链？ Q15.10：如何通过 traceId 定位完整调用链？ 答题要点：这道题可以从主问题「Q15：接口返回成功但数据库没数据，如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 10. 用 traceId 定位全链路：拿接口返回或日志里的 traceId，串起网关→服务→MQ→DB 的完整调用链，精确定位卡在哪一环。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q068</span>
-                <h3 class="card-title" title="原题：Q15.10：如何通过 traceId 定位完整调用链？">Q068：如何通过 traceId 定位完整调用链？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q15.10：如何通过 traceId 定位完整调用链？">如何通过 traceId 定位完整调用链？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2721,9 +2920,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q069：数据库慢 SQL 如何排查？ Q18.5：数据库慢 SQL 如何排查？ Q18.5：数据库慢 SQL 如何排查？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 慢 SQL：慢查询日志 + explain（看 type=ALL 全表、key=NULL 没走索引、rows 巨大）。show processlist 看是否大量 Sending data 或锁等待。 80% 的&amp;quot;TPS 上不去&amp;quot;，最后查出来是 连接池/线程池配小了、一条慢 SQL、或一个同步锁，而不是机器不够。 所以遇到这题先别喊&amp;quot;加机器&amp;quot;——先拆 RT、再 jstack 看线程卡在哪。能把这套顺序讲出来，比背十条症状有用得多。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q069</span>
-                <h3 class="card-title" title="原题：Q18.5：数据库慢 SQL 如何排查？">Q069：数据库慢 SQL 如何排查？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.5：数据库慢 SQL 如何排查？">数据库慢 SQL 如何排查？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2749,9 +2950,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q070：数据库连接池不足会有什么表现？ Q18.7：数据库连接池不足会有什么表现？ Q18.7：数据库连接池不足会有什么表现？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 大量 WAITING 在 getConnection（Druid/HikariCP）→ 数据库连接池太小。Druid 监控看 active == max 且有 wait。 &amp;gt; ⚠️ 关键取舍：连接池/线程池调大 不是免费的——把应用的池调大，压力会直接传导到 DB，要先确认 DB 扛得住，否则只是把瓶颈从应用挪到 DB。 TPS 平了、但 RT 也平、资源也都不满 → 典型的 &amp;quot;假饱和&amp;quot;：被某个池或 限流 卡住了，去查线程池/连接池/限流配置。 80% 的&amp;quot;TPS 上不去&amp;quot;，最后查出来是 连接池/线程池配小了、一条慢 SQL、或一个同步锁，而不是机器不够。 所以遇到这题先别喊&amp;quot;加机器&amp;quot;——先拆 RT、再 jstack 看线程卡在哪。能把这套顺序讲出来，比背十条症状有用得多。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q070</span>
-                <h3 class="card-title" title="原题：Q18.7：数据库连接池不足会有什么表现？">Q070：数据库连接池不足会有什么表现？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.7：数据库连接池不足会有什么表现？">数据库连接池不足会有什么表现？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2779,9 +2982,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q071：数据库连接数是否打满？ Q19.5：数据库连接数是否打满？ Q19.5：数据库连接数是否打满？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 5. 数据库连接是否打满：Too many connections / 获取连接超时。 8. 是否死锁：数据库行锁/死锁，日志会有 Deadlock found。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q071</span>
-                <h3 class="card-title" title="原题：Q19.5：数据库连接数是否打满？">Q071：数据库连接数是否打满？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.5：数据库连接数是否打满？">数据库连接数是否打满？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2807,9 +3012,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q072：向量数据库中存储什么？ Q29.5：向量数据库中存储什么？ Q29.5：向量数据库中存储什么？ 答题要点：这道题可以从主问题「Q29：RAG 的完整流程」里拆开回答，重点说清楚结论、落地位置和边界。 4. embedding 是什么：把文本转成 高维向量，语义相近的文本向量距离也近，是语义检索的基础。 5. 向量数据库里存什么：向量 + 原文 chunk + 元数据（来源、标题、更新时间），检索命中向量后取回原文。 6. 余弦相似度解决什么：衡量两个向量的 语义相似程度，用来从向量库里找和问题最相关的内容。 8. rerank 为什么必要：向量召回是&amp;quot;粗排&amp;quot;，可能把相关性一般的也召回来；rerank（精排） 用更强的模型对候选重新打分排序，把最相关的排前面，显著提升质量。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q072</span>
-                <h3 class="card-title" title="原题：Q29.5：向量数据库中存储什么？">Q072：向量数据库中存储什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.5：向量数据库中存储什么？">向量数据库中存储什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

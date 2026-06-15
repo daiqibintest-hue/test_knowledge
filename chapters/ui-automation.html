@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：UI 自动化适合覆盖哪些场景？ 1. UI 自动化适合覆盖哪些场景？ 1. UI 自动化适合覆盖哪些场景？    ①核心业务的端到端冒烟（登录、下单、工单创建全流程）；②跨系统集成验证（前后端契约）；③回归保护关键流程不退化；④可视化回归（页面布局）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：1. UI 自动化适合覆盖哪些场景？">Q001：UI 自动化适合覆盖哪些场景？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. UI 自动化适合覆盖哪些场景？">UI 自动化适合覆盖哪些场景？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：UI 自动化不适合覆盖哪些场景？ 2. UI 自动化不适合覆盖哪些场景？ 2. UI 自动化不适合覆盖哪些场景？    ①频繁变更的页面（维护成本高）；②大量数据校验（接口更适合）；③复杂业务计算（直接接口测）；④性能测试（不准）；⑤覆盖率追求（用例数膨胀）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：2. UI 自动化不适合覆盖哪些场景？">Q002：UI 自动化不适合覆盖哪些场景？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. UI 自动化不适合覆盖哪些场景？">UI 自动化不适合覆盖哪些场景？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -787,9 +854,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：UI 自动化稳定性差的原因有哪些？ 3. UI 自动化稳定性差的原因有哪些？ 3. UI 自动化稳定性差的原因有哪些？    ①元素定位脆弱（class/id 变化）；②异步加载没等待充分；③数据状态不可控；④环境不稳定；⑤动画/弹窗干扰；⑥并发执行数据冲突；⑦验证码等防自动化机制。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：3. UI 自动化稳定性差的原因有哪些？">Q003：UI 自动化稳定性差的原因有哪些？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. UI 自动化稳定性差的原因有哪些？">UI 自动化稳定性差的原因有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -813,9 +882,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：元素定位有哪些方式？ 4. 元素定位有哪些方式？ 4. 元素定位有哪些方式？    ①ID（最稳）；②name；③CSS Selector；④XPath；⑤Link Text；⑥accessibility 属性（Playwright 推荐 getByRole/getByLabel）；⑦data-testid（最佳实践，专门为测试加）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：4. 元素定位有哪些方式？">Q004：元素定位有哪些方式？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 元素定位有哪些方式？">元素定位有哪些方式？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -839,9 +910,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：XPath 和 CSS Selector 怎么选择？ 5. XPath 和 CSS Selector 怎么选择？ 5. XPath 和 CSS Selector 怎么选择？    优先 CSS（性能好、可读性强）；XPath 在需要文本匹配、向上查找、复杂结构时用。Playwright 推荐用 getBy* API（更稳定语义化）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：5. XPath 和 CSS Selector 怎么选择？">Q005：XPath 和 CSS Selector 怎么选择？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. XPath 和 CSS Selector 怎么选择？">XPath 和 CSS Selector 怎么选择？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -865,9 +938,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：显式等待和隐式等待有什么区别？ 6. 显式等待和隐式等待有什么区别？ 6. 显式等待和隐式等待有什么区别？    - **隐式等待**：全局设置一个等待时长，元素未出现等待到超时；  - **显式等待**：对特定元素等待特定条件（可见/可点击/文本出现）。  显式更可控更推荐，Playwright 默认就是显式智能等待。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：6. 显式等待和隐式等待有什么区别？">Q006：显式等待和隐式等待有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 显式等待和隐式等待有什么区别？">显式等待和隐式等待有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -892,9 +967,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：Page Object 模式是什么？ 7. Page Object 模式是什么？ 7. Page Object 模式是什么？    将每个页面封装为一个 Class，页面元素作为属性，操作作为方法。测试用例只调用页面方法，不直接操作元素。优势：①UI 变更只改 Page Class；②用例可读性强；③复用性高。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：7. Page Object 模式是什么？">Q007：Page Object 模式是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. Page Object 模式是什么？">Page Object 模式是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -918,9 +995,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：UI 自动化如何处理验证码？ 8. UI 自动化如何处理验证码？ 8. UI 自动化如何处理验证码？    ①测试环境关闭验证码（最佳）；②白名单账号免验证码；③图形验证码用 OCR/打码平台（不稳定）；④滑块用接口绕过；⑤手机验证码用内部测试号池获取。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：8. UI 自动化如何处理验证码？">Q008：UI 自动化如何处理验证码？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. UI 自动化如何处理验证码？">UI 自动化如何处理验证码？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -944,9 +1023,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：UI 自动化如何处理文件上传？ 9. UI 自动化如何处理文件上传？ 9. UI 自动化如何处理文件上传？    Playwright 直接 `page.setInputFiles(selector, filePath)`，不用模拟系统对话框。文件准备：①固定路径放测试文件；②或测试前动态生成。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：9. UI 自动化如何处理文件上传？">Q009：UI 自动化如何处理文件上传？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. UI 自动化如何处理文件上传？">UI 自动化如何处理文件上传？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -970,9 +1051,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：UI 自动化如何处理弹窗？ 10. UI 自动化如何处理弹窗？ 10. UI 自动化如何处理弹窗？    ①浏览器原生弹窗：`page.on(&#x27;dialog&#x27;, d =&gt; d.accept())`；②业务弹窗：等待出现后操作；③意外弹窗：全局监听机制（autouse fixture）；④遮罩层等待消失再操作。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：10. UI 自动化如何处理弹窗？">Q010：UI 自动化如何处理弹窗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. UI 自动化如何处理弹窗？">UI 自动化如何处理弹窗？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -996,9 +1079,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：你项目里有没有做 UI 自动化？ 11. 你项目里有没有做 UI 自动化？ 11. 你项目里有没有做 UI 自动化？    做了核心冒烟用例（10 条），覆盖登录、工单创建、工单查询、业务文档生成主流程，每次发版前跑 5 分钟。我们 UI 自动化定位是&quot;端到端保护伞&quot;，不追求覆盖率，主力靠接口自动化（300+ 条）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：11. 你项目里有没有做 UI 自动化？">Q011：你项目里有没有做 UI 自动化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 你项目里有没有做 UI 自动化？">你项目里有没有做 UI 自动化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1022,9 +1107,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：如果没有，为什么主要做接口自动化？ 12. 如果没有，为什么主要做接口自动化？ 12. 如果没有，为什么主要做接口自动化？    ①接口稳定性好（变更少于 UI）；②速度快（接口几十毫秒，UI 几秒）；③能覆盖更多场景（异常路径接口才有）；④维护成本低；⑤AI 系统更需要接口级评估（断言更精确）。UI 只做 E2E 兜底。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：12. 如果没有，为什么主要做接口自动化？">Q012：如果没有，为什么主要做接口自动化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 如果没有，为什么主要做接口自动化？">如果没有，为什么主要做接口自动化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1048,9 +1135,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：你更推荐接口自动化还是 UI 自动化？为什么？ 13. 你更推荐接口自动化还是 UI 自动化？为什么？ 13. 你更推荐接口自动化还是 UI 自动化？为什么？    &quot;测试金字塔&quot;原则：单元测试 70% + 接口测试 20% + UI 测试 10%。接口为主因为投入产出比高。但 UI 不可省，作为 E2E 验证用户视角能不能跑通。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：13. 你更推荐接口自动化还是 UI 自动化？为什么？">Q013：你更推荐接口自动化还是 UI 自动化？为什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 你更推荐接口自动化还是 UI 自动化？为什么？">你更推荐接口自动化还是 UI 自动化？为什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1074,9 +1163,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：核心业务流程是否需要 E2E 自动化？ 14. 核心业务流程是否需要 E2E 自动化？ 14. 核心业务流程是否需要 E2E 自动化？    需要，但只覆盖 1-2 条主路径。比如&quot;业务人员登录 → 创建工单 → 生成业务文档 → 通知通知&quot;这条核心流程必有 E2E。其他用接口组合验证。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：14. 核心业务流程是否需要 E2E 自动化？">Q014：核心业务流程是否需要 E2E 自动化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 核心业务流程是否需要 E2E 自动化？">核心业务流程是否需要 E2E 自动化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1100,9 +1191,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：如何设计稳定的 UI 自动化框架？ 15. 如何设计稳定的 UI 自动化框架？ 15. 如何设计稳定的 UI 自动化框架？    五招：①Page Object 分层；②data-testid 定位；③智能等待替代 sleep；④独立测试数据；⑤失败重试 + 截图。再加 Playwright 自带的自动等待和录像 + 在 CI 上限并发。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：15. 如何设计稳定的 UI 自动化框架？">Q015：如何设计稳定的 UI 自动化框架？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 如何设计稳定的 UI 自动化框架？">如何设计稳定的 UI 自动化框架？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1126,9 +1219,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：Playwright 和 Selenium 有什么区别？ 16. Playwright 和 Selenium 有什么区别？ 16. Playwright 和 Selenium 有什么区别？    ①自动等待：Playwright 默认智能等待，Selenium 要手动；②API 现代：Playwright 用 async/locator 链式；③支持 Webkit/Edge 多浏览器内核；④速度更快（直连浏览器协议）；⑤功能丰富（网络拦截、视频录制原生）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：16. Playwright 和 Selenium 有什么区别？">Q016：Playwright 和 Selenium 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. Playwright 和 Selenium 有什么区别？">Playwright 和 Selenium 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1152,9 +1247,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：Playwright 的自动等待机制是什么？ 17. Playwright 的自动等待机制是什么？ 17. Playwright 的自动等待机制是什么？    Locator API 会等元素满足&quot;可见+可点击+稳定&quot;才操作，默认 30 秒超时。比如 `page.click(selector)` 内部会自动等待元素出现且 actionable，不需要写 sleep。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：17. Playwright 的自动等待机制是什么？">Q017：Playwright 的自动等待机制是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. Playwright 的自动等待机制是什么？">Playwright 的自动等待机制是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1178,9 +1275,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：Playwright 如何定位元素？ 18. Playwright 如何定位元素？ 18. Playwright 如何定位元素？    推荐 getBy* 系列：①getByRole（无障碍角色）；②getByLabel（表单标签）；③getByText（文本）；④getByTestId（data-testid）；⑤locator(css/xpath)。优先用语义化定位。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：18. Playwright 如何定位元素？">Q018：Playwright 如何定位元素？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. Playwright 如何定位元素？">Playwright 如何定位元素？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1204,9 +1303,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：Playwright 如何做网络拦截？ 19. Playwright 如何做网络拦截？ 19. Playwright 如何做网络拦截？    `page.route(&#x27;**/api/**&#x27;, route =&gt; route.fulfill({body: mockData}))`。可以拦截、Mock、修改请求或响应。测试场景：①Mock 第三方；②模拟错误；③离线模式。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：19. Playwright 如何做网络拦截？">Q019：Playwright 如何做网络拦截？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. Playwright 如何做网络拦截？">Playwright 如何做网络拦截？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1230,9 +1331,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：Playwright 如何录制脚本？ 20. Playwright 如何录制脚本？ 20. Playwright 如何录制脚本？    `playwright codegen &lt;url&gt;` 启动录制器，操作浏览器会实时生成代码。生成的代码用 getBy 语义化定位，作为脚本起点（仍需人工调整）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：20. Playwright 如何录制脚本？">Q020：Playwright 如何录制脚本？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. Playwright 如何录制脚本？">Playwright 如何录制脚本？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1256,9 +1359,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：Playwright 如何截图和录视频？ 21. Playwright 如何截图和录视频？ 21. Playwright 如何截图和录视频？    截图：`page.screenshot({path: &#x27;shot.png&#x27;, fullPage: true})`。视频：context 创建时配置 `recordVideo: {dir: &#x27;./videos&#x27;}`，每个测试自动录像。失败时把视频 attach 到 Allure。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：21. Playwright 如何截图和录视频？">Q021：Playwright 如何截图和录视频？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. Playwright 如何截图和录视频？">Playwright 如何截图和录视频？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1282,9 +1387,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：Playwright 如何处理多 Tab？ 22. Playwright 如何处理多 Tab？ 22. Playwright 如何处理多 Tab？    `const [newTab] = await Promise.all([context.waitForEvent(&#x27;page&#x27;), page.click(&#x27;a[target=_blank]&#x27;)])`。监听 page 事件捕获新 Tab，然后在 newTab 上操作。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：22. Playwright 如何处理多 Tab？">Q022：Playwright 如何处理多 Tab？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. Playwright 如何处理多 Tab？">Playwright 如何处理多 Tab？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1308,9 +1415,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：Playwright 如何处理下载？ 23. Playwright 如何处理下载？ 23. Playwright 如何处理下载？    监听 download 事件：`const [download] = await Promise.all([page.waitForEvent(&#x27;download&#x27;), page.click(&#x27;button&#x27;)]); await download.saveAs(path)`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：23. Playwright 如何处理下载？">Q023：Playwright 如何处理下载？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. Playwright 如何处理下载？">Playwright 如何处理下载？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1334,9 +1443,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：Playwright 如何做接口请求？ 24. Playwright 如何做接口请求？ 24. Playwright 如何做接口请求？    `page.request.get(url)` 或独立 `request` fixture。可以在 UI 测试中混合 API 调用做数据准备，避免每次都 UI 操作造数。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：24. Playwright 如何做接口请求？">Q024：Playwright 如何做接口请求？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. Playwright 如何做接口请求？">Playwright 如何做接口请求？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1360,9 +1471,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：如果用 Playwright MCP 生成脚本，如何保证脚本质量？ 26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？ 26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？    ①生成脚本后必须人工 Review；②加入静态分析检查（locator 用 data-testid、有断言）；③Sandbox 试跑 3 次稳定才入库；④定期跑稳定性扫描（连续 10 次成功率 ≥ 95%）；⑤AI 生成脚本与人工脚本风格统一。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？">Q025：如果用 Playwright MCP 生成脚本，如何保证脚本质量？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？">如果用 Playwright MCP 生成脚本，如何保证脚本质量？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1386,9 +1499,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：如何将 MCP 探索动作转成标准 Playwright 脚本？ 28. 如何将 MCP 探索动作转成标准 Playwright 脚本？ 28. 如何将 MCP 探索动作转成标准 Playwright 脚本？    ①录制 MCP 调用序列；②生成 Page Object 骨架；③把动作填入对应方法；④加入断言（基于探索时发现的关键元素）；⑤代码格式化和 lint；⑥人工 Review 优化。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：28. 如何将 MCP 探索动作转成标准 Playwright 脚本？">Q026：如何将 MCP 探索动作转成标准 Playwright 脚本？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. 如何将 MCP 探索动作转成标准 Playwright 脚本？">如何将 MCP 探索动作转成标准 Playwright 脚本？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1412,9 +1527,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：如何做 Page Object 封装？ 29. 如何做 Page Object 封装？ 29. 如何做 Page Object 封装？      ```python  class LoginPage:      def __init__(self, page):          self.page = page          self.username = page.get_by_label(&#x27;用户名&#x27;)          self.password = page.get_by_label(&#x27;密码&#x27;)          self.submit = page.get_by_role(&#x27;button&#x27;, name=&#x27;登录&#x27;)            def login(self, user, pwd):          self.username.fill(user)          self.password.fill(pwd)          self.submit.click()  ```    测试用例只调 page object 方法，不直接操作元素。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：29. 如何做 Page Object 封装？">Q027：如何做 Page Object 封装？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. 如何做 Page Object 封装？">如何做 Page Object 封装？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1449,9 +1566,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：Web/UI 自动化怎么写、有没有做过 1&amp;3&amp;5 / Web/UI 自动化怎么写、有没有做过 1&amp;3&amp;5 / Web/UI 自动化怎么写、有没有做过  基于 Selenium（或 Playwright），采用 **PO（Page Object）模式**：页面元素与操作封装到页面类，用例只调用页面方法，元素变更只改一处。用 pytest 组织用例 + 显式等待 + 截图 + allure 报告 + Jenkins 执行。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：1&amp;3&amp;5 / Web/UI 自动化怎么写、有没有做过">Q028：Web/UI 自动化怎么写、有没有做过</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1&amp;3&amp;5 / Web/UI 自动化怎么写、有没有做过">Web/UI 自动化怎么写、有没有做过</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1475,9 +1594,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：UI 自动化原理 6 / UI 自动化原理 6 / UI 自动化原理  - **Selenium / Appium**：基于 **W3C WebDriver 协议**驱动浏览器/设备。测试脚本 → WebDriver（如 ChromeDriver / uiautomator2 / XCUITest）→ 浏览器/App，模拟用户操作（点击/输入/滑动）并读取页面状态做断言。  - **Playwright**：不走 WebDriver 协议，而是通过浏览器自带的 **DevTools/调试协议（CDP 等）**直接与浏览器内核通信，自带自动等待、单进程多上下文，通常更快更稳。  - 共同本质：用程序模拟用户操作页面/控件并断言其状态。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：6 / UI 自动化原理">Q029：UI 自动化原理</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / UI 自动化原理">UI 自动化原理</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1501,9 +1622,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：UI 自动化优缺点 7 / UI 自动化优缺点 7 / UI 自动化优缺点  - 优点：贴近真实用户、端到端覆盖、能发现集成与展示层问题。  - 缺点：执行慢、稳定性差（受页面/网络影响易 flaky）、维护成本高。  - 结论：UI 自动化只覆盖核心主流程，大量逻辑下沉到接口/单元层（测试金字塔）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：7 / UI 自动化优缺点">Q030：UI 自动化优缺点</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7 / UI 自动化优缺点">UI 自动化优缺点</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

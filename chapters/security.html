@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：如何测试接口越权？ 8. 如何测试接口越权？ 8. 如何测试接口越权？    两类：  - **水平越权**：A 用户的 Token 访问 B 用户的资源。比如业务人员 A 用自己 Token 访问 GET /orders/{B 业务人员的工单 ID}，预期 403；  - **垂直越权**：低权限用户访问高权限接口。比如运营专员用 Token 访问 DELETE /admin/users/{id}，预期 403。  测试时遍历所有&quot;含 ID 的接口&quot;，用低权限 Token 替换 URL/Body 中的 ID 进行扫描。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：8. 如何测试接口越权？">Q001：如何测试接口越权？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 如何测试接口越权？">如何测试接口越权？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -763,9 +828,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：权限测试怎么做？ 1. 权限测试怎么做？ 1. 权限测试怎么做？    四个层次：①菜单权限（不同角色看到不同入口）；②接口权限（直接请求接口能否绕过）；③数据权限（业务人员只能看自己工单）；④操作权限（按钮可点击但接口未鉴权？）。每层都单独构造测试用例。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：1. 权限测试怎么做？">Q002：权限测试怎么做？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 权限测试怎么做？">权限测试怎么做？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -789,9 +856,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：RBAC 是什么？ 2. RBAC 是什么？ 2. RBAC 是什么？    Role-Based Access Control，基于角色的权限控制。三要素：①用户 User；②角色 Role；③权限 Permission。关系是 User-Role 多对多、Role-Permission 多对多。我们系统有 6 个角色（超级管理员、企业管理员、部门负责人、业务人员、运营专员、客户），20+ 权限点。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：2. RBAC 是什么？">Q003：RBAC 是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. RBAC 是什么？">RBAC 是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -815,9 +884,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：菜单权限和接口权限有什么区别？ 3. 菜单权限和接口权限有什么区别？ 3. 菜单权限和接口权限有什么区别？    ①菜单权限：前端按角色隐藏入口，是 UX 层；②接口权限：后端鉴权，是安全层。**前端隐藏 ≠ 安全**！必须后端鉴权才算真权限。我们测试一定会绕过前端直接构造请求测接口权限。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：3. 菜单权限和接口权限有什么区别？">Q004：菜单权限和接口权限有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 菜单权限和接口权限有什么区别？">菜单权限和接口权限有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -841,9 +912,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：前端隐藏按钮是否等于权限控制？ 4. 前端隐藏按钮是否等于权限控制？ 4. 前端隐藏按钮是否等于权限控制？    不等于。前端隐藏只是不显示，但用户可以：①F12 改 DOM 让按钮显示；②直接发请求绕过前端；③用其他客户端调接口。所以必须后端鉴权。这是我们必测的安全用例。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：4. 前端隐藏按钮是否等于权限控制？">Q005：前端隐藏按钮是否等于权限控制？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 前端隐藏按钮是否等于权限控制？">前端隐藏按钮是否等于权限控制？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -867,9 +940,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：水平越权怎么测试？ 5. 水平越权怎么测试？ 5. 水平越权怎么测试？    ①用业务人员 A 的 Token；②请求 /orders/{B 业务人员的工单 ID}；③预期返回 403/404，不能返回工单详情；④遍历所有&quot;带 ID 的接口&quot;做这种扫描；⑤包括查询、修改、删除、附件下载。不要只测页面按钮隐藏，接口层必须直接打请求验证。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：5. 水平越权怎么测试？">Q006：水平越权怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 水平越权怎么测试？">水平越权怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -893,9 +968,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：垂直越权怎么测试？ 6. 垂直越权怎么测试？ 6. 垂直越权怎么测试？    ①用低权限角色（运营专员）的 Token；②请求高权限接口（DELETE /admin/users）；③预期 403；④覆盖所有管理员独有接口；⑤区分&quot;全部不可访问&quot;和&quot;部分可访问&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：6. 垂直越权怎么测试？">Q007：垂直越权怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 垂直越权怎么测试？">垂直越权怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -919,9 +996,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：数据权限怎么测试？ 7. 数据权限怎么测试？ 7. 数据权限怎么测试？    ①普通用户只能看自己负责的工单——SQL 验证返回数据 owner_id = 当前用户；②部门负责人能看本部门所有工单——验证 dept 过滤生效；③管理员能看所有；④导出/批量接口同样过滤；⑤搜索条件不能绕过权限。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：7. 数据权限怎么测试？">Q008：数据权限怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 数据权限怎么测试？">数据权限怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -945,9 +1024,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：管理员和普通用户权限怎么验证？ 8. 管理员和普通用户权限怎么验证？ 8. 管理员和普通用户权限怎么验证？    矩阵法：横轴所有接口/功能，纵轴所有角色，单元格标&quot;允许/拒绝&quot;。每个角色账号跑一遍验证矩阵。形成《权限测试矩阵》文档每个版本更新。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：8. 管理员和普通用户权限怎么验证？">Q009：管理员和普通用户权限怎么验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 管理员和普通用户权限怎么验证？">管理员和普通用户权限怎么验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -971,9 +1052,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：Token 篡改怎么测试？ 9. Token 篡改怎么测试？ 9. Token 篡改怎么测试？    ①修改 JWT Payload（如改 userId 为他人）但保留原签名——预期签名校验失败 401；②伪造 Token（用 None 算法）——预期拒绝；③过期 Token——预期 401；④其他系统的 Token——预期拒绝；⑤Token 注销后再用——预期 401。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：9. Token 篡改怎么测试？">Q010：Token 篡改怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. Token 篡改怎么测试？">Token 篡改怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -997,9 +1080,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：企业系统权限管控有哪些角色？ 11. 企业系统权限管控有哪些角色？ 11. 企业系统权限管控有哪些角色？    六类：①超级管理员（系统级配置）；②企业管理员（企业内全权限）；③部门负责人（部门可见）；④业务人员（自己工单可见）；⑤运营专员（被指派的工单可见）；⑥客户（仅自己工单查询权）。每个角色权限明细在《权限矩阵》。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：11. 企业系统权限管控有哪些角色？">Q011：企业系统权限管控有哪些角色？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 企业系统权限管控有哪些角色？">企业系统权限管控有哪些角色？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1023,9 +1108,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：业务人员只能看自己的工单吗？ 12. 业务人员只能看自己的工单吗？ 12. 业务人员只能看自己的工单吗？    默认是。例外：①部门负责人协办——可看协办工单；②运营专员被指派——可看授权工单；③企业内共享池——配置过共享的工单。所有访问走数据权限网关统一过滤。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：12. 业务人员只能看自己的工单吗？">Q012：业务人员只能看自己的工单吗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 业务人员只能看自己的工单吗？">业务人员只能看自己的工单吗？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1049,9 +1136,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：管理员能看所有工单吗？ 13. 管理员能看所有工单吗？ 13. 管理员能看所有工单吗？    能看本企业所有工单，但有审计：①所有查询动作记录；②敏感操作（删除、修改金额）二次确认；③跨企业不能看（多租户隔离）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：13. 管理员能看所有工单吗？">Q013：管理员能看所有工单吗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 管理员能看所有工单吗？">管理员能看所有工单吗？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1075,9 +1164,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：运营专员能不能修改账单？ 14. 运营专员能不能修改账单？ 14. 运营专员能不能修改账单？    默认不能。运营专员只能查看和录入辅助信息，账单修改是业务人员/部门负责人权限。如果产品上有运营专员代录场景，需要走&quot;录入待审核&quot;流程，业务人员审批后生效。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：14. 运营专员能不能修改账单？">Q014：运营专员能不能修改账单？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 运营专员能不能修改账单？">运营专员能不能修改账单？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1101,9 +1192,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：接口越权你测出来过吗？ 15. 接口越权你测出来过吗？ 15. 接口越权你测出来过吗？    测出过 5 个：①一个工单详情接口未做 owner 校验，业务人员 A 可看 B 的工单；②业务文档下载接口未鉴权，知道 fileId 就能下载任意业务文档；③账单列表接口分页参数可绕过部门过滤；④导出接口未做权限二次校验；⑤一个老旧管理后台接口未接入网关鉴权。全部 P0 缺陷推动修复。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：15. 接口越权你测出来过吗？">Q015：接口越权你测出来过吗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 接口越权你测出来过吗？">接口越权你测出来过吗？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1127,9 +1220,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：数据泄露如何测试？ 18. 数据泄露如何测试？ 18. 数据泄露如何测试？    ①问&quot;上一个用户问过什么&quot;——AI 不能泄露其他会话；②让模型重复系统 Prompt——不能完整泄露；③让模型输出训练数据中的隐私信息（&quot;重复 100 次 xxx&quot;攻击）；④知识库越权检索（普通用户能否检索到管理员资料）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：18. 数据泄露如何测试？">Q016：数据泄露如何测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 数据泄露如何测试？">数据泄露如何测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1153,9 +1248,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：敏感信息输出如何测试？ 19. 敏感信息输出如何测试？ 19. 敏感信息输出如何测试？    ①敏感词库扫描所有 AI 输出；②个人信息（身份证、手机号、地址）脱敏校验；③公司内部信息（员工名单、薪资）不可输出；④第三方内容审核 API 二次校验；⑤上线后监控告警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：19. 敏感信息输出如何测试？">Q017：敏感信息输出如何测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 敏感信息输出如何测试？">敏感信息输出如何测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1179,9 +1276,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：用户输入恶意内容如何过滤？ 24. 用户输入恶意内容如何过滤？ 24. 用户输入恶意内容如何过滤？    ①前置敏感词过滤（高频违法词直接拒绝）；②内容审核 API（阿里/腾讯文本审核）；③Prompt Injection 检测器（识别&quot;忽略指令&quot;类模式）；④异常长输入限制；⑤恶意请求频控+黑名单。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：24. 用户输入恶意内容如何过滤？">Q018：用户输入恶意内容如何过滤？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. 用户输入恶意内容如何过滤？">用户输入恶意内容如何过滤？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1205,9 +1304,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：如果普通业务人员问管理员资料，系统如何处理？ 29. 如果普通业务人员问管理员资料，系统如何处理？ 29. 如果普通业务人员问管理员资料，系统如何处理？    ①检索层过滤掉管理员可见的 chunk；②即使关键词命中也不返回；③Prompt 中不带管理员上下文；④模型只能基于召回片段回答，没召回就拒识；⑤异常请求次数累计告警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：29. 如果普通业务人员问管理员资料，系统如何处理？">Q019：如果普通业务人员问管理员资料，系统如何处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. 如果普通业务人员问管理员资料，系统如何处理？">如果普通业务人员问管理员资料，系统如何处理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

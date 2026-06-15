@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：Jenkins 如何执行 Pytest？ 6. Jenkins 如何执行 Pytest？ 6. Jenkins 如何执行 Pytest？      ```groovy  sh &#x27;. .venv/bin/activate &amp;&amp; pytest -m regression --alluredir=reports/raw -n auto --reruns 1&#x27;  ```    参数化通过 Jenkins parameters（环境、用例标签、并发数）注入。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：6. Jenkins 如何执行 Pytest？">Q001：Jenkins 如何执行 Pytest？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. Jenkins 如何执行 Pytest？">Jenkins 如何执行 Pytest？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -762,9 +827,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：如何做参数化？ 27. 如何做参数化？ 27. 如何做参数化？    四种方式：①CSV Data Set（推荐，外部文件）；②User Defined Variables（少量静态变量）；③Random Variable（随机值）；④JSR223 PreProcessor（动态生成）。账号密码用 CSV，时间戳/uuid 用函数 ${__time()}、${__UUID()}。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：27. 如何做参数化？">Q002：如何做参数化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：27. 如何做参数化？">如何做参数化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -788,9 +855,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：pytest fixture 夹具 5 / pytest fixture 夹具 5 / pytest fixture 夹具  fixture 用于管理用例的前置/后置（如建连接、登录拿 token、造数据、清理）。用 `@pytest.fixture` 定义，用例通过参数注入；`scope` 控制作用域（function/class/module/session）；`yield` 之后写清理逻辑；`autouse=True` 自动应用；支持 `conftest.py` 全局共享。  ```python  @pytest.fixture(scope=&quot;session&quot;)  def token():      t = login()      yield t      logout(t)  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：5 / pytest fixture 夹具">Q003：pytest fixture 夹具</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5 / pytest fixture 夹具">pytest fixture 夹具</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -819,9 +888,11 @@ def token():
                      data-search="Q004：fixture 的作用与使用 Q6：fixture 的作用与使用 Q6：fixture 的作用与使用    fixture 用来管理用例的 **前置/后置**（准备数据、登录、连接 DB、清理脏数据），实现复用和&quot;测试逻辑与准备逻辑解耦&quot;。用例只需把 fixture 名写进参数，pytest 自动注入。    **1. scope 区别**：    - `function`（默认）：每个用例执行一次。  - `class`：每个测试类一次。  - `module`：每个文件一次。  - `session`：整个测试会话只执行一次。    **2. 登录 token 用 `session`**：登录一次全局复用，省时间，也避免频繁登录被风控/触发验证码。    **3. 每条用例都要重新登录**：那就 **不该用 session**，改 `function`；或者参数化不同账号（多账号场景）。session 的前提是&quot;token 可全局共享且有效期够&quot;。    **4. fixture 互相依赖**：可以。一个 fixture 把另一个 fixture 当参数即可，pytest 自动解析依赖顺序。    **5. 返回值传递**：fixture 的返回值（`return` 或 `yield` 的值）通过 **同名参数** 注入用例。    **6. `autouse=True`**：不用显式声明就自动对作用域内所有用例生效，适合全局性前置（环境检查、统一日志上下文）。慎用，会降低可读性。    **7. `yield` vs `return`**：`return` 只能做前置；`yield` 可以在用例结束后继续执行 **后置清理**（teardown）。    **8. 用 `yield` 清理数据**：    ```python  @pytest.fixture  def order(login_headers):      order_id = OrderApi.create(login_headers)   # 前置：造单      yield order_id      OrderApi.delete(order_id, login_headers)     # 后置：清理  ```    **9. fixture 失败**：依赖它的用例会被标记为 **error（不是 fail）**，并跳过执行——这正是用 fixture 管前置的好处：前置挂了能和&quot;用例本身断言失败&quot;区分开。    **10. 参数化 fixture**：`@pytest.fixture(params=[...])`，配合 `request.param` 取值，让同一前置跑多组配置。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：Q6：fixture 的作用与使用">Q004：fixture 的作用与使用</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6：fixture 的作用与使用">fixture 的作用与使用</h3>
+                  <div class="card-meta"><span>来源：02-pytest深入.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">02-pytest深入.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -861,9 +932,11 @@ def order(login_headers):
                      data-search="Q005：conftest.py 的作用 Q7：conftest.py 的作用 Q7：conftest.py 的作用    `conftest.py` 是 pytest 的 **共享 fixture 和 hook 容器**，同目录及子目录的用例可直接使用，无需 import。    **1. 不需要手动导入**：pytest 自动发现，这是它和普通工具模块最大的区别。    **2. 多级目录多个 conftest**：**就近原则 + 层叠生效**。根目录 conftest 全局可用，子目录 conftest 只对该目录及子目录生效，可覆盖父级同名 fixture。    **3. 哪些公共能力放 conftest**：跨用例共享的 fixture（登录、环境、数据清理）、自定义命令行参数（`pytest_addoption`）、各种 hook。    **4. 不同业务模块不同前置**：各业务目录放各自的 `conftest.py`，互不干扰。    **5/6. 不要放大量业务逻辑**：conftest 只放 **编排级 fixture**，真正的业务实现下沉到 `api`/`common`。否则 conftest 越来越臃肿、难维护。    **7. session 级 fixture** 一般放 **根目录 conftest**。    **8. `test_*.py` vs `conftest.py`**：前者是用例文件会被收集执行；后者是配置/fixture 容器，**不会被当成用例收集**。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：Q7：conftest.py 的作用">Q005：conftest.py 的作用</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7：conftest.py 的作用">conftest.py 的作用</h3>
+                  <div class="card-meta"><span>来源：02-pytest深入.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">02-pytest深入.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -894,9 +967,11 @@ def order(login_headers):
                      data-search="Q006：参数化使用 Q8：参数化使用 Q8：参数化使用    **1. 基本语法**：    ```python  @pytest.mark.parametrize(&quot;username, expected&quot;, [      (&quot;test01&quot;, 0),      (&quot;&quot;, 10001),  ])  def test_login(username, expected):      ...  ```    **2. 数据来自 YAML**：先 `yaml.safe_load` 读成 list，再喂给 `parametrize`。    **3. 一条 YAML 10 组数据 → 10 条用例**：list 有几个元素就生成几条用例。    **4. Allure 标题**：用 `ids=[...]` 给每条起名，或在用例内 `allure.dynamic.title(case[&quot;name&quot;])` 动态设置标题。    **5. 一组失败其他继续**：参数化的每组是独立用例，互不影响，一组 fail 不影响其余。    **6. 自定义 id**：`ids=[c[&quot;name&quot;] for c in cases]`，报告里就显示中文用例名而不是 `case0/case1`。    **7. 多参数组合**：堆叠多个 `parametrize` 装饰器 = **笛卡尔积**。    **8. 笛卡尔积问题**：用例数 **爆炸**（3×4×5=60），执行慢、报告乱。要么显式列组合，要么收敛维度。    **9. 数据量大时控制效率**：抽样/分级（smoke 只跑核心子集）、用 `pytest-xdist` 并发执行（`-n auto`）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：Q8：参数化使用">Q006：参数化使用</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8：参数化使用">参数化使用</h3>
+                  <div class="card-meta"><span>来源：02-pytest深入.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">02-pytest深入.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -934,9 +1009,11 @@ def test_login(username, expected):
                      data-search="Q007：marker 使用 Q9：marker 使用 Q9：marker 使用    **1. `@pytest.mark.smoke`**：给用例打 **分类标签**，便于按需挑选执行。    **2. 只跑 smoke**：`pytest -m smoke`。    **3. 排除 smoke**：`pytest -m &quot;not smoke&quot;`。    **4. 需在 pytest.ini 注册**：`markers =` 下声明，否则会有 `PytestUnknownMarkWarning` 告警；严格模式（`--strict-markers`）下会直接报错。    **5. 标签划分**：按用途 `smoke / regression`，按业务 `order / pay / user`，组合使用。    **6. 一条用例多个 marker**：可以叠加。    **7. 结合 Jenkins**：把 `-m` 作为构建参数传入，冒烟流水线传 `smoke`，全量流水线不传或传 `regression`。    **8. 标签过多的问题**：标签泛滥后没人知道该打哪个、组合查询混乱。要有 **统一的标签规范** 并文档化。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：Q9：marker 使用">Q007：marker 使用</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9：marker 使用">marker 使用</h3>
+                  <div class="card-meta"><span>来源：02-pytest深入.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">02-pytest深入.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -967,9 +1044,11 @@ def test_login(username, expected):
                      data-search="Q008：pytest.ini 常配置项 Q10：pytest.ini 常配置项 Q10：pytest.ini 常配置项    ```ini  [pytest]  # 测试文件 / 类 / 方法 的收集命名规则  python_files = test_*.py  python_classes = Test*  python_functions = test_*  # 注册自定义标签，避免 PytestUnknownMarkWarning  markers =      smoke: 冒烟用例      regression: 回归用例  # 控制台实时输出日志及级别  log_cli = true  log_cli_level = INFO  # 默认执行参数  addopts = -v --alluredir=./report/allure-results --clean-alluredir  ```    - **1/2/3.** `python_files` / `python_classes` / `python_functions` 控制收集规则。  - **4.** `markers` 注册自定义标签。  - **5.** `log_cli_level` 配日志级别。  - **6.** `addopts` 配默认执行参数。  - **7.** `--alluredir` 指定 Allure 结果目录。  - **8. 避免和 Jenkins 命令冲突**：`pytest.ini` 只放 **稳定不变** 的项（命名规则、marker 注册）；**动态项**（环境、`-m` 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。  - **9. `addopts`**：每次执行自动追加的命令行参数，相当于&quot;默认参数&quot;。  - **注意**：注释 **单独成行**（`#` 或 `;` 开头）。**不要在配置值后面写行内注释**——某些解析器会把 `; xxx` 当成值的一部分（比如 `python_files` 的值变成 `test_*.py ; 注释`），导致收集规则失效。面试手写时直接不写注释最稳。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：Q10：pytest.ini 常配置项">Q008：pytest.ini 常配置项</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10：pytest.ini 常配置项">pytest.ini 常配置项</h3>
+                  <div class="card-meta"><span>来源：02-pytest深入.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">02-pytest深入.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1007,9 +1086,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q009：`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？ Q6.1：`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？ Q6.1：`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 1. scope 区别： function（默认）：每个用例执行一次。 class：每个测试类一次。 module：每个文件一次。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：Q6.1：`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？">Q009：`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.1：`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？">`scope=&quot;function&quot;`、`class`、`module`、`session` 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1037,9 +1118,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q010：为什么登录 token 适合使用 `scope=&quot;session&quot;`？ Q6.2：为什么登录 token 适合使用 `scope=&quot;session&quot;`？ Q6.2：为什么登录 token 适合使用 `scope=&quot;session&quot;`？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 1. scope 区别： session：整个测试会话只执行一次。 2. 登录 token 用 session：登录一次全局复用，省时间，也避免频繁登录被风控/触发验证码。 3. 每条用例都要重新登录：那就 不该用 session，改 function；或者参数化不同账号（多账号场景）。session 的前提是&amp;quot;token 可全局共享且有效期够&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：Q6.2：为什么登录 token 适合使用 `scope=&quot;session&quot;`？">Q010：为什么登录 token 适合使用 `scope=&quot;session&quot;`？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.2：为什么登录 token 适合使用 `scope=&quot;session&quot;`？">为什么登录 token 适合使用 `scope=&quot;session&quot;`？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1067,9 +1150,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q011：如果每条用例都需要重新登录，还适合使用 session 吗？ Q6.3：如果每条用例都需要重新登录，还适合使用 session 吗？ Q6.3：如果每条用例都需要重新登录，还适合使用 session 吗？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 session：整个测试会话只执行一次。 2. 登录 token 用 session：登录一次全局复用，省时间，也避免频繁登录被风控/触发验证码。 3. 每条用例都要重新登录：那就 不该用 session，改 function；或者参数化不同账号（多账号场景）。session 的前提是&amp;quot;token 可全局共享且有效期够&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：Q6.3：如果每条用例都需要重新登录，还适合使用 session 吗？">Q011：如果每条用例都需要重新登录，还适合使用 session 吗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.3：如果每条用例都需要重新登录，还适合使用 session 吗？">如果每条用例都需要重新登录，还适合使用 session 吗？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1097,9 +1182,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q012：fixture 之间能否相互依赖？ Q6.4：fixture 之间能否相互依赖？ Q6.4：fixture 之间能否相互依赖？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 4. fixture 互相依赖：可以。一个 fixture 把另一个 fixture 当参数即可，pytest 自动解析依赖顺序。 5. 返回值传递：fixture 的返回值（return 或 yield 的值）通过 同名参数 注入用例。 @pytest.fixture def order(login_headers):     order_id = OrderApi.create(login_headers)   # 前置：造单     yield order_id     OrderApi.delete(order_id, login_headers)     # 后置：清理">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：Q6.4：fixture 之间能否相互依赖？">Q012：fixture 之间能否相互依赖？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.4：fixture 之间能否相互依赖？">fixture 之间能否相互依赖？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1131,9 +1218,11 @@ def order(login_headers):
                      data-search="Q013：fixture 返回值如何传递给测试用例？ Q6.5：fixture 返回值如何传递给测试用例？ Q6.5：fixture 返回值如何传递给测试用例？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 4. fixture 互相依赖：可以。一个 fixture 把另一个 fixture 当参数即可，pytest 自动解析依赖顺序。 5. 返回值传递：fixture 的返回值（return 或 yield 的值）通过 同名参数 注入用例。 @pytest.fixture def order(login_headers):     order_id = OrderApi.create(login_headers)   # 前置：造单     yield order_id     OrderApi.delete(order_id, login_headers)     # 后置：清理">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：Q6.5：fixture 返回值如何传递给测试用例？">Q013：fixture 返回值如何传递给测试用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.5：fixture 返回值如何传递给测试用例？">fixture 返回值如何传递给测试用例？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1165,9 +1254,11 @@ def order(login_headers):
                      data-search="Q014：`autouse=True` 有什么作用？ Q6.6：`autouse=True` 有什么作用？ Q6.6：`autouse=True` 有什么作用？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 6. autouse=True：不用显式声明就自动对作用域内所有用例生效，适合全局性前置（环境检查、统一日志上下文）。慎用，会降低可读性。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：Q6.6：`autouse=True` 有什么作用？">Q014：`autouse=True` 有什么作用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.6：`autouse=True` 有什么作用？">`autouse=True` 有什么作用？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1192,9 +1283,11 @@ def order(login_headers):
                      data-search="Q015：`yield` fixture 和 `return` fixture 有什么区别？ Q6.7：`yield` fixture 和 `return` fixture 有什么区别？ Q6.7：`yield` fixture 和 `return` fixture 有什么区别？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 4. fixture 互相依赖：可以。一个 fixture 把另一个 fixture 当参数即可，pytest 自动解析依赖顺序。 5. 返回值传递：fixture 的返回值（return 或 yield 的值）通过 同名参数 注入用例。 7. yield vs return：return 只能做前置；yield 可以在用例结束后继续执行 后置清理（teardown）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：Q6.7：`yield` fixture 和 `return` fixture 有什么区别？">Q015：`yield` fixture 和 `return` fixture 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.7：`yield` fixture 和 `return` fixture 有什么区别？">`yield` fixture 和 `return` fixture 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1222,9 +1315,11 @@ def order(login_headers):
                      data-search="Q016：如何利用 `yield` 做测试数据清理？ Q6.8：如何利用 `yield` 做测试数据清理？ Q6.8：如何利用 `yield` 做测试数据清理？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 5. 返回值传递：fixture 的返回值（return 或 yield 的值）通过 同名参数 注入用例。 7. yield vs return：return 只能做前置；yield 可以在用例结束后继续执行 后置清理（teardown）。 8. 用 yield 清理数据：">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：Q6.8：如何利用 `yield` 做测试数据清理？">Q016：如何利用 `yield` 做测试数据清理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.8：如何利用 `yield` 做测试数据清理？">如何利用 `yield` 做测试数据清理？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1252,9 +1347,11 @@ def order(login_headers):
                      data-search="Q017：fixture 执行失败后，依赖它的用例会怎样？ Q6.9：fixture 执行失败后，依赖它的用例会怎样？ Q6.9：fixture 执行失败后，依赖它的用例会怎样？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 4. fixture 互相依赖：可以。一个 fixture 把另一个 fixture 当参数即可，pytest 自动解析依赖顺序。 5. 返回值传递：fixture 的返回值（return 或 yield 的值）通过 同名参数 注入用例。 @pytest.fixture def order(login_headers):     order_id = OrderApi.create(login_headers)   # 前置：造单     yield order_id     OrderApi.delete(order_id, login_headers)     # 后置：清理">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：Q6.9：fixture 执行失败后，依赖它的用例会怎样？">Q017：fixture 执行失败后，依赖它的用例会怎样？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.9：fixture 执行失败后，依赖它的用例会怎样？">fixture 执行失败后，依赖它的用例会怎样？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1286,9 +1383,11 @@ def order(login_headers):
                      data-search="Q018：如何对 fixture 进行参数化？ Q6.10：如何对 fixture 进行参数化？ Q6.10：如何对 fixture 进行参数化？ 答题要点：这道题可以从主问题「Q6：fixture 的作用与使用」里拆开回答，重点说清楚结论、落地位置和边界。 fixture 用来管理用例的 前置/后置（准备数据、登录、连接 DB、清理脏数据），实现复用和&amp;quot;测试逻辑与准备逻辑解耦&amp;quot;。用例只需把 fixture 名写进参数，pytest 自动注入。 4. fixture 互相依赖：可以。一个 fixture 把另一个 fixture 当参数即可，pytest 自动解析依赖顺序。 5. 返回值传递：fixture 的返回值（return 或 yield 的值）通过 同名参数 注入用例。 @pytest.fixture def order(login_headers):     order_id = OrderApi.create(login_headers)   # 前置：造单     yield order_id     OrderApi.delete(order_id, login_headers)     # 后置：清理">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：Q6.10：如何对 fixture 进行参数化？">Q018：如何对 fixture 进行参数化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q6.10：如何对 fixture 进行参数化？">如何对 fixture 进行参数化？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1320,9 +1419,11 @@ def order(login_headers):
                      data-search="Q019：conftest.py 中的 fixture 是否需要手动导入？ Q7.1：conftest.py 中的 fixture 是否需要手动导入？ Q7.1：conftest.py 中的 fixture 是否需要手动导入？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 1. 不需要手动导入：pytest 自动发现，这是它和普通工具模块最大的区别。 2. 多级目录多个 conftest：就近原则 + 层叠生效。根目录 conftest 全局可用，子目录 conftest 只对该目录及子目录生效，可覆盖父级同名 fixture。 3. 哪些公共能力放 conftest：跨用例共享的 fixture（登录、环境、数据清理）、自定义命令行参数（pytest_addoption）、各种 hook。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：Q7.1：conftest.py 中的 fixture 是否需要手动导入？">Q019：conftest.py 中的 fixture 是否需要手动导入？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.1：conftest.py 中的 fixture 是否需要手动导入？">conftest.py 中的 fixture 是否需要手动导入？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1350,9 +1451,11 @@ def order(login_headers):
                      data-search="Q020：多级目录中存在多个 conftest.py 时如何生效？ Q7.2：多级目录中存在多个 conftest.py 时如何生效？ Q7.2：多级目录中存在多个 conftest.py 时如何生效？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 2. 多级目录多个 conftest：就近原则 + 层叠生效。根目录 conftest 全局可用，子目录 conftest 只对该目录及子目录生效，可覆盖父级同名 fixture。 4. 不同业务模块不同前置：各业务目录放各自的 conftest.py，互不干扰。 8. test_*.py vs conftest.py：前者是用例文件会被收集执行；后者是配置/fixture 容器，不会被当成用例收集。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：Q7.2：多级目录中存在多个 conftest.py 时如何生效？">Q020：多级目录中存在多个 conftest.py 时如何生效？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.2：多级目录中存在多个 conftest.py 时如何生效？">多级目录中存在多个 conftest.py 时如何生效？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1380,9 +1483,11 @@ def order(login_headers):
                      data-search="Q021：哪些公共能力适合放入 conftest.py？ Q7.3：哪些公共能力适合放入 conftest.py？ Q7.3：哪些公共能力适合放入 conftest.py？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 3. 哪些公共能力放 conftest：跨用例共享的 fixture（登录、环境、数据清理）、自定义命令行参数（pytest_addoption）、各种 hook。 4. 不同业务模块不同前置：各业务目录放各自的 conftest.py，互不干扰。 8. test_*.py vs conftest.py：前者是用例文件会被收集执行；后者是配置/fixture 容器，不会被当成用例收集。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：Q7.3：哪些公共能力适合放入 conftest.py？">Q021：哪些公共能力适合放入 conftest.py？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.3：哪些公共能力适合放入 conftest.py？">哪些公共能力适合放入 conftest.py？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1410,9 +1515,11 @@ def order(login_headers):
                      data-search="Q022：不同业务模块需要不同前置条件时如何组织？ Q7.4：不同业务模块需要不同前置条件时如何组织？ Q7.4：不同业务模块需要不同前置条件时如何组织？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 1. 不需要手动导入：pytest 自动发现，这是它和普通工具模块最大的区别。 4. 不同业务模块不同前置：各业务目录放各自的 conftest.py，互不干扰。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：Q7.4：不同业务模块需要不同前置条件时如何组织？">Q022：不同业务模块需要不同前置条件时如何组织？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.4：不同业务模块需要不同前置条件时如何组织？">不同业务模块需要不同前置条件时如何组织？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1438,9 +1545,11 @@ def order(login_headers):
                      data-search="Q023：conftest.py 中是否适合放大量业务逻辑？ Q7.5：conftest.py 中是否适合放大量业务逻辑？ Q7.5：conftest.py 中是否适合放大量业务逻辑？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 4. 不同业务模块不同前置：各业务目录放各自的 conftest.py，互不干扰。 5/6. 不要放大量业务逻辑：conftest 只放 编排级 fixture，真正的业务实现下沉到 api/common。否则 conftest 越来越臃肿、难维护。 8. test_*.py vs conftest.py：前者是用例文件会被收集执行；后者是配置/fixture 容器，不会被当成用例收集。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：Q7.5：conftest.py 中是否适合放大量业务逻辑？">Q023：conftest.py 中是否适合放大量业务逻辑？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.5：conftest.py 中是否适合放大量业务逻辑？">conftest.py 中是否适合放大量业务逻辑？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1468,9 +1577,11 @@ def order(login_headers):
                      data-search="Q024：如何避免 conftest.py 过于臃肿？ Q7.6：如何避免 conftest.py 过于臃肿？ Q7.6：如何避免 conftest.py 过于臃肿？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 4. 不同业务模块不同前置：各业务目录放各自的 conftest.py，互不干扰。 8. test_*.py vs conftest.py：前者是用例文件会被收集执行；后者是配置/fixture 容器，不会被当成用例收集。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：Q7.6：如何避免 conftest.py 过于臃肿？">Q024：如何避免 conftest.py 过于臃肿？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.6：如何避免 conftest.py 过于臃肿？">如何避免 conftest.py 过于臃肿？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1497,9 +1608,11 @@ def order(login_headers):
                      data-search="Q025：session 级 fixture 一般放在哪里？ Q7.7：session 级 fixture 一般放在哪里？ Q7.7：session 级 fixture 一般放在哪里？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 2. 多级目录多个 conftest：就近原则 + 层叠生效。根目录 conftest 全局可用，子目录 conftest 只对该目录及子目录生效，可覆盖父级同名 fixture。 3. 哪些公共能力放 conftest：跨用例共享的 fixture（登录、环境、数据清理）、自定义命令行参数（pytest_addoption）、各种 hook。 5/6. 不要放大量业务逻辑：conftest 只放 编排级 fixture，真正的业务实现下沉到 api/common。否则 conftest 越来越臃肿、难维护。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：Q7.7：session 级 fixture 一般放在哪里？">Q025：session 级 fixture 一般放在哪里？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.7：session 级 fixture 一般放在哪里？">session 级 fixture 一般放在哪里？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1527,9 +1640,11 @@ def order(login_headers):
                      data-search="Q026：pytest 插件和 conftest.py 有什么区别？ Q7.8：pytest 插件和 conftest.py 有什么区别？ Q7.8：pytest 插件和 conftest.py 有什么区别？ 答题要点：这道题可以从主问题「Q7：conftest.py 的作用」里拆开回答，重点说清楚结论、落地位置和边界。 conftest.py 是 pytest 的 共享 fixture 和 hook 容器，同目录及子目录的用例可直接使用，无需 import。 1. 不需要手动导入：pytest 自动发现，这是它和普通工具模块最大的区别。 3. 哪些公共能力放 conftest：跨用例共享的 fixture（登录、环境、数据清理）、自定义命令行参数（pytest_addoption）、各种 hook。 4. 不同业务模块不同前置：各业务目录放各自的 conftest.py，互不干扰。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：Q7.8：pytest 插件和 conftest.py 有什么区别？">Q026：pytest 插件和 conftest.py 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q7.8：pytest 插件和 conftest.py 有什么区别？">pytest 插件和 conftest.py 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1557,9 +1672,11 @@ def order(login_headers):
                      data-search="Q027：`@pytest.mark.parametrize` 的基本写法是什么？ Q8.1：`@pytest.mark.parametrize` 的基本写法是什么？ Q8.1：`@pytest.mark.parametrize` 的基本写法是什么？ 答题要点：这道题可以从主问题「Q8：参数化使用」里拆开回答，重点说清楚结论、落地位置和边界。 @pytest.mark.parametrize(&amp;quot;username, expected&amp;quot;, [     (&amp;quot;test01&amp;quot;, 0),     (&amp;quot;&amp;quot;, 10001), ]) def test_login(username, expected):     ...">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：Q8.1：`@pytest.mark.parametrize` 的基本写法是什么？">Q027：`@pytest.mark.parametrize` 的基本写法是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8.1：`@pytest.mark.parametrize` 的基本写法是什么？">`@pytest.mark.parametrize` 的基本写法是什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1589,9 +1706,11 @@ def test_login(username, expected):
                      data-search="Q028：某一组参数执行失败后，其他参数是否继续执行？ Q8.5：某一组参数执行失败后，其他参数是否继续执行？ Q8.5：某一组参数执行失败后，其他参数是否继续执行？ 答题要点：这道题可以从主问题「Q8：参数化使用」里拆开回答，重点说清楚结论、落地位置和边界。 5. 一组失败其他继续：参数化的每组是独立用例，互不影响，一组 fail 不影响其余。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：Q8.5：某一组参数执行失败后，其他参数是否继续执行？">Q028：某一组参数执行失败后，其他参数是否继续执行？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8.5：某一组参数执行失败后，其他参数是否继续执行？">某一组参数执行失败后，其他参数是否继续执行？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1616,9 +1735,11 @@ def test_login(username, expected):
                      data-search="Q029：如何对参数化用例设置自定义 id？ Q8.6：如何对参数化用例设置自定义 id？ Q8.6：如何对参数化用例设置自定义 id？ 答题要点：这道题可以从主问题「Q8：参数化使用」里拆开回答，重点说清楚结论、落地位置和边界。 4. Allure 标题：用 ids=[...] 给每条起名，或在用例内 allure.dynamic.title(case[&amp;quot;name&amp;quot;]) 动态设置标题。 5. 一组失败其他继续：参数化的每组是独立用例，互不影响，一组 fail 不影响其余。 6. 自定义 id：ids=[c[&amp;quot;name&amp;quot;] for c in cases]，报告里就显示中文用例名而不是 case0/case1。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：Q8.6：如何对参数化用例设置自定义 id？">Q029：如何对参数化用例设置自定义 id？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8.6：如何对参数化用例设置自定义 id？">如何对参数化用例设置自定义 id？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1645,9 +1766,11 @@ def test_login(username, expected):
                      data-search="Q030：多个参数如何组合？ Q8.7：多个参数如何组合？ Q8.7：多个参数如何组合？ 答题要点：这道题可以从主问题「Q8：参数化使用」里拆开回答，重点说清楚结论、落地位置和边界。 7. 多参数组合：堆叠多个 parametrize 装饰器 = 笛卡尔积。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：Q8.7：多个参数如何组合？">Q030：多个参数如何组合？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8.7：多个参数如何组合？">多个参数如何组合？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1672,9 +1795,11 @@ def test_login(username, expected):
                      data-search="Q031：笛卡尔积参数化可能带来什么问题？ Q8.8：笛卡尔积参数化可能带来什么问题？ Q8.8：笛卡尔积参数化可能带来什么问题？ 答题要点：这道题可以从主问题「Q8：参数化使用」里拆开回答，重点说清楚结论、落地位置和边界。 5. 一组失败其他继续：参数化的每组是独立用例，互不影响，一组 fail 不影响其余。 7. 多参数组合：堆叠多个 parametrize 装饰器 = 笛卡尔积。 8. 笛卡尔积问题：用例数 爆炸（3×4×5=60），执行慢、报告乱。要么显式列组合，要么收敛维度。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：Q8.8：笛卡尔积参数化可能带来什么问题？">Q031：笛卡尔积参数化可能带来什么问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8.8：笛卡尔积参数化可能带来什么问题？">笛卡尔积参数化可能带来什么问题？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1701,9 +1826,11 @@ def test_login(username, expected):
                      data-search="Q032：参数化数据量很大时如何控制执行效率？ Q8.9：参数化数据量很大时如何控制执行效率？ Q8.9：参数化数据量很大时如何控制执行效率？ 答题要点：这道题可以从主问题「Q8：参数化使用」里拆开回答，重点说清楚结论、落地位置和边界。 5. 一组失败其他继续：参数化的每组是独立用例，互不影响，一组 fail 不影响其余。 9. 数据量大时控制效率：抽样/分级（smoke 只跑核心子集）、用 pytest-xdist 并发执行（-n auto）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：Q8.9：参数化数据量很大时如何控制执行效率？">Q032：参数化数据量很大时如何控制执行效率？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q8.9：参数化数据量很大时如何控制执行效率？">参数化数据量很大时如何控制执行效率？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1729,9 +1856,11 @@ def test_login(username, expected):
                      data-search="Q033：`@pytest.mark.smoke` 有什么作用？ Q9.1：`@pytest.mark.smoke` 有什么作用？ Q9.1：`@pytest.mark.smoke` 有什么作用？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 1. @pytest.mark.smoke：给用例打 分类标签，便于按需挑选执行。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：Q9.1：`@pytest.mark.smoke` 有什么作用？">Q033：`@pytest.mark.smoke` 有什么作用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.1：`@pytest.mark.smoke` 有什么作用？">`@pytest.mark.smoke` 有什么作用？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1756,9 +1885,11 @@ def test_login(username, expected):
                      data-search="Q034：如何只执行 smoke 用例？ Q9.2：如何只执行 smoke 用例？ Q9.2：如何只执行 smoke 用例？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 1. @pytest.mark.smoke：给用例打 分类标签，便于按需挑选执行。 2. 只跑 smoke：pytest -m smoke。 3. 排除 smoke：pytest -m &amp;quot;not smoke&amp;quot;。 5. 标签划分：按用途 smoke / regression，按业务 order / pay / user，组合使用。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：Q9.2：如何只执行 smoke 用例？">Q034：如何只执行 smoke 用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.2：如何只执行 smoke 用例？">如何只执行 smoke 用例？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1786,9 +1917,11 @@ def test_login(username, expected):
                      data-search="Q035：如何排除 smoke 用例？ Q9.3：如何排除 smoke 用例？ Q9.3：如何排除 smoke 用例？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 1. @pytest.mark.smoke：给用例打 分类标签，便于按需挑选执行。 2. 只跑 smoke：pytest -m smoke。 3. 排除 smoke：pytest -m &amp;quot;not smoke&amp;quot;。 5. 标签划分：按用途 smoke / regression，按业务 order / pay / user，组合使用。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q035</span>
-                <h3 class="card-title" title="原题：Q9.3：如何排除 smoke 用例？">Q035：如何排除 smoke 用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.3：如何排除 smoke 用例？">如何排除 smoke 用例？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1816,9 +1949,11 @@ def test_login(username, expected):
                      data-search="Q036：marker 是否需要在 pytest.ini 中注册？ Q9.4：marker 是否需要在 pytest.ini 中注册？ Q9.4：marker 是否需要在 pytest.ini 中注册？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 4. 需在 pytest.ini 注册：markers = 下声明，否则会有 PytestUnknownMarkWarning 告警；严格模式（--strict-markers）下会直接报错。 6. 一条用例多个 marker：可以叠加。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q036</span>
-                <h3 class="card-title" title="原题：Q9.4：marker 是否需要在 pytest.ini 中注册？">Q036：marker 是否需要在 pytest.ini 中注册？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.4：marker 是否需要在 pytest.ini 中注册？">marker 是否需要在 pytest.ini 中注册？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1844,9 +1979,11 @@ def test_login(username, expected):
                      data-search="Q037：如何划分 smoke、regression、order、pay 等标签？ Q9.5：如何划分 smoke、regression、order、pay 等标签？ Q9.5：如何划分 smoke、regression、order、pay 等标签？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 1. @pytest.mark.smoke：给用例打 分类标签，便于按需挑选执行。 2. 只跑 smoke：pytest -m smoke。 3. 排除 smoke：pytest -m &amp;quot;not smoke&amp;quot;。 5. 标签划分：按用途 smoke / regression，按业务 order / pay / user，组合使用。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q037</span>
-                <h3 class="card-title" title="原题：Q9.5：如何划分 smoke、regression、order、pay 等标签？">Q037：如何划分 smoke、regression、order、pay 等标签？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.5：如何划分 smoke、regression、order、pay 等标签？">如何划分 smoke、regression、order、pay 等标签？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1874,9 +2011,11 @@ def test_login(username, expected):
                      data-search="Q038：同一条用例能否添加多个 marker？ Q9.6：同一条用例能否添加多个 marker？ Q9.6：同一条用例能否添加多个 marker？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 4. 需在 pytest.ini 注册：markers = 下声明，否则会有 PytestUnknownMarkWarning 告警；严格模式（--strict-markers）下会直接报错。 6. 一条用例多个 marker：可以叠加。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q038</span>
-                <h3 class="card-title" title="原题：Q9.6：同一条用例能否添加多个 marker？">Q038：同一条用例能否添加多个 marker？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.6：同一条用例能否添加多个 marker？">同一条用例能否添加多个 marker？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1902,9 +2041,11 @@ def test_login(username, expected):
                      data-search="Q039：如何结合 marker 接入 Jenkins 流水线？ Q9.7：如何结合 marker 接入 Jenkins 流水线？ Q9.7：如何结合 marker 接入 Jenkins 流水线？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 4. 需在 pytest.ini 注册：markers = 下声明，否则会有 PytestUnknownMarkWarning 告警；严格模式（--strict-markers）下会直接报错。 6. 一条用例多个 marker：可以叠加。 7. 结合 Jenkins：把 -m 作为构建参数传入，冒烟流水线传 smoke，全量流水线不传或传 regression。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q039</span>
-                <h3 class="card-title" title="原题：Q9.7：如何结合 marker 接入 Jenkins 流水线？">Q039：如何结合 marker 接入 Jenkins 流水线？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.7：如何结合 marker 接入 Jenkins 流水线？">如何结合 marker 接入 Jenkins 流水线？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1931,9 +2072,11 @@ def test_login(username, expected):
                      data-search="Q040：marker 设计过多会带来什么问题？ Q9.8：marker 设计过多会带来什么问题？ Q9.8：marker 设计过多会带来什么问题？ 答题要点：这道题可以从主问题「Q9：marker 使用」里拆开回答，重点说清楚结论、落地位置和边界。 4. 需在 pytest.ini 注册：markers = 下声明，否则会有 PytestUnknownMarkWarning 告警；严格模式（--strict-markers）下会直接报错。 6. 一条用例多个 marker：可以叠加。 8. 标签过多的问题：标签泛滥后没人知道该打哪个、组合查询混乱。要有 统一的标签规范 并文档化。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q040</span>
-                <h3 class="card-title" title="原题：Q9.8：marker 设计过多会带来什么问题？">Q040：marker 设计过多会带来什么问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q9.8：marker 设计过多会带来什么问题？">marker 设计过多会带来什么问题？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1960,9 +2103,11 @@ def test_login(username, expected):
                      data-search="Q041：如何配置测试文件命名规则？ Q10.1：如何配置测试文件命名规则？ Q10.1：如何配置测试文件命名规则？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 8. 避免和 Jenkins 命令冲突：pytest.ini 只放 稳定不变 的项（命名规则、marker 注册）；动态项（环境、-m 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。 注意：注释 单独成行（# 或 ; 开头）。不要在配置值后面写行内注释——某些解析器会把 ; xxx 当成值的一部分（比如 python_files 的值变成 test_*.py ; 注释），导致收集规则失效。面试手写时直接不写注释最稳。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q041</span>
-                <h3 class="card-title" title="原题：Q10.1：如何配置测试文件命名规则？">Q041：如何配置测试文件命名规则？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.1：如何配置测试文件命名规则？">如何配置测试文件命名规则？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2002,9 +2147,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q042：如何配置测试类命名规则？ Q10.2：如何配置测试类命名规则？ Q10.2：如何配置测试类命名规则？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 8. 避免和 Jenkins 命令冲突：pytest.ini 只放 稳定不变 的项（命名规则、marker 注册）；动态项（环境、-m 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。 注意：注释 单独成行（# 或 ; 开头）。不要在配置值后面写行内注释——某些解析器会把 ; xxx 当成值的一部分（比如 python_files 的值变成 test_*.py ; 注释），导致收集规则失效。面试手写时直接不写注释最稳。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q042</span>
-                <h3 class="card-title" title="原题：Q10.2：如何配置测试类命名规则？">Q042：如何配置测试类命名规则？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.2：如何配置测试类命名规则？">如何配置测试类命名规则？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2044,9 +2191,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q043：如何配置测试方法命名规则？ Q10.3：如何配置测试方法命名规则？ Q10.3：如何配置测试方法命名规则？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 8. 避免和 Jenkins 命令冲突：pytest.ini 只放 稳定不变 的项（命名规则、marker 注册）；动态项（环境、-m 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。 注意：注释 单独成行（# 或 ; 开头）。不要在配置值后面写行内注释——某些解析器会把 ; xxx 当成值的一部分（比如 python_files 的值变成 test_*.py ; 注释），导致收集规则失效。面试手写时直接不写注释最稳。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q043</span>
-                <h3 class="card-title" title="原题：Q10.3：如何配置测试方法命名规则？">Q043：如何配置测试方法命名规则？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.3：如何配置测试方法命名规则？">如何配置测试方法命名规则？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2086,9 +2235,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q044：如何注册 marker？ Q10.4：如何注册 marker？ Q10.4：如何注册 marker？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 4. markers 注册自定义标签。 8. 避免和 Jenkins 命令冲突：pytest.ini 只放 稳定不变 的项（命名规则、marker 注册）；动态项（环境、-m 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q044</span>
-                <h3 class="card-title" title="原题：Q10.4：如何注册 marker？">Q044：如何注册 marker？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.4：如何注册 marker？">如何注册 marker？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2128,9 +2279,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q045：如何配置日志级别？ Q10.5：如何配置日志级别？ Q10.5：如何配置日志级别？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 5. log_cli_level 配日志级别。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q045</span>
-                <h3 class="card-title" title="原题：Q10.5：如何配置日志级别？">Q045：如何配置日志级别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.5：如何配置日志级别？">如何配置日志级别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2169,9 +2322,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q046：如何指定默认执行参数？ Q10.6：如何指定默认执行参数？ Q10.6：如何指定默认执行参数？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 6. addopts 配默认执行参数。 8. 避免和 Jenkins 命令冲突：pytest.ini 只放 稳定不变 的项（命名规则、marker 注册）；动态项（环境、-m 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。 9. addopts：每次执行自动追加的命令行参数，相当于&amp;quot;默认参数&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q046</span>
-                <h3 class="card-title" title="原题：Q10.6：如何指定默认执行参数？">Q046：如何指定默认执行参数？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.6：如何指定默认执行参数？">如何指定默认执行参数？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2212,9 +2367,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q047：如何避免配置中的命令和 Jenkins 命令冲突？ Q10.8：如何避免配置中的命令和 Jenkins 命令冲突？ Q10.8：如何避免配置中的命令和 Jenkins 命令冲突？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 8. 避免和 Jenkins 命令冲突：pytest.ini 只放 稳定不变 的项（命名规则、marker 注册）；动态项（环境、-m 标签、报告目录）放在 Jenkins 命令行，命令行参数会覆盖 ini，避免两边写死打架。 9. addopts：每次执行自动追加的命令行参数，相当于&amp;quot;默认参数&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q047</span>
-                <h3 class="card-title" title="原题：Q10.8：如何避免配置中的命令和 Jenkins 命令冲突？">Q047：如何避免配置中的命令和 Jenkins 命令冲突？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.8：如何避免配置中的命令和 Jenkins 命令冲突？">如何避免配置中的命令和 Jenkins 命令冲突？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2240,9 +2397,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q048：`addopts` 有什么作用？ Q10.9：`addopts` 有什么作用？ Q10.9：`addopts` 有什么作用？ 答题要点：这道题可以从主问题「Q10：pytest.ini 常配置项」里拆开回答，重点说清楚结论、落地位置和边界。 [pytest] # 测试文件 / 类 / 方法 的收集命名规则 python_files = test_*.py python_classes = Test* python_functions = test_* # 注册自定义标签，避免 PytestUnknownMarkWarning markers =     smoke: 冒烟用例     regression: 回归用例 # 控制台实时输出日志及级别 log_cli = true log_cli_level = INFO # 默认执行参数 addopts = -v --alluredir=./report/allure-results --clean-alluredir 6. addopts 配默认执行参数。 9. addopts：每次执行自动追加的命令行参数，相当于&amp;quot;默认参数&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q048</span>
-                <h3 class="card-title" title="原题：Q10.9：`addopts` 有什么作用？">Q048：`addopts` 有什么作用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q10.9：`addopts` 有什么作用？">`addopts` 有什么作用？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2282,9 +2441,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q049：如何根据接口文档生成 pytest 脚本？ Q30.3：如何根据接口文档生成 pytest 脚本？ Q30.3：如何根据接口文档生成 pytest 脚本？ 答题要点：这道题可以从主问题「Q30：设计一个 AI 测试助手，会规划哪些能力」里拆开回答，重点说清楚结论、落地位置和边界。 1. 根据 PRD 自动生成测试点：解析 PRD，提取功能点、规则、约束，输出测试点清单（含正常/异常/边界）。 2. 根据需求生成测试用例：基于测试点生成结构化用例（前置、步骤、预期）。 3. 根据接口文档生成 pytest 脚本：解析 Swagger/OpenAPI，生成请求封装 + 参数 + 断言骨架。 4. 生成测试数据和断言规则：根据字段类型/约束生成正常值、边界值、异常值，并给出断言建议。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q049</span>
-                <h3 class="card-title" title="原题：Q30.3：如何根据接口文档生成 pytest 脚本？">Q049：如何根据接口文档生成 pytest 脚本？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q30.3：如何根据接口文档生成 pytest 脚本？">如何根据接口文档生成 pytest 脚本？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2312,9 +2473,11 @@ addopts = -v --alluredir=./report/allure-results --clean-alluredir</code></pre>
                      data-search="Q050：如何调用 pytest、JMeter、Playwright 等工具？ Q30.8：如何调用 pytest、JMeter、Playwright 等工具？ Q30.8：如何调用 pytest、JMeter、Playwright 等工具？ 答题要点：这道题可以从主问题「Q30：设计一个 AI 测试助手，会规划哪些能力」里拆开回答，重点说清楚结论、落地位置和边界。 3. 根据接口文档生成 pytest 脚本：解析 Swagger/OpenAPI，生成请求封装 + 参数 + 断言骨架。 8. 调用 pytest/JMeter/Playwright 等工具：作为 Agent 的工具，按需触发执行并拿回结果。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q050</span>
-                <h3 class="card-title" title="原题：Q30.8：如何调用 pytest、JMeter、Playwright 等工具？">Q050：如何调用 pytest、JMeter、Playwright 等工具？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q30.8：如何调用 pytest、JMeter、Playwright 等工具？">如何调用 pytest、JMeter、Playwright 等工具？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

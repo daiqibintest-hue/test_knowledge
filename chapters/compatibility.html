@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：接口字段兼容性问题怎么发现？ 27. 接口字段兼容性问题怎么发现？ 27. 接口字段兼容性问题怎么发现？    ①契约测试（Pact）比对 Provider 和 Consumer 的字段定义；②版本升级前后做 Diff 工具对比两个版本 Swagger；③回归用例覆盖老字段是否仍返回；④灰度时观察老版本客户端是否报错。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：27. 接口字段兼容性问题怎么发现？">Q001：接口字段兼容性问题怎么发现？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：27. 接口字段兼容性问题怎么发现？">接口字段兼容性问题怎么发现？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：Android / iOS 兼容性测试关注哪些维度？ 1. Android / iOS 兼容性测试关注哪些维度？ 1. Android / iOS 兼容性测试关注哪些维度？    ①操作系统版本（Android 8-14、iOS 14-17）；②机型/屏幕（主流 + 长尾）；③CPU 架构（armv7、arm64）；④系统能力（电池、网络、权限）；⑤厂商定制（小米、华为、OPPO 各家差异）；⑥应用市场审核（GP/AppStore 不同要求）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：1. Android / iOS 兼容性测试关注哪些维度？">Q002：Android / iOS 兼容性测试关注哪些维度？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. Android / iOS 兼容性测试关注哪些维度？">Android / iOS 兼容性测试关注哪些维度？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -787,9 +854,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：Windows 桌面端兼容性测试关注哪些维度？ 2. Windows 桌面端兼容性测试关注哪些维度？ 2. Windows 桌面端兼容性测试关注哪些维度？    ①Windows 版本（7/10/11）；②.NET/WPF 版本；③屏幕分辨率（1080p/2K/4K）；④DPI 缩放（100%/125%/150%）；⑤多显示器；⑥安全软件干扰；⑦权限（普通/管理员）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：2. Windows 桌面端兼容性测试关注哪些维度？">Q003：Windows 桌面端兼容性测试关注哪些维度？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. Windows 桌面端兼容性测试关注哪些维度？">Windows 桌面端兼容性测试关注哪些维度？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -813,9 +882,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：不同系统版本如何选择？ 3. 不同系统版本如何选择？ 3. 不同系统版本如何选择？    ①参考国内统计（StatCounter、友盟）选 Top 80% 覆盖；②Android：8/10/12/14 各覆盖一台；③iOS：最新 2 个大版本；④Windows：10/11 主力，7 看用户群。最低支持版本由产品和市场决定。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：3. 不同系统版本如何选择？">Q004：不同系统版本如何选择？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 不同系统版本如何选择？">不同系统版本如何选择？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -839,9 +910,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：不同机型如何选择？ 4. 不同机型如何选择？ 4. 不同机型如何选择？    ①Top 销量机型（华为/小米/OPPO/vivo/iPhone 系列）；②极端机型（小屏、大屏、刘海屏、折叠屏）；③低配（1G 内存测内存压力）；④高刷新率屏（120Hz 测动画）；⑤特殊厂商（魅族/三星定制）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：4. 不同机型如何选择？">Q005：不同机型如何选择？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 不同机型如何选择？">不同机型如何选择？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -865,9 +938,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：屏幕分辨率适配怎么测？ 5. 屏幕分辨率适配怎么测？ 5. 屏幕分辨率适配怎么测？    ①主流分辨率覆盖（手机：720x1280、1080x1920、1440x2960、刘海屏；桌面：1280x720、1920x1080、2K、4K）；②文字溢出、图片拉伸、按钮点击区域；③DPI 缩放变化时布局；④横竖屏切换。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：5. 屏幕分辨率适配怎么测？">Q006：屏幕分辨率适配怎么测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 屏幕分辨率适配怎么测？">屏幕分辨率适配怎么测？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -891,9 +966,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：安装、升级、卸载怎么测？ 6. 安装、升级、卸载怎么测？ 6. 安装、升级、卸载怎么测？    ①全新安装；②覆盖升级（保留数据）；③跨版本升级（V1→V3 跳跃）；④卸载后数据是否清理；⑤升级失败回滚；⑥升级中断重启；⑦权限升级（旧版无权限新版要权限）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：6. 安装、升级、卸载怎么测？">Q007：安装、升级、卸载怎么测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 安装、升级、卸载怎么测？">安装、升级、卸载怎么测？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -917,9 +994,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：多端同步如何测试？ 7. 多端同步如何测试？ 7. 多端同步如何测试？    ①账号同时登录多端；②A 端操作 B 端实时同步；③离线编辑再上线合并；④冲突处理（同时修改同一条）；⑤同步延迟容忍度；⑥同步失败的兜底（手动刷新）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：7. 多端同步如何测试？">Q008：多端同步如何测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 多端同步如何测试？">多端同步如何测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -943,9 +1022,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：客户端和服务端版本兼容怎么测？ 9. 客户端和服务端版本兼容怎么测？ 9. 客户端和服务端版本兼容怎么测？    ①新接口老客户端：客户端能否优雅降级；②老接口新客户端：服务端是否保留兼容；③接口契约（Swagger）保留向下兼容字段；④强制升级机制（关键变更）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：9. 客户端和服务端版本兼容怎么测？">Q009：客户端和服务端版本兼容怎么测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 客户端和服务端版本兼容怎么测？">客户端和服务端版本兼容怎么测？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -969,9 +1050,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：灰度发布怎么测试？ 10. 灰度发布怎么测试？ 10. 灰度发布怎么测试？    ①验证灰度规则（按用户 ID、地域、设备）正确分流；②灰度版本和老版本可同时运行；③监控灰度组指标（错误率、性能）；④快速回滚机制；⑤逐步放量节奏。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：10. 灰度发布怎么测试？">Q010：灰度发布怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 灰度发布怎么测试？">灰度发布怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -995,9 +1078,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？ 11. 你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？ 11. 你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？    定义：在弱网场景下功能仍能正常完成的用例数 / 弱网测试集总用例数。分母是 100 条核心弱网用例（覆盖核心业务），分子是手工执行后判断为&quot;成功&quot;的用例数。统计周期是版本周期。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：11. 你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？">Q011：你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？">你简历写&quot;弱网下功能正常率 99%&quot;，这个指标怎么统计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1021,9 +1106,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：弱网场景有哪些？ 12. 弱网场景有哪些？ 12. 弱网场景有哪些？    六大场景：①高延迟（500ms-3s）；②丢包（10%、30%）；③限速（2G/3G/4G）；④抖动（延迟波动）；⑤断网恢复；⑥弱信号（移动场景）。每种场景下跑核心用例。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：12. 弱网场景有哪些？">Q012：弱网场景有哪些？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 弱网场景有哪些？">弱网场景有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1047,9 +1134,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：弱网工具用过哪些？ 13. 弱网工具用过哪些？ 13. 弱网工具用过哪些？    ①Charles（Throttle Settings + Map Local + Rewrite，主力工具）；②Mac 的 Network Link Conditioner；③Android 开发者选项的网络模拟；④iOS 开发者菜单的 Network Link Conditioner；⑤路由器层 NetEm/Linux tc。我们日常用 Charles + 真机。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：13. 弱网工具用过哪些？">Q013：弱网工具用过哪些？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 弱网工具用过哪些？">弱网工具用过哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1073,9 +1162,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：iOS 和 Android 弱网测试有什么差异？ 14. iOS 和 Android 弱网测试有什么差异？ 14. iOS 和 Android 弱网测试有什么差异？    ①iOS 网络栈对超时和重试更严格；②Android 不同厂商网络栈有差异；③iOS 后台进程被杀更激进，弱网下后台任务影响大；④抓包统一用 Charles：iOS 通过 WiFi 代理 + 安装 Charles 根证书并信任，Android 7+ 还需 Network Security Config 加入用户证书。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：14. iOS 和 Android 弱网测试有什么差异？">Q014：iOS 和 Android 弱网测试有什么差异？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. iOS 和 Android 弱网测试有什么差异？">iOS 和 Android 弱网测试有什么差异？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1099,9 +1190,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：Windows 桌面端升级失败如何回滚？ 15. Windows 桌面端升级失败如何回滚？ 15. Windows 桌面端升级失败如何回滚？    ①升级前自动备份旧版本；②升级失败检测（文件校验、启动失败）；③自动回滚到旧版本；④用户提示升级失败；⑤上报失败原因到后台；⑥手动回滚通道。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：15. Windows 桌面端升级失败如何回滚？">Q015：Windows 桌面端升级失败如何回滚？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. Windows 桌面端升级失败如何回滚？">Windows 桌面端升级失败如何回滚？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1125,9 +1218,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：什么是弱网测试？ 16. 什么是弱网测试？ 16. 什么是弱网测试？    在网络质量受限（延迟/丢包/限速/抖动/断网）的场景下，验证应用功能、性能、用户体验是否仍可接受。本质是测试系统的&quot;网络韧性&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：16. 什么是弱网测试？">Q016：什么是弱网测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 什么是弱网测试？">什么是弱网测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1151,9 +1246,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：弱网测试需要关注哪些指标？ 17. 弱网测试需要关注哪些指标？ 17. 弱网测试需要关注哪些指标？    ①功能成功率；②响应时间（端到端）；③重试次数；④数据一致性（重试后不重复）；⑤离线兜底（缓存可用）；⑥用户提示（友好错误）；⑦电量/流量消耗。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：17. 弱网测试需要关注哪些指标？">Q017：弱网测试需要关注哪些指标？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 弱网测试需要关注哪些指标？">弱网测试需要关注哪些指标？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1177,9 +1274,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：高延迟、丢包、限速分别怎么模拟？ 18. 高延迟、丢包、限速分别怎么模拟？ 18. 高延迟、丢包、限速分别怎么模拟？    - **延迟**：Charles → Proxy → Throttle Settings 配置 Latency（如 1000ms）；  - **丢包**：Charles 暂不直接支持丢包，用 Linux tc（`tc qdisc add dev eth0 root netem loss 30%`）或 macOS Network Link Conditioner；  - **限速**：Charles → Throttle Settings → 选 3G/EDGE/Custom（自定义 bandwidth）；可对单接口生效（右键 Enable Throttling）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：18. 高延迟、丢包、限速分别怎么模拟？">Q018：高延迟、丢包、限速分别怎么模拟？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 高延迟、丢包、限速分别怎么模拟？">高延迟、丢包、限速分别怎么模拟？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1203,9 +1302,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：弱网下接口超时怎么处理？ 19. 弱网下接口超时怎么处理？ 19. 弱网下接口超时怎么处理？    ①客户端超时合理（3-10 秒视场景）；②超时后用户友好提示；③允许重试（手动或自动）；④重试幂等不重复落库；⑤极端情况降级（用缓存数据）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：19. 弱网下接口超时怎么处理？">Q019：弱网下接口超时怎么处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 弱网下接口超时怎么处理？">弱网下接口超时怎么处理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1229,9 +1330,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：弱网下重复提交怎么测试？ 20. 弱网下重复提交怎么测试？ 20. 弱网下重复提交怎么测试？    ①弱网下用户多次点击；②客户端防抖（短时间内多次点击算一次）；③请求带幂等 token；④服务端校验幂等；⑤验证最终数据库只有一条记录。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：20. 弱网下重复提交怎么测试？">Q020：弱网下重复提交怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 弱网下重复提交怎么测试？">弱网下重复提交怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1255,9 +1358,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：弱网下数据同步冲突怎么测试？ 21. 弱网下数据同步冲突怎么测试？ 21. 弱网下数据同步冲突怎么测试？    ①A 端弱网修改数据未同步；②B 端同时修改同一数据并同步；③A 端恢复网络同步；④验证冲突处理策略（后写覆盖/合并/提示用户选择）；⑤无数据丢失。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：21. 弱网下数据同步冲突怎么测试？">Q021：弱网下数据同步冲突怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. 弱网下数据同步冲突怎么测试？">弱网下数据同步冲突怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1281,9 +1386,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：弱网恢复后如何验证数据一致？ 22. 弱网恢复后如何验证数据一致？ 22. 弱网恢复后如何验证数据一致？    ①离线期间操作在本地队列；②恢复网络后按顺序提交；③服务端去重和合并；④最终一致性验证（对比客户端和服务端数据）；⑤UI 实时刷新最新状态。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：22. 弱网恢复后如何验证数据一致？">Q022：弱网恢复后如何验证数据一致？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. 弱网恢复后如何验证数据一致？">弱网恢复后如何验证数据一致？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1307,9 +1414,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：App 离线场景怎么测试？ 23. App 离线场景怎么测试？ 23. App 离线场景怎么测试？    ①完全断网下打开 App 是否能用（缓存数据）；②离线编辑数据是否保存本地；③恢复网络后自动同步；④离线时间过长后的数据过期处理；⑤离线状态明确提示。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：23. App 离线场景怎么测试？">Q023：App 离线场景怎么测试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. App 离线场景怎么测试？">App 离线场景怎么测试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1333,9 +1442,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：弱网下用户体验怎么评价？ 24. 弱网下用户体验怎么评价？ 24. 弱网下用户体验怎么评价？    ①加载提示（Loading/骨架屏）；②超时友好提示；③失败可重试；④进度反馈；⑤关键操作不让用户白等；⑥极端情况降级（图片不加载先看文字）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：24. 弱网下用户体验怎么评价？">Q024：弱网下用户体验怎么评价？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. 弱网下用户体验怎么评价？">弱网下用户体验怎么评价？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1359,9 +1470,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：弱网测试如何自动化？ 25. 弱网测试如何自动化？ 25. 弱网测试如何自动化？    ①工具层面 tc 脚本控制网络条件；②自动化框架在 setup 阶段切换网络条件；③同一套接口/UI 自动化在不同网络下跑；④结果对比（正常网络 vs 弱网）；⑤集成进 CI 定期跑。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：25. 弱网测试如何自动化？">Q025：弱网测试如何自动化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. 弱网测试如何自动化？">弱网测试如何自动化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1385,9 +1498,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：你用 Charles 主要做了什么？ 26. 你用 Charles 主要做了什么？ 26. 你用 Charles 主要做了什么？    六大用途：  1. **抓包分析**：拦截 PC/手机的 HTTP/HTTPS 流量，查看请求/响应详情（Headers、Body、耗时）；  2. **请求/响应篡改**：用 Breakpoints 拦截请求手动改参数、用 Rewrite 自动改 Header/Body 测试边界值；  3. **接口 Mock**：用 Map Local 把指定接口指向本地 JSON 文件、用 Map Remote 把请求转发到测试服务器；  4. **弱网模拟**：Throttle Settings 模拟 2G/3G/4G/EDGE 各种网络条件；  5. **接口过滤**：Focus 聚焦特定 host、Filter 按关键词过滤、Recording Settings 只录关键接口；  6. **抓包归档**：保存 .chls 文件给研发复现问题，或导出 cURL 命令直接复现。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：26. 你用 Charles 主要做了什么？">Q026：你用 Charles 主要做了什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. 你用 Charles 主要做了什么？">你用 Charles 主要做了什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1412,9 +1527,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：Charles 如何篡改响应？ 28. Charles 如何篡改响应？ 28. Charles 如何篡改响应？    四种方式由轻到重：  1. **Breakpoints（一次性拦截）**：右键接口 → Breakpoints，请求到达时手动修改 Body/Status 再 Execute。适合临时调试。  2. **Rewrite（持续规则）**：`Tools → Rewrite`，配置 Match URL + Modify Header/Body/Status，对所有匹配请求生效。适合长期边界测试。  3. **Map Local（本地 Mock）**：把接口响应映射到本地 JSON 文件，直接返回文件内容。适合 Mock 复杂响应或后端未就绪时联调。  4. **Map Remote（转发）**：把生产域名转发到测试服务器，无需改客户端配置。    实战场景：测金额异常返回 → 用 Rewrite 把响应中 `&quot;amount&quot;: 1000` 改为负数；测 Token 过期 → 用 Breakpoints 把状态码改 401。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：28. Charles 如何篡改响应？">Q027：Charles 如何篡改响应？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. Charles 如何篡改响应？">Charles 如何篡改响应？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1440,9 +1557,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：Charles 如何模拟弱网？ 29. Charles 如何模拟弱网？ 29. Charles 如何模拟弱网？    `Proxy → Throttle Settings`：  - **全局开关**：勾选 Enable Throttling；  - **预设带宽**：选 56k Modem / 256k ISDN / GPRS / EDGE / 3G / 高速 3G / 4G 等；  - **自定义**：调整 Bandwidth（带宽）、Utilisation（利用率）、Round-trip Latency（往返延迟）、MTU；  - **针对单接口**：在接口列表右键 → Enable Throttling on Selected hosts only，只对指定 host 生效，避免影响其他业务。    注意：Charles 不支持原生丢包模拟，需要丢包测试时配合 Linux tc 或 macOS Network Link Conditioner。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：29. Charles 如何模拟弱网？">Q028：Charles 如何模拟弱网？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. Charles 如何模拟弱网？">Charles 如何模拟弱网？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1468,9 +1587,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：Proxyman、mitmproxy 用过吗？为什么选 Charles？ 30. Proxyman、mitmproxy 用过吗？为什么选 Charles？ 30. Proxyman、mitmproxy 用过吗？为什么选 Charles？    都用过。对比：  - **Proxyman**：Mac 原生 UI 更现代、规则配置可视化，免费版有限制；  - **mitmproxy**：开源命令行 / Web UI，可编程（Python 脚本），适合自动化但学习成本高；  - **Charles**：跨平台（Win/Mac/Linux）、UI 直观、稳定性好、Map Local/Rewrite/Throttle 一站式齐全。    我们团队统一用 Charles 的原因：①团队成员有 Win 和 Mac 混用，跨平台一致；②功能全面足够覆盖日常和移动端测试；③License 一次性买断；④文档和社区资源多。       ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：30. Proxyman、mitmproxy 用过吗？为什么选 Charles？">Q029：Proxyman、mitmproxy 用过吗？为什么选 Charles？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：30. Proxyman、mitmproxy 用过吗？为什么选 Charles？">Proxyman、mitmproxy 用过吗？为什么选 Charles？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1496,9 +1617,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：&quot;弱网功能正常率 99%&quot;——这个指标怎么统计？ 4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？ 4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？    **公式**：弱网功能正常率 = 在弱网场景下功能可成功完成的用例数 / 弱网测试集总用例数 × 100%。    - 弱网场景：6 种（高延迟、丢包 10%、丢包 30%、限速 3G、限速 2G、断网恢复）。  - 测试集：100 条核心业务用例（覆盖核心功能 + AI 问答 + 业务文档生成 + 通知发送）。  - &quot;可成功完成&quot;：核心功能可走通（允许重试、允许性能略降，但不能崩溃或数据错）。  - 统计周期：每版本上线前测一次。    **⚠️ 收窄口径**：说成&quot;**我自建的 100 条核心弱网用例集**的通过率&quot;，别说成&quot;整个平台弱网正常率&quot;。而且 99% 在弱网下偏高、不太可信，按真实数报（哪怕 95%）反而更稳。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？">Q030：&quot;弱网功能正常率 99%&quot;——这个指标怎么统计？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. &quot;弱网功能正常率 99%&quot;——这个指标怎么统计？">&quot;弱网功能正常率 99%&quot;——这个指标怎么统计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1524,9 +1647,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q031：弱网测试怎么做 1&amp;2 / 弱网测试怎么做 1&amp;2 / 弱网测试怎么做  模拟低带宽、高延迟、高丢包、抖动、断网等网络条件，验证 App/系统在弱网下的表现（超时、重试、加载、提示、数据一致性、不崩溃）。工具：Charles/Fiddler 限速、Android 开发者选项、Network Link Conditioner(iOS/Mac)、`tc` 命令(Linux)、专用弱网平台。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：1&amp;2 / 弱网测试怎么做">Q031：弱网测试怎么做</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1&amp;2 / 弱网测试怎么做">弱网测试怎么做</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1550,9 +1675,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q032：Fiddler 怎么用 3 / Fiddler 怎么用 3 / Fiddler 怎么用  HTTP/HTTPS 抓包代理工具：客户端走 Fiddler 代理 → 捕获请求/响应。功能：查看/编辑请求、**断点修改**请求或响应、模拟弱网限速、mock 返回（AutoResponder）、HTTPS 需安装信任证书解密。用于排查前后端问题、构造异常响应。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：3 / Fiddler 怎么用">Q032：Fiddler 怎么用</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3 / Fiddler 怎么用">Fiddler 怎么用</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1576,9 +1703,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q033：抓包判断前端还是后端问题 4 / 抓包判断前端还是后端问题 4 / 抓包判断前端还是后端问题  看请求与响应：请求参数错→前端；请求对、响应错→后端；响应对、展示错→前端。（同二 13/14）   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：4 / 抓包判断前端还是后端问题">Q033：抓包判断前端还是后端问题</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4 / 抓包判断前端还是后端问题">抓包判断前端还是后端问题</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1602,9 +1731,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q034：三方接口异常如何模拟 / 设计接口异常场景 5&amp;6 / 三方接口异常如何模拟 / 设计接口异常场景 5&amp;6 / 三方接口异常如何模拟 / 设计接口异常场景  模拟：用 Fiddler/Charles 的断点或 AutoResponder、mock server 返回异常。场景：超时、错误码、空/错格式数据、慢响应、限流被拒、连接失败，验证容错/重试/降级/兜底。（同三 18/19）   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：5&amp;6 / 三方接口异常如何模拟 / 设计接口异常场景">Q034：三方接口异常如何模拟 / 设计接口异常场景</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5&amp;6 / 三方接口异常如何模拟 / 设计接口异常场景">三方接口异常如何模拟 / 设计接口异常场景</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

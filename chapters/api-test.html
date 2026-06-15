@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？ 16. 如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？ 16. 如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？    画&quot;需求-接口-页面&quot;三维矩阵：横轴接口、纵轴页面，单元格放对应用例编号。任何空白单元格都要解释——是不需要覆盖还是漏了。再加业务流程图，把端到端链路标注出来，确保每条链路至少一条 E2E 用例。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：16. 如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？">Q001：如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？">如果一个需求对应多个接口和多个页面，你怎么保证用例覆盖完整？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？ 3. HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？ 3. HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？    - **2xx 成功**：200 OK、201 Created（创建成功）、204 No Content（成功无返回体）；  - **3xx 重定向**：301 永久重定向、302 临时重定向；  - **4xx 客户端错误**：400 参数错误、401 未认证（Token 缺失/过期）、403 已认证但无权限、404 资源不存在、409 冲突（如重复提交、版本冲突）；  - **5xx 服务端错误**：500 内部错误。  测试时要分清 401 和 403 的差异，越权问题往往体现在这里。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：3. HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？">Q002：HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？">HTTP 状态码 200、201、204、301、302、400、401、403、404、409、500 分别代表什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -788,9 +855,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：接口鉴权一般有哪些方式？ 5. 接口鉴权一般有哪些方式？ 5. 接口鉴权一般有哪些方式？    五种主流方式：①Basic Auth（明文 base64，仅用于内部）；②API Key（简单但不安全）；③Session-Cookie（传统 Web）；④Token/JWT（前后端分离主流）；⑤OAuth2.0（第三方授权）。我们系统对外用 JWT，对内服务用 mTLS + API Key。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：5. 接口鉴权一般有哪些方式？">Q003：接口鉴权一般有哪些方式？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 接口鉴权一般有哪些方式？">接口鉴权一般有哪些方式？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -814,9 +883,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：什么是接口幂等性？ 6. 什么是接口幂等性？ 6. 什么是接口幂等性？    **同一请求执行 N 次的结果与执行 1 次相同**。实现方式：①唯一索引（数据库层面）；②业务幂等键（如 requestId）；③乐观锁（版本号）；④状态机校验。测试要点：重复提交、网络重试、超时重试、并发提交。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：6. 什么是接口幂等性？">Q004：什么是接口幂等性？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 什么是接口幂等性？">什么是接口幂等性？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -840,9 +911,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：如何测试重复提交？ 7. 如何测试重复提交？ 7. 如何测试重复提交？    四种场景：①点击两次按钮（前端防抖测试）；②用 JMeter 1 秒内发 10 个相同请求；③模拟弱网下用户重试；④用 Postman 重放抓包。验证维度：数据库只插入一条、返回结果一致、不产生脏数据、不重复扣费/发通知。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：7. 如何测试重复提交？">Q005：如何测试重复提交？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 如何测试重复提交？">如何测试重复提交？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -866,9 +939,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：如何测试接口限流？ 9. 如何测试接口限流？ 9. 如何测试接口限流？    ①根据限流规则（QPS/分钟/小时）设计 JMeter 场景：刚好达到阈值、超过阈值、远超阈值；②验证：是否返回 429、限流 Header（X-RateLimit-Remaining）是否正确、不同用户/IP 是否独立计数、冷却时间后是否恢复；③边界：刚跨秒、令牌桶是否平滑。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：9. 如何测试接口限流？">Q006：如何测试接口限流？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 如何测试接口限流？">如何测试接口限流？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -892,9 +967,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：如何测试接口超时和重试？ 10. 如何测试接口超时和重试？ 10. 如何测试接口超时和重试？    ①用 Charles 的 Throttle Settings 延迟响应模拟服务端慢；②用 JMeter 的 Timeout 设置模拟客户端超时；③验证客户端是否按规则重试（次数、间隔、退避）；④验证重试是否幂等不重复落库；⑤验证最终失败时的兜底（toast 提示、降级数据）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：10. 如何测试接口超时和重试？">Q007：如何测试接口超时和重试？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 如何测试接口超时和重试？">如何测试接口超时和重试？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -918,9 +995,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：一个新增工单接口，你会设计哪些测试点？ 11. 一个新增工单接口，你会设计哪些测试点？ 11. 一个新增工单接口，你会设计哪些测试点？    六维设计：  - **功能正向**：必填字段、字段类型、枚举值、关联校验（业务人员/客户必须存在）；  - **异常分支**：必填缺失、字段超长、特殊字符、SQL 注入；  - **业务规则**：工单编号唯一性、状态初始值、自动分配业务人员逻辑；  - **数据落库**：主表 + 关联表 + 流水表都要校验；  - **联动效果**：是否触发通知、是否生成默认业务文档、是否记录操作日志；  - **权限/幂等**：越权创建、重复 requestId 提交。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：11. 一个新增工单接口，你会设计哪些测试点？">Q008：一个新增工单接口，你会设计哪些测试点？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 一个新增工单接口，你会设计哪些测试点？">一个新增工单接口，你会设计哪些测试点？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -945,9 +1024,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：一个工单状态流转接口，你会设计哪些异常场景？ 12. 一个工单状态流转接口，你会设计哪些异常场景？ 12. 一个工单状态流转接口，你会设计哪些异常场景？    ①状态机非法跳转（如&quot;已关闭&quot;跳&quot;新建&quot;）；②并发流转（两个业务人员同时改）——验证乐观锁；③前置条件不满足（无账单记录不能关闭）；④回滚后状态正确；⑤流转后下游联动（通知、业务文档、报表）是否正确；⑥流转日志是否记录操作人和时间。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：12. 一个工单状态流转接口，你会设计哪些异常场景？">Q009：一个工单状态流转接口，你会设计哪些异常场景？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 一个工单状态流转接口，你会设计哪些异常场景？">一个工单状态流转接口，你会设计哪些异常场景？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -971,9 +1052,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：一个账单结算接口，你会怎么校验计算正确性？ 13. 一个账单结算接口，你会怎么校验计算正确性？ 13. 一个账单结算接口，你会怎么校验计算正确性？    四道关：①写 SQL 把原始金额、计费金额、调整金额、服务费分别查出来，按业务公式手工算一遍对比；②边界值：金额为 0、负数、超大数（防溢出）、小数位（防精度丢失，强制 BigDecimal）；③多笔合计：N 笔账单相加是否等于汇总；④并发结算下账目不重不漏。我自己写过 SQL 对账脚本辅助。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：13. 一个账单结算接口，你会怎么校验计算正确性？">Q010：一个账单结算接口，你会怎么校验计算正确性？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 一个账单结算接口，你会怎么校验计算正确性？">一个账单结算接口，你会怎么校验计算正确性？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -997,9 +1080,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：一个通知发送接口，你会怎么验证通知是否真的发送？ 14. 一个通知发送接口，你会怎么验证通知是否真的发送？ 14. 一个通知发送接口，你会怎么验证通知是否真的发送？    四层验证：①接口返回成功 + 通知流水表落库；②通知平台后台查询投递状态；③真实手机收到内容、签名、链接（变量替换正确）；④异步场景看消息队列是否消费、失败是否进死信队列。我们内部有&quot;通知测试账号池&quot;，可自动拉取最近收到的通知做内容断言。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：14. 一个通知发送接口，你会怎么验证通知是否真的发送？">Q011：一个通知发送接口，你会怎么验证通知是否真的发送？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 一个通知发送接口，你会怎么验证通知是否真的发送？">一个通知发送接口，你会怎么验证通知是否真的发送？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1023,9 +1108,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：上游接口返回异常时，下游如何验证？ 17. 上游接口返回异常时，下游如何验证？ 17. 上游接口返回异常时，下游如何验证？    通过 Mock 上游构造异常响应（4xx、5xx、超时、错误格式、null、空数组），验证下游：①不崩溃；②给出友好错误提示；③不脏数据；④有重试或降级策略；⑤日志记录了 traceId 和上游响应。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：17. 上游接口返回异常时，下游如何验证？">Q012：上游接口返回异常时，下游如何验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 上游接口返回异常时，下游如何验证？">上游接口返回异常时，下游如何验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1049,9 +1136,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：接口返回字段很多时，你怎么做断言？ 18. 接口返回字段很多时，你怎么做断言？ 18. 接口返回字段很多时，你怎么做断言？    分层断言：①状态码 + 关键字段强断言；②结构断言（JSONSchema 校验）；③业务字段断言（业务计算结果）；④动态字段（时间戳、ID）用类型断言或正则；⑤敏感字段（密码、token）断言不存在。在 YAML 里配置断言路径，避免硬编码。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：18. 接口返回字段很多时，你怎么做断言？">Q013：接口返回字段很多时，你怎么做断言？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 接口返回字段很多时，你怎么做断言？">接口返回字段很多时，你怎么做断言？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1075,9 +1164,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：接口缓存如何验证？ 20. 接口缓存如何验证？ 20. 接口缓存如何验证？    ①第一次请求落库 + 第二次相同请求是否快速返回（看响应时间）；②直接读 Redis Key 看缓存是否写入；③修改 DB 数据后是否触发缓存失效；④缓存击穿（大量并发未命中）是否雪崩；⑤缓存过期时间是否合理。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：20. 接口缓存如何验证？">Q014：接口缓存如何验证？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 接口缓存如何验证？">接口缓存如何验证？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1101,9 +1192,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：接口返回 500，你怎么定位？ 21. 接口返回 500，你怎么定位？ 21. 接口返回 500，你怎么定位？    六步法：①抓取 traceId；②按 traceId 在应用日志中找异常堆栈；③看是不是 NPE、SQL 异常、第三方调用异常；④如果是 SQL 异常，去看慢查询日志；⑤如果是第三方异常，看 Mock/真实调用记录；⑥本地复现 → 给研发明确的根因 + 修复建议。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：21. 接口返回 500，你怎么定位？">Q015：接口返回 500，你怎么定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. 接口返回 500，你怎么定位？">接口返回 500，你怎么定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1127,9 +1220,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：接口偶发超时，你怎么定位？ 22. 接口偶发超时，你怎么定位？ 22. 接口偶发超时，你怎么定位？    偶发问题处理思路：①能不能复现——用 JMeter 加压、用脚本循环 1000 次；②看监控曲线（Grafana/Prometheus）找突刺时间点；③对照看依赖服务、DB、Redis、网络的同期指标；④抓 SkyWalking/Zipkin 链路，看每段耗时；⑤是不是缓存击穿、GC 抖动、连接池占满。我们一次遇到是数据库连接池 maxActive 设小了，并发一上来就排队。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：22. 接口偶发超时，你怎么定位？">Q016：接口偶发超时，你怎么定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. 接口偶发超时，你怎么定位？">接口偶发超时，你怎么定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1153,9 +1248,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：接口返回数据和页面展示不一致，你怎么定位？ 24. 接口返回数据和页面展示不一致，你怎么定位？ 24. 接口返回数据和页面展示不一致，你怎么定位？    ①F12 看接口实际响应；②对比页面字段映射（是不是 JS 处理时丢字段或转换错误）；③看是否有前端缓存（localStorage、Service Worker）；④看是否多个接口数据拼接，某个接口异常被忽略；⑤看是否有时区/格式化差异。一般 3 分钟内能判断是前端问题还是接口问题。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：24. 接口返回数据和页面展示不一致，你怎么定位？">Q017：接口返回数据和页面展示不一致，你怎么定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. 接口返回数据和页面展示不一致，你怎么定位？">接口返回数据和页面展示不一致，你怎么定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1179,9 +1276,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：接口版本升级后如何做回归？ 28. 接口版本升级后如何做回归？ 28. 接口版本升级后如何做回归？    ①跑全量接口自动化回归（约 300 条），断言保留向下兼容字段；②对比新老版本响应（DiffTest）；③重点回归被改动接口的上下游链路；④性能基线对比，确保没有退化。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：28. 接口版本升级后如何做回归？">Q018：接口版本升级后如何做回归？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. 接口版本升级后如何做回归？">接口版本升级后如何做回归？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1205,9 +1304,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：如何判断是前端问题还是后端接口问题？ 29. 如何判断是前端问题还是后端接口问题？ 29. 如何判断是前端问题还是后端接口问题？    F12 抓接口看 Response：①数据正确而页面错→前端；②数据错→后端；③接口 4xx/5xx→后端；④接口 200 但字段缺失→看 API 契约定义，谁违约谁负责。3 分钟内判断不出来时拉研发一起看。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：29. 如何判断是前端问题还是后端接口问题？">Q019：如何判断是前端问题还是后端接口问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. 如何判断是前端问题还是后端接口问题？">如何判断是前端问题还是后端接口问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1231,9 +1332,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：如何判断是数据问题还是代码问题？ 30. 如何判断是数据问题还是代码问题？ 30. 如何判断是数据问题还是代码问题？    ①换一组干净测试数据复现：还原不了→数据问题；②找出问题数据的特征（脏数据、历史数据、特殊编码）；③看代码是否处理了这种数据形态。数据问题修脏数据 + 加防御代码，代码问题改逻辑。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：30. 如何判断是数据问题还是代码问题？">Q020：如何判断是数据问题还是代码问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：30. 如何判断是数据问题还是代码问题？">如何判断是数据问题还是代码问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1257,9 +1360,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：场景 3：接口自动化失败率突然升高 场景 3：接口自动化失败率突然升高 场景 3：接口自动化失败率突然升高 Jenkins 每晚跑接口自动化，最近失败率从 2% 升到 30%。怎么处理？       1. **快速分类**：先看失败用例 Allure 报告，按失败原因聚类（5 大类）：     - **环境问题**：500/502/503 大批量出现；     - **鉴权问题**：401 集中；     - **数据问题**：数据校验失败（同一字段不存在）；     - **接口变更**：响应结构变了；     - **业务变更**：返回值符合新逻辑但用例没更新。  2. **逐一确认**：     - 拉研发确认是否近期发布变更；     - 看 git log 哪些代码改了；     - 看测试环境是否被其他人占用导致脏数据；     - 看 Token 是否过期、登录账号是否被锁。  3. **修复策略**：     - 真 Bug → 提单跟踪；     - 用例过时 → 更新断言；     - 环境问题 → 推动运维 + 增加重试；     - 数据脏 → 强化 fixture 隔离。  4. **长效机制**：     - 失败用例分类自动统计（Allure Categories）；     - 失败 Top 10 周报跟进；     - 不稳定用例隔离（暂时移出 critical 集合）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：场景 3：接口自动化失败率突然升高">Q021：场景 3：接口自动化失败率突然升高</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：场景 3：接口自动化失败率突然升高">场景 3：接口自动化失败率突然升高</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1283,9 +1388,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：两数之和：数组里找两个数之和等于 target，返回下标。 15. 两数之和：数组里找两个数之和等于 target，返回下标。 15. 两数之和：数组里找两个数之和等于 target，返回下标。    哈希表一次遍历，O(n)：    ```python  def two_sum(nums, target):      seen = {}                      # 值 -&gt; 下标      for i, n in enumerate(nums):          if target - n in seen:              return [seen[target - n], i]          seen[n] = i      return []  ```    比双重循环 O(n²) 优。考点是&quot;用空间换时间&quot;的哈希思路。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：15. 两数之和：数组里找两个数之和等于 target，返回下标。">Q022：两数之和：数组里找两个数之和等于 target，返回下标。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 两数之和：数组里找两个数之和等于 target，返回下标。">两数之和：数组里找两个数之和等于 target，返回下标。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1317,9 +1424,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：给一个接口怎么写用例 5 / 给一个接口怎么写用例 5 / 给一个接口怎么写用例  1. 正常场景：必填参数、典型组合，校验状态码/响应结构/业务字段/数据落库。  2. 参数校验：必填缺失、类型错误、边界值、超长、特殊字符、空值/null。  3. 业务逻辑：状态流转、幂等、并发、权限/鉴权（无 token/过期 token/越权）。  4. 异常与容错：依赖三方超时/异常、限流、降级。  5. 安全：SQL 注入、越权、敏感信息泄露。  6. 性能：高频接口的响应时间与并发表现。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：5 / 给一个接口怎么写用例">Q023：给一个接口怎么写用例</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5 / 给一个接口怎么写用例">给一个接口怎么写用例</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1343,9 +1452,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：多接口自动化以什么形式做 1&amp;2 / 多接口自动化以什么形式做 1&amp;2 / 多接口自动化以什么形式做  以**业务场景串联**为主：通过提取上一个接口响应中的字段（如 token、id）作为下一个接口的入参，形成完整业务链路（如登录→下单→支付→查询），而非孤立单接口。用例数据与代码分离，参数化驱动。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：1&amp;2 / 多接口自动化以什么形式做">Q024：多接口自动化以什么形式做</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1&amp;2 / 多接口自动化以什么形式做">多接口自动化以什么形式做</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1369,9 +1480,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：自动化搭建原理 4 / 自动化搭建原理 4 / 自动化搭建原理  本质是用代码模拟客户端发起请求 → 获取响应 → 断言 → 报告。核心是**封装复用 + 数据驱动 + 用例与数据分离 + 持续集成**。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：4 / 自动化搭建原理">Q025：自动化搭建原理</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4 / 自动化搭建原理">自动化搭建原理</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1395,9 +1508,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：自动化框架做过哪些迭代（框架思路） 7 / 自动化框架做过哪些迭代（框架思路） 7 / 自动化框架做过哪些迭代（框架思路）  常见迭代方向：单接口→场景串联；硬编码→数据驱动；本地执行→CI 定时执行；无报告→allure+通知；增加失败重试、token 自动刷新、测试数据自动清理、并发执行、环境多套切换。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：7 / 自动化框架做过哪些迭代（框架思路）">Q026：自动化框架做过哪些迭代（框架思路）</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7 / 自动化框架做过哪些迭代（框架思路）">自动化框架做过哪些迭代（框架思路）</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1421,9 +1536,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：写自动化遇到的问题与解决 8&amp;9&amp;10 / 写自动化遇到的问题与解决 8&amp;9&amp;10 / 写自动化遇到的问题与解决  - **用例不稳定（flaky）**：依赖外部环境/数据 → 用 mock 隔离三方、用例自带数据准备与清理、加合理重试。  - **数据耦合**：用例间共享数据导致互相影响 → 每条用例独立造数、用完即清。  - **token/鉴权**：过期导致批量失败 → fixture 统一管理、自动刷新。  - **断言不充分**：只断状态码漏业务错误 → 增加业务字段与数据库校验。  - **维护成本高**：接口变更全改 → 请求与数据分层、统一封装。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：8&amp;9&amp;10 / 写自动化遇到的问题与解决">Q027：写自动化遇到的问题与解决</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8&amp;9&amp;10 / 写自动化遇到的问题与解决">写自动化遇到的问题与解决</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1447,9 +1564,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：自动化稳定性如何提升，首先改善什么 11&amp;12&amp;13 / 自动化稳定性如何提升，首先改善什么 11&amp;12&amp;13 / 自动化稳定性如何提升，首先改善什么  首先解决**环境与数据稳定性**（最大不稳定来源）：  1. 测试数据隔离与自愈（每条用例独立造数清数）。  2. 三方依赖 mock，避免外部抖动。  3. 合理重试 + 超时控制，区分&quot;真失败&quot;与&quot;偶发抖动&quot;。  4. 断言精准化，减少误报。  5. 用例幂等、无执行顺序依赖。  6. 监控失败率与失败归因，持续治理 flaky 用例。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：11&amp;12&amp;13 / 自动化稳定性如何提升，首先改善什么">Q028：自动化稳定性如何提升，首先改善什么</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11&amp;12&amp;13 / 自动化稳定性如何提升，首先改善什么">自动化稳定性如何提升，首先改善什么</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1474,9 +1593,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：降级测试多吗 / 除降级外的稳定性手段 16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段 16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段  除降级外还有：限流、熔断、超时控制、重试、兜底数据、开关（feature flag）、故障演练（混沌工程，如随机杀进程/注入延迟）、全链路压测、线上巡检与监控告警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段">Q029：降级测试多吗 / 除降级外的稳定性手段</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段">降级测试多吗 / 除降级外的稳定性手段</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1500,9 +1621,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：怎么模拟三方接口 18 / 怎么模拟三方接口 18 / 怎么模拟三方接口  用 mock server（如 `unittest.mock`/`responses`/`mockserver`/`WireMock`/自建 Flask mock 服务），按契约返回约定数据；可配置返回正常、异常、超时、错误码等不同响应。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：18 / 怎么模拟三方接口">Q030：怎么模拟三方接口</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18 / 怎么模拟三方接口">怎么模拟三方接口</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1526,9 +1649,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q031：三方接口异常场景怎么设计 19 / 三方接口异常场景怎么设计 19 / 三方接口异常场景怎么设计  覆盖：超时、连接失败、返回错误码（4xx/5xx）、返回空/格式错误、返回慢（接近超时边界）、限流被拒、数据不一致。验证本系统的容错、重试、降级、兜底是否正确。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：19 / 三方接口异常场景怎么设计">Q031：三方接口异常场景怎么设计</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19 / 三方接口异常场景怎么设计">三方接口异常场景怎么设计</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1552,9 +1677,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q032：HTTP 常用请求方法 2 / HTTP 常用请求方法 2 / HTTP 常用请求方法  GET（查）、POST（增/提交）、PUT（全量更新）、PATCH（部分更新）、DELETE（删）、HEAD（只取头）、OPTIONS（预检/查询支持的方法）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：2 / HTTP 常用请求方法">Q032：HTTP 常用请求方法</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2 / HTTP 常用请求方法">HTTP 常用请求方法</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

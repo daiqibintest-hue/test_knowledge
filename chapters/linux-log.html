@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：如何查看日志最后 100 行？ 1. 如何查看日志最后 100 行？ 1. 如何查看日志最后 100 行？    `tail -n 100 app.log`，如果要看最后 100 行并跟踪用 `tail -f -n 100 app.log`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：1. 如何查看日志最后 100 行？">Q001：如何查看日志最后 100 行？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 如何查看日志最后 100 行？">如何查看日志最后 100 行？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：如何实时查看日志？ 2. 如何实时查看日志？ 2. 如何实时查看日志？    `tail -f app.log`，结合 grep：`tail -f app.log | grep ERROR`，看到关键字立即响应。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：2. 如何实时查看日志？">Q002：如何实时查看日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. 如何实时查看日志？">如何实时查看日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -787,9 +854,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：如何按关键字搜索日志？ 3. 如何按关键字搜索日志？ 3. 如何按关键字搜索日志？    `grep &quot;traceId=xxx&quot; app.log` 单个关键字；`grep -E &quot;ERROR|WARN&quot; app.log` 正则；`grep -A 5 -B 2 &quot;Exception&quot; app.log` 上下文；多文件用 `grep -r &quot;keyword&quot; /logs/`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：3. 如何按关键字搜索日志？">Q003：如何按关键字搜索日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 如何按关键字搜索日志？">如何按关键字搜索日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -813,9 +882,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：如何查看端口占用？ 4. 如何查看端口占用？ 4. 如何查看端口占用？    `netstat -tunlp | grep 8080` 或 `lsof -i:8080` 或 `ss -tunlp | grep 8080`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：4. 如何查看端口占用？">Q004：如何查看端口占用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 如何查看端口占用？">如何查看端口占用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -839,9 +910,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：如何查看进程？ 5. 如何查看进程？ 5. 如何查看进程？    `ps -ef | grep java` 看全部，`ps aux --sort -%cpu | head` 按 CPU 排序，`pgrep -fl java` 模糊查。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：5. 如何查看进程？">Q005：如何查看进程？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 如何查看进程？">如何查看进程？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -865,9 +938,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：如何查看 CPU 和内存？ 6. 如何查看 CPU 和内存？ 6. 如何查看 CPU 和内存？    `top` 实时查看，`top -Hp PID` 看线程；`free -h` 看内存；`vmstat 1 5` 看系统级；`mpstat -P ALL 1` 看每个 CPU。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：6. 如何查看 CPU 和内存？">Q006：如何查看 CPU 和内存？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 如何查看 CPU 和内存？">如何查看 CPU 和内存？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -891,9 +966,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：如何查看磁盘空间？ 7. 如何查看磁盘空间？ 7. 如何查看磁盘空间？    `df -h` 看分区；`du -sh /path/*` 看目录大小；`du -sh * | sort -h` 排序找大目录。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：7. 如何查看磁盘空间？">Q007：如何查看磁盘空间？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 如何查看磁盘空间？">如何查看磁盘空间？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -917,9 +994,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：如何查看服务是否启动？ 8. 如何查看服务是否启动？ 8. 如何查看服务是否启动？    `systemctl status nginx` 或 `service nginx status`；进程层 `ps -ef | grep nginx`；端口层 `netstat -tunlp | grep 80`；接口层 `curl -I http://localhost/`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：8. 如何查看服务是否启动？">Q008：如何查看服务是否启动？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 如何查看服务是否启动？">如何查看服务是否启动？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -943,9 +1022,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：如何查看网络连通性？ 9. 如何查看网络连通性？ 9. 如何查看网络连通性？    `ping host` 看延迟丢包；`telnet host port` 看端口；`curl -v http://...` 看完整请求；`traceroute host` 看路由。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：9. 如何查看网络连通性？">Q009：如何查看网络连通性？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 如何查看网络连通性？">如何查看网络连通性？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -969,9 +1050,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：如何杀掉进程？ 10. 如何杀掉进程？ 10. 如何杀掉进程？    `kill PID` 优雅退出，`kill -9 PID` 强杀；`pkill -f java` 按模式杀。生产环境慎用 -9，可能导致数据丢失。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：10. 如何杀掉进程？">Q010：如何杀掉进程？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 如何杀掉进程？">如何杀掉进程？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -995,9 +1078,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：日志一般分哪些级别？ 11. 日志一般分哪些级别？ 11. 日志一般分哪些级别？    TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL。生产环境默认 INFO，排查时调到 DEBUG。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：11. 日志一般分哪些级别？">Q011：日志一般分哪些级别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 日志一般分哪些级别？">日志一般分哪些级别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1021,9 +1106,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：ERROR 和 WARN 有什么区别？ 12. ERROR 和 WARN 有什么区别？ 12. ERROR 和 WARN 有什么区别？    - **ERROR**：异常导致功能失败，必须告警；  - **WARN**：异常但有兜底，功能仍可用，需关注但不告警。  两者用得不规范的话会让告警失效，我会推动研发统一标准。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：12. ERROR 和 WARN 有什么区别？">Q012：ERROR 和 WARN 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. ERROR 和 WARN 有什么区别？">ERROR 和 WARN 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1048,9 +1135,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：如何通过 traceId 定位问题？ 13. 如何通过 traceId 定位问题？ 13. 如何通过 traceId 定位问题？    ①前端/接口返回带回 traceId；②在网关、应用、DB 多个层面用 traceId 关联；③通过 SkyWalking/Zipkin 看完整链路；④没有链路工具时 `grep traceId` 多个日志文件。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：13. 如何通过 traceId 定位问题？">Q013：如何通过 traceId 定位问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 如何通过 traceId 定位问题？">如何通过 traceId 定位问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1074,9 +1163,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：多服务调用链路如何排查？ 14. 多服务调用链路如何排查？ 14. 多服务调用链路如何排查？    APM 工具（SkyWalking/Zipkin/Pinpoint）看 traceId 串起的调用图，关注每段耗时、异常节点、下游响应。没有 APM 就靠 traceId + 日志聚合（ELK）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：14. 多服务调用链路如何排查？">Q014：多服务调用链路如何排查？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 多服务调用链路如何排查？">多服务调用链路如何排查？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1100,9 +1191,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：接口 500 日志如何定位？ 15. 接口 500 日志如何定位？ 15. 接口 500 日志如何定位？    按 traceId 拿到异常堆栈→看是 NPE、SQL 异常还是第三方异常→看 root cause→本地复现→给研发明确根因。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：15. 接口 500 日志如何定位？">Q015：接口 500 日志如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 接口 500 日志如何定位？">接口 500 日志如何定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1126,9 +1219,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：接口超时日志如何定位？ 16. 接口超时日志如何定位？ 16. 接口超时日志如何定位？    ①看 access log 的响应时间；②看 APM 链路每段耗时；③看 GC 日志是否有 Full GC；④看慢 SQL 日志；⑤看下游服务日志。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：16. 接口超时日志如何定位？">Q016：接口超时日志如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 接口超时日志如何定位？">接口超时日志如何定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1152,9 +1247,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：数据不一致日志如何定位？ 17. 数据不一致日志如何定位？ 17. 数据不一致日志如何定位？    ①找到数据变更的时间点；②按 traceId 拿到完整调用链；③看是否有事务回滚日志；④看异步任务是否成功消费；⑤看缓存更新日志。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：17. 数据不一致日志如何定位？">Q017：数据不一致日志如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 数据不一致日志如何定位？">数据不一致日志如何定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1178,9 +1275,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：定时任务失败如何定位？ 18. 定时任务失败如何定位？ 18. 定时任务失败如何定位？    ①看调度器日志（XXL-Job/Quartz）是否触发；②看任务执行日志；③看锁是否被持有未释放；④看上次执行结果；⑤手动触发复现。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：18. 定时任务失败如何定位？">Q018：定时任务失败如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 定时任务失败如何定位？">定时任务失败如何定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1204,9 +1303,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：AI 接口调用失败如何定位？ 19. AI 接口调用失败如何定位？ 19. AI 接口调用失败如何定位？    ①看 AI 网关日志（Token 是否过期、限流是否触发）；②看模型返回原始内容（是不是 Prompt 太长被截断）；③看是不是模型版本变了；④看是不是输入触发了内容审核拦截。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：19. AI 接口调用失败如何定位？">Q019：AI 接口调用失败如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. AI 接口调用失败如何定位？">AI 接口调用失败如何定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1230,9 +1331,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：日志缺失时怎么推动研发优化？ 20. 日志缺失时怎么推动研发优化？ 20. 日志缺失时怎么推动研发优化？    ①提交日志改进单，列出哪些场景没法回溯；②给出建议（traceId、关键参数、关键节点 INFO 日志）；③拿一次线上事故案例（&quot;如果当时有日志，定位时间能从 4 小时缩到 15 分钟&quot;）让研发承认价值；④形成日志规范文档纳入代码评审。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：20. 日志缺失时怎么推动研发优化？">Q020：日志缺失时怎么推动研发优化？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 日志缺失时怎么推动研发优化？">日志缺失时怎么推动研发优化？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1256,9 +1359,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：CPU 高一般有哪些原因？ 42. CPU 高一般有哪些原因？ 42. CPU 高一般有哪些原因？    ①热点代码（死循环、复杂计算）；②大量序列化/反序列化（如 JSON 解析）；③GC 频繁；④锁竞争；⑤上下文切换多（线程过多）。定位用 `top -Hp PID` 找高 CPU 线程 + jstack 看堆栈。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：42. CPU 高一般有哪些原因？">Q021：CPU 高一般有哪些原因？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：42. CPU 高一般有哪些原因？">CPU 高一般有哪些原因？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1282,9 +1387,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：内存高一般有哪些原因？ 43. 内存高一般有哪些原因？ 43. 内存高一般有哪些原因？    ①缓存无界增长；②大对象未释放；③ThreadLocal 泄漏；④静态集合不断 add；⑤连接未关闭。看 GC 日志判断是稳态还是泄漏；jmap dump heap 用 MAT 分析。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：43. 内存高一般有哪些原因？">Q022：内存高一般有哪些原因？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：43. 内存高一般有哪些原因？">内存高一般有哪些原因？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1308,9 +1415,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：你是否看过应用服务器日志？ 49. 你是否看过应用服务器日志？ 49. 你是否看过应用服务器日志？    看过，每次压测必看 app.log 和 GC 日志。重点：①ERROR 数量；②长慢请求（响应时间 &gt; 1s 的 access log）；③GC 频率和暂停时间；④异常类型分类（OOM、Timeout、SQL Exception）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：49. 你是否看过应用服务器日志？">Q023：你是否看过应用服务器日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：49. 你是否看过应用服务器日志？">你是否看过应用服务器日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1334,9 +1443,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：Skill 是否需要日志？ 31. Skill 是否需要日志？ 31. Skill 是否需要日志？    必须。日志包含：①触发时间和用户；②加载的 Skill 名和版本；③传入参数；④每步调用的工具和返回；⑤最终结果。用于审计和问题回溯。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：31. Skill 是否需要日志？">Q024：Skill 是否需要日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：31. Skill 是否需要日志？">Skill 是否需要日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1360,9 +1471,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：AI 如何分析失败日志？ 53. AI 如何分析失败日志？ 53. AI 如何分析失败日志？    ①把失败日志结构化抽取（traceId、异常栈、SQL、断言 diff）；②**LLM few-shot 分类**成&quot;环境 / 数据脏 / 用例过时 / 真 Bug&quot;四类（给标注样例，输出带置信度）；③相似失败聚类：异常栈先归一化（去行号/时间戳）再 embedding 聚类，一类只看一次，省得 100 条同因失败逐条看；④输出根因 + 修复建议 + 优先级；⑤分类结果人工抽查校准，错的回灌做下次 few-shot。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：53. AI 如何分析失败日志？">Q025：AI 如何分析失败日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：53. AI 如何分析失败日志？">AI 如何分析失败日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1386,9 +1499,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：AI 问答有没有安全审计日志？ 30. AI 问答有没有安全审计日志？ 30. AI 问答有没有安全审计日志？    有。每次问答记录：①用户 ID、租户 ID、角色；②原始 query；③召回片段 ID 列表；④最终 prompt（脱敏）；⑤模型响应；⑥是否触发安全拦截。日志保留 6 个月用于安全审计和合规检查。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：30. AI 问答有没有安全审计日志？">Q026：AI 问答有没有安全审计日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：30. AI 问答有没有安全审计日志？">AI 问答有没有安全审计日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1412,9 +1527,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：进程、线程、协程的区别？ 8. 进程、线程、协程的区别？ 8. 进程、线程、协程的区别？    ①进程：资源分配的基本单位，有独立内存空间，开销大、隔离好；②线程：CPU 调度的基本单位，同进程内共享内存，开销小但要处理线程安全；③协程：用户态的轻量&quot;线程&quot;，由程序自己调度（asyncio），单线程内靠事件循环切换，没有线程切换开销，适合海量 IO 并发。开销：进程 &gt; 线程 &gt; 协程；并发能力反过来。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：8. 进程、线程、协程的区别？">Q027：进程、线程、协程的区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 进程、线程、协程的区别？">进程、线程、协程的区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1438,9 +1555,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。 20. 统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。 20. 统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。    文件流式读取 + 字典计数，结合生成器省内存：    ```python  from collections import defaultdict  def count_errors(path):      counter = defaultdict(int)      with open(path, encoding=&#x27;utf-8&#x27;) as f:          for line in f:                 # 惰性逐行，大日志不爆内存              if &#x27;ERROR&#x27; in line:                  key = line.split(&#x27;]&#x27;)[-1].strip()[:50]  # 按错误摘要分类                  counter[key] += 1      return dict(counter)  ```    这类&quot;日志分析 + 统计&quot;是测开很实际的题，考点是文件流式处理 + 字典计数，呼应第四部分日志分析。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：20. 统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。">Q028：统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。">统计一段日志里 ERROR 出现的次数并按类型分类（贴合测试场景）。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1474,9 +1593,11 @@ def count_errors(path):
                      data-search="Q029：多线程用哪个模块 / 线程进程用什么库 7&amp;8&amp;9 / 多线程用哪个模块 / 线程进程用什么库 7&amp;8&amp;9 / 多线程用哪个模块 / 线程进程用什么库  - 线程：`threading`；线程池：`concurrent.futures.ThreadPoolExecutor`。  - 进程：`multiprocessing`；进程池：`ProcessPoolExecutor` / `multiprocessing.Pool`。  - 协程：`asyncio`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：7&amp;8&amp;9 / 多线程用哪个模块 / 线程进程用什么库">Q029：多线程用哪个模块 / 线程进程用什么库</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7&amp;8&amp;9 / 多线程用哪个模块 / 线程进程用什么库">多线程用哪个模块 / 线程进程用什么库</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1500,9 +1621,11 @@ def count_errors(path):
                      data-search="Q030：读日志逐行打印 14 / 读日志逐行打印 14 / 读日志逐行打印  ```python  with open(&quot;app.log&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:      for line in f:          # 逐行迭代，内存友好，适合大文件          print(line.rstrip())  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：14 / 读日志逐行打印">Q030：读日志逐行打印</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14 / 读日志逐行打印">读日志逐行打印</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1528,9 +1651,11 @@ def count_errors(path):
                      data-search="Q031：线程 vs 进程 1 / 线程 vs 进程 1 / 线程 vs 进程  - 进程：资源分配的基本单位，有独立内存空间，进程间隔离、通信成本高（IPC）。  - 线程：CPU 调度的基本单位，同进程内线程共享内存，创建/切换开销小，但需处理同步与竞态。  - 一个进程包含一个或多个线程。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：1 / 线程 vs 进程">Q031：线程 vs 进程</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1 / 线程 vs 进程">线程 vs 进程</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1554,9 +1679,11 @@ def count_errors(path):
                      data-search="Q032：多线程/进程用什么模块 2&amp;4 / 多线程/进程用什么模块 2&amp;4 / 多线程/进程用什么模块  线程 `threading`、进程 `multiprocessing`、协程 `asyncio`、池 `concurrent.futures`。（同七）  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：2&amp;4 / 多线程/进程用什么模块">Q032：多线程/进程用什么模块</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2&amp;4 / 多线程/进程用什么模块">多线程/进程用什么模块</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1580,9 +1707,11 @@ def count_errors(path):
                      data-search="Q033：线程越多越好吗 3 / 线程越多越好吗 3 / 线程越多越好吗  不是，同七 12。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：3 / 线程越多越好吗">Q033：线程越多越好吗</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3 / 线程越多越好吗">线程越多越好吗</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1606,9 +1735,11 @@ def count_errors(path):
                      data-search="Q034：内存泄漏如何排查 / 定位到哪个函数 5&amp;6 / 内存泄漏如何排查 / 定位到哪个函数 5&amp;6 / 内存泄漏如何排查 / 定位到哪个函数  - 现象：内存随时间持续增长不回落。  - Python：用 `tracemalloc`（定位内存分配代码行）、`objgraph`（看对象增长与引用链）、`gc` 模块查未回收对象、`memory_profiler` 逐行/逐函数看内存；常见原因：全局缓存只增不删、循环引用、未关闭的资源、闭包持有大对象。  - 通用/服务端：监控 RSS 曲线，dump 内存，按对象类型与分配栈定位增长点，再回溯到具体函数。  - C/JVM 类：valgrind / MAT(堆 dump 分析) 等。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：5&amp;6 / 内存泄漏如何排查 / 定位到哪个函数">Q034：内存泄漏如何排查 / 定位到哪个函数</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5&amp;6 / 内存泄漏如何排查 / 定位到哪个函数">内存泄漏如何排查 / 定位到哪个函数</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1632,9 +1763,11 @@ def count_errors(path):
                      data-search="Q035：CPU、内存、磁盘 IO、网络 IO 分别怎么看？ Q17.7：CPU、内存、磁盘 IO、网络 IO 分别怎么看？ Q17.7：CPU、内存、磁盘 IO、网络 IO 分别怎么看？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 7. CPU/内存/磁盘IO/网络IO：分别反映计算、内存、磁盘读写、网络传输是否成为瓶颈。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q035</span>
-                <h3 class="card-title" title="原题：Q17.7：CPU、内存、磁盘 IO、网络 IO 分别怎么看？">Q035：CPU、内存、磁盘 IO、网络 IO 分别怎么看？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.7：CPU、内存、磁盘 IO、网络 IO 分别怎么看？">CPU、内存、磁盘 IO、网络 IO 分别怎么看？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1659,9 +1792,11 @@ def count_errors(path):
                      data-search="Q036：CPU 很高时如何分析？ Q18.1：CPU 很高时如何分析？ Q18.1：CPU 很高时如何分析？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 所以我的定位顺序是：先拆 RT、再看饱和度，而不是一上来看 CPU。 很多&amp;quot;TPS 上不去&amp;quot;是 JMeter 单机 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 TIME_WAIT）。先确认压力机 CPU &amp;lt; 60%、用分布式压力机，再谈被测系统。这一步不做，后面全是错的。 CPU 高（&amp;gt;80%）：先分 us 还是 sy（top 看）。us 高 → 业务/算法热点，上 火焰图（async-profiler）找最耗 CPU 的方法；sy 高 → 线程过多、上下文切换频繁或频繁系统调用。 B. 有效并发卡死型（CPU 不高 &amp;lt;40% 但 RT 高、TPS 平）—— 实战里最常见">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q036</span>
-                <h3 class="card-title" title="原题：Q18.1：CPU 很高时如何分析？">Q036：CPU 很高时如何分析？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.1：CPU 很高时如何分析？">CPU 很高时如何分析？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1689,9 +1824,11 @@ def count_errors(path):
                      data-search="Q037：CPU 不高但响应时间很慢时如何分析？ Q18.2：CPU 不高但响应时间很慢时如何分析？ Q18.2：CPU 不高但响应时间很慢时如何分析？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 所以我的定位顺序是：先拆 RT、再看饱和度，而不是一上来看 CPU。 很多&amp;quot;TPS 上不去&amp;quot;是 JMeter 单机 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 TIME_WAIT）。先确认压力机 CPU &amp;lt; 60%、用分布式压力机，再谈被测系统。这一步不做，后面全是错的。 CPU 高（&amp;gt;80%）：先分 us 还是 sy（top 看）。us 高 → 业务/算法热点，上 火焰图（async-profiler）找最耗 CPU 的方法；sy 高 → 线程过多、上下文切换频繁或频繁系统调用。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q037</span>
-                <h3 class="card-title" title="原题：Q18.2：CPU 不高但响应时间很慢时如何分析？">Q037：CPU 不高但响应时间很慢时如何分析？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.2：CPU 不高但响应时间很慢时如何分析？">CPU 不高但响应时间很慢时如何分析？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1719,9 +1856,11 @@ def count_errors(path):
                      data-search="Q038：内存持续上涨可能说明什么？ Q18.3：内存持续上涨可能说明什么？ Q18.3：内存持续上涨可能说明什么？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 先讲方法论，不要上来就猜。 TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻： &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 所以我的定位顺序是：先拆 RT、再看饱和度，而不是一上来看 CPU。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q038</span>
-                <h3 class="card-title" title="原题：Q18.3：内存持续上涨可能说明什么？">Q038：内存持续上涨可能说明什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.3：内存持续上涨可能说明什么？">内存持续上涨可能说明什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1748,9 +1887,11 @@ def count_errors(path):
                      data-search="Q039：网络带宽或磁盘 IO 达到瓶颈时有什么表现？ Q18.10：网络带宽或磁盘 IO 达到瓶颈时有什么表现？ Q18.10：网络带宽或磁盘 IO 达到瓶颈时有什么表现？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 很多&amp;quot;TPS 上不去&amp;quot;是 JMeter 单机 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 TIME_WAIT）。先确认压力机 CPU &amp;lt; 60%、用分布式压力机，再谈被测系统。这一步不做，后面全是错的。 大量 WAITING 在 getConnection（Druid/HikariCP）→ 数据库连接池太小。Druid 监控看 active == max 且有 wait。 RT 平稳、TPS 随并发 线性上涨 → 还没到瓶颈，继续加。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q039</span>
-                <h3 class="card-title" title="原题：Q18.10：网络带宽或磁盘 IO 达到瓶颈时有什么表现？">Q039：网络带宽或磁盘 IO 达到瓶颈时有什么表现？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.10：网络带宽或磁盘 IO 达到瓶颈时有什么表现？">网络带宽或磁盘 IO 达到瓶颈时有什么表现？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1777,9 +1918,11 @@ def count_errors(path):
                      data-search="Q040：应用日志中重点看什么？ Q19.4：应用日志中重点看什么？ Q19.4：应用日志中重点看什么？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 4. 应用日志报什么：这是最关键的一步——直接看异常堆栈，500 的根因几乎都在应用日志里。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q040</span>
-                <h3 class="card-title" title="原题：Q19.4：应用日志中重点看什么？">Q040：应用日志中重点看什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.4：应用日志中重点看什么？">应用日志中重点看什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1804,9 +1947,11 @@ def count_errors(path):
                      data-search="Q041：执行日志和报告数据如何存储？ Q26.10：执行日志和报告数据如何存储？ Q26.10：执行日志和报告数据如何存储？ 答题要点：这道题可以从主问题「Q26：如何设计一个高可用的自动化测试平台」里拆开回答，重点说清楚结论、落地位置和边界。 我会按 前端 + 后端服务 + 任务调度 + 执行节点 + 存储 分层设计。 ┌─────────────┐     ┌──────────────┐     ┌──────────────────┐ │  前端展示层  │ →   │  后端服务层   │ →   │  任务队列         │ │ 用例/任务/报告│     │ 用例/任务/调度 │     │ Redis/RabbitMQ   │ └─────────────┘     │ 节点/权限管理 │     │ /Kafka            │                     └──────────────┘     └────────┬─────────┘                             │                      │ 分发                     ┌───────┴────────┐    ┌────────┴────────┐                     │   存储层        │    │  执行节点集群    │                     │ MySQL+对象存储  │    │ Node1 Node2 ... │                     └────────────────┘    └─────────────────┘ 任务状态机 PENDING → RUNNING → SUCCESS/FAILED，流转用 数据库 CAS / 乐观锁 抢执行权： 被测系统副作用的幂等才是最难的、也要诚实划清边界：平台能保证&amp;quot;同一任务不被重复触发执行&amp;quot;，但 保证不了&amp;quot;被测系统不产生重复副作用&amp;quot;——如果被测下单接口本身不幂等，任务重跑可能造两条单。这要靠用例自带幂等号 + 数据清理来兜，不能甩锅给平台，也不能假装平台能解决。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q041</span>
-                <h3 class="card-title" title="原题：Q26.10：执行日志和报告数据如何存储？">Q041：执行日志和报告数据如何存储？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q26.10：执行日志和报告数据如何存储？">执行日志和报告数据如何存储？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1843,9 +1988,11 @@ def count_errors(path):
                      data-search="Q042：如何分析自动化失败日志？ Q30.5：如何分析自动化失败日志？ Q30.5：如何分析自动化失败日志？ 答题要点：这道题可以从主问题「Q30：设计一个 AI 测试助手，会规划哪些能力」里拆开回答，重点说清楚结论、落地位置和边界。 5. 分析自动化失败日志：自动归纳失败原因分类（环境/数据/接口/脚本），定位高频失败点。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q042</span>
-                <h3 class="card-title" title="原题：Q30.5：如何分析自动化失败日志？">Q042：如何分析自动化失败日志？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q30.5：如何分析自动化失败日志？">如何分析自动化失败日志？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：装饰器是什么？手写一个重试装饰器。 3. 装饰器是什么？手写一个重试装饰器。 3. 装饰器是什么？手写一个重试装饰器。    装饰器是&quot;接收函数、返回增强后函数&quot;的高阶函数，用 `@` 语法在不改原函数代码的前提下加功能（日志、计时、重试、鉴权）。接口自动化里我用它做失败重试：    ```python  import functools, time    def retry(times=3, delay=1):      def deco(func):          @functools.wraps(func)        # 保留原函数名 / docstring          def wrapper(*args, **kwargs):              for i in range(times):                  try:                      return func(*args, **kwargs)                  except Exception:                      if i == times - 1:                          raise                      time.sleep(delay)          return wrapper      return deco    @retry(times=3, delay=2)  def call_api(): ...  ```    要点：`functools.wraps` 保留元信息；带参数的装饰器是&quot;三层函数&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：3. 装饰器是什么？手写一个重试装饰器。">Q001：装饰器是什么？手写一个重试装饰器。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 装饰器是什么？手写一个重试装饰器。">装饰器是什么？手写一个重试装饰器。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -780,9 +845,11 @@ def call_api(): ...</code></pre>
                      data-search="Q002：手写一个 requests 请求封装 Q33：手写一个 requests 请求封装 Q33：手写一个 requests 请求封装    要求：支持 GET/POST、headers/params/data/json、超时、日志、异常捕获、统一返回、敏感字段脱敏、扩展 PUT/DELETE、失败给清晰错误。    ```python  import logging  import re  import requests  from requests.exceptions import RequestException, Timeout, ConnectionError    log = logging.getLogger(__name__)    # 统一用小写比较，兼容 Authorization / access_token 等各种写法  SENSITIVE_KEYS = {&quot;password&quot;, &quot;token&quot;, &quot;authorization&quot;,                    &quot;access_token&quot;, &quot;refresh_token&quot;, &quot;idcard&quot;, &quot;phone&quot;}      def _mask(value):      if isinstance(value, str) and len(value) &gt; 6:          return value[:3] + &quot;****&quot;      return &quot;****&quot;      def _desensitize(data):      &quot;&quot;&quot;递归脱敏：处理 dict / list 任意层级嵌套，key 大小写不敏感&quot;&quot;&quot;      if isinstance(data, dict):          return {k: (_mask(v) if k.lower() in SENSITIVE_KEYS else _desensitize(v))                  for k, v in data.items()}      if isinstance(data, list):          return [_desensitize(i) for i in data]      return data      def _mask_text(text):      &quot;&quot;&quot;兜底：对响应/表单等文本里的敏感字段做正则脱敏，避免明文进日志&quot;&quot;&quot;      if not isinstance(text, str):          return text      keys = &quot;|&quot;.join(SENSITIVE_KEYS)      return re.sub(rf&#x27;(&quot;(?:{keys})&quot;\s*:\s*&quot;)([^&quot;]+)&#x27;,                    lambda m: m.group(1) + m.group(2)[:3] + &quot;****&quot;,                    text, flags=re.IGNORECASE)      class ApiResponse:      &quot;&quot;&quot;统一响应封装&quot;&quot;&quot;      def __init__(self, resp: requests.Response):          self.raw = resp          self.status_code = resp.status_code          try:              self.body = resp.json()          except ValueError:              self.body = resp.text        def get(self, path, default=None):          &quot;&quot;&quot;支持 &#x27;data.user.id&#x27; 这种点路径取嵌套字段&quot;&quot;&quot;          node = self.body          for key in path.split(&quot;.&quot;):              if isinstance(node, dict) and key in node:                  node = node[key]              else:                  return default          return node      RETRYABLE_STATUS = {502, 503, 504}  # 幂等方法才允许自动重试；POST/PATCH 默认不重试，避免重复下单/支付  IDEMPOTENT_METHODS = {&quot;GET&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;HEAD&quot;, &quot;OPTIONS&quot;}      class HttpClient:      def __init__(self, base_url=&quot;&quot;, timeout=10, retry=2, auth_provider=None):          self.base_url = base_url.rstrip(&quot;/&quot;)          self.timeout = timeout          self.retry = retry          self.auth_provider = auth_provider   # 可调用对象，每次请求返回最新 token          self.session = requests.Session()        def _build_url(self, url):          if url.startswith(&quot;http&quot;):              return url          return f&quot;{self.base_url}/{url.lstrip(&#x27;/&#x27;)}&quot;   # 兼容 &#x27;api/x&#x27; 与 &#x27;/api/x&#x27;        def request(self, method, url, *, params=None, data=None, json=None,                  headers=None, files=None, timeout=None, retry=None):          method = method.upper()          url = self._build_url(url)          timeout = timeout or self.timeout          # 非幂等方法默认不重试；幂等方法用默认次数；也可显式覆盖          if retry is None:              retry = self.retry if method in IDEMPOTENT_METHODS else 0            # 鉴权统一在请求层注入，保证每次都拿最新（可能已刷新）的 token          headers = dict(headers or {})          if self.auth_provider and &quot;Authorization&quot; not in headers:              headers[&quot;Authorization&quot;] = f&quot;Bearer {self.auth_provider()}&quot;            log.info(f&quot;[请求] {method} {url} | params={_desensitize(params)} &quot;                   f&quot;| data={_desensitize(data)} | json={_desensitize(json)} &quot;                   f&quot;| headers={_desensitize(headers)}&quot;)            last_exc = None          for i in range(retry + 1):              try:                  resp = self.session.request(                      method=method, url=url, params=params,                      data=data, json=json, headers=headers,                      files=files, timeout=timeout)                  # 网关类状态码且仍有重试次数时重试（retry=0 的非幂等请求不会进入）                  if resp.status_code in RETRYABLE_STATUS and i &lt; retry:                      log.warning(f&quot;[重试] 第 {i + 1} 次返回 {resp.status_code}，重试&quot;)                      continue                  log.info(f&quot;[响应] {resp.status_code} | {_mask_text(resp.text[:500])}&quot;)                  return ApiResponse(resp)              except (ConnectionError, Timeout) as e:      # 网络类异常重试                  last_exc = e                  log.warning(f&quot;[重试] 第 {i + 1} 次网络异常：{e}&quot;)              except RequestException as e:                # 其他请求异常不重试                  log.error(f&quot;[请求异常] {method} {url}: {e}&quot;)                  raise RuntimeError(f&quot;请求异常：{method} {url}，原因：{e}&quot;) from e          raise RuntimeError(f&quot;请求失败，重试 {retry} 次仍异常：{method} {url}，&quot;                             f&quot;最后错误：{last_exc}&quot;)        # 各方法语法糖，统一走 request      def get(self, url, **kwargs):          return self.request(&quot;GET&quot;, url, **kwargs)        def post(self, url, **kwargs):          return self.request(&quot;POST&quot;, url, **kwargs)        def put(self, url, **kwargs):          return self.request(&quot;PUT&quot;, url, **kwargs)        def delete(self, url, **kwargs):          return self.request(&quot;DELETE&quot;, url, **kwargs)  ```    **讲解要点**：方法透传支持任意 HTTP method；`timeout` 必传；`_build_url` 用 `base + lstrip(&#x27;/&#x27;)` 兼容 `api/x` 与 `/api/x` 两种写法，避免拼成 `comapi/x`；**请求（params/data/json/headers）和响应都走递归脱敏、key 大小写兼容**，响应文本再用 `_mask_text` 正则兜底，避免 token 明文进日志；**重试只对幂等方法或显式开启时生效，覆盖网络异常 + 502/503/504 网关状态码，非幂等（POST/PATCH）默认不重试**，避免重复下单；`ApiResponse` 提供点路径取值给断言层；失败抛 `RuntimeError` 并带 method/url/原因。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：Q33：手写一个 requests 请求封装">Q002：手写一个 requests 请求封装</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q33：手写一个 requests 请求封装">手写一个 requests 请求封装</h3>
+                  <div class="card-meta"><span>来源：11-代码实战.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">11-代码实战.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -936,9 +1003,11 @@ class HttpClient:
                      data-search="Q003：手写一个 session 级 fixture，登录获取 token Q34：手写一个 session 级 fixture，登录获取 token Q34：手写一个 session 级 fixture，登录获取 token    要求：session 级；调登录接口；成功返回带 token 的 headers；失败抛异常；用例可直接注入；token 过期支持重新获取；日志不打印完整 token。    ```python  import time  import pytest  from common.http_client import HttpClient      class TokenManager:      &quot;&quot;&quot;带过期判断的 token 管理，支持自动刷新&quot;&quot;&quot;      def __init__(self, base_url, username, password, ttl=1800):          self.client = HttpClient(base_url=base_url)          self.username = username          self.password = password          self.ttl = ttl                 # token 有效期（秒）          self._token = None          self._expire_at = 0        def _login(self):          resp = self.client.post(&quot;/api/login&quot;,                                  json={&quot;username&quot;: self.username,                                        &quot;password&quot;: self.password})          if resp.status_code != 200 or resp.get(&quot;code&quot;) != 0:              raise RuntimeError(f&quot;登录失败，无法获取 token：{resp.body}&quot;)          token = resp.get(&quot;data.token&quot;)          assert token, &quot;登录响应未返回 token&quot;          return token        def get_token(self, monotonic=time.monotonic):          &quot;&quot;&quot;token 不存在或已过期时重新登录&quot;&quot;&quot;          if self._token is None or monotonic() &gt;= self._expire_at:              self._token = self._login()              self._expire_at = monotonic() + self.ttl          return self._token      @pytest.fixture(scope=&quot;session&quot;)  def token_manager():      return TokenManager(base_url=&quot;https://api.example.com&quot;,                          username=&quot;test01&quot;, password=&quot;123456&quot;)      @pytest.fixture(scope=&quot;session&quot;)  def client(token_manager):      &quot;&quot;&quot;鉴权下沉到请求层：每次发请求时才调 get_token()，      token 过期会自动重登，用例完全无感知。&quot;&quot;&quot;      return HttpClient(base_url=&quot;https://api.example.com&quot;,                        auth_provider=token_manager.get_token)  ```    用例直接注入：    ```python  def test_create_order(client):      resp = client.post(&quot;/api/order&quot;, json={&quot;sku&quot;: &quot;1001&quot;, &quot;num&quot;: 1})      assert resp.get(&quot;code&quot;) == 0  ```    **讲解要点**：    - `TokenManager` 与 `token_manager` 为 **session 级**，全局只在需要时登录，过期才重登（要点 1、6）。  - **关键在&quot;token 在哪一层注入&quot;**：本例放在 **请求层**（`auth_provider`，每次发请求都调 `get_token()`），所以 token 刷新后下一次请求立即用上新值。  - ⚠️ **反例（容易被追问穿）**：若写成 `login_headers` 返回一个 **session 级静态 dict**——`return {&quot;Authorization&quot;: f&quot;Bearer {token_manager.get_token()}&quot;}`——这个 header 只在 session 初始化时算 **一次**，之后即使 `get_token()` 内部刷新了 token，用例拿到的仍是 **旧 header**，&quot;失效自动重登&quot;就成了空话。正确做法：把鉴权放请求层（推荐），或让 `login_headers` 降为 function 级、或返回一个&quot;每次动态取 header&quot;的方法。  - 登录失败主动抛异常而非返回 None（要点 4）；token 脱敏交给 HttpClient（要点 7）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：Q34：手写一个 session 级 fixture，登录获取 token">Q003：手写一个 session 级 fixture，登录获取 token</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q34：手写一个 session 级 fixture，登录获取 token">手写一个 session 级 fixture，登录获取 token</h3>
+                  <div class="card-meta"><span>来源：11-代码实战.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">11-代码实战.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1013,9 +1082,11 @@ def client(token_manager):
                      data-search="Q004：手写一个 YAML 数据驱动接口用例 Q35：手写一个 YAML 数据驱动接口用例 Q35：手写一个 YAML 数据驱动接口用例    要求：YAML 存接口名/地址/方法/参数/预期；Python 读 YAML；pytest 参数化；按预期断言 code；Allure 动态标题；字段缺失给清晰错误；支持多组数据。    ```yaml  # data/login.yaml  - name: 登录成功    url: /api/login    method: POST    json: {username: test01, password: &quot;123456&quot;}    expected: {code: 0}    - name: 密码错误    url: /api/login    method: POST    json: {username: test01, password: &quot;wrong&quot;}    expected: {code: 10001}  ```    ```python  import yaml  import pytest  import allure  from common.http_client import HttpClient    REQUIRED = (&quot;name&quot;, &quot;url&quot;, &quot;method&quot;, &quot;expected&quot;)      def load_cases(path):      try:          with open(path, encoding=&quot;utf-8&quot;) as f:              cases = yaml.safe_load(f)      except FileNotFoundError:          raise FileNotFoundError(f&quot;用例文件不存在：{path}&quot;)      except yaml.YAMLError as e:          raise ValueError(f&quot;YAML 解析失败 {path}：{e}&quot;)        if not isinstance(cases, list):          raise ValueError(f&quot;{path} 顶层应为用例列表&quot;)      for i, c in enumerate(cases, 1):          missing = [k for k in REQUIRED if k not in c]          if missing:              raise ValueError(f&quot;{path} 第 {i} 条用例缺少字段：{missing}&quot;)      return cases      cases = load_cases(&quot;data/login.yaml&quot;)      @pytest.mark.parametrize(&quot;case&quot;, cases, ids=[c[&quot;name&quot;] for c in cases])  def test_login(case):      allure.dynamic.title(case[&quot;name&quot;])           # Allure 显示中文用例标题      client = HttpClient(base_url=&quot;https://api.example.com&quot;)      resp = client.request(case[&quot;method&quot;], case[&quot;url&quot;], json=case.get(&quot;json&quot;))      expected_code = case[&quot;expected&quot;][&quot;code&quot;]      assert resp.get(&quot;code&quot;) == expected_code, \          f&quot;用例[{case[&#x27;name&#x27;]}] 期望 code={expected_code}，实际={resp.get(&#x27;code&#x27;)}&quot;  ```    **讲解要点**：`load_cases` 在读取阶段就做缺失字段校验并报清晰错误（要点 6）；`ids` + `allure.dynamic.title` 让报告显示中文标题（要点 5）；list 多元素天然支持多组数据（要点 7）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：Q35：手写一个 YAML 数据驱动接口用例">Q004：手写一个 YAML 数据驱动接口用例</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q35：手写一个 YAML 数据驱动接口用例">手写一个 YAML 数据驱动接口用例</h3>
+                  <div class="card-meta"><span>来源：11-代码实战.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">11-代码实战.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1089,9 +1160,11 @@ def test_login(case):
                      data-search="Q005：手写动态参数提取和替换逻辑 Q36：手写动态参数提取和替换逻辑 Q36：手写动态参数提取和替换逻辑    要求：从响应 JSON 提取 `data.orderId`；存上下文；后续接口用 `${orderId}`；请求前自动替换；字段不存在给清晰错误；支持嵌套；支持 token/orderId/userId 多变量；并发避免数据互相污染。    ```python  import re  import threading      class Context:      &quot;&quot;&quot;用例间共享的运行时上下文（线程安全）&quot;&quot;&quot;      def __init__(self):          self._data = {}          self._lock = threading.Lock()        def save(self, key, value):          with self._lock:              self._data[key] = value        def get(self, key):          with self._lock:              if key not in self._data:                  raise KeyError(f&quot;上下文中不存在变量：{key}&quot;)              return self._data[key]        def replace(self, obj):          &quot;&quot;&quot;递归替换 ${var} 占位符，支持 dict / list / str 嵌套&quot;&quot;&quot;          if isinstance(obj, str):              for name in re.findall(r&quot;\$\{(\w+)\}&quot;, obj):                  obj = obj.replace(f&quot;${{{name}}}&quot;, str(self.get(name)))              return obj          if isinstance(obj, dict):              return {k: self.replace(v) for k, v in obj.items()}          if isinstance(obj, list):              return [self.replace(v) for v in obj]          return obj      def extract(body, path):      &quot;&quot;&quot;从响应中按 &#x27;data.orderId&#x27; 点路径提取，支持嵌套&quot;&quot;&quot;      node = body      for key in path.split(&quot;.&quot;):          if isinstance(node, dict) and key in node:              node = node[key]          else:              raise KeyError(f&quot;响应中不存在字段：{path}&quot;)      return node  ```    使用示例：    ```python  ctx = Context()    # 下单后提取 orderId、userId 存上下文  order_resp = OrderApi.create(...)  ctx.save(&quot;orderId&quot;, extract(order_resp.body, &quot;data.orderId&quot;))  ctx.save(&quot;userId&quot;, extract(order_resp.body, &quot;data.user.id&quot;))   # 嵌套提取    # 支付请求体里用 ${orderId}，发请求前自动替换  pay_body = ctx.replace({&quot;orderId&quot;: &quot;${orderId}&quot;, &quot;userId&quot;: &quot;${userId}&quot;})  PayApi.pay(json=pay_body)  ```    **讲解要点**：    - `extract` 支持 `data.user.id` 这种 **嵌套字段**（要点 6），字段不存在抛清晰 `KeyError`（要点 5）。  - `replace` 递归处理 dict/list/str，支持 token/orderId/userId 等 **任意多变量**（要点 7）。  - **并发数据污染**（要点 8）：每个用例/线程使用 **独立 Context 实例**（不共享）；若必须共享，用 `threading.Lock` 保护读写（上面已加锁），避免多线程同时读写导致脏数据。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：Q36：手写动态参数提取和替换逻辑">Q005：手写动态参数提取和替换逻辑</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q36：手写动态参数提取和替换逻辑">手写动态参数提取和替换逻辑</h3>
+                  <div class="card-meta"><span>来源：11-代码实战.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">11-代码实战.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

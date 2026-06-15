@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：什么情况下你会阻塞上线？ 4. 什么情况下你会阻塞上线？ 4. 什么情况下你会阻塞上线？    四类硬性阻塞：①P0/P1 缺陷未关闭（如金额错误、数据泄露、AI 输出违法内容）；②冒烟用例不通过；③性能不达标（响应时间、错误率、TPS 突破基线）；④高风险变更未灰度。软性阻塞需评审：自动化通过率&lt;90%、未达到代码覆盖率门禁等。作为负责人我有一票否决权，但会用数据和风险评估而不是个人判断。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：4. 什么情况下你会阻塞上线？">Q001：什么情况下你会阻塞上线？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 什么情况下你会阻塞上线？">什么情况下你会阻塞上线？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：严重程度和优先级有什么区别？ 8. 严重程度和优先级有什么区别？ 8. 严重程度和优先级有什么区别？    - **严重程度（Severity）**：技术维度，描述 Bug 对系统的破坏力，分 Blocker/Critical/Major/Minor/Trivial；  - **优先级（Priority）**：业务维度，描述修复的紧迫性，分 P0/P1/P2/P3。  两者可能不一致：比如登录按钮文案错别字是 Trivial 但若是产品发布会用，优先级会被定为 P0；后台日志拼写错误是 Major 但优先级 P3。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：8. 严重程度和优先级有什么区别？">Q002：严重程度和优先级有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 严重程度和优先级有什么区别？">严重程度和优先级有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -788,9 +855,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：如果研发认为不是 Bug，你怎么处理？ 9. 如果研发认为不是 Bug，你怎么处理？ 9. 如果研发认为不是 Bug，你怎么处理？    四步：①拿出证据——复现步骤、截图、抓包、日志、相关需求条款；②回到需求文档对比预期；③拉产品三方对齐，让产品判定是不是预期行为；④如果产品也认为是预期但用户体验差，我会作为&quot;建议项&quot;留档，下个版本评审。绝不和研发个人对抗，而是让规则说话。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：9. 如果研发认为不是 Bug，你怎么处理？">Q003：如果研发认为不是 Bug，你怎么处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 如果研发认为不是 Bug，你怎么处理？">如果研发认为不是 Bug，你怎么处理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -814,9 +883,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：GET 和 POST 的区别是什么？ 1. GET 和 POST 的区别是什么？ 1. GET 和 POST 的区别是什么？    - **语义**：GET 幂等只读，POST 非幂等可能改服务端状态；  - **参数位置**：GET 放 URL，POST 放 Body；  - **长度限制**：GET 受 URL 长度限制（不是 HTTP 协议规定，而是浏览器/服务器实现限制，常见几 KB），POST 放 Body 无此限制；  - **缓存**：GET 可缓存，POST 默认不缓存；  - **安全**：GET 参数会出现在日志和浏览器历史，敏感数据用 POST。  但 RESTful 设计中关键是语义而非技术差异。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：1. GET 和 POST 的区别是什么？">Q004：GET 和 POST 的区别是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. GET 和 POST 的区别是什么？">GET 和 POST 的区别是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -841,9 +912,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：PUT 和 PATCH 有什么区别？ 2. PUT 和 PATCH 有什么区别？ 2. PUT 和 PATCH 有什么区别？    - **PUT**：全量替换资源，请求体包含资源完整字段，幂等；  - **PATCH**：增量更新，只传变更字段，非严格幂等（如增加计数器）。  比如更新工单状态，如果只改 status 字段用 PATCH；如果整个工单对象替换用 PUT。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：2. PUT 和 PATCH 有什么区别？">Q005：PUT 和 PATCH 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. PUT 和 PATCH 有什么区别？">PUT 和 PATCH 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -868,9 +941,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：Cookie、Session、Token、JWT 有什么区别？ 4. Cookie、Session、Token、JWT 有什么区别？ 4. Cookie、Session、Token、JWT 有什么区别？    - **Cookie**：浏览器存储，由服务端 Set-Cookie 下发，自动随请求携带；  - **Session**：服务端存储会话状态，依赖 Cookie 传递 sessionId；  - **Token**：泛指身份令牌，无状态，客户端主动放入 Header；  - **JWT**：Token 的一种实现，由 Header.Payload.Signature 三段组成，自包含用户信息，可被服务端无状态校验。  我们项目用 JWT + Redis 黑名单，既享受无状态又能主动注销。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：4. Cookie、Session、Token、JWT 有什么区别？">Q006：Cookie、Session、Token、JWT 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. Cookie、Session、Token、JWT 有什么区别？">Cookie、Session、Token、JWT 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -895,9 +970,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：你作为测试负责人，主要负责哪些事情？ 1. 你作为测试负责人，主要负责哪些事情？ 1. 你作为测试负责人，主要负责哪些事情？    六大职责：①测试策略与计划制定；②团队管理（招聘、培养、绩效）；③质量门禁与上线评审；④跨部门协调（产研、运维、客户）；⑤测试技术建设（框架、平台、AI 测试）；⑥风险预警与复盘。带 3 人团队，每周一对一 + 周会同步。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：1. 你作为测试负责人，主要负责哪些事情？">Q007：你作为测试负责人，主要负责哪些事情？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 你作为测试负责人，主要负责哪些事情？">你作为测试负责人，主要负责哪些事情？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -921,9 +998,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：如何评估测试工作量？ 3. 如何评估测试工作量？ 3. 如何评估测试工作量？    ①功能点分析（基础工时 × 复杂度系数）；②历史数据校准（翻类似需求的实际工时，比拍脑袋准）；③三点估算用 PERT 公式 (最乐观 + 4×最可能 + 最悲观)/6；④Buffer 20% 兜变更；⑤切分到人天。面试里如果没有真实估算偏差数据，就只讲方法和校准动作，不临时编一个精确案例。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：3. 如何评估测试工作量？">Q008：如何评估测试工作量？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 如何评估测试工作量？">如何评估测试工作量？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -947,9 +1026,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：如何分配测试任务？ 4. 如何分配测试任务？ 4. 如何分配测试任务？    四原则：①能力匹配（核心模块给资深的）；②负载均衡（不要让某个人长期过载）；③成长机会（让成员碰新技能）；④风险隔离（关键路径不让新人单独扛）。每周一次任务评审灵活调。这里讲分配原则即可，除非能说出真实项目，否则不编&quot;某人负责某模块&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：4. 如何分配测试任务？">Q009：如何分配测试任务？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 如何分配测试任务？">如何分配测试任务？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -973,9 +1054,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：如何跟踪测试进度？ 5. 如何跟踪测试进度？ 5. 如何跟踪测试进度？    三个维度：①每日站会同步（昨天/今天/阻塞）；②看板可视化（用例执行率、缺陷数）；③周报+风险预警。延期超 1 天必须升级，连续 2 天延期评估增加资源或缩范围。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：5. 如何跟踪测试进度？">Q010：如何跟踪测试进度？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 如何跟踪测试进度？">如何跟踪测试进度？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -999,9 +1082,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：如何控制测试风险？ 6. 如何控制测试风险？ 6. 如何控制测试风险？    用风险登记册：①识别（需求变更、研发延期、环境不稳、人员变动）；②评估＝影响 × 概率打分排序；③应对四选一（规避/转移/接受/缓解）；④每周跟踪更新；⑤关键风险写邮件抄送项目经理留痕（既预警也免责）。回答重点放在&quot;如何识别、如何升级、如何留痕&quot;，不要为了显得强硬去编避免了多大损失。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：6. 如何控制测试风险？">Q011：如何控制测试风险？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 如何控制测试风险？">如何控制测试风险？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1025,9 +1110,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：如何做版本上线评估？ 9. 如何做版本上线评估？ 9. 如何做版本上线评估？    《上线评审报告》包含：①用例执行情况；②缺陷状态（P0/P1 是否全关闭）；③性能指标达标情况；④AI 评估指标；⑤遗留风险 + 应对；⑥灰度计划；⑦回滚预案；⑧明确结论（同意/有条件/不同意）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：9. 如何做版本上线评估？">Q012：如何做版本上线评估？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 如何做版本上线评估？">如何做版本上线评估？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1051,9 +1138,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：如何做测试总结？ 10. 如何做测试总结？ 10. 如何做测试总结？    每版本写《测试总结报告》：①测试范围与执行情况；②指标对比（覆盖率/通过率/缺陷数）；③亮点与不足；④发现的典型问题；⑤改进项跟进；⑥下版本预备。月度总结向上汇报。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：10. 如何做测试总结？">Q013：如何做测试总结？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 如何做测试总结？">如何做测试总结？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1077,9 +1166,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：你带 3 人团队时，成员能力不同怎么分配任务？ 11. 你带 3 人团队时，成员能力不同怎么分配任务？ 11. 你带 3 人团队时，成员能力不同怎么分配任务？    能力画像 + 任务匹配：①资深成员（5 年+）负责核心模块 + AI 测试 + 框架维护；②中级（3 年）负责接口自动化 + 性能；③初级负责手工功能 + 学习自动化（结对编程带教）。每季度轮岗一次拓宽能力。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：11. 你带 3 人团队时，成员能力不同怎么分配任务？">Q014：你带 3 人团队时，成员能力不同怎么分配任务？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 你带 3 人团队时，成员能力不同怎么分配任务？">你带 3 人团队时，成员能力不同怎么分配任务？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1103,9 +1194,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：如果一个成员进度慢，你怎么处理？ 12. 如果一个成员进度慢，你怎么处理？ 12. 如果一个成员进度慢，你怎么处理？    ①先面谈找根因（能力/状态/外部干扰，别先追责）；②对症：能力问题派 mentor 结对、状态问题关心+调任务、过载就分担给他人；③约定短周期复盘看改善；④仍不行再走正式流程。原则是先帮助再追责，但不要把团队管理说成&quot;立刻 HR&quot;这种过硬话术。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：12. 如果一个成员进度慢，你怎么处理？">Q015：如果一个成员进度慢，你怎么处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 如果一个成员进度慢，你怎么处理？">如果一个成员进度慢，你怎么处理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1129,9 +1222,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：如果研发延期，测试时间被压缩，你怎么处理？ 13. 如果研发延期，测试时间被压缩，你怎么处理？ 13. 如果研发延期，测试时间被压缩，你怎么处理？    四个选项给项目经理选：①延期上线；②缩小本期范围（功能砍）；③加测试人力；④带风险上线 + 加强灰度监控。我会给出每种方案的风险评估让上层决策。绝不无声吃下时间压缩。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：13. 如果研发延期，测试时间被压缩，你怎么处理？">Q016：如果研发延期，测试时间被压缩，你怎么处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 如果研发延期，测试时间被压缩，你怎么处理？">如果研发延期，测试时间被压缩，你怎么处理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1155,9 +1250,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：如果线上出了问题，你作为测试负责人怎么复盘？ 14. 如果线上出了问题，你作为测试负责人怎么复盘？ 14. 如果线上出了问题，你作为测试负责人怎么复盘？    5W 分析：①What 发生了什么；②When 何时发现何时影响；③Why 根因（用 5Why）；④Who 影响范围 + 责任分配；⑤How to fix 短期修复+长期改进。我侧重&quot;测试侧能不能提前发现&quot;的反思，列出对应改进项。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：14. 如果线上出了问题，你作为测试负责人怎么复盘？">Q017：如果线上出了问题，你作为测试负责人怎么复盘？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 如果线上出了问题，你作为测试负责人怎么复盘？">如果线上出了问题，你作为测试负责人怎么复盘？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1181,9 +1278,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：你有没有制定过测试准入和准出标准？ 15. 你有没有制定过测试准入和准出标准？ 15. 你有没有制定过测试准入和准出标准？    制定过《测试准入准出标准》：准入（提测前）：PRD 终版、研发自测报告、冒烟通过、环境就绪、测试数据齐全。准出（上线前）：用例 100% 执行、P0 缺陷 0、P1 ≤ 3 且评审、回归通过率 ≥ 95%、性能基线达标。文档每季度修订。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：15. 你有没有制定过测试准入和准出标准？">Q018：你有没有制定过测试准入和准出标准？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 你有没有制定过测试准入和准出标准？">你有没有制定过测试准入和准出标准？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1207,9 +1306,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：研发不认 Bug，怎么处理？ 17. 研发不认 Bug，怎么处理？ 17. 研发不认 Bug，怎么处理？    四步：①拿证据（日志、截图、复现步骤、需求文档原文）；②心平气和讨论；③拉产品判定是否符合预期；④产品认定是 Bug 则归类问题、是预期则关闭并留改进项。绝不和研发个人对抗，让规则和数据说话。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：17. 研发不认 Bug，怎么处理？">Q019：研发不认 Bug，怎么处理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 研发不认 Bug，怎么处理？">研发不认 Bug，怎么处理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1233,9 +1334,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：运维环境不稳定，怎么推进？ 18. 运维环境不稳定，怎么推进？ 18. 运维环境不稳定，怎么推进？    ①收集环境问题清单（时间、现象、影响测试用例数）；②量化损失（人天或阻塞用例数）；③提运维工单跟进；④必要时升级给项目经理；⑤推动建独立测试环境或容器化方案。更可信的结果说法是：环境问题次数下降、回归被打断的次数减少，以工单记录和流水线失败原因统计为依据。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：18. 运维环境不稳定，怎么推进？">Q020：运维环境不稳定，怎么推进？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 运维环境不稳定，怎么推进？">运维环境不稳定，怎么推进？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1259,9 +1362,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：客户现场问题怎么支持？ 19. 客户现场问题怎么支持？ 19. 客户现场问题怎么支持？    ①第一时间响应（&lt; 30 分钟）；②获取现场日志 + 复现步骤；③测试环境复现；④定位是已知问题还是新问题；⑤评估影响和修复时间；⑥与客户实时同步进展；⑦事后修复 + 复盘。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：19. 客户现场问题怎么支持？">Q021：客户现场问题怎么支持？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 客户现场问题怎么支持？">客户现场问题怎么支持？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1285,9 +1390,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：上线窗口紧张，怎么保障质量？ 20. 上线窗口紧张，怎么保障质量？ 20. 上线窗口紧张，怎么保障质量？    ①提前准备：核心用例脚本化能并行跑；②风险评估：哪些是必跑、哪些可后补；③加强灰度（小流量 + 监控）；④准备回滚预案；⑤上线后 24 小时值班。把窗口紧张的风险前置识别。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：20. 上线窗口紧张，怎么保障质量？">Q022：上线窗口紧张，怎么保障质量？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 上线窗口紧张，怎么保障质量？">上线窗口紧张，怎么保障质量？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1311,9 +1418,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：跨团队协作时如何同步风险？ 21. 跨团队协作时如何同步风险？ 21. 跨团队协作时如何同步风险？    ①周会同步进度+风险；②风险登记册共享；③重要风险邮件抄送相关负责人；④P0 风险拉群即时同步；⑤定期项目经理一对一对齐。让风险透明而不是藏起来。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：21. 跨团队协作时如何同步风险？">Q023：跨团队协作时如何同步风险？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. 跨团队协作时如何同步风险？">跨团队协作时如何同步风险？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1337,9 +1446,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：如何向领导汇报测试进度？ 22. 如何向领导汇报测试进度？ 22. 如何向领导汇报测试进度？    &quot;数据 + 结论 + 风险 + 决策项&quot;四段式：①数据（用例执行率、缺陷数、自动化通过率）；②结论（是否如期）；③风险（具体什么风险）；④需要领导决策的事项。3 分钟说完核心，详细见附件。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：22. 如何向领导汇报测试进度？">Q024：如何向领导汇报测试进度？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. 如何向领导汇报测试进度？">如何向领导汇报测试进度？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1363,9 +1474,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：如何让研发重视测试发现的问题？ 23. 如何让研发重视测试发现的问题？ 23. 如何让研发重视测试发现的问题？    ①缺陷描述专业（清晰复现步骤+证据）；②按优先级排序；③用数据说服（&quot;这类问题线上出会影响 N 个用户&quot;）；④建立质量指标考核研发；⑤复盘会让研发看到自测疏漏。一旦研发尝到&quot;提前修复成本低&quot;的甜头，自然重视。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：23. 如何让研发重视测试发现的问题？">Q025：如何让研发重视测试发现的问题？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. 如何让研发重视测试发现的问题？">如何让研发重视测试发现的问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1389,9 +1502,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：如何推动自动化落地？ 24. 如何推动自动化落地？ 24. 如何推动自动化落地？    五步：①选试点（挑核心又稳定的接口，最容易出 ROI）；②量化收益证明价值；③推广（培训 + 给模板降门槛）；④嵌进流程（每提测必跑，不靠自觉）；⑤持续治理不稳定用例。先证明价值团队才肯跟；没有真实前后耗时数据时，只讲试点选择和落地路径。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：24. 如何推动自动化落地？">Q026：如何推动自动化落地？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. 如何推动自动化落地？">如何推动自动化落地？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1415,9 +1530,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：如何推动质量改进？ 25. 如何推动质量改进？ 25. 如何推动质量改进？    ①数据驱动（看缺陷漏出率、线上事故、客户投诉趋势）；②定位最痛的那类问题；③开改进项（流程/工具/培训）；④每周复盘跟进落地；⑤能量化就量化，不能量化就用缺陷类型占比、复发次数、工单记录证明。把质量改进当产品迭代做，有节奏、有证据。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：25. 如何推动质量改进？">Q027：如何推动质量改进？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. 如何推动质量改进？">如何推动质量改进？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1441,9 +1558,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：举一个你推动研发修改设计的例子。 26. 举一个你推动研发修改设计的例子。 26. 举一个你推动研发修改设计的例子。    案例：金额字段最初设计用 double，我在评审时指出精度问题（0.1+0.2≠0.3），并给出 BigDecimal/DECIMAL(18,2) 的替代方案。研发评估后改成定点精度存储。这个案例重点讲&quot;评审阶段提前发现设计风险&quot;，不要夸成上线后永远没有对账问题。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：26. 举一个你推动研发修改设计的例子。">Q028：举一个你推动研发修改设计的例子。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. 举一个你推动研发修改设计的例子。">举一个你推动研发修改设计的例子。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1467,9 +1586,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：举一个你处理线上投诉的例子。 28. 举一个你处理线上投诉的例子。 28. 举一个你处理线上投诉的例子。    案例：客户反映业务文档金额错了 1 分。30 分钟响应：拿日志定位是 BigDecimal 在某分支用了 ROUND_HALF_DOWN 而应该 HALF_UP。当晚出热修。24 小时复盘加入&quot;金额相关代码必须 BigDecimal + 单元测试&quot;规范。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：28. 举一个你处理线上投诉的例子。">Q029：举一个你处理线上投诉的例子。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. 举一个你处理线上投诉的例子。">举一个你处理线上投诉的例子。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1493,9 +1614,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：举一个你作为负责人做风险预警的例子。 29. 举一个你作为负责人做风险预警的例子。 29. 举一个你作为负责人做风险预警的例子。    案例：研发要在双 11 当周上 AI 通知新模型。我预警：①双 11 是业务高峰；②新模型未做充分灰度；③万一误发通知影响巨大。提出推迟到双 11 后 + 全量 Golden Set 回归。项目经理同意推迟，事后回顾避免了一次潜在事故。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：29. 举一个你作为负责人做风险预警的例子。">Q030：举一个你作为负责人做风险预警的例子。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. 举一个你作为负责人做风险预警的例子。">举一个你作为负责人做风险预警的例子。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1519,9 +1642,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q031：你觉得测试负责人最重要的能力是什么？ 30. 你觉得测试负责人最重要的能力是什么？ 30. 你觉得测试负责人最重要的能力是什么？    三个核心：①**质量判断力**（什么是真风险、哪里该投入）；②**沟通推动力**（让产研按质量优先）；③**技术深度**（懂业务+懂技术+懂 AI 才能做正确决策）。其中沟通推动力是杠杆，能放大测试团队的影响力。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：30. 你觉得测试负责人最重要的能力是什么？">Q031：你觉得测试负责人最重要的能力是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：30. 你觉得测试负责人最重要的能力是什么？">你觉得测试负责人最重要的能力是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1545,9 +1670,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q032：场景 5：通知分类准确率 95%，但业务仍然投诉 场景 5：通知分类准确率 95%，但业务仍然投诉 场景 5：通知分类准确率 95%，但业务仍然投诉 通知自动分类准确率达到 95%，但业务仍然投诉很多。怎么看？       准确率高但投诉多，说明指标失真。可能原因：    1. **类别不均衡**：占比 80% 的&quot;通用通知&quot;类全对，但占比 5% 的&quot;高风险运营触达&quot;类只对 50%。整体准确率虽然 95%，但小类灾难。  2. **指标维度错**：只看 Accuracy 不看 Recall。运营触达类漏发等于丢钱，必须看每个小类 Recall。  3. **业务代价**：5% 的错误集中在高价值场景（如错把&quot;严肃运营触达&quot;分到&quot;温馨提醒&quot;）。  4. **测试集与真实分布不一致**：测试集都是历史样本，实际线上 query 分布不同。    **修复方案**：    - 改用 F1 + 各类别独立指标，不再只看 Accuracy；  - 按业务代价加权：错分代价高的类别权重更大；  - 重要类别（运营触达/合规）单独看 Recall 必须 ≥ 95%；  - 测试集按线上真实分布抽样；  - 误分类样本人工 Review 找模式，针对性加训练数据；  - 关键类别加规则兜底（如金额 &gt; 5 万必走人工审核）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：场景 5：通知分类准确率 95%，但业务仍然投诉">Q032：场景 5：通知分类准确率 95%，但业务仍然投诉</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：场景 5：通知分类准确率 95%，但业务仍然投诉">场景 5：通知分类准确率 95%，但业务仍然投诉</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1574,9 +1701,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q033：场景 7：测试时间被压缩 场景 7：测试时间被压缩 场景 7：测试时间被压缩 原计划 5 天测试，研发延期后只剩 1 天，明天必须上线。怎么做？       不慌，按风险优先级压缩。七步：    1. **风险评估**：     - 列出本期变更范围（新功能/修改/Bug 修复）；     - 评估影响（用户量/核心程度/线上风险）；     - 量化&quot;如果不测，可能出什么问题&quot;。    2. **范围裁剪**：     - 必跑：核心路径冒烟 + 接口自动化全量（约 30 分钟）+ AI 评估核心集；     - 选跑：本期变更涉及的回归用例（约 30 个）；     - 跳过：与变更无关的回归（用接口自动化覆盖）。    3. **自动化兜底**：让 Jenkins 全力跑回归集，1 小时内出结果。    4. **资源协调**：拉团队全员 1 天集中突击核心用例。    5. **风险升级**：明确写邮件给项目经理：「在 1 天测试时间内，仅能覆盖核心路径，遗留风险 X、Y、Z」，让上层书面决策。    6. **灰度兜底**：要求上线后先 10% 灰度 24 小时，监控核心指标，无异常再全量。    7. **回滚预案**：准备回滚脚本和数据回滚方案，可 30 分钟内回滚。    **上线后**：补跑剩余用例 + 加强监控告警 + 客户反馈快速通道。    绝不&quot;硬扛压力沉默上线&quot;，决策权和风险都让管理层看到。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：场景 7：测试时间被压缩">Q033：场景 7：测试时间被压缩</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：场景 7：测试时间被压缩">场景 7：测试时间被压缩</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1603,9 +1732,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q034：&quot;策略命中率 95%+&quot;——命中率怎么算？ 1. &quot;策略命中率 95%+&quot;——命中率怎么算？ 1. &quot;策略命中率 95%+&quot;——命中率怎么算？    **公式**：命中率 = AI 推荐通知策略与人工标注最优策略一致的样本数 / 总测试样本数 × 100%。    - 分母：1000 条业务人员人工标注的历史通知场景，覆盖 20 个类别。  - 分子：策略系统输出与人工标注一致的条数。  - 统计周期：月度，由我汇总后业务负责人确认。  - 数据来源：测试日志 + 人工标注 Excel + 策略系统输出对账。    **⚠️ 主动点破口径**：这是**标注集上的离线指标**，不等于线上真实命中率。面试官最爱追&quot;那线上是不是也 95%&quot;——你先点破，反而显得严谨。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：1. &quot;策略命中率 95%+&quot;——命中率怎么算？">Q034：&quot;策略命中率 95%+&quot;——命中率怎么算？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. &quot;策略命中率 95%+&quot;——命中率怎么算？">&quot;策略命中率 95%+&quot;——命中率怎么算？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1631,9 +1762,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q035：&quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？ 5. &quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？ 5. &quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？    - **复现率** = 测试环境成功复现的线上问题 / 线上问题总数。  - **闭环率** = 已修复并验证通过的线上问题 / 线上问题总数。  - 统计周期：季度。  - 数据来源：Jira 工单状态导出。  - 98%+ 意味着季度内 50 个线上问题中只有 1 个未闭环（一般是非紧急问题延期）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q035</span>
-                <h3 class="card-title" title="原题：5. &quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？">Q035：&quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. &quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？">&quot;线上问题复现率与闭环率 98%+&quot;——指标怎么算？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1657,9 +1790,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q036：&quot;自动化效率提升 90%&quot;——提升前后分别是多少？ 6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？ 6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？    - **优化前**：每个版本人工回归 8 小时（1 个测试 1 天），自动化覆盖率 30%。  - **优化后**：自动化跑 30 分钟（pytest-xdist 并发 + 接口覆盖率 80%），人工只复核失败用例（约 1 小时）。  - **提升计算**：8 小时降到 1.5 小时 ≈ 81% 提升，加上夜间无人值守跑的间接效益约 90%。    **⚠️ 别咬死 90%**：这是含间接收益的约数。被追问就退到硬数据——&quot;**机器执行从 8 小时压到 30 分钟**&quot;（下一题那条最铁），90% 当方向性描述就行。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q036</span>
-                <h3 class="card-title" title="原题：6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？">Q036：&quot;自动化效率提升 90%&quot;——提升前后分别是多少？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. &quot;自动化效率提升 90%&quot;——提升前后分别是多少？">&quot;自动化效率提升 90%&quot;——提升前后分别是多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1684,9 +1819,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q037：&quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？ 7. &quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？ 7. &quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？    - 原 1 天人工回归覆盖 300 个用例（功能 + 接口 + UI 核心）。  - 现 30 分钟自动跑：250 个接口自动化 + 10 条 UI 自动化 E2E + 40 个手工核心（剩余 40 个是高动态难自动化的，保留人工）。  - 时间压缩主因：①pytest-xdist 8 进程并发；②Mock 第三方；③测试数据预置；④机器替代人工。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q037</span>
-                <h3 class="card-title" title="原题：7. &quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？">Q037：&quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. &quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？">&quot;回归测试从 1 天缩短到 30 分钟&quot;——哪些用例被自动化替代？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1710,9 +1847,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q038：&quot;平台故障率低于 0.5%&quot;——故障率怎么算？ 8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？ 8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？    **⚠️ 建议从简历拿掉**：故障率是 SRE / 运维的生产可用性指标，测试岗不拥有、也无权背，面试官一句&quot;这你怎么对它负责&quot;就接不住。    若已经写了、被问到，把口径切回测试侧：&quot;这是平台整体可用性指标，我负责的是其中测试环节——确保没有因**漏测**导致的 P0 线上故障。&quot;把&quot;我对故障率负责&quot;换成&quot;我对漏测负责&quot;，立刻站得住。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q038</span>
-                <h3 class="card-title" title="原题：8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？">Q038：&quot;平台故障率低于 0.5%&quot;——故障率怎么算？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. &quot;平台故障率低于 0.5%&quot;——故障率怎么算？">&quot;平台故障率低于 0.5%&quot;——故障率怎么算？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1737,9 +1876,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q039：&quot;问题定位能力强&quot;——用什么证据支撑？ 9. &quot;问题定位能力强&quot;——用什么证据支撑？ 9. &quot;问题定位能力强&quot;——用什么证据支撑？    **⚠️ 建议从简历拿掉**：没人真在统计&quot;定位准确率&quot;，这是个倒推出来的伪指标，一问&quot;谁统计的、怎么采集的&quot;就露怯。    把它换成**讲机制、不报数字**：&quot;我的失败报告自动带上请求 / 响应 / SQL / traceId / 截图，研发基本不用回头问&#x27;什么场景、什么数据&#x27;就能直接复现。&quot;能力是真的，但不绑一个假的百分比。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q039</span>
-                <h3 class="card-title" title="原题：9. &quot;问题定位能力强&quot;——用什么证据支撑？">Q039：&quot;问题定位能力强&quot;——用什么证据支撑？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. &quot;问题定位能力强&quot;——用什么证据支撑？">&quot;问题定位能力强&quot;——用什么证据支撑？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1764,9 +1905,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q040：&quot;开发修复效率提升 60%&quot;——是否有数据记录？ 10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？ 10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？    **⚠️ 建议从简历拿掉这个数字**：修复时长主要由开发决定，把&quot;开发效率提升 60%&quot;算成测试的功劳是硬蹭、易被戳。    改成定性、归到自己能控的环节：&quot;我规范了缺陷报告模板、强制附证据（请求 / 响应 / SQL / traceId），**研发复现成本明显下降、来回沟通变少**。&quot;讲你做了什么、带来什么，别背 24h→9.6h 这种精确数。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q040</span>
-                <h3 class="card-title" title="原题：10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？">Q040：&quot;开发修复效率提升 60%&quot;——是否有数据记录？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. &quot;开发修复效率提升 60%&quot;——是否有数据记录？">&quot;开发修复效率提升 60%&quot;——是否有数据记录？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1791,9 +1934,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q041：&quot;带 3 人团队&quot;——如何分配任务和控制进度？ 12. &quot;带 3 人团队&quot;——如何分配任务和控制进度？ 12. &quot;带 3 人团队&quot;——如何分配任务和控制进度？      **分配**：  - A（5 年经验）：核心模块 + AI 测试 + 自动化框架；  - B（3 年）：接口自动化 + 性能测试；  - C（2 年）：功能测试 + 自动化学习。    **进度控制**：  - 每日站会 15 分钟（昨天/今天/阻塞）；  - 每周看板回顾（任务完成率、缺陷数）；  - 双周一对一深度沟通（成长/困难）；  - 关键节点 buffer 20%；  - 延期 1 天必须升级讨论。    **结果口径**：不要说&quot;小团队替代大团队&quot;这种容易被质疑的话。更稳的是：通过分工、用例分级、接口自动化和风险前置，缓解了人力压力；成员能力成长可以举具体技能变化，但不硬报离职率、替代人数这类难证明数字。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q041</span>
-                <h3 class="card-title" title="原题：12. &quot;带 3 人团队&quot;——如何分配任务和控制进度？">Q041：&quot;带 3 人团队&quot;——如何分配任务和控制进度？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. &quot;带 3 人团队&quot;——如何分配任务和控制进度？">&quot;带 3 人团队&quot;——如何分配任务和控制进度？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1821,9 +1966,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q042：语句覆盖和分支覆盖的区别？举例。 14. 语句覆盖和分支覆盖的区别？举例。 14. 语句覆盖和分支覆盖的区别？举例。    语句覆盖只要求&quot;每行代码执行到&quot;，分支覆盖要求&quot;每个判断的 true/false 都走到&quot;。例：    ```python  def f(a, b):      if a &gt; 0 and b &gt; 0:          x = 1      return x  ```    用例 (a=1, b=1) 能让所有语句执行（语句覆盖 100%），但 `if` 的 false 分支没走到，分支覆盖只有 50%，而且 (a=-1) 时 `x` 未定义的 Bug 被漏掉。所以分支覆盖比语句覆盖强——这也是为什么只看&quot;行覆盖率&quot;会有盲区。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q042</span>
-                <h3 class="card-title" title="原题：14. 语句覆盖和分支覆盖的区别？举例。">Q042：语句覆盖和分支覆盖的区别？举例。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 语句覆盖和分支覆盖的区别？举例。">语句覆盖和分支覆盖的区别？举例。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1852,9 +1999,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q043：Python 的可变对象和不可变对象有什么区别？有什么坑？ 1. Python 的可变对象和不可变对象有什么区别？有什么坑？ 1. Python 的可变对象和不可变对象有什么区别？有什么坑？    ①不可变：int、float、str、tuple、frozenset——值不能原地改，&quot;修改&quot;实际是创建新对象；②可变：list、dict、set——可原地修改。最经典的坑是**函数默认参数用可变对象**：    ```python  def add(x, lst=[]):   # 危险！默认参数只在定义时创建一次      lst.append(x)      return lst  add(1)  # [1]  add(2)  # [1, 2]  ← 共享了同一个 list  ```    正确写法：`def add(x, lst=None): lst = lst if lst is not None else []`。这是高频陷阱题。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q043</span>
-                <h3 class="card-title" title="原题：1. Python 的可变对象和不可变对象有什么区别？有什么坑？">Q043：Python 的可变对象和不可变对象有什么区别？有什么坑？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. Python 的可变对象和不可变对象有什么区别？有什么坑？">Python 的可变对象和不可变对象有什么区别？有什么坑？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1884,9 +2033,11 @@ add(2)  # [1, 2]  ← 共享了同一个 list</code></pre>
                      data-search="Q044：深拷贝和浅拷贝的区别？ 2. 深拷贝和浅拷贝的区别？ 2. 深拷贝和浅拷贝的区别？    ①浅拷贝（`copy.copy` / 切片 / `list()`）：只复制最外层，内层嵌套对象仍是引用——改内层会互相影响；②深拷贝（`copy.deepcopy`）：递归复制所有层级，完全独立。    ```python  import copy  a = [[1, 2], 3]  b = copy.copy(a)  b[0][0] = 99          # a 也变成 [[99, 2], 3]    a = [[1, 2], 3]  c = copy.deepcopy(a)  c[0][0] = 99          # a 不受影响，仍是 [[1, 2], 3]  ```    测试造数据、保存对象快照时要注意用 deepcopy，否则用例之间会数据串扰。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q044</span>
-                <h3 class="card-title" title="原题：2. 深拷贝和浅拷贝的区别？">Q044：深拷贝和浅拷贝的区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. 深拷贝和浅拷贝的区别？">深拷贝和浅拷贝的区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1919,9 +2070,11 @@ c[0][0] = 99          # a 不受影响，仍是 [[1, 2], 3]</code></pre>
                      data-search="Q045：迭代器和生成器的区别？yield 有什么用？ 4. 迭代器和生成器的区别？yield 有什么用？ 4. 迭代器和生成器的区别？yield 有什么用？    ①迭代器：实现了 `__iter__` 和 `__next__` 的对象；②生成器：用 `yield` 的函数或生成器表达式，是&quot;惰性求值&quot;的迭代器——每次 next 执行到 yield 暂停并返回值，下次从断点继续，**不一次性把数据全放内存**。处理大文件/大数据集时省内存：    ```python  def read_large(path):      with open(path, encoding=&#x27;utf-8&#x27;) as f:          for line in f:      # 逐行惰性读取，不爆内存              yield line.strip()  ```    区别于 `return`：return 一次性返回并结束，yield 可多次产出、保持状态。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q045</span>
-                <h3 class="card-title" title="原题：4. 迭代器和生成器的区别？yield 有什么用？">Q045：迭代器和生成器的区别？yield 有什么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 迭代器和生成器的区别？yield 有什么用？">迭代器和生成器的区别？yield 有什么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1950,9 +2103,11 @@ c[0][0] = 99          # a 不受影响，仍是 [[1, 2], 3]</code></pre>
                      data-search="Q046：`is` 和 `==` 有什么区别？ 5. `is` 和 `==` 有什么区别？ 5. `is` 和 `==` 有什么区别？    `==` 比较值（调 `__eq__`），`is` 比较身份（是否同一个对象，即 `id` 相同）。    ```python  a = [1, 2]; b = [1, 2]  a == b   # True（值相等）  a is b   # False（不同对象）  ```    坑：小整数（-5~256）和短字符串有缓存池，`a = 256; b = 256; a is b` 为 True，但 257 可能为 False。所以判空一定用 `if x is None` 而不是 `== None`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q046</span>
-                <h3 class="card-title" title="原题：5. `is` 和 `==` 有什么区别？">Q046：`is` 和 `==` 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. `is` 和 `==` 有什么区别？">`is` 和 `==` 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1980,9 +2135,11 @@ a is b   # False（不同对象）</code></pre>
                      data-search="Q047：*args 和 **kwargs 是什么？ 6. *args 和 **kwargs 是什么？ 6. *args 和 **kwargs 是什么？    ①`*args`：把多余的位置参数收集成 tuple；②`**kwargs`：把多余的关键字参数收集成 dict。用于写通用封装（如请求封装，转发任意参数）：    ```python  def request(method, url, *args, **kwargs):      return session.request(method, url, *args, **kwargs)  ```    调用时 `*` 拆列表、`**` 拆字典传参。封装框架时几乎离不开它。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q047</span>
-                <h3 class="card-title" title="原题：6. *args 和 **kwargs 是什么？">Q047：*args 和 **kwargs 是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. *args 和 **kwargs 是什么？">*args 和 **kwargs 是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2009,9 +2166,11 @@ a is b   # False（不同对象）</code></pre>
                      data-search="Q048：Python 怎么做单元测试和 Mock？ 9. Python 怎么做单元测试和 Mock？ 9. Python 怎么做单元测试和 Mock？    ①框架：unittest（标准库）或 pytest（更简洁，见第五部分）；②Mock：用 `unittest.mock` 把外部依赖（第三方接口、数据库、时间）替换成可控的假对象，隔离被测逻辑：    ```python  from unittest.mock import patch    @patch(&#x27;module.requests.get&#x27;)  def test_query(mock_get):      mock_get.return_value.json.return_value = {&#x27;code&#x27;: 0}      assert query() == 0   # 不真正发请求  ```    要点：patch 的是&quot;被测模块里引用的路径&quot;，不是定义处；Mock 让单测不依赖外部环境、可重复。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q048</span>
-                <h3 class="card-title" title="原题：9. Python 怎么做单元测试和 Mock？">Q048：Python 怎么做单元测试和 Mock？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. Python 怎么做单元测试和 Mock？">Python 怎么做单元测试和 Mock？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2042,9 +2201,11 @@ def test_query(mock_get):
                      data-search="Q049：闭包是什么？ 10. 闭包是什么？ 10. 闭包是什么？    闭包 = 内层函数 + 它捕获的外层函数局部变量。外层函数返回内层函数后，被引用的变量不会被回收，状态被&quot;封存&quot;：    ```python  def counter():      count = 0      def inc():          nonlocal count   # 修改外层变量需要 nonlocal          count += 1          return count      return inc  c = counter()  c()  # 1  c()  # 2  ```    装饰器本质就是闭包。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q049</span>
-                <h3 class="card-title" title="原题：10. 闭包是什么？">Q049：闭包是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 闭包是什么？">闭包是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2079,9 +2240,11 @@ c()  # 2</code></pre>
                      data-search="Q050：with 语句（上下文管理器）的原理？ 11. with 语句（上下文管理器）的原理？ 11. with 语句（上下文管理器）的原理？    `with` 依赖对象实现 `__enter__`（进入时调用，返回值给 as）和 `__exit__`（退出时调用，无论是否异常都执行，用于释放资源），保证文件、数据库连接、锁一定被关闭：    ```python  class DBConn:      def __enter__(self):          self.conn = connect()          return self.conn      def __exit__(self, exc_type, exc_val, tb):          self.conn.close()      # 异常也会执行  with DBConn() as conn: ...  ```    也可以用 `contextlib.contextmanager` + yield 简化。框架里 mysql_util 的连接管理就靠它。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q050</span>
-                <h3 class="card-title" title="原题：11. with 语句（上下文管理器）的原理？">Q050：with 语句（上下文管理器）的原理？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. with 语句（上下文管理器）的原理？">with 语句（上下文管理器）的原理？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2113,9 +2276,11 @@ with DBConn() as conn: ...</code></pre>
                      data-search="Q051：列表推导式和生成器表达式的区别？ 12. 列表推导式和生成器表达式的区别？ 12. 列表推导式和生成器表达式的区别？    ①列表推导 `[x for x in ...]`：立即构造整个 list，占内存；②生成器表达式 `(x for x in ...)`：惰性、逐个产出，省内存。大数据集求和这类用生成器：`sum(x * x for x in range(10**7))` 不会先建一个千万元素的 list。能用生成器就别建大 list。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q051</span>
-                <h3 class="card-title" title="原题：12. 列表推导式和生成器表达式的区别？">Q051：列表推导式和生成器表达式的区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 列表推导式和生成器表达式的区别？">列表推导式和生成器表达式的区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2139,9 +2304,11 @@ with DBConn() as conn: ...</code></pre>
                      data-search="Q052：反转一个单链表。 13. 反转一个单链表。 13. 反转一个单链表。    经典三指针迭代，O(n) 时间 O(1) 空间：    ```python  def reverse_list(head):      prev = None      while head:          nxt = head.next   # 暂存下一个          head.next = prev  # 反转指针          prev = head       # prev 前移          head = nxt        # head 前移      return prev           # 新头  ```    要能口述指针变化，常要求白板手写。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q052</span>
-                <h3 class="card-title" title="原题：13. 反转一个单链表。">Q052：反转一个单链表。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. 反转一个单链表。">反转一个单链表。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2174,9 +2341,11 @@ with DBConn() as conn: ...</code></pre>
                      data-search="Q053：判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。 14. 判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。 14. 判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。    用栈：左括号入栈，右括号检查栈顶是否匹配：    ```python  def is_valid(s):      pairs = {&#x27;)&#x27;: &#x27;(&#x27;, &#x27;]&#x27;: &#x27;[&#x27;, &#x27;}&#x27;: &#x27;{&#x27;}      stack = []      for c in s:          if c in &#x27;([{&#x27;:              stack.append(c)          elif c in pairs:              if not stack or stack.pop() != pairs[c]:                  return False      return not stack   # 栈空才匹配完整  ```    O(n)。考点是栈的应用和&quot;最后栈要为空&quot;的边界。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q053</span>
-                <h3 class="card-title" title="原题：14. 判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。">Q053：判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。">判断字符串的括号是否匹配（如 `&quot;{[()]}&quot;`）。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2211,9 +2380,11 @@ with DBConn() as conn: ...</code></pre>
                      data-search="Q054：二分查找，并说明边界注意点。 16. 二分查找，并说明边界注意点。 16. 二分查找，并说明边界注意点。    前提是**有序数组**，O(log n)：    ```python  def binary_search(nums, target):      lo, hi = 0, len(nums) - 1      while lo &lt;= hi:                # 注意 &lt;=          mid = lo + (hi - lo) // 2  # 防溢出写法          if nums[mid] == target:              return mid          elif nums[mid] &lt; target:              lo = mid + 1           # 注意 +1          else:              hi = mid - 1      return -1  ```    易错点：`&lt;=` 还是 `&lt;`、`mid ± 1` 是否漏等号——死循环和漏解都出在这里。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q054</span>
-                <h3 class="card-title" title="原题：16. 二分查找，并说明边界注意点。">Q054：二分查找，并说明边界注意点。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 二分查找，并说明边界注意点。">二分查找，并说明边界注意点。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2249,9 +2420,11 @@ with DBConn() as conn: ...</code></pre>
                      data-search="Q055：找出字符串中第一个不重复的字符。 17. 找出字符串中第一个不重复的字符。 17. 找出字符串中第一个不重复的字符。    计数 + 顺序遍历：    ```python  from collections import Counter  def first_uniq(s):      cnt = Counter(s)      for i, c in enumerate(s):          if cnt[c] == 1:              return i      return -1  ```    关键是第二遍按原字符串顺序扫描，所以返回的一定是&quot;第一个&quot;不重复字符。O(n)。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q055</span>
-                <h3 class="card-title" title="原题：17. 找出字符串中第一个不重复的字符。">Q055：找出字符串中第一个不重复的字符。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 找出字符串中第一个不重复的字符。">找出字符串中第一个不重复的字符。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2283,9 +2456,11 @@ def first_uniq(s):
                      data-search="Q056：列表去重，并保持原有顺序。 18. 列表去重，并保持原有顺序。 18. 列表去重，并保持原有顺序。    `set()` 去重会丢顺序，保序用 dict：    ```python  def dedup(lst):      return list(dict.fromkeys(lst))   # 利用 dict 有序且键唯一  ```    或遍历 + seen 集合。考点：知道 `set` 无序、`dict.fromkeys` 保序这个技巧。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q056</span>
-                <h3 class="card-title" title="原题：18. 列表去重，并保持原有顺序。">Q056：列表去重，并保持原有顺序。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：18. 列表去重，并保持原有顺序。">列表去重，并保持原有顺序。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2312,9 +2487,11 @@ def first_uniq(s):
                      data-search="Q057：用递归和动态规划分别实现斐波那契，比较优劣。 19. 用递归和动态规划分别实现斐波那契，比较优劣。 19. 用递归和动态规划分别实现斐波那契，比较优劣。    ①朴素递归：O(2^n)，大量重复计算，n 一大就超时：    ```python  def fib(n):      return n if n &lt; 2 else fib(n - 1) + fib(n - 2)  ```    ②动态规划/迭代：O(n) 时间 O(1) 空间：    ```python  def fib(n):      a, b = 0, 1      for _ in range(n):          a, b = b, a + b      return a  ```    考点是识别&quot;重叠子问题&quot;，用 DP/记忆化把指数降到线性，也是&quot;你怎么优化慢代码&quot;的思路。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q057</span>
-                <h3 class="card-title" title="原题：19. 用递归和动态规划分别实现斐波那契，比较优劣。">Q057：用递归和动态规划分别实现斐波那契，比较优劣。</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 用递归和动态规划分别实现斐波那契，比较优劣。">用递归和动态规划分别实现斐波那契，比较优劣。</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2347,9 +2524,11 @@ def first_uniq(s):
                      data-search="Q058：迭代节奏 12 / 迭代节奏 12 / 迭代节奏  说明自己团队真实节奏即可（如双周迭代/周迭代+热修），强调测试介入时机（需求评审即介入，左移）。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q058</span>
-                <h3 class="card-title" title="原题：12 / 迭代节奏">Q058：迭代节奏</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12 / 迭代节奏">迭代节奏</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2373,9 +2552,11 @@ def first_uniq(s):
                      data-search="Q059：是否涉及打包发布 13 / 是否涉及打包发布 13 / 是否涉及打包发布  如实回答；可补充 CI/CD 中测试卡点（流水线门禁、自动化回归通过才允许发布）。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q059</span>
-                <h3 class="card-title" title="原题：13 / 是否涉及打包发布">Q059：是否涉及打包发布</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13 / 是否涉及打包发布">是否涉及打包发布</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2399,9 +2580,11 @@ def first_uniq(s):
                      data-search="Q060：未来规划 14 / 未来规划 14 / 未来规划  （框架）：往&quot;测试架构/质量平台/质量度量体系&quot;方向深入，把重复测试工程化，用 AI/工具提升效率。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q060</span>
-                <h3 class="card-title" title="原题：14 / 未来规划">Q060：未来规划</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14 / 未来规划">未来规划</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2425,9 +2608,11 @@ def first_uniq(s):
                      data-search="Q061：离职动机 15 / 离职动机 15 / 离职动机  （框架）：聚焦&quot;寻求更大技术挑战/平台/成长空间&quot;，避免抱怨前东家与同事。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q061</span>
-                <h3 class="card-title" title="原题：15 / 离职动机">Q061：离职动机</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15 / 离职动机">离职动机</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2451,9 +2636,11 @@ def first_uniq(s):
                      data-search="Q062：期望薪资 16 / 期望薪资 16 / 期望薪资  （框架）：先问对方薪资结构与职级范围，给一个有依据的区间（参考市场分位 + 当前涨幅预期），表达可谈。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q062</span>
-                <h3 class="card-title" title="原题：16 / 期望薪资">Q062：期望薪资</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16 / 期望薪资">期望薪资</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2477,9 +2664,11 @@ def first_uniq(s):
                      data-search="Q063：反问环节 17 / 反问环节 17 / 反问环节  （参考话术）：团队当前最大的质量痛点是什么？测开在团队的定位（造工具 vs 测业务占比）？技术栈与自动化覆盖现状？团队成长/晋升机制？  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q063</span>
-                <h3 class="card-title" title="原题：17 / 反问环节">Q063：反问环节</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17 / 反问环节">反问环节</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2503,9 +2692,11 @@ def first_uniq(s):
                      data-search="Q064：App 端和 Web 端测试区别 15 / App 端和 Web 端测试区别 15 / App 端和 Web 端测试区别  - App 需关注：多机型/分辨率/系统版本兼容、安装/升级/卸载、弱网/断网、前后台切换、推送、权限、耗电/内存/流量、Crash/ANR。  - Web 关注：多浏览器兼容、响应式布局、Cookie/Session、前端性能。  - App 测试更依赖真机/云测平台，自动化用 Appium；Web 用 Selenium。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q064</span>
-                <h3 class="card-title" title="原题：15 / App 端和 Web 端测试区别">Q064：App 端和 Web 端测试区别</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15 / App 端和 Web 端测试区别">App 端和 Web 端测试区别</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2529,9 +2720,11 @@ def first_uniq(s):
                      data-search="Q065：Web 自动化元素定位 2 / Web 自动化元素定位 2 / Web 自动化元素定位  优先级：id &gt; name &gt; class &gt; css selector &gt; xpath。推荐 **CSS selector**（快、简洁）和稳定的 **xpath**（支持文本/层级定位）。尽量用稳定属性（如自定义 `data-testid`），避免依赖易变的绝对路径与动态 class。配合显式等待（`WebDriverWait + expected_conditions`）解决元素未加载问题。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q065</span>
-                <h3 class="card-title" title="原题：2 / Web 自动化元素定位">Q065：Web 自动化元素定位</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2 / Web 自动化元素定位">Web 自动化元素定位</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2555,9 +2748,11 @@ def first_uniq(s):
                      data-search="Q066：App 自动化怎么做 8&amp;9 / App 自动化怎么做 8&amp;9 / App 自动化怎么做  用 **Appium**（兼容 Android/iOS，基于 WebDriver 协议）：连接真机/模拟器，通过 uiautomator2(安卓)/XCUITest(iOS) 驱动；同样用 PO 模式封装；处理 App 特有问题：等待元素、控件定位（uiautomatorviewer/Appium Inspector）、原生与 WebView 切换、弹窗/权限处理、多机型适配。结合云真机平台做兼容性。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q066</span>
-                <h3 class="card-title" title="原题：8&amp;9 / App 自动化怎么做">Q066：App 自动化怎么做</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8&amp;9 / App 自动化怎么做">App 自动化怎么做</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2581,9 +2776,11 @@ def first_uniq(s):
                      data-search="Q067：常用 Python 库 1&amp;2 / 常用 Python 库 1&amp;2 / 常用 Python 库  - 自动化/测试：requests、pytest、unittest、selenium、appium、allure-pytest、locust。  - 数据/工具：json、yaml(PyYAML)、re、os、sys、time、datetime、logging、random。  - 数据处理：pandas、numpy。  - 数据库：pymysql、redis、SQLAlchemy。  - 并发：threading、multiprocessing、asyncio、concurrent.futures。  - Web/平台：Flask、FastAPI、Django。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q067</span>
-                <h3 class="card-title" title="原题：1&amp;2 / 常用 Python 库">Q067：常用 Python 库</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1&amp;2 / 常用 Python 库">常用 Python 库</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2607,9 +2804,11 @@ def first_uniq(s):
                      data-search="Q068：如何定义函数 3 / 如何定义函数 3 / 如何定义函数  ```python  def add(a, b=0, *args, **kwargs):      return a + b  ```  `def` 定义，支持默认参数、可变位置参数 `*args`、可变关键字参数 `**kwargs`。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q068</span>
-                <h3 class="card-title" title="原题：3 / 如何定义函数">Q068：如何定义函数</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3 / 如何定义函数">如何定义函数</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2635,9 +2834,11 @@ def first_uniq(s):
                      data-search="Q069：字典是什么 4 / 字典是什么 4 / 字典是什么  键值对（key-value）集合，基于哈希表实现，key 唯一且不可变，查找/插入平均 O(1)，Python 3.7+ 保持插入有序。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q069</span>
-                <h3 class="card-title" title="原题：4 / 字典是什么">Q069：字典是什么</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4 / 字典是什么">字典是什么</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2661,9 +2862,11 @@ def first_uniq(s):
                      data-search="Q070：同步 vs 异步函数 6 / 同步 vs 异步函数 6 / 同步 vs 异步函数  - 同步：顺序执行，阻塞等待结果。  - 异步（`async def`/`await`）：基于事件循环，遇到 IO 等待时让出控制权执行其他任务，适合**高并发 IO 密集**场景（大量网络请求），单线程内并发，提升吞吐。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q070</span>
-                <h3 class="card-title" title="原题：6 / 同步 vs 异步函数">Q070：同步 vs 异步函数</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / 同步 vs 异步函数">同步 vs 异步函数</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2687,9 +2890,11 @@ def first_uniq(s):
                      data-search="Q071：全局锁（GIL）及作用 10&amp;11 / 全局锁（GIL）及作用 10&amp;11 / 全局锁（GIL）及作用  GIL（全局解释器锁）是 CPython 解释器的机制，保证**同一时刻只有一个线程执行 Python 字节码**，简化内存管理与 C 扩展线程安全。代价：CPU 密集任务无法靠多线程并行（多线程只在 IO 等待时切换）。CPU 密集用多进程绕过 GIL；IO 密集用多线程/协程仍有效。（注：3.13 起有可选的 no-GIL 实验特性。）   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q071</span>
-                <h3 class="card-title" title="原题：10&amp;11 / 全局锁（GIL）及作用">Q071：全局锁（GIL）及作用</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10&amp;11 / 全局锁（GIL）及作用">全局锁（GIL）及作用</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2713,9 +2918,11 @@ def first_uniq(s):
                      data-search="Q072：线程是不是越多越好 12 / 线程是不是越多越好 12 / 线程是不是越多越好  不是。线程过多带来上下文切换开销、内存占用、锁竞争，反而降低性能；受 GIL 限制 CPU 密集型多线程无收益。应按任务类型（IO 密集/CPU 密集）和资源设定合理线程数。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q072</span>
-                <h3 class="card-title" title="原题：12 / 线程是不是越多越好">Q072：线程是不是越多越好</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12 / 线程是不是越多越好">线程是不是越多越好</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2739,9 +2946,11 @@ def first_uniq(s):
                      data-search="Q073：请求搜狐网下载页面所有 jpg 13 / 请求搜狐网下载页面所有 jpg 13 / 请求搜狐网下载页面所有 jpg  &gt; 面试建议：直接说用 **BeautifulSoup/lxml 解析 `&lt;img&gt;` 标签 + `urljoin` 补全 URL** 更稳——纯正则只能抓双引号里的绝对 `.jpg`，会漏掉相对路径、`//` 协议相对路径、带 `?query` 的图片、`data-src` 懒加载字段等。下面给推荐写法，正则版仅作&quot;会用正则&quot;的兜底示意。    ```python  import os  import requests  from urllib.parse import urljoin  from bs4 import BeautifulSoup    url = &quot;https://www.sohu.com&quot;  resp = requests.get(url, timeout=10)  resp.encoding = resp.apparent_encoding  soup = BeautifulSoup(resp.text, &quot;html.parser&quot;)    # 兼容懒加载：同时取 src / data-src，再用 urljoin 补全相对路径与 // 协议路径  imgs = set()  for tag in soup.find_all(&quot;img&quot;):      src = tag.get(&quot;src&quot;) or tag.get(&quot;data-src&quot;)      if src and &quot;.jpg&quot; in src.lower():          imgs.add(urljoin(url, src))    os.makedirs(&quot;imgs&quot;, exist_ok=True)  for i, img_url in enumerate(imgs):      try:          data = requests.get(img_url, timeout=10).content          with open(f&quot;imgs/{i}.jpg&quot;, &quot;wb&quot;) as f:              f.write(data)      except Exception as e:          print(f&quot;下载失败 {img_url}: {e}&quot;)  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q073</span>
-                <h3 class="card-title" title="原题：13 / 请求搜狐网下载页面所有 jpg">Q073：请求搜狐网下载页面所有 jpg</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13 / 请求搜狐网下载页面所有 jpg">请求搜狐网下载页面所有 jpg</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2790,9 +2999,11 @@ for i, img_url in enumerate(imgs):
                      data-search="Q074：长连接 vs 短连接 / 为什么长连接不断开 3&amp;4&amp;5 / 长连接 vs 短连接 / 为什么长连接不断开 3&amp;4&amp;5 / 长连接 vs 短连接 / 为什么长连接不断开  - 短连接：每次请求建立并关闭 TCP 连接。  - 长连接：一次建连后复用同一条 TCP 连接处理多次请求（HTTP/1.1 默认 `Connection: keep-alive`）。  - 注意区分三个不同概念，面试常被追问：    - **HTTP keep-alive**：应用层的&quot;连接复用&quot;，让一条 TCP 连接可承载多个 HTTP 请求/响应，省掉反复三次握手/四次挥手与 TLS 握手开销。它并不能保证连接永不断开——客户端或服务端的**空闲超时**（如 Nginx `keepalive_timeout`）到了仍会主动关闭。    - **TCP keepalive**：传输层的探活机制（`SO_KEEPALIVE`），默认空闲约 2 小时才发探测包，用于检测对端是否已死、清理僵死连接，并非用来&quot;保活不断开&quot;。    - **业务心跳**：长连接（如 WebSocket、IM、RPC 长连）由应用自己定时发心跳包，目的是探测连接可用性、防止中间设备（NAT/LB）因空闲回收连接。HTTP/1.1 的长连接本身并不依赖业务心跳。  - 一句话：HTTP/1.1 长连接的核心收益是**连接复用**而非&quot;靠心跳永不断开&quot;，空闲超时仍会回收；代价是占用服务端连接资源，需设合理空闲超时。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q074</span>
-                <h3 class="card-title" title="原题：3&amp;4&amp;5 / 长连接 vs 短连接 / 为什么长连接不断开">Q074：长连接 vs 短连接 / 为什么长连接不断开</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3&amp;4&amp;5 / 长连接 vs 短连接 / 为什么长连接不断开">长连接 vs 短连接 / 为什么长连接不断开</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2816,9 +3027,11 @@ for i, img_url in enumerate(imgs):
                      data-search="Q075：TCP vs UDP / 适用场景 6&amp;7 / TCP vs UDP / 适用场景 6&amp;7 / TCP vs UDP / 适用场景  | | TCP | UDP |  |---|---|---|  | 连接 | 面向连接(三次握手) | 无连接 |  | 可靠性 | 可靠(确认/重传/排序) | 不可靠 |  | 速度 | 较慢 | 快、开销小 |  | 顺序 | 保证 | 不保证 |  | 场景 | Web、文件传输、支付等要求可靠 | 视频直播、语音、游戏、DNS 等要求低延迟 |   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q075</span>
-                <h3 class="card-title" title="原题：6&amp;7 / TCP vs UDP / 适用场景">Q075：TCP vs UDP / 适用场景</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6&amp;7 / TCP vs UDP / 适用场景">TCP vs UDP / 适用场景</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2842,9 +3055,11 @@ for i, img_url in enumerate(imgs):
                      data-search="Q076：找出第二大的数 1 / 找出第二大的数 1 / 找出第二大的数  &gt; 注意先和面试官确认题意：是要**第二大的不同值**（[5,5,4]→4），还是**排序后第二个位置的值**（[5,5,4]→5）。两种解法不同。    求第二大的不同值（去重语义）：  ```python  def second_largest(nums):      first = second = float(&quot;-inf&quot;)      for n in nums:          if n &gt; first:              first, second = n, first          elif first &gt; n &gt; second:   # 严格小于 first，跳过与最大值相等的重复值              second = n      return second if second != float(&quot;-inf&quot;) else None  ```  若按&quot;排序后第二位&quot;算（不去重），把 `elif first &gt; n &gt; second` 改为 `elif n &gt; second`，则 [5,5,4] 返回 5。一次遍历，O(n)。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q076</span>
-                <h3 class="card-title" title="原题：1 / 找出第二大的数">Q076：找出第二大的数</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1 / 找出第二大的数">找出第二大的数</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2878,9 +3093,11 @@ for i, img_url in enumerate(imgs):
                      data-search="Q077：快排原理与复杂度 2 / 快排原理与复杂度 2 / 快排原理与复杂度  分治：选基准 pivot，将比它小的放左、大的放右（partition），再递归处理左右子数组。  - 平均时间 O(n log n)，最坏 O(n²)（已有序且每次选端点为基准），不稳定排序。  - 空间复杂度看实现：**原地 partition 版**额外空间 O(log n)（仅递归栈）；下面这版用列表推导生成 left/mid/right，每层都额外创建新列表，整体额外空间约 O(n)，胜在简洁易记、适合面试白板。  ```python  def quick_sort(a):                 # 简洁版（非原地，额外空间 O(n)）      if len(a) &lt;= 1:          return a      pivot = a[len(a)//2]      left = [x for x in a if x &lt; pivot]      mid = [x for x in a if x == pivot]      right = [x for x in a if x &gt; pivot]      return quick_sort(left) + mid + quick_sort(right)  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q077</span>
-                <h3 class="card-title" title="原题：2 / 快排原理与复杂度">Q077：快排原理与复杂度</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2 / 快排原理与复杂度">快排原理与复杂度</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2913,9 +3130,11 @@ for i, img_url in enumerate(imgs):
                      data-search="Q078：冒泡排序原理与复杂度 3 / 冒泡排序原理与复杂度 3 / 冒泡排序原理与复杂度  相邻两两比较，大的往后冒，每轮确定一个最大值。时间 O(n²)（最好 O(n)，加 flag 提前结束），空间 O(1)，稳定排序。  ```python  def bubble_sort(a):      n = len(a)      for i in range(n - 1):          swapped = False          for j in range(n - 1 - i):              if a[j] &gt; a[j + 1]:                  a[j], a[j + 1] = a[j + 1], a[j]                  swapped = True          if not swapped:              break      return a  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q078</span>
-                <h3 class="card-title" title="原题：3 / 冒泡排序原理与复杂度">Q078：冒泡排序原理与复杂度</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3 / 冒泡排序原理与复杂度">冒泡排序原理与复杂度</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2950,9 +3169,11 @@ for i, img_url in enumerate(imgs):
                      data-search="Q079：纯数字字符串的最长连续递增子串 4 / 纯数字字符串的最长连续递增子串 4 / 纯数字字符串的最长连续递增子串  &gt; 说明：原题示例 `输入 2356789 输出 567` 存在矛盾——若&quot;连续&quot;指相邻数字依次 +1，则 `2356789` 中最长的连续递增子串应为 `56789`（长度 5），而非 `567`。下面按&quot;相邻字符依次 +1 的最长子串&quot;给出正确解法。  ```python  def longest_consecutive(s):      if not s:               # 处理空字符串，避免 s[0] 越界          return &quot;&quot;      best = cur = s[0]      for i in range(1, len(s)):          if int(s[i]) == int(s[i - 1]) + 1:              cur += s[i]          else:              cur = s[i]          if len(cur) &gt; len(best):              best = cur      return best    print(longest_consecutive(&quot;2356789&quot;))  # 56789  ```   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q079</span>
-                <h3 class="card-title" title="原题：4 / 纯数字字符串的最长连续递增子串">Q079：纯数字字符串的最长连续递增子串</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4 / 纯数字字符串的最长连续递增子串">纯数字字符串的最长连续递增子串</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2990,9 +3211,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q080：两数之和（判断是否存在） 5 / 两数之和（判断是否存在） 5 / 两数之和（判断是否存在）  ```python  def two_sum_exists(nums, target):      seen = set()      for n in nums:          if target - n in seen:              return True          seen.add(n)      return False  ```  哈希一次遍历，O(n)。若要返回下标，把 set 换成 dict 存值→下标。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q080</span>
-                <h3 class="card-title" title="原题：5 / 两数之和（判断是否存在）">Q080：两数之和（判断是否存在）</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5 / 两数之和（判断是否存在）">两数之和（判断是否存在）</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3023,9 +3246,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q081：用 A 替换字符串 B 6 / 用 A 替换字符串 B 6 / 用 A 替换字符串 B  Python：`s.replace(&quot;B&quot;, &quot;A&quot;)`；命令行：`sed -i &#x27;s/B/A/g&#x27; file`。（同八 9）   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q081</span>
-                <h3 class="card-title" title="原题：6 / 用 A 替换字符串 B">Q081：用 A 替换字符串 B</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / 用 A 替换字符串 B">用 A 替换字符串 B</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3049,9 +3274,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q082：红黑树 7 / 红黑树 7 / 红黑树  自平衡二叉查找树，通过节点红/黑着色 + 5 条性质，保证从根到叶最长路径不超过最短路径的 2 倍，近似平衡。  - 优点：插入/删除/查找均为 O(log n)，且**调整代价比 AVL 小**（AVL 更严格平衡、旋转更多）。  - 缺点：实现复杂；查找略逊于严格平衡的 AVL。  - 应用：Java TreeMap/TreeSet、C++ STL map/set、Linux 内核调度等。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q082</span>
-                <h3 class="card-title" title="原题：7 / 红黑树">Q082：红黑树</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7 / 红黑树">红黑树</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3076,9 +3303,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q083：哈希表作用与优缺点 8 / 哈希表作用与优缺点 8 / 哈希表作用与优缺点  通过哈希函数把 key 映射到桶，实现平均 O(1) 的查找/插入/删除。  - 优点：快、查找高效。  - 缺点：有哈希冲突（用链地址法/开放寻址解决）；无序；最坏情况退化到 O(n)；扩容/rehash 有开销；空间换时间。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q083</span>
-                <h3 class="card-title" title="原题：8 / 哈希表作用与优缺点">Q083：哈希表作用与优缺点</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8 / 哈希表作用与优缺点">哈希表作用与优缺点</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3103,9 +3332,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q084：握手问题 1 / 握手问题 1 / 握手问题  常见版本：n 个人两两握手共多少次 = C(n,2) = n(n-1)/2（每两人一次，不重复）。若题为&quot;每人与其他人各握一次手，总次数&quot;同上。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q084</span>
-                <h3 class="card-title" title="原题：1 / 握手问题">Q084：握手问题</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1 / 握手问题">握手问题</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3129,9 +3360,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q085：4 个罐子，一个药丸重 1g，电子秤最少几次称出 2 / 4 个罐子，一个药丸重 1g，电子秤最少几次称出 2 / 4 个罐子，一个药丸重 1g，电子秤最少几次称出  &gt; 前提（题目须给定）：每罐有足够多药丸，正常药丸每颗重 m 克，**被污染那一罐的每颗药丸重 m+1 克**（即每颗多 1g）。    **1 次**（用可读出具体重量的电子秤称重；若题面明确是两臂天平，要先和面试官澄清条件）。从第 1、2、3、4 罐分别取 1、2、3、4 颗放在一起称，记&quot;实际总重 − 全部正常时理论总重 (1+2+3+4)·m&quot;之差为 d 克。因为只有被污染罐的药丸每颗多 1g，多出的克数恰等于从该罐取的颗数，所以 **d = 被污染罐的编号**（d=1→1 号，d=2→2 号，d=3→3 号，d=4→4 号）。一次称重即可定位。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q085</span>
-                <h3 class="card-title" title="原题：2 / 4 个罐子，一个药丸重 1g，电子秤最少几次称出">Q085：4 个罐子，一个药丸重 1g，电子秤最少几次称出</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2 / 4 个罐子，一个药丸重 1g，电子秤最少几次称出">4 个罐子，一个药丸重 1g，电子秤最少几次称出</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3156,9 +3389,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q086：7 分钟和 11 分钟沙漏量出 15 分钟 3 / 7 分钟和 11 分钟沙漏量出 15 分钟 3 / 7 分钟和 11 分钟沙漏量出 15 分钟  同时倒转两个沙漏并开始计时：  - 第 7 分钟：7 分钟漏完，立即翻转 7 分钟沙漏；  - 第 11 分钟：11 分钟漏完，此时 7 分钟沙漏已走 4 分钟（还剩 3 分钟）；  - 立即翻转 7 分钟沙漏，让那 4 分钟的沙再漏回来，需 4 分钟；  - 11 + 4 = **15 分钟**。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q086</span>
-                <h3 class="card-title" title="原题：3 / 7 分钟和 11 分钟沙漏量出 15 分钟">Q086：7 分钟和 11 分钟沙漏量出 15 分钟</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3 / 7 分钟和 11 分钟沙漏量出 15 分钟">7 分钟和 11 分钟沙漏量出 15 分钟</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3183,9 +3418,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q087：三开关三灯，一次查看灯，确定对应关系 4 / 三开关三灯，一次查看灯，确定对应关系 4 / 三开关三灯，一次查看灯，确定对应关系  利用灯泡发热：  1. 打开开关 1，等几分钟，再关掉；  2. 打开开关 2，立即进房间查看；  3. 判断：**亮着的**灯对应开关 2；**灭着但发热**的对应开关 1；**灭着且冷**的对应开关 3。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q087</span>
-                <h3 class="card-title" title="原题：4 / 三开关三灯，一次查看灯，确定对应关系">Q087：三开关三灯，一次查看灯，确定对应关系</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4 / 三开关三灯，一次查看灯，确定对应关系">三开关三灯，一次查看灯，确定对应关系</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3210,9 +3447,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q088：你这个接口自动化框架最大的亮点是什么 Q37：你这个接口自动化框架最大的亮点是什么 Q37：你这个接口自动化框架最大的亮点是什么    **不要只答&quot;分层清晰&quot;**，要从工程化价值切入。参考表达：    &gt; 我这个框架最大的亮点不在于&quot;功能堆得多&quot;，而在于 **工程化和可维护性**，具体体现在几个方面：    1. **数据驱动**：用例和数据分离，加用例就是加 YAML 数据，业务同学也能参与，维护成本低。  2. **动态参数传递**：通过上下文对象解决了登录 token、下单 orderId 这类接口间依赖，能跑完整业务链路而不是孤立单接口。  3. **统一请求封装**：超时、重试、脱敏、日志、统一返回全收口在一层，接口变更影响范围最小。  4. **统一断言**：支持业务码、嵌套字段、数据库、软断言，断言失败能直接定位归因。  5. **日志 + Allure 报告**：请求响应全留痕，失败一眼定位，报告可视化。  6. **多环境切换**：一个参数切 dev/test，配置与代码分离。  7. **marker 分层执行**：smoke/regression 分级，配合 CI 按需执行。  8. **Jenkins CI/CD 集成**：提交即触发、失败通知、报告归档。  9. **数据库校验**：不只看接口返回，还查库做数据一致性校验。  10. **测试数据初始化与清理**：保证用例可重复执行，不留脏数据。    &gt; 一句话收尾：这个框架的核心价值是 **让接口测试可维护、可扩展、可观测、能融入持续交付**，而不是&quot;能跑就行&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q088</span>
-                <h3 class="card-title" title="原题：Q37：你这个接口自动化框架最大的亮点是什么">Q088：你这个接口自动化框架最大的亮点是什么</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q37：你这个接口自动化框架最大的亮点是什么">你这个接口自动化框架最大的亮点是什么</h3>
+                  <div class="card-meta"><span>来源：12-综合追问.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">12-综合追问.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3239,9 +3478,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q089：你这个框架目前有什么不足 Q38：你这个框架目前有什么不足 Q38：你这个框架目前有什么不足    **诚实 + 有改进方向 = 加分**。不要说&quot;没什么不足&quot;。参考表达：    &gt; 客观讲，它目前主要还停留在 **脚本框架层面**，离&quot;平台&quot;还有距离：    1. **当前主要能力集中在脚本框架层**，工程化够用但协作能力弱。  2. **用例可视化管理不足**：用例靠代码和 YAML 管理，没有 Web 化的统一管理。  3. **任务调度能力不足**：依赖 Jenkins 触发，没有自己的任务编排和队列。  4. **历史趋势分析不足**：缺少跨版本的质量趋势、失败聚类分析。  5. **精准测试推荐能力不足**：还是全量/标签级别执行，没做代码变更到用例的精准映射。  6. **分布式执行节点管理不足**：并发执行靠 xdist，缺少多节点调度和管理。  7. **失败自动归因能力不足**：失败分类还靠人看日志，没自动化归因。  8. **测试数据管理仍可继续优化**：数据初始化/清理还不够体系化。    &gt; 收尾：这些不足正是我下一步想从&quot;框架&quot;往&quot;平台 + 智能化&quot;演进的方向。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q089</span>
-                <h3 class="card-title" title="原题：Q38：你这个框架目前有什么不足">Q089：你这个框架目前有什么不足</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q38：你这个框架目前有什么不足">你这个框架目前有什么不足</h3>
+                  <div class="card-meta"><span>来源：12-综合追问.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">12-综合追问.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3268,9 +3509,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q090：如果让你重构这个框架，你会怎么做 Q39：如果让你重构这个框架，你会怎么做 Q39：如果让你重构这个框架，你会怎么做    参考方向（按优先级讲，体现规划能力）：    1. **优化动态参数提取和上下文管理**：把变量提取/替换做成配置化、支持 jsonpath，上下文按用例/会话分级隔离。  2. **断言规则进一步配置化**：断言全部 YAML 化，支持更丰富的比较器和 JSON Schema 校验。  3. **完善测试数据初始化和清理**：标准化的造数/清数机制，保证幂等可重复。  4. **增加请求重试和失败分类**：网络/业务/环境异常分类处理，失败自动打标签。  5. **加强敏感信息脱敏**：统一脱敏策略，覆盖日志、报告、上下文。  6. **接入 Jenkins 和质量门禁**：流水线分级执行 + 通过率/严重缺陷门禁。  7. **增加 Docker 化执行环境**：用镜像保证环境一致、可复现、易扩展。  8. **增加并发执行能力**：从单机 xdist 演进到多节点分布式执行。  9. **向测试平台方向扩展**：用例管理、环境管理、任务调度、报告聚合 Web 化。  10. **引入 AI 做失败日志分析和报告总结**：用 LLM 辅助归因和报告摘要，但关键结论人工确认。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q090</span>
-                <h3 class="card-title" title="原题：Q39：如果让你重构这个框架，你会怎么做">Q090：如果让你重构这个框架，你会怎么做</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q39：如果让你重构这个框架，你会怎么做">如果让你重构这个框架，你会怎么做</h3>
+                  <div class="card-meta"><span>来源：12-综合追问.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">12-综合追问.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3295,9 +3538,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q091：测试开发和普通测试最大的区别是什么 Q40：测试开发和普通测试最大的区别是什么 Q40：测试开发和普通测试最大的区别是什么    **核心是&quot;解决问题的方式&quot;不同**。参考表达：    &gt; 普通测试更聚焦在 **业务和质量本身**：    - 业务功能验证  - 测试用例设计  - 缺陷发现  - 产品质量保障    &gt; 测试开发除了具备测试能力，更强调 **用工程手段解决测试问题**：    - 通过代码解决重复性问题（自动化）  - 搭建自动化测试框架  - 开发测试工具和测试平台  - 提升测试效率  - 建设 CI/CD 质量门禁  - 支撑性能测试和瓶颈定位  - 推动质量工程化和平台化    &gt; **核心表达**：  &gt;  &gt; 测试开发不是单纯编写自动化脚本，而是通过代码、框架、工具和平台，把测试能力 **工程化、自动化和平台化**。普通测试解决&quot;这个功能有没有 bug&quot;，测试开发解决&quot;怎么让整个团队更高效、更可靠地发现 bug&quot;。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q091</span>
-                <h3 class="card-title" title="原题：Q40：测试开发和普通测试最大的区别是什么">Q091：测试开发和普通测试最大的区别是什么</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q40：测试开发和普通测试最大的区别是什么">测试开发和普通测试最大的区别是什么</h3>
+                  <div class="card-meta"><span>来源：12-综合追问.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">12-综合追问.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3326,9 +3571,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q092：临场提醒 临场提醒 临场提醒    - 每题 **先一句话定调，再展开 2~3 个关键点**，不要一上来堆细节。  - 多用&quot;我在项目里是这么做的……因为……&quot;句式。  - 不会的点直说掌握程度，不编造。  - 反复强调 **工程化、可维护性、可观测性、风险控制**。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q092</span>
-                <h3 class="card-title" title="原题：临场提醒">Q092：临场提醒</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：临场提醒">临场提醒</h3>
+                  <div class="card-meta"><span>来源：13-30分钟高频必问.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">13-30分钟高频必问.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3352,9 +3599,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q093：list / tuple / set / dict 2. list / tuple / set / dict 2. list / tuple / set / dict  list 有序可变；tuple 有序不可变（可做 dict key）；set 无序、元素唯一、用于去重；dict 键值对、键唯一、查找 O(1)。   **3. 装饰器**：在不改原函数代码的前提下增强功能的语法糖。测试框架里大量用：`@pytest.fixture`、`@pytest.mark.parametrize`、`@allure.step`，以及自定义重试/计时装饰器。    **4. 生成器 vs 迭代器**：迭代器是实现了 `__iter__`/`__next__` 的对象；生成器是用 `yield` 简化创建迭代器的方式，**惰性求值、省内存**，适合处理大数据集。    **5. 多线程 vs 多进程**：多线程共享内存、适合 **IO 密集**（接口请求、文件读写）；多进程各自独立内存、能利用多核、适合 **CPU 密集**。接口自动化并发用多线程即可。    **6. GIL**：全局解释器锁，同一时刻 CPython 只允许一个线程执行字节码，导致多线程不能真正并行计算。所以 CPU 密集用多进程，IO 密集多线程仍有效（IO 等待时会释放 GIL）。    **7. 异常捕获**：`try/except/else/finally`，`except` 按异常类型分别处理，`finally` 做资源释放（关连接、关文件）。要捕获具体异常而非裸 `except`。    **8. `*args` vs `**kwargs`**：`*args` 收集位置参数成 tuple；`**kwargs` 收集关键字参数成 dict。请求封装里 `**kwargs` 透传 params/json/headers 非常常用。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q093</span>
-                <h3 class="card-title" title="原题：2. list / tuple / set / dict">Q093：list / tuple / set / dict</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. list / tuple / set / dict">list / tuple / set / dict</h3>
+                  <div class="card-meta"><span>来源：14-补充题.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">14-补充题.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3384,9 +3633,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q094：类方法 / 静态方法 / 实例方法 9. 类方法 / 静态方法 / 实例方法 9. 类方法 / 静态方法 / 实例方法  实例方法第一个参数 `self`（访问实例）；类方法 `@classmethod` 第一个参数 `cls`（访问类）；静态方法 `@staticmethod` 不依赖类或实例，就是放在类里的普通函数。   **10. 上下文管理器**：实现 `__enter__`/`__exit__`（或用 `@contextmanager`）的对象，配合 `with` 自动管理资源（`with open(...)`、数据库连接），保证异常时也能释放。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q094</span>
-                <h3 class="card-title" title="原题：9. 类方法 / 静态方法 / 实例方法">Q094：类方法 / 静态方法 / 实例方法</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 类方法 / 静态方法 / 实例方法">类方法 / 静态方法 / 实例方法</h3>
+                  <div class="card-meta"><span>来源：14-补充题.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">14-补充题.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3411,9 +3662,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q095：Cookie / Session / Token 4. Cookie / Session / Token 4. Cookie / Session / Token  Cookie 存客户端；Session 存服务端、靠 Cookie 里的 sessionId 关联；Token 适合分布式和前后端分离——其中 **JWT 是自包含的**（用户信息编码在 token 里、服务端无需存储即可校验），而 **opaque token（不透明令牌）本身无意义，仍依赖服务端存储/查询** 来校验有效性。   **5. HTTPS 原理**：HTTP + TLS，通过 **非对称加密协商对称密钥**，再用对称密钥加密传输，配合证书校验服务端身份，保证机密性和完整性。    **6. 接口幂等性**：同一请求执行一次和多次结果一致。下单、支付要做幂等（防重复扣款），常用唯一请求号/token 去重。    **7. 如何测接口重复提交**：用同一幂等号/请求并发或连续提交多次，断言只生成一条记录、不重复扣减。    **8. 如何测接口限流**：短时间高频请求，断言超过阈值后返回 429/限流响应，且恢复后能正常访问。    **9. 如何测签名和时间戳**：篡改签名应被拒；过期时间戳应被拒；重放同一请求应被拒（防重放）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q095</span>
-                <h3 class="card-title" title="原题：4. Cookie / Session / Token">Q095：Cookie / Session / Token</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. Cookie / Session / Token">Cookie / Session / Token</h3>
+                  <div class="card-meta"><span>来源：14-补充题.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">14-补充题.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3442,9 +3695,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q096：如何测文件上传/下载 10. 如何测文件上传/下载 10. 如何测文件上传/下载  上传测大小限制、格式校验、超大文件、并发；下载测内容完整性（MD5 比对）、断点续传、权限控制。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q096</span>
-                <h3 class="card-title" title="原题：10. 如何测文件上传/下载">Q096：如何测文件上传/下载</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 如何测文件上传/下载">如何测文件上传/下载</h3>
+                  <div class="card-meta"><span>来源：14-补充题.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">14-补充题.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3468,9 +3723,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q097：inner / left / right join 1. inner / left / right join 1. inner / left / right join  inner 只返回两表匹配的行；left 返回左表全部 + 右表匹配（右无则 NULL）；right 反之。   **2. group by vs having**：group by 分组；having 对 **分组后** 的结果过滤（where 是分组前过滤，且不能用聚合函数）。    **3. 什么是索引**：加速查询的数据结构（多为 B+树），用空间和写入性能换查询性能。    **4. 哪些情况索引失效**：对索引列用函数/运算、隐式类型转换、`like &#x27;%xx&#x27;` 前导模糊、`or` 连接非索引列、不满足最左前缀（联合索引）。    **5. 什么是事务**：一组要么全成功要么全失败的操作单元。    **6. ACID**：原子性（不可分割）、一致性（前后数据合法）、隔离性（并发互不干扰）、持久性（提交后永久生效）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q097</span>
-                <h3 class="card-title" title="原题：1. inner / left / right join">Q097：inner / left / right join</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. inner / left / right join">inner / left / right join</h3>
+                  <div class="card-meta"><span>来源：14-补充题.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">14-补充题.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3499,9 +3756,11 @@ print(longest_consecutive(&quot;2356789&quot;))  # 56789</code></pre>
                      data-search="Q098：脏读 / 不可重复读 / 幻读 7. 脏读 / 不可重复读 / 幻读 7. 脏读 / 不可重复读 / 幻读  脏读=读到别的事务未提交的数据；不可重复读=同一行两次读值不同（被别的事务改了）；幻读=同一查询两次返回行数不同（被别的事务增删了）。   **8. 如何用 explain 分析 SQL**：看 `type`（访问类型，全表 ALL 最差）、`key`（是否用上索引）、`rows`（扫描行数）、`Extra`（是否 Using filesort / temporary），据此优化。    **9. 什么是数据库锁**：并发控制机制，有行锁/表锁、共享锁（读）/排他锁（写）、乐观锁/悲观锁。    **10. 如何定位慢 SQL**：开慢查询日志找出慢语句 → `explain` 分析执行计划 → 看是否缺索引/全表扫描/大量排序 → 优化索引或改写 SQL。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q098</span>
-                <h3 class="card-title" title="原题：7. 脏读 / 不可重复读 / 幻读">Q098：脏读 / 不可重复读 / 幻读</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 脏读 / 不可重复读 / 幻读">脏读 / 不可重复读 / 幻读</h3>
+                  <div class="card-meta"><span>来源：14-补充题.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">14-补充题.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

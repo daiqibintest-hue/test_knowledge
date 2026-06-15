@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：AI 如何根据需求变更识别影响用例？ 56. AI 如何根据需求变更识别影响用例？ 56. AI 如何根据需求变更识别影响用例？    ①需求文档解析（修改项识别）；②与现有用例做语义匹配（向量相似度）；③标记可能受影响的用例；④推荐新增用例覆盖新增需求；⑤人工评审确认。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：56. AI 如何根据需求变更识别影响用例？">Q001：AI 如何根据需求变更识别影响用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：56. AI 如何根据需求变更识别影响用例？">AI 如何根据需求变更识别影响用例？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：权限变更后如何回归？ 10. 权限变更后如何回归？ 10. 权限变更后如何回归？    ①权限变更影响范围分析（哪些角色、哪些接口）；②权限矩阵全量重跑核心场景；③特别测试&quot;减权&quot;（变更后老用户访问已撤销接口应失败）；④老 Token 持有者权限实时生效（不等过期）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：10. 权限变更后如何回归？">Q002：权限变更后如何回归？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 权限变更后如何回归？">权限变更后如何回归？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -787,9 +854,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：&quot;用例覆盖率 95%+&quot;——公式是什么？ 2. &quot;用例覆盖率 95%+&quot;——公式是什么？ 2. &quot;用例覆盖率 95%+&quot;——公式是什么？    **公式**：用例覆盖率 = 已被至少一条测试用例覆盖的需求点 / 总需求点 × 100%。    - 分母：需求文档中识别的所有需求点（功能 + 异常 + 业务规则）。  - 分子：在 RTM（需求-用例追溯矩阵）中已关联用例的需求点。  - 工具：用 TestLink 维护 RTM。  - 每版本评审会上由产品确认覆盖完整。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：2. &quot;用例覆盖率 95%+&quot;——公式是什么？">Q003：&quot;用例覆盖率 95%+&quot;——公式是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. &quot;用例覆盖率 95%+&quot;——公式是什么？">&quot;用例覆盖率 95%+&quot;——公式是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -814,9 +883,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：&quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？ 3. &quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？ 3. &quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？    **公式**：核心接口自动化覆盖率 = 已有自动化用例的核心接口数 / 总核心接口数 × 100%。    - &quot;核心接口&quot;定义：日均调用量 &gt; 1000、影响核心业务流程（登录、工单 CRUD、业务文档生成、AI 问答、通知）的接口，约 100 个。  - &quot;已覆盖&quot;：至少有 1 条 happy path + 1 条 error case 的接口。  - 统计：每月手工统计一次，按接口数量计算（不按用例数量，避免虚高）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：3. &quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？">Q004：&quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. &quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？">&quot;核心接口自动化覆盖率 80%+&quot;——统计维度是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -841,9 +912,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：用例设计时，怎么平衡覆盖率和用例数量？ 15. 用例设计时，怎么平衡覆盖率和用例数量？ 15. 用例设计时，怎么平衡覆盖率和用例数量？    四个原则：①方法组合而非堆数量——等价类锁类别、边界值补临界、场景法串流程，避免大量重复用例；②按风险分级——核心/高频/高风险路径用更强覆盖（判定表、路径），边缘功能从简；③正交法对付组合爆炸；④用 RTM（需求-用例追溯矩阵）反向检查覆盖完整性，而不是用&quot;用例条数&quot;证明工作量。用例不是越多越好，冗余用例会拖垮回归成本。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：15. 用例设计时，怎么平衡覆盖率和用例数量？">Q005：用例设计时，怎么平衡覆盖率和用例数量？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 用例设计时，怎么平衡覆盖率和用例数量？">用例设计时，怎么平衡覆盖率和用例数量？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -867,9 +940,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：如何理解精准测试 Q23：如何理解精准测试 Q23：如何理解精准测试    **一句话**：基于代码变更，用 **历史覆盖数据 + 调用关系** 反推出&quot;这次改动真正影响到的最小用例集&quot;，把回归从&quot;全跑&quot;变成&quot;按需跑&quot;。但它是 **优化项不是替代项**——理由见第 4 点。    ### 1. 正向(静态) 和 反向(运行时) 是两套路子，且几乎必须都用    - **正向（静态调用图）**：变更方法 → 静态分析谁调用它 → 受影响接口 → 关联用例。    **致命伤**：JVM 应用的静态调用图天生不全——Spring AOP 代理、MyBatis Mapper（只有接口没实现，trace 不到）、`@Async`/线程池、MQ 生产者→消费者解耦、反射、SPI、接口多态，都会让静态图 **低估** 影响面 → **漏测**。所以静态图绝不能单独拿来&quot;减用例&quot;，它更适合做&quot;补充发现没有用例覆盖的新路径&quot;。    - **反向（运行时覆盖）**：测试环境采集 **每条用例** 的方法级覆盖，建 `用例 → 覆盖到的方法` 的倒排索引。代码改了哪些方法，直接反查哪些用例覆盖过 → 选出来。    它天然绕开了静态图的盲区：因为用例在运行时真实地跨过了 controller→service→dao→甚至 MQ 消费链，倒排索引里记录的是 **真实可达路径**。**这才是工程上的主干**，静态图是补充。    ### 2. &quot;每条用例的覆盖&quot;才是真成本（最容易被问穿的点）    覆盖工具默认是 **整个进程累计** 覆盖，拿不到单用例粒度。要做到按用例：    - **Java/JaCoCo**：在 **每条用例前后** 通过 agent 的 `getExecutionData(reset=true)` 把这一段 exec 数据 dump 出来再清零，和&quot;当前用例 ID&quot;绑定。需要在测试框架挂钩子（JUnit `RunListener` / TestNG `IInvokedMethodListener`）。  - **Python/coverage.py**：更优雅——直接用 **dynamic contexts** 功能，`[run] dynamic_context = test_function`，coverage.py 会原生地把覆盖数据按&quot;当时正在跑的测试&quot;打标，省掉手动 dump/reset。    代价是：这套采集会 **显著拖慢** 测试执行（JaCoCo 频繁 dump、coverage.py 上下文记录都有开销），所以一般 **不在每次跑都开**，而是 **定期重建覆盖基线**（比如每晚全量跑一次带覆盖采集）。    ### 3. 覆盖会过期、行号会漂移    覆盖是针对 **某一个 commit** 采的。代码一改，行号全变，**不能拿旧覆盖的行号去套新代码**。两个应对：    - 匹配粒度用 **方法签名**（`类#方法(参数)`）而不是行号——方法签名比行号稳得多。  - 基线 **定期重采**。**这套系统烂掉的头号原因就是基线不更新**：覆盖越来越旧 → 推荐越来越不准 → 最后没人敢信，沦为摆设。    ### 4. 必须诚实承认它&quot;抓不到&quot;什么 + 三层安全网    精准测试基于 **历史覆盖** 选用例，天然盲区：    - **新代码路径 / 新交互**：没有任何老用例覆盖过 → 选不出来。新行为只能靠新用例，精准选择无中生有不了。  - **非代码变更**：DB schema、配置、开关、基础设施——根本不在调用图里。  - **并发 / 时序 / 状态累积** 类 bug：方法级行覆盖根本表达不了。    所以一定保留三层安全网，精准测试只在这之上做优化：    1. **核心链路冒烟无条件全跑**（登录/下单/支付这种，不管 diff 是什么）。  2. **夜间全量回归兜底**。  3. **高爆炸半径规则**：动了基础工具类 / 公共 SQL / 拦截器 / DTO 基类 → 直接 **升级为全量**，不走精准。    &gt; 谁敢只讲&quot;我们现在只跑 10% 用例&quot;而不讲这三层兜底，谁就在等一个线上 P0。    ### 5. 怎么证明它没在偷偷漏测（没这步就是耍流氓）    - **缺陷回放**：把过去 N 个月的逃逸缺陷拉出来，对每个缺陷当时那次提交跑一遍精准选择，看 **会不会选中能抓到它的用例**，统计 **漏选率（false-negative rate）**。  - **影子运行**：上线初期，精准集和全量集 **并行跑一段时间**，凡是&quot;全量挂了但精准没选中&quot;的用例立刻告警。漏选率降到可接受（比如 &lt; 1%）后，才让精准测试去 **卡流水线**。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：Q23：如何理解精准测试">Q006：如何理解精准测试</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23：如何理解精准测试">如何理解精准测试</h3>
+                  <div class="card-meta"><span>来源：07-精准测试.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">07-精准测试.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -913,9 +988,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：代码变更 ↔ 用例映射的工程实现 Q24：代码变更 ↔ 用例映射的工程实现 Q24：代码变更 ↔ 用例映射的工程实现    ### 数据模型（核心就这几张表）    ```  method_coverage   (baseline_commit, test_case_id, class, method_sig)   -- 倒排索引：用例覆盖了哪些方法  case_meta         (test_case_id, module, covered_apis[], priority, last_result, flaky)  change_impact     (commit, changed_method, impacted_case_ids[], source)  -- source: coverage / static / rule  ```    倒排索引 `method_coverage` 是心脏；`change_impact` 是每次提交算出来的结果。    ### 第一步：变更 → 方法（为什么不能用行号 diff）    `git diff` 给的是 **变更行号区间**。但&quot;行 40 改了&quot;不等于&quot;方法 foo 改了&quot;——foo 可能跨 35~60 行。所以：    1. 在 **新 commit** 解析文件 AST，拿到每个方法的 **行号区间**；  2. 把 diff 的变更行 **落到所属方法**；  3. 特殊处理：改了方法签名本身 / 新增删除方法 / 改了字段或常量（影响 = 所有引用它的方法）/ 改了共享 SQL、配置、模板（影响面可能巨大 → 这类文件直接走全量）。    ### 第二步：方法 → 用例（覆盖倒排 + 静态补充）    - 主路：拿变更方法集去 `method_coverage` 反查，得到覆盖过这些方法的用例 → 这是 **有历史证据** 的推荐。  - 补充：用静态调用图找出&quot;变更方法可达、但当前没有任何用例覆盖&quot;的接口 → 这些是 **覆盖缺口**，标记出来提示&quot;需要补用例&quot;，而不是假装已覆盖。    ### 第三步：方法 → 接口（给报告用，也给&quot;接口级用例&quot;用）    解析路由注解（Spring 的 `@RequestMapping`/`@GetMapping`、或框架路由表），把 Controller 方法映射到 **接口路径**；接口再通过 `case_meta.covered_apis` 关联到接口级用例。这样能输出&quot;本次改动影响了哪几个接口、各自有哪些用例&quot;。    ### 第四步：历史缺陷加权 + 映射不准的修正闭环    - **历史缺陷加权**：高缺陷密度的模块即使影响分析只是弱命中，也 **提高其用例的入选优先级**——缺陷是聚集的，碰过的地方更可能再出问题。  - **修正闭环**：用执行结果反哺——如果某次精准集 **漏掉** 了后来暴露的 bug，把&quot;该缺陷涉及的用例 ↔ 该变更&quot;补进映射；如果某用例总是被选中又从不相关，降低其关联权重。映射关系是 **持续迭代** 出来的，不是一次建好就完事。    ### 第五步：接入流水线（怎么&quot;卡&quot;又不误杀）    - **MR/提交触发**：算出精准集 + 核心冒烟，跑这两部分作为合并门禁（快，几分钟）。  - **合并后/夜间**：跑全量兜底。  - **降级开关**：影响分析失败、覆盖基线过期超过阈值、或命中高爆炸半径规则 → 自动 **降级为全量**，宁可多跑不可漏跑。    ### 完整链路    ```  git diff → AST 定位变更方法 ──┬─→ 覆盖倒排反查(主) ─┐                                ├─→ 静态调用图(补:找覆盖缺口) ─┤→ 候选用例集                                └─→ 高爆炸半径规则(命中→全量) ─┘                                            │                  历史缺陷加权 + 核心冒烟必跑 ┘ → 最终执行集 →（缺陷回放/影子运行验证漏选率）→ 卡流水线  ``` ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：Q24：代码变更 ↔ 用例映射的工程实现">Q007：代码变更 ↔ 用例映射的工程实现</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24：代码变更 ↔ 用例映射的工程实现">代码变更 ↔ 用例映射的工程实现</h3>
+                  <div class="card-meta"><span>来源：07-精准测试.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">07-精准测试.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -960,9 +1037,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q008：精准测试和全量回归有什么区别？ Q23.1：精准测试和全量回归有什么区别？ Q23.1：精准测试和全量回归有什么区别？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 代价是：这套采集会 显著拖慢 测试执行（JaCoCo 频繁 dump、coverage.py 上下文记录都有开销），所以一般 不在每次跑都开，而是 定期重建覆盖基线（比如每晚全量跑一次带覆盖采集）。 精准测试基于 历史覆盖 选用例，天然盲区： 所以一定保留三层安全网，精准测试只在这之上做优化： 夜间全量回归兜底。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：Q23.1：精准测试和全量回归有什么区别？">Q008：精准测试和全量回归有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.1：精准测试和全量回归有什么区别？">精准测试和全量回归有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -990,9 +1069,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q009：精准测试是不是只测试变更代码？ Q23.2：精准测试是不是只测试变更代码？ Q23.2：精准测试是不是只测试变更代码？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 一句话：基于代码变更，用 历史覆盖数据 + 调用关系 反推出&amp;quot;这次改动真正影响到的最小用例集&amp;quot;，把回归从&amp;quot;全跑&amp;quot;变成&amp;quot;按需跑&amp;quot;。但它是 优化项不是替代项——理由见第 4 点。 反向（运行时覆盖）：测试环境采集 每条用例 的方法级覆盖，建 用例 → 覆盖到的方法 的倒排索引。代码改了哪些方法，直接反查哪些用例覆盖过 → 选出来。 精准测试基于 历史覆盖 选用例，天然盲区： 新代码路径 / 新交互：没有任何老用例覆盖过 → 选不出来。新行为只能靠新用例，精准选择无中生有不了。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：Q23.2：精准测试是不是只测试变更代码？">Q009：精准测试是不是只测试变更代码？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.2：精准测试是不是只测试变更代码？">精准测试是不是只测试变更代码？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1020,9 +1101,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q010：如何保证精准测试不会漏测？ Q23.3：如何保证精准测试不会漏测？ Q23.3：如何保证精准测试不会漏测？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 精准测试基于 历史覆盖 选用例，天然盲区： 所以一定保留三层安全网，精准测试只在这之上做优化： 缺陷回放：把过去 N 个月的逃逸缺陷拉出来，对每个缺陷当时那次提交跑一遍精准选择，看 会不会选中能抓到它的用例，统计 漏选率（false-negative rate）。 影子运行：上线初期，精准集和全量集 并行跑一段时间，凡是&amp;quot;全量挂了但精准没选中&amp;quot;的用例立刻告警。漏选率降到可接受（比如 &amp;lt; 1%）后，才让精准测试去 卡流水线。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：Q23.3：如何保证精准测试不会漏测？">Q010：如何保证精准测试不会漏测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.3：如何保证精准测试不会漏测？">如何保证精准测试不会漏测？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1050,9 +1133,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q011：如何识别代码变更影响范围？ Q23.4：如何识别代码变更影响范围？ Q23.4：如何识别代码变更影响范围？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 一句话：基于代码变更，用 历史覆盖数据 + 调用关系 反推出&amp;quot;这次改动真正影响到的最小用例集&amp;quot;，把回归从&amp;quot;全跑&amp;quot;变成&amp;quot;按需跑&amp;quot;。但它是 优化项不是替代项——理由见第 4 点。 正向（静态调用图）：变更方法 → 静态分析谁调用它 → 受影响接口 → 关联用例。 非代码变更：DB schema、配置、开关、基础设施——根本不在调用图里。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：Q23.4：如何识别代码变更影响范围？">Q011：如何识别代码变更影响范围？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.4：如何识别代码变更影响范围？">如何识别代码变更影响范围？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1079,9 +1164,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q012：如何选择最小回归用例集？ Q23.5：如何选择最小回归用例集？ Q23.5：如何选择最小回归用例集？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 一句话：基于代码变更，用 历史覆盖数据 + 调用关系 反推出&amp;quot;这次改动真正影响到的最小用例集&amp;quot;，把回归从&amp;quot;全跑&amp;quot;变成&amp;quot;按需跑&amp;quot;。但它是 优化项不是替代项——理由见第 4 点。 新代码路径 / 新交互：没有任何老用例覆盖过 → 选不出来。新行为只能靠新用例，精准选择无中生有不了。 缺陷回放：把过去 N 个月的逃逸缺陷拉出来，对每个缺陷当时那次提交跑一遍精准选择，看 会不会选中能抓到它的用例，统计 漏选率（false-negative rate）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：Q23.5：如何选择最小回归用例集？">Q012：如何选择最小回归用例集？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.5：如何选择最小回归用例集？">如何选择最小回归用例集？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1108,9 +1195,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q013：精准测试如何结合业务风险？ Q23.6：精准测试如何结合业务风险？ Q23.6：精准测试如何结合业务风险？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 精准测试基于 历史覆盖 选用例，天然盲区： 所以一定保留三层安全网，精准测试只在这之上做优化： 影子运行：上线初期，精准集和全量集 并行跑一段时间，凡是&amp;quot;全量挂了但精准没选中&amp;quot;的用例立刻告警。漏选率降到可接受（比如 &amp;lt; 1%）后，才让精准测试去 卡流水线。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：Q23.6：精准测试如何结合业务风险？">Q013：精准测试如何结合业务风险？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.6：精准测试如何结合业务风险？">精准测试如何结合业务风险？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1137,9 +1226,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q014：如何评估精准测试推荐结果是否准确？ Q23.7：如何评估精准测试推荐结果是否准确？ Q23.7：如何评估精准测试推荐结果是否准确？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 精准测试基于 历史覆盖 选用例，天然盲区： 所以一定保留三层安全网，精准测试只在这之上做优化： 影子运行：上线初期，精准集和全量集 并行跑一段时间，凡是&amp;quot;全量挂了但精准没选中&amp;quot;的用例立刻告警。漏选率降到可接受（比如 &amp;lt; 1%）后，才让精准测试去 卡流水线。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：Q23.7：如何评估精准测试推荐结果是否准确？">Q014：如何评估精准测试推荐结果是否准确？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.7：如何评估精准测试推荐结果是否准确？">如何评估精准测试推荐结果是否准确？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1166,9 +1257,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q015：精准测试实施过程中最大的难点是什么？ Q23.8：精准测试实施过程中最大的难点是什么？ Q23.8：精准测试实施过程中最大的难点是什么？ 答题要点：这道题可以从主问题「Q23：如何理解精准测试」里拆开回答，重点说清楚结论、落地位置和边界。 精准测试基于 历史覆盖 选用例，天然盲区： 所以一定保留三层安全网，精准测试只在这之上做优化： 核心链路冒烟无条件全跑（登录/下单/支付这种，不管 diff 是什么）。 影子运行：上线初期，精准集和全量集 并行跑一段时间，凡是&amp;quot;全量挂了但精准没选中&amp;quot;的用例立刻告警。漏选率降到可接受（比如 &amp;lt; 1%）后，才让精准测试去 卡流水线。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：Q23.8：精准测试实施过程中最大的难点是什么？">Q015：精准测试实施过程中最大的难点是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q23.8：精准测试实施过程中最大的难点是什么？">精准测试实施过程中最大的难点是什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1196,9 +1289,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q016：Git diff 可以获取哪些信息？ Q24.1：Git diff 可以获取哪些信息？ Q24.1：Git diff 可以获取哪些信息？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 第一步：变更 → 方法（为什么不能用行号 diff） git diff 给的是 变更行号区间。但&amp;quot;行 40 改了&amp;quot;不等于&amp;quot;方法 foo 改了&amp;quot;——foo 可能跨 35~60 行。所以： 把 diff 的变更行 落到所属方法； git diff → AST 定位变更方法 ──┬─→ 覆盖倒排反查(主) ─┐                               ├─→ 静态调用图(补:找覆盖缺口) ─┤→ 候选用例集                               └─→ 高爆炸半径规则(命中→全量) ─┘                                           │                 历史缺陷加权 + 核心冒烟必跑 ┘ → 最终执行集 →（缺陷回放/影子运行验证漏选率）→ 卡流水线">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：Q24.1：Git diff 可以获取哪些信息？">Q016：Git diff 可以获取哪些信息？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.1：Git diff 可以获取哪些信息？">Git diff 可以获取哪些信息？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1230,9 +1325,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q017：如何从代码文件定位到类和方法？ Q24.2：如何从代码文件定位到类和方法？ Q24.2：如何从代码文件定位到类和方法？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 在 新 commit 解析文件 AST，拿到每个方法的 行号区间； 特殊处理：改了方法签名本身 / 新增删除方法 / 改了字段或常量（影响 = 所有引用它的方法）/ 改了共享 SQL、配置、模板（影响面可能巨大 → 这类文件直接走全量）。 git diff → AST 定位变更方法 ──┬─→ 覆盖倒排反查(主) ─┐                               ├─→ 静态调用图(补:找覆盖缺口) ─┤→ 候选用例集                               └─→ 高爆炸半径规则(命中→全量) ─┘                                           │                 历史缺陷加权 + 核心冒烟必跑 ┘ → 最终执行集 →（缺陷回放/影子运行验证漏选率）→ 卡流水线">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：Q24.2：如何从代码文件定位到类和方法？">Q017：如何从代码文件定位到类和方法？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.2：如何从代码文件定位到类和方法？">如何从代码文件定位到类和方法？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1263,9 +1360,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q018：Controller 方法如何映射到接口路径？ Q24.3：Controller 方法如何映射到接口路径？ Q24.3：Controller 方法如何映射到接口路径？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 补充：用静态调用图找出&amp;quot;变更方法可达、但当前没有任何用例覆盖&amp;quot;的接口 → 这些是 覆盖缺口，标记出来提示&amp;quot;需要补用例&amp;quot;，而不是假装已覆盖。 第三步：方法 → 接口（给报告用，也给&amp;quot;接口级用例&amp;quot;用） 解析路由注解（Spring 的 @RequestMapping/@GetMapping、或框架路由表），把 Controller 方法映射到 接口路径；接口再通过 case_meta.covered_apis 关联到接口级用例。这样能输出&amp;quot;本次改动影响了哪几个接口、各自有哪些用例&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：Q24.3：Controller 方法如何映射到接口路径？">Q018：Controller 方法如何映射到接口路径？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.3：Controller 方法如何映射到接口路径？">Controller 方法如何映射到接口路径？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1292,9 +1391,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q019：接口如何映射到测试用例？ Q24.4：接口如何映射到测试用例？ Q24.4：接口如何映射到测试用例？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 补充：用静态调用图找出&amp;quot;变更方法可达、但当前没有任何用例覆盖&amp;quot;的接口 → 这些是 覆盖缺口，标记出来提示&amp;quot;需要补用例&amp;quot;，而不是假装已覆盖。 第三步：方法 → 接口（给报告用，也给&amp;quot;接口级用例&amp;quot;用） 解析路由注解（Spring 的 @RequestMapping/@GetMapping、或框架路由表），把 Controller 方法映射到 接口路径；接口再通过 case_meta.covered_apis 关联到接口级用例。这样能输出&amp;quot;本次改动影响了哪几个接口、各自有哪些用例&amp;quot;。 修正闭环：用执行结果反哺——如果某次精准集 漏掉 了后来暴露的 bug，把&amp;quot;该缺陷涉及的用例 ↔ 该变更&amp;quot;补进映射；如果某用例总是被选中又从不相关，降低其关联权重。映射关系是 持续迭代 出来的，不是一次建好就完事。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：Q24.4：接口如何映射到测试用例？">Q019：接口如何映射到测试用例？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.4：接口如何映射到测试用例？">接口如何映射到测试用例？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1322,9 +1423,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q020：测试用例标签如何设计？ Q24.5：测试用例标签如何设计？ Q24.5：测试用例标签如何设计？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 数据模型（核心就这几张表） method_coverage   (baseline_commit, test_case_id, class, method_sig)   -- 倒排索引：用例覆盖了哪些方法 case_meta         (test_case_id, module, covered_apis[], priority, last_result, flaky) change_impact     (commit, changed_method, impacted_case_ids[], source)  -- source: coverage / static / rule 倒排索引 method_coverage 是心脏；change_impact 是每次提交算出来的结果。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：Q24.5：测试用例标签如何设计？">Q020：测试用例标签如何设计？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.5：测试用例标签如何设计？">测试用例标签如何设计？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1353,9 +1456,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q021：如何采集代码覆盖率？ Q24.6：如何采集代码覆盖率？ Q24.6：如何采集代码覆盖率？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 数据模型（核心就这几张表） method_coverage   (baseline_commit, test_case_id, class, method_sig)   -- 倒排索引：用例覆盖了哪些方法 case_meta         (test_case_id, module, covered_apis[], priority, last_result, flaky) change_impact     (commit, changed_method, impacted_case_ids[], source)  -- source: coverage / static / rule 倒排索引 method_coverage 是心脏；change_impact 是每次提交算出来的结果。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：Q24.6：如何采集代码覆盖率？">Q021：如何采集代码覆盖率？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.6：如何采集代码覆盖率？">如何采集代码覆盖率？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1384,9 +1489,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q022：如何采集单条用例对应的代码覆盖关系？ Q24.7：如何采集单条用例对应的代码覆盖关系？ Q24.7：如何采集单条用例对应的代码覆盖关系？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 method_coverage   (baseline_commit, test_case_id, class, method_sig)   -- 倒排索引：用例覆盖了哪些方法 case_meta         (test_case_id, module, covered_apis[], priority, last_result, flaky) change_impact     (commit, changed_method, impacted_case_ids[], source)  -- source: coverage / static / rule 第二步：方法 → 用例（覆盖倒排 + 静态补充） 主路：拿变更方法集去 method_coverage 反查，得到覆盖过这些方法的用例 → 这是 有历史证据 的推荐。 补充：用静态调用图找出&amp;quot;变更方法可达、但当前没有任何用例覆盖&amp;quot;的接口 → 这些是 覆盖缺口，标记出来提示&amp;quot;需要补用例&amp;quot;，而不是假装已覆盖。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：Q24.7：如何采集单条用例对应的代码覆盖关系？">Q022：如何采集单条用例对应的代码覆盖关系？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.7：如何采集单条用例对应的代码覆盖关系？">如何采集单条用例对应的代码覆盖关系？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1416,9 +1523,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q023：调用链数据如何参与影响范围分析？ Q24.8：调用链数据如何参与影响范围分析？ Q24.8：调用链数据如何参与影响范围分析？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 历史缺陷加权：高缺陷密度的模块即使影响分析只是弱命中，也 提高其用例的入选优先级——缺陷是聚集的，碰过的地方更可能再出问题。 降级开关：影响分析失败、覆盖基线过期超过阈值、或命中高爆炸半径规则 → 自动 降级为全量，宁可多跑不可漏跑。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：Q24.8：调用链数据如何参与影响范围分析？">Q023：调用链数据如何参与影响范围分析？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.8：调用链数据如何参与影响范围分析？">调用链数据如何参与影响范围分析？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1444,9 +1553,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q024：历史缺陷数据如何参与用例推荐？ Q24.9：历史缺陷数据如何参与用例推荐？ Q24.9：历史缺陷数据如何参与用例推荐？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 主路：拿变更方法集去 method_coverage 反查，得到覆盖过这些方法的用例 → 这是 有历史证据 的推荐。 第四步：历史缺陷加权 + 映射不准的修正闭环 历史缺陷加权：高缺陷密度的模块即使影响分析只是弱命中，也 提高其用例的入选优先级——缺陷是聚集的，碰过的地方更可能再出问题。 修正闭环：用执行结果反哺——如果某次精准集 漏掉 了后来暴露的 bug，把&amp;quot;该缺陷涉及的用例 ↔ 该变更&amp;quot;补进映射；如果某用例总是被选中又从不相关，降低其关联权重。映射关系是 持续迭代 出来的，不是一次建好就完事。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：Q24.9：历史缺陷数据如何参与用例推荐？">Q024：历史缺陷数据如何参与用例推荐？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.9：历史缺陷数据如何参与用例推荐？">历史缺陷数据如何参与用例推荐？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1474,9 +1585,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q025：映射关系不准确时如何修正？ Q24.10：映射关系不准确时如何修正？ Q24.10：映射关系不准确时如何修正？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 第四步：历史缺陷加权 + 映射不准的修正闭环 修正闭环：用执行结果反哺——如果某次精准集 漏掉 了后来暴露的 bug，把&amp;quot;该缺陷涉及的用例 ↔ 该变更&amp;quot;补进映射；如果某用例总是被选中又从不相关，降低其关联权重。映射关系是 持续迭代 出来的，不是一次建好就完事。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：Q24.10：映射关系不准确时如何修正？">Q025：映射关系不准确时如何修正？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.10：映射关系不准确时如何修正？">映射关系不准确时如何修正？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1502,9 +1615,11 @@ change_impact     (commit, changed_method, impacted_case_ids[], source)  -- sour
                      data-search="Q026：如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？ Q24.11：如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？ Q24.11：如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？ 答题要点：这道题可以从主问题「Q24：代码变更 ↔ 用例映射的工程实现」里拆开回答，重点说清楚结论、落地位置和边界。 补充：用静态调用图找出&amp;quot;变更方法可达、但当前没有任何用例覆盖&amp;quot;的接口 → 这些是 覆盖缺口，标记出来提示&amp;quot;需要补用例&amp;quot;，而不是假装已覆盖。 第三步：方法 → 接口（给报告用，也给&amp;quot;接口级用例&amp;quot;用） 解析路由注解（Spring 的 @RequestMapping/@GetMapping、或框架路由表），把 Controller 方法映射到 接口路径；接口再通过 case_meta.covered_apis 关联到接口级用例。这样能输出&amp;quot;本次改动影响了哪几个接口、各自有哪些用例&amp;quot;。 历史缺陷加权：高缺陷密度的模块即使影响分析只是弱命中，也 提高其用例的入选优先级——缺陷是聚集的，碰过的地方更可能再出问题。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：Q24.11：如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？">Q026：如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q24.11：如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？">如何形成“代码变更 → 接口 → 模块 → 用例”的完整链路？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>

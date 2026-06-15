@@ -10,13 +10,15 @@
 :root {
   --bg: #f8fafc;
   --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
   --text: #0f172a;
   --text-muted: #64748b;
+  --text-soft: #94a3b8;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
-  --answer-bg: #f0fdf4;
-  --answer-border: #bbf7d0;
+  --answer-bg: #ffffff;
+  --answer-border: #dbeafe;
   --scenario-accent: #d97706;
   --scenario-soft: #fffbeb;
   --sidebar-w: 300px;
@@ -31,13 +33,15 @@
 [data-theme="dark"] {
   --bg: #020617;
   --surface: #0f172a;
+  --surface-subtle: #111827;
   --text: #f8fafc;
   --text-muted: #94a3b8;
+  --text-soft: #64748b;
   --border: #1e293b;
   --accent: #3b82f6;
   --accent-soft: #172554;
-  --answer-bg: #064e3b;
-  --answer-border: #065f46;
+  --answer-bg: #0f172a;
+  --answer-border: #1d4ed8;
   --scenario-soft: #451a03;
   --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
@@ -232,8 +236,8 @@ body {
 
 /* Content Area */
 .content {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 }
@@ -267,19 +271,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.cards-grid { display: grid; gap: 1rem; }
+.cards-grid { display: grid; gap: 0.75rem; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
 }
 
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); }
 
 .card.search-current {
   border-color: var(--accent);
@@ -287,36 +291,62 @@ body {
 }
 
 .card-header {
-  padding: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  padding: 0.95rem 1rem;
+  display: grid;
+  grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.875rem;
   cursor: pointer;
   user-select: none;
 }
 
 .card-index {
-  background: var(--bg);
-  color: var(--text-muted);
+  background: var(--surface-subtle);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  padding: 0.45rem 0.5rem;
   border-radius: 6px;
-  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
+.card-main { min-width: 0; }
+
 .card-title {
-  flex: 1;
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.card-meta {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.875rem;
+  margin-top: 0.25rem;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.card.expanded .card-meta { display: flex; }
+
+.card-meta span {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .action-btn {
@@ -342,10 +372,12 @@ body {
 .card.starred .star-btn { background: #f59e0b; color: white; border-color: #f59e0b; }
 
 .toggle-btn {
-  background: var(--bg);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.375rem 0.75rem;
+  min-width: 3.25rem;
+  height: 32px;
+  padding: 0 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
@@ -360,9 +392,9 @@ body {
 }
 
 .card-body {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 1rem 1rem calc(5.25rem + 0.875rem);
   border-top: 1px solid var(--border);
-  background: var(--surface);
+  background: linear-gradient(to bottom, var(--surface), var(--bg));
 }
 
 .card-body[hidden] { display: none; }
@@ -380,9 +412,21 @@ body {
 .answer-block {
   background: var(--answer-bg);
   border: 1px solid var(--answer-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-top: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-top: 0.875rem;
+}
+
+.answer-content > *:first-child { margin-top: 0; }
+.answer-content > *:last-child { margin-bottom: 0; }
+.answer-content p,
+.answer-content li {
+  font-size: 0.9375rem;
+}
+.answer-content ul,
+.answer-content ol {
+  padding-left: 1.25rem;
 }
 
 .badge {
@@ -395,16 +439,9 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.badge-answer { background: #10b981; color: white; }
+.badge-answer { background: var(--accent-soft); color: var(--accent); }
 .badge-problem { background: var(--scenario-accent); color: white; }
-.source-badge {
-  background: var(--accent-soft);
-  color: var(--accent);
-  max-width: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.source-badge { display: none; }
 .followup-block {
   margin-top: 1rem;
   padding: 0.875rem 1rem;
@@ -562,8 +599,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 .nav-chapter.active .nav-count { color: var(--accent); }
 
 /* Home directory */
-.home-hero { margin-bottom: 2rem; }
-.home-title { font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+.home-hero {
+  padding: 0.5rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.home-title { font-size: 1.625rem; font-weight: 800; margin: 0 0 0.375rem; }
 .home-sub { color: var(--text-muted); margin: 0; font-size: 0.9375rem; }
 
 .chapter-grid {
@@ -578,8 +619,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 1rem;
   text-decoration: none;
   color: var(--text);
   box-shadow: var(--shadow-sm);
@@ -588,8 +629,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 .chapter-card:hover {
   border-color: var(--accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .chapter-card-num {
@@ -666,6 +706,29 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
   .topbar { padding: 0 1rem; }
   .content { padding: 1rem; }
   .toolbar { display: none; }
+  .card-header {
+    grid-template-columns: 3.6rem minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .card-actions {
+    grid-column: auto;
+    margin-top: 0;
+    gap: 0.25rem;
+  }
+  .card-actions .action-btn { display: none; }
+  .toggle-btn { min-width: 2.875rem; height: 30px; padding: 0 0.5rem; }
+  .card-body { padding: 0 1rem 1rem; }
+  .card-meta span { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .card-header { grid-template-columns: 3.6rem minmax(0, 1fr); }
+  .card-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 0.375rem;
+  }
 }
 
   </style>
@@ -735,9 +798,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q001：1000+ 用例中，功能、接口、AI、性能分别占多少？ 15. 1000+ 用例中，功能、接口、AI、性能分别占多少？ 15. 1000+ 用例中，功能、接口、AI、性能分别占多少？    大致比例：功能用例 50%（约 500 条，含 UI 和业务流程）、接口用例 30%（约 300 条，覆盖 100+ 核心接口）、AI 评估用例 15%（约 150 条，含 RAG Golden Set、分类测试集、业务文档校验集）、性能场景 5%（约 50 条，含基线、容量、稳定性）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
-                <h3 class="card-title" title="原题：15. 1000+ 用例中，功能、接口、AI、性能分别占多少？">Q001：1000+ 用例中，功能、接口、AI、性能分别占多少？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. 1000+ 用例中，功能、接口、AI、性能分别占多少？">1000+ 用例中，功能、接口、AI、性能分别占多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -761,9 +826,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q002：接口性能突然变慢，你怎么定位？ 25. 接口性能突然变慢，你怎么定位？ 25. 接口性能突然变慢，你怎么定位？    ①时间维度对比：什么时候开始慢、是否有发布；②资源维度：CPU、内存、IO、网络；③链路追踪：哪一段耗时增加；④数据维度：是不是数据量增长导致全表扫；⑤依赖维度：第三方是否变慢。可以举一个稳妥案例：某次新增数据后慢查询增多，EXPLAIN 发现未命中合适索引，推动研发补索引并回归压测验证恢复。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
-                <h3 class="card-title" title="原题：25. 接口性能突然变慢，你怎么定位？">Q002：接口性能突然变慢，你怎么定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. 接口性能突然变慢，你怎么定位？">接口性能突然变慢，你怎么定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -787,9 +854,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q003：性能指标不达标是否允许上线？ 20. 性能指标不达标是否允许上线？ 20. 性能指标不达标是否允许上线？    看程度：①关键接口 P95 退化 &gt; 30%→阻塞；②10%-30%→评审；③&lt; 10%→记录关注。同时看业务影响（哪些功能受影响、影响多少用户）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
-                <h3 class="card-title" title="原题：20. 性能指标不达标是否允许上线？">Q003：性能指标不达标是否允许上线？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 性能指标不达标是否允许上线？">性能指标不达标是否允许上线？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -813,9 +882,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q004：你做性能测试的完整流程是什么？ 1. 你做性能测试的完整流程是什么？ 1. 你做性能测试的完整流程是什么？    7 步：①需求分析（哪个接口、多少 QPS、SLA）；②场景设计（基准、负载、压力、稳定性、容量）；③环境与数据准备（独立压测环境，造 50 万工单数据）；④脚本开发（JMeter 录制 + 参数化 + 关联）；⑤预压测（找瓶颈和脚本错误）；⑥正式压测；⑦报告（TPS、P95、错误率、资源使用 + 瓶颈定位 + 优化建议）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
-                <h3 class="card-title" title="原题：1. 你做性能测试的完整流程是什么？">Q004：你做性能测试的完整流程是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1. 你做性能测试的完整流程是什么？">你做性能测试的完整流程是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -839,9 +910,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q005：性能测试前需要准备哪些内容？ 2. 性能测试前需要准备哪些内容？ 2. 性能测试前需要准备哪些内容？    ①目标：QPS、TPS、响应时间、并发数、错误率的可接受范围；②环境：独立压测环境，配置最好与生产 1:1 或等比例缩放；③数据：基础数据量与生产持平，造数脚本预置；④监控：APM、Prometheus、Grafana、慢 SQL 接好；⑤回滚方案：压测中断条件。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
-                <h3 class="card-title" title="原题：2. 性能测试前需要准备哪些内容？">Q005：性能测试前需要准备哪些内容？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2. 性能测试前需要准备哪些内容？">性能测试前需要准备哪些内容？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -865,9 +938,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q006：并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？ 3. 并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？ 3. 并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？    - **并发用户数**：同时活动的用户数；  - **TPS**：每秒事务数，业务粒度；  - **QPS**：每秒查询数，接口粒度；  - **吞吐量**：单位时间处理的请求数（含 TPS/QPS）；  - **响应时间**：单次请求从发出到收到响应的时间。  关系：TPS = 并发数 / 平均响应时间（理想情况下）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
-                <h3 class="card-title" title="原题：3. 并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？">Q006：并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：3. 并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？">并发用户数、TPS、QPS、吞吐量、响应时间分别是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -892,9 +967,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q007：平均响应时间和 90 线、95 线、99 线有什么区别？ 4. 平均响应时间和 90 线、95 线、99 线有什么区别？ 4. 平均响应时间和 90 线、95 线、99 线有什么区别？    平均值受极端值影响，掩盖真实体验；P90 表示 90% 用户的响应时间在此值以下，P95/P99 越往后越苛刻。我们一般以 P95 作为 SLA。比如平均 200ms 但 P99 5 秒，说明 1% 用户体验极差，需要优化。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
-                <h3 class="card-title" title="原题：4. 平均响应时间和 90 线、95 线、99 线有什么区别？">Q007：平均响应时间和 90 线、95 线、99 线有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：4. 平均响应时间和 90 线、95 线、99 线有什么区别？">平均响应时间和 90 线、95 线、99 线有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -918,9 +995,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q008：错误率多少算不可接受？ 5. 错误率多少算不可接受？ 5. 错误率多少算不可接受？    看业务等级：①核心交易类接口错误率 &gt; 0.1% 不可接受；②普通业务 &gt; 0.5%；③非关键展示类 &lt; 1%。同时看错误类型：业务错误（如参数错）可接受少量，5xx 服务端错误任何比例都要关注。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
-                <h3 class="card-title" title="原题：5. 错误率多少算不可接受？">Q008：错误率多少算不可接受？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5. 错误率多少算不可接受？">错误率多少算不可接受？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -944,9 +1023,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q009：性能测试和压力测试、负载测试、稳定性测试有什么区别？ 6. 性能测试和压力测试、负载测试、稳定性测试有什么区别？ 6. 性能测试和压力测试、负载测试、稳定性测试有什么区别？    - **性能测试**：泛指验证非功能性指标；  - **负载测试**：逐步加压找系统在 SLA 内的最大承载（容量）；  - **压力测试**：超过预期负载找极限和崩溃点；  - **稳定性测试**：长时间（4-72 小时）持续负载，看内存泄漏、连接泄漏。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
-                <h3 class="card-title" title="原题：6. 性能测试和压力测试、负载测试、稳定性测试有什么区别？">Q009：性能测试和压力测试、负载测试、稳定性测试有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6. 性能测试和压力测试、负载测试、稳定性测试有什么区别？">性能测试和压力测试、负载测试、稳定性测试有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -970,9 +1051,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q010：性能测试环境和生产环境不一致怎么办？ 7. 性能测试环境和生产环境不一致怎么办？ 7. 性能测试环境和生产环境不一致怎么办？    ①等比例缩放：硬件资源按比例缩小，数据量按比例缩小，得出结果按比例推算；②抓取关键瓶颈点（DB、Redis、第三方）保持配置一致；③在报告里明确&quot;压测环境 vs 生产差异&quot;和&quot;换算系数&quot;；④上线后用生产监控数据校正模型。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
-                <h3 class="card-title" title="原题：7. 性能测试环境和生产环境不一致怎么办？">Q010：性能测试环境和生产环境不一致怎么办？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. 性能测试环境和生产环境不一致怎么办？">性能测试环境和生产环境不一致怎么办？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -996,9 +1079,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q011：如何设计性能测试场景？ 8. 如何设计性能测试场景？ 8. 如何设计性能测试场景？    四种场景组合：①基准场景（单用户测响应时间基线）；②负载场景（逐步加压找 SLA 内最大并发）；③压力场景（找崩溃点）；④稳定性场景（80% 负载跑 4 小时以上）。配合混合场景（多接口按业务比例混合）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
-                <h3 class="card-title" title="原题：8. 如何设计性能测试场景？">Q011：如何设计性能测试场景？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8. 如何设计性能测试场景？">如何设计性能测试场景？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1022,9 +1107,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q012：如何分析性能测试报告？ 9. 如何分析性能测试报告？ 9. 如何分析性能测试报告？    五个维度：①TPS 趋势是否线性增长后拐点；②响应时间 P95 是否在 SLA 内；③错误率是否在阈值内；④服务器资源（CPU、内存、IO、网络）；⑤数据库（连接数、慢 SQL、锁等待）。结合 APM 链路定位每段耗时。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
-                <h3 class="card-title" title="原题：9. 如何分析性能测试报告？">Q012：如何分析性能测试报告？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：9. 如何分析性能测试报告？">如何分析性能测试报告？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1048,9 +1135,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q013：如何判断系统性能瓶颈？ 10. 如何判断系统性能瓶颈？ 10. 如何判断系统性能瓶颈？    看资源饱和点：①CPU &gt; 80% 持续——CPU 瓶颈；②内存接近上限或频繁 GC——内存瓶颈；③IO Wait 高——磁盘/网络 IO 瓶颈；④CPU 不高但响应慢——锁、连接池、外部依赖瓶颈；⑤数据库慢查询多——DB 瓶颈。结合 APM 链路确认。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
-                <h3 class="card-title" title="原题：10. 如何判断系统性能瓶颈？">Q013：如何判断系统性能瓶颈？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：10. 如何判断系统性能瓶颈？">如何判断系统性能瓶颈？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1074,9 +1163,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q014：你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？ 11. 你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？ 11. 你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？    是 **JMeter 600 线程**，不是直接等同于线上真实 600 个用户。报告里我会写清楚线程数、Ramp-up、Think Time、循环次数/持续时间和业务占比。不要硬换算真实用户数，这个容易被追问；更稳的是说明压测模型怎么配、数据从哪里来、结果只对当时环境和脚本模型负责。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
-                <h3 class="card-title" title="原题：11. 你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？">Q014：你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11. 你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？">你简历写并发量 600+，这是线程数 600，还是真实并发用户 600？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1100,9 +1191,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q015：你们压测持续了多久？ 12. 你们压测持续了多久？ 12. 你们压测持续了多久？    分两类：①常规负载测试 30 分钟（10 分钟 ramp-up + 15 分钟稳态 + 5 分钟收尾）；②稳定性测试 4 小时（80% 负载持续运行，看内存曲线和慢查询累积）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
-                <h3 class="card-title" title="原题：12. 你们压测持续了多久？">Q015：你们压测持续了多久？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 你们压测持续了多久？">你们压测持续了多久？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1126,9 +1219,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q016：Ramp-up 设置多少？ 13. Ramp-up 设置多少？ 13. Ramp-up 设置多少？    按线程数和接口预热需要：①600 线程通常 60 秒 ramp-up（每秒新增 10 个），让数据库连接池、JVM 缓存、缓存预热平稳进入；②突发场景压测则 ramp-up 设短（10 秒）模拟流量尖峰。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
-                <h3 class="card-title" title="原题：13. Ramp-up 设置多少？">Q016：Ramp-up 设置多少？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：13. Ramp-up 设置多少？">Ramp-up 设置多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1152,9 +1247,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q017：Think Time 有没有设置？ 14. Think Time 有没有设置？ 14. Think Time 有没有设置？    有，模拟真实用户操作间隔：①查询类接口 1-3 秒随机（Gaussian Random Timer）；②写操作 5-10 秒；③纯压力测试可不设或设 0。Think Time 是让结果更接近真实业务模型的关键。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
-                <h3 class="card-title" title="原题：14. Think Time 有没有设置？">Q017：Think Time 有没有设置？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. Think Time 有没有设置？">Think Time 有没有设置？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1178,9 +1275,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q018：JMeter 600 线程下 TPS 是多少？ 15. JMeter 600 线程下 TPS 是多少？ 15. JMeter 600 线程下 TPS 是多少？    我会按&quot;某次压测样例&quot;说，不把它当通用承诺：查询接口 TPS 约 1800-2000，写操作 TPS 约 400-500。查询比写高一个台阶，因为查询通常走缓存/索引，写要落库和事务。数据来源是 **JMeter Aggregate Report** 的 Throughput、Average、95% Line、99% Line，同时要结合 Grafana 看资源是否到瓶颈。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
-                <h3 class="card-title" title="原题：15. JMeter 600 线程下 TPS 是多少？">Q018：JMeter 600 线程下 TPS 是多少？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：15. JMeter 600 线程下 TPS 是多少？">JMeter 600 线程下 TPS 是多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1204,9 +1303,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q019：平均响应时间、P95、P99 分别是多少？ 16. 平均响应时间、P95、P99 分别是多少？ 16. 平均响应时间、P95、P99 分别是多少？    按某次压测报告举例：查询接口平均约 200ms、P95 约 500ms、P99 约 800ms；写接口平均约 800ms、P95 约 1.5s、P99 约 2.5s。P95/P99 直接看 **JMeter Aggregate Report** 的 95%/99% Line。我以 P95 作 SLA，平均值会被极值掩盖，所以不会只看平均响应时间。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
-                <h3 class="card-title" title="原题：16. 平均响应时间、P95、P99 分别是多少？">Q019：平均响应时间、P95、P99 分别是多少？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：16. 平均响应时间、P95、P99 分别是多少？">平均响应时间、P95、P99 分别是多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1230,9 +1331,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q020：错误率是多少？ 17. 错误率是多少？ 17. 错误率是多少？    负载测试阶段要求错误率接近 0，偶发业务 4xx 要单独说明原因，5xx/超时必须追。压力测试继续加压时，Error% 明显升高、响应时间陡增、吞吐不再上涨，就认为接近容量拐点。错误率看 **JMeter 的 Error%**，但必须点开看错误类型，不能只报一个百分比。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q020</span>
-                <h3 class="card-title" title="原题：17. 错误率是多少？">Q020：错误率是多少？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17. 错误率是多少？">错误率是多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1256,9 +1359,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q021：是否做过稳定性压测？ 19. 是否做过稳定性压测？ 19. 是否做过稳定性压测？    做过，80% 负载（480 线程）连续 4 小时：①响应时间无显著漂移；②老年代每次 Full GC 后能回落、堆趋势平稳（看 GC 日志 + Grafana 堆曲线判断有没有泄漏）；③Full GC 0；④DB 连接平稳回收。一次发现夜里跑 1 小时后内存阶梯式上涨，dump 堆用 MAT 一看是日志线程池没限定大小，研发修复后回归。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q021</span>
-                <h3 class="card-title" title="原题：19. 是否做过稳定性压测？">Q021：是否做过稳定性压测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19. 是否做过稳定性压测？">是否做过稳定性压测？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1282,9 +1387,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q022：是否做过容量评估？ 20. 是否做过容量评估？ 20. 是否做过容量评估？    做过：①找到 SLA 内的最大并发（约 600）；②找到崩溃点（约 800）；③推算单机服务能力 TPS 约 2000；④结合业务高峰 QPS 评估需要 N 台机器；⑤给出扩容建议（&quot;按当前增长，3 个月后需要扩 2 台&quot;）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q022</span>
-                <h3 class="card-title" title="原题：20. 是否做过容量评估？">Q022：是否做过容量评估？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. 是否做过容量评估？">是否做过容量评估？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1308,9 +1415,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q023：JMeter 测试计划包含哪些核心组件？ 21. JMeter 测试计划包含哪些核心组件？ 21. JMeter 测试计划包含哪些核心组件？    ①Thread Group（线程组）；②Config Element（HTTP 默认值、CSV Data Set、HTTP Header）；③Sampler（HTTP/FTP/JDBC 请求）；④Logic Controller（事务、循环、If）；⑤Timer（Think Time）；⑥Pre/Post Processor（参数化、提取响应）；⑦Assertion（断言）；⑧Listener（结果展示）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q023</span>
-                <h3 class="card-title" title="原题：21. JMeter 测试计划包含哪些核心组件？">Q023：JMeter 测试计划包含哪些核心组件？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. JMeter 测试计划包含哪些核心组件？">JMeter 测试计划包含哪些核心组件？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1334,9 +1443,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q024：线程组怎么配置？ 22. 线程组怎么配置？ 22. 线程组怎么配置？    四个核心参数：①Number of Threads（线程数=并发用户）；②Ramp-up Period（启动时间）；③Loop Count（每个线程循环次数）；④Duration（持续时长，比 Loop Count 更可控）。我们一般用 Duration 模式。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q024</span>
-                <h3 class="card-title" title="原题：22. 线程组怎么配置？">Q024：线程组怎么配置？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. 线程组怎么配置？">线程组怎么配置？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1360,9 +1471,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q025：HTTP 请求默认值有什么用？ 23. HTTP 请求默认值有什么用？ 23. HTTP 请求默认值有什么用？    统一设置 Protocol、Server、Port、Path 前缀、Content-Type、字符集。所有 HTTP Sampler 不再重复配置，切换环境只改默认值。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q025</span>
-                <h3 class="card-title" title="原题：23. HTTP 请求默认值有什么用？">Q025：HTTP 请求默认值有什么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. HTTP 请求默认值有什么用？">HTTP 请求默认值有什么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1386,9 +1499,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q026：CSV Data Set Config 怎么用？ 24. CSV Data Set Config 怎么用？ 24. CSV Data Set Config 怎么用？    ①准备 CSV 文件（如 accounts.csv）；②CSV Data Set Config 配置文件路径、变量名、分隔符；③Sampler 中用 ${username} 引用；④Sharing mode 控制是否所有线程共享。我们用它做 1000 个测试账号的参数化。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q026</span>
-                <h3 class="card-title" title="原题：24. CSV Data Set Config 怎么用？">Q026：CSV Data Set Config 怎么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. CSV Data Set Config 怎么用？">CSV Data Set Config 怎么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1412,9 +1527,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q027：正则提取器 / JSON 提取器怎么用？ 25. 正则提取器 / JSON 提取器怎么用？ 25. 正则提取器 / JSON 提取器怎么用？    登录接口返回 token：  - **JSON 提取器**：JSONPath `$.data.token`，变量名 token；  - **正则提取器**：表达式 `&quot;token&quot;:&quot;(.+?)&quot;`。  JSONPath 更优雅，但复杂结构正则更灵活。提取后用 ${token} 引用到后续请求 Header。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q027</span>
-                <h3 class="card-title" title="原题：25. 正则提取器 / JSON 提取器怎么用？">Q027：正则提取器 / JSON 提取器怎么用？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. 正则提取器 / JSON 提取器怎么用？">正则提取器 / JSON 提取器怎么用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1440,9 +1557,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q028：BeanShell / JSR223 你用过吗？ 26. BeanShell / JSR223 你用过吗？ 26. BeanShell / JSR223 你用过吗？    用过。BeanShell 性能差，新项目用 JSR223 + Groovy。场景：①复杂签名计算；②请求体动态构造；③响应数据二次处理；④调用 Java 加密库。Groovy 性能比 BeanShell 高一个数量级。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q028</span>
-                <h3 class="card-title" title="原题：26. BeanShell / JSR223 你用过吗？">Q028：BeanShell / JSR223 你用过吗？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. BeanShell / JSR223 你用过吗？">BeanShell / JSR223 你用过吗？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1466,9 +1585,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q029：如何做关联？ 28. 如何做关联？ 28. 如何做关联？    登录获取 token、token 给后续接口用，标准关联场景：①登录请求加 JSON 提取器获取 token；②后续 HTTP Header Manager 配置 `Authorization: Bearer ${token}`；③复杂场景用 BeanShell/JSR223 PostProcessor 处理。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q029</span>
-                <h3 class="card-title" title="原题：28. 如何做关联？">Q029：如何做关联？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. 如何做关联？">如何做关联？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1492,9 +1613,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q030：如何做断言？ 29. 如何做断言？ 29. 如何做断言？    响应断言（包含/不包含/正则）、JSON 断言（JSONPath 比较）、响应时间断言（超时阈值）、自定义断言（JSR223 写复杂逻辑）。性能测试断言要克制，过多断言影响 JMeter 自身性能。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q030</span>
-                <h3 class="card-title" title="原题：29. 如何做断言？">Q030：如何做断言？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. 如何做断言？">如何做断言？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1518,9 +1641,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q031：如何生成 HTML 报告？ 30. 如何生成 HTML 报告？ 30. 如何生成 HTML 报告？    non-GUI 命令行：`jmeter -n -t test.jmx -l result.jtl -e -o ./report`。生成的 HTML 报告包含 TPS 曲线、响应时间、错误率、统计表。Jenkins 集成时用 Performance Plugin 或直接归档 HTML。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q031</span>
-                <h3 class="card-title" title="原题：30. 如何生成 HTML 报告？">Q031：如何生成 HTML 报告？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：30. 如何生成 HTML 报告？">如何生成 HTML 报告？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1544,9 +1669,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q032：工单数据 50 万+，你是怎么造数的？ 33. 工单数据 50 万+，你是怎么造数的？ 33. 工单数据 50 万+，你是怎么造数的？    两种方式：①SQL 直接 insert（最快，但需要绕过业务校验，谨慎使用）；②接口造数脚本（Python + 多线程调用创建接口，符合业务流程但慢）。50 万数据通常用 SQL 批量导入，加冷数据 + 部分热数据，模拟真实分布。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q032</span>
-                <h3 class="card-title" title="原题：33. 工单数据 50 万+，你是怎么造数的？">Q032：工单数据 50 万+，你是怎么造数的？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：33. 工单数据 50 万+，你是怎么造数的？">工单数据 50 万+，你是怎么造数的？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1570,9 +1697,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q033：压测时如何避免测试数据重复？ 34. 压测时如何避免测试数据重复？ 34. 压测时如何避免测试数据重复？    ①账号每个线程独立（CSV recycle=false）；②写入数据带 ${__threadNum}_${__time()} 后缀；③业务编号用 uuid 函数；④测试结束清理数据脚本；⑤每轮压测前重置数据库到基线快照。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q033</span>
-                <h3 class="card-title" title="原题：34. 压测时如何避免测试数据重复？">Q033：压测时如何避免测试数据重复？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：34. 压测时如何避免测试数据重复？">压测时如何避免测试数据重复？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1596,9 +1725,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q034：JMeter 单机压不上去怎么办？ 35. JMeter 单机压不上去怎么办？ 35. JMeter 单机压不上去怎么办？    排查顺序：①检查 JMeter 自身资源（CPU、内存、网络）；②减少 GUI 模式开销，改 non-GUI；③精简 Listener，只用 Aggregate Report；④增加 JVM 堆 -Xmx 4g；⑤如果仍打不上去，用分布式压测（多台 slave）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q034</span>
-                <h3 class="card-title" title="原题：35. JMeter 单机压不上去怎么办？">Q034：JMeter 单机压不上去怎么办？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：35. JMeter 单机压不上去怎么办？">JMeter 单机压不上去怎么办？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1622,9 +1753,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q035：是否用过分布式压测？ 36. 是否用过分布式压测？ 36. 是否用过分布式压测？    用过。架构：1 台 master + N 台 slave。①slave 启动 jmeter-server；②master 配置 remote_hosts 列表；③脚本和数据文件在 master 上准备，自动分发；④结果汇总到 master。注意：①slave 间网络要好；②时间同步；③数据文件路径一致。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q035</span>
-                <h3 class="card-title" title="原题：36. 是否用过分布式压测？">Q035：是否用过分布式压测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：36. 是否用过分布式压测？">是否用过分布式压测？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1648,9 +1781,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q036：是否用过 non-GUI 模式？ 37. 是否用过 non-GUI 模式？ 37. 是否用过 non-GUI 模式？    压测一律用 non-GUI（GUI 仅用于脚本调试），命令：    ```bash  jmeter -n -t test.jmx -l result.jtl -e -o ./report -Jthreads=600 -Jduration=1800  ```    参数化通过 -J 传入，方便 Jenkins 集成。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q036</span>
-                <h3 class="card-title" title="原题：37. 是否用过 non-GUI 模式？">Q036：是否用过 non-GUI 模式？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：37. 是否用过 non-GUI 模式？">是否用过 non-GUI 模式？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1676,9 +1811,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q037：命令行怎么执行 JMeter？ 38. 命令行怎么执行 JMeter？ 38. 命令行怎么执行 JMeter？    基本命令：`jmeter -n -t plan.jmx -l result.jtl -e -o ./report`。常用参数：-n（non-GUI）、-t（jmx）、-l（结果）、-e（生成 HTML 报告）、-o（报告输出目录）、-J（参数）、-R（远程 slave）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q037</span>
-                <h3 class="card-title" title="原题：38. 命令行怎么执行 JMeter？">Q037：命令行怎么执行 JMeter？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：38. 命令行怎么执行 JMeter？">命令行怎么执行 JMeter？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1702,9 +1839,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q038：接口响应时间从 2s 优化到 500ms，你参与了哪些定位？ 39. 接口响应时间从 2s 优化到 500ms，你参与了哪些定位？ 39. 接口响应时间从 2s 优化到 500ms，你参与了哪些定位？    我作为测试方主要做：①基准压测确认 2s 的稳定性（不是偶发）；②APM 链路抓出每段耗时——发现数据库 1.5s；③看慢 SQL 日志发现一条无索引的 LIKE 查询；④推动研发加索引；⑤改写部分 SQL（去掉不必要的 JOIN）；⑥优化后回归压测验证 500ms；⑦最终给出性能报告。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q038</span>
-                <h3 class="card-title" title="原题：39. 接口响应时间从 2s 优化到 500ms，你参与了哪些定位？">Q038：接口响应时间从 2s 优化到 500ms，你参与了哪些定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：39. 接口响应时间从 2s 优化到 500ms，你参与了哪些定位？">接口响应时间从 2s 优化到 500ms，你参与了哪些定位？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1728,9 +1867,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q039：线程池满了怎么判断？ 45. 线程池满了怎么判断？ 45. 线程池满了怎么判断？    ①应用日志报 RejectedExecutionException；②请求被拒绝或排队；③线程池监控显示 active threads = max；④jstack 看大量线程处于 WAITING。解决：调大 max、调 queue 大小，或拆分业务线程池。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q039</span>
-                <h3 class="card-title" title="原题：45. 线程池满了怎么判断？">Q039：线程池满了怎么判断？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：45. 线程池满了怎么判断？">线程池满了怎么判断？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1754,9 +1895,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q040：压测中大量 500，怎么排查？ 47. 压测中大量 500，怎么排查？ 47. 压测中大量 500，怎么排查？    ①抓一个 500 的请求看完整堆栈；②看是不是数据库报错（连接超时、锁等待）；③看是不是 OOM；④看是不是依赖服务挂了；⑤看是不是限流/熔断触发。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q040</span>
-                <h3 class="card-title" title="原题：47. 压测中大量 500，怎么排查？">Q040：压测中大量 500，怎么排查？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：47. 压测中大量 500，怎么排查？">压测中大量 500，怎么排查？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1780,9 +1923,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q041：压测中大量 429，说明什么？ 48. 压测中大量 429，说明什么？ 48. 压测中大量 429，说明什么？    触发了限流。①确认是网关限流还是应用层限流；②看限流配置（QPS 阈值、限流粒度）；③是否合理——压测目标本身就是触发限流？若是测试设计错就调低压力。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q041</span>
-                <h3 class="card-title" title="原题：48. 压测中大量 429，说明什么？">Q041：压测中大量 429，说明什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：48. 压测中大量 429，说明什么？">压测中大量 429，说明什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1806,9 +1951,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q042：是否用过 top、free、iostat、vmstat？ 51. 是否用过 top、free、iostat、vmstat？ 51. 是否用过 top、free、iostat、vmstat？    都用过：①`top -Hp PID` 看进程内线程 CPU；②`free -h` 看内存可用；③`iostat -x 1` 看磁盘 IO 使用率和 await；④`vmstat 1` 看 CPU/IO/swap 综合；⑤`netstat -s` 看网络重传。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q042</span>
-                <h3 class="card-title" title="原题：51. 是否用过 top、free、iostat、vmstat？">Q042：是否用过 top、free、iostat、vmstat？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：51. 是否用过 top、free、iostat、vmstat？">是否用过 top、free、iostat、vmstat？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1832,9 +1979,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q043：是否接触过 Prometheus / Grafana？ 52. 是否接触过 Prometheus / Grafana？ 52. 是否接触过 Prometheus / Grafana？    用过。压测时我开两块屏：一块 JMeter 压力曲线，一块 Grafana 大盘，**时间轴对齐**找拐点——TPS 不再涨、响应时间开始翘的那个点，就去 Grafana 看哪类资源先到顶（CPU / 堆 GC / DB 连接 / IO）。常看面板：JVM（堆、GC 次数/耗时）、DB（连接数、慢查询、QPS）、Redis（命中率、内存）、机器（CPU、Load、网络）。Prometheus 指标由研发埋点，我主要是消费者 + 按排查需要提埋点。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q043</span>
-                <h3 class="card-title" title="原题：52. 是否接触过 Prometheus / Grafana？">Q043：是否接触过 Prometheus / Grafana？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：52. 是否接触过 Prometheus / Grafana？">是否接触过 Prometheus / Grafana？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1858,9 +2007,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q044：是否能独立输出性能测试报告？ 53. 是否能独立输出性能测试报告？ 53. 是否能独立输出性能测试报告？    能。报告结构：①测试目的与范围；②环境配置（硬件、版本、数据量）；③测试场景与脚本；④压测过程（每个场景 TPS、P95、P99、错误率）；⑤资源使用（应用 + DB + 中间件）；⑥瓶颈分析；⑦优化建议；⑧上线建议（最大并发、扩容计划）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q044</span>
-                <h3 class="card-title" title="原题：53. 是否能独立输出性能测试报告？">Q044：是否能独立输出性能测试报告？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：53. 是否能独立输出性能测试报告？">是否能独立输出性能测试报告？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1884,9 +2035,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q045：性能测试报告里你会给出什么优化建议？ 54. 性能测试报告里你会给出什么优化建议？ 54. 性能测试报告里你会给出什么优化建议？    按优先级给出三类：①紧急（影响上线，如核心接口 P95 &gt; 1s，建议加索引/缓存）；②重要（影响容量，如 DB 连接池满，建议调参或读写分离）；③改进（长期优化，如增加监控埋点）。每条建议附带数据依据和预期收益。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q045</span>
-                <h3 class="card-title" title="原题：54. 性能测试报告里你会给出什么优化建议？">Q045：性能测试报告里你会给出什么优化建议？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：54. 性能测试报告里你会给出什么优化建议？">性能测试报告里你会给出什么优化建议？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1910,9 +2063,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q046：Playwright 如何并发执行？ 25. Playwright 如何并发执行？ 25. Playwright 如何并发执行？    原生支持 worker 并发（pytest-playwright 配 pytest-xdist 或 Playwright Test 的 fullyParallel）。每个 worker 独立 context 互不干扰。注意测试数据要隔离。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q046</span>
-                <h3 class="card-title" title="原题：25. Playwright 如何并发执行？">Q046：Playwright 如何并发执行？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. Playwright 如何并发执行？">Playwright 如何并发执行？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1936,9 +2091,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q047：Charles 如何抓 HTTPS？ 27. Charles 如何抓 HTTPS？ 27. Charles 如何抓 HTTPS？    四步：  1. **开启 SSL 代理**：`Proxy → SSL Proxying Settings → Enable SSL Proxying`，添加要抓的 host（如 `*.example.com:443`），不加白名单的 HTTPS 会显示乱码。  2. **安装根证书**：     - **PC**：`Help → SSL Proxying → Install Charles Root Certificate`，按提示信任；     - **iOS**：`Help → SSL Proxying → Install Charles Root Certificate on a Mobile Device or Remote Browser`，按提示在手机浏览器访问 chls.pro/ssl 下载证书，并在&quot;设置→通用→关于本机→证书信任设置&quot;中信任；     - **Android 7+**：除安装证书外，还需要 App 的 network_security_config.xml 中加入 `&lt;certificates src=&quot;user&quot;/&gt;`，否则 App 不信任用户证书（这是 Android 默认拦截抓包的关键）。  3. **手机走代理**：WiFi 配置代理为 Charles 所在 PC 的 IP + 端口（默认 8888）。  4. **特殊场景**：①SSL Pinning 的 App 需配合 Frida/Xposed 绕过；②小程序需要在微信开发者工具或抓包专用调试包。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q047</span>
-                <h3 class="card-title" title="原题：27. Charles 如何抓 HTTPS？">Q047：Charles 如何抓 HTTPS？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：27. Charles 如何抓 HTTPS？">Charles 如何抓 HTTPS？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1963,9 +2120,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q048：场景 4：JMeter 压测大量超时 场景 4：JMeter 压测大量超时 场景 4：JMeter 压测大量超时 600 并发压测时，接口大量超时，但服务器 CPU 只有 30%。怎么分析？       CPU 不高说明瓶颈不在计算，而在等待资源。八个排查方向：    1. **数据库连接池**：连接数是否打满？看 HikariCP 监控 active=max。修复：调大池子或优化 SQL 释放连接更快。  2. **线程池**：Tomcat/业务线程池是否满？看 jstack 大量 WAITING。修复：调线程数或拆分线程池。  3. **数据库慢查询**：show processlist 看是否大量长查询。EXPLAIN 慢 SQL 找缺索引。  4. **外部依赖**：APM 看下游接口（第三方/微服务）耗时。修复：增加 Mock 或熔断降级。  5. **锁竞争**：数据库行锁、应用层 synchronized。dump 看是否大量线程等同一把锁。  6. **网络瓶颈**：测试机和被测机之间带宽，netstat 看 TIME_WAIT 堆积。  7. **JMeter 自身**：检查 JMeter 机器 CPU/内存、JVM 堆。改 non-GUI 或分布式。  8. **日志阻塞**：同步写日志，磁盘 IO 满。改异步日志或减少日志量。    定位顺序：先看 APM 链路找瓶颈段，再针对性深入。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q048</span>
-                <h3 class="card-title" title="原题：场景 4：JMeter 压测大量超时">Q048：场景 4：JMeter 压测大量超时</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：场景 4：JMeter 压测大量超时">场景 4：JMeter 压测大量超时</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -1991,9 +2150,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q049：GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？ 7. GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？ 7. GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？    GIL（全局解释器锁）是 CPython 的机制——同一时刻只有一个线程执行 Python 字节码。影响：①CPU 密集型任务多线程**不能真正并行**（被 GIL 串行化），应该用**多进程**（multiprocessing）绕开；②IO 密集型任务（网络请求、读写文件）线程在等 IO 时会释放 GIL，所以多线程/协程仍然有效。落到测试：接口压测/并发请求是 IO 密集，用多线程或 asyncio 协程就够；本地大量计算（如海量数据校验）用多进程。pytest-xdist 用的就是多进程并发。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q049</span>
-                <h3 class="card-title" title="原题：7. GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？">Q049：GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7. GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？">GIL 是什么？对多线程有什么影响？测试时怎么选并发模型？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面试_通用版_含答案.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2017,9 +2178,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q050：一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？ 11 / 一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？ 11 / 一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？  按&quot;风险优先 + 阶段并行&quot;分配：  1. 先做需求/技术评审，识别核心链路与高风险点（占比约 10%）。  2. 功能测试优先保证主流程与核心用例（40%），用自动化回归覆盖存量功能减少人力。  3. 压测在功能基本稳定后介入，复用线上流量模型，跑非高峰时段（20%）。  4. 线上监控/稳定性做成长效机制（告警、巡检、降级预案）而非临时投入（20%）。  5. 留缓冲应对突发（10%）。核心原则：能自动化的不手工、能左移的不右移。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q050</span>
-                <h3 class="card-title" title="原题：11 / 一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？">Q050：一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11 / 一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？">一人同时负责大改动+压测+线上监控+稳定性，如何分配时间？</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2044,9 +2207,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q051：压测类型 1 / 压测类型 1 / 压测类型  负载测试、压力测试（找极限/拐点）、稳定性测试（长时间高负载看是否泄漏/退化）、并发测试、容量测试、峰值/尖峰测试（突发流量）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q051</span>
-                <h3 class="card-title" title="原题：1 / 压测类型">Q051：压测类型</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1 / 压测类型">压测类型</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2070,9 +2235,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q052：压测/性能测试怎么做、场景 2&amp;3&amp;4 / 压测/性能测试怎么做、场景 2&amp;3&amp;4 / 压测/性能测试怎么做、场景  1. 明确目标与指标（TPS/QPS、RT、错误率、资源使用率）。  2. 基于线上流量分析建立**压测模型**（接口比例、参数分布）。  3. 准备压测环境与数据（数据量级贴近生产）。  4. 用工具（JMeter/Locust）逐步加压，找性能拐点。  5. 监控全链路（应用、DB、缓存、中间件、机器资源）。  6. 定位瓶颈（慢 SQL、锁、线程池、GC、连接数、缓存命中），优化后回归压测。  7. 输出报告与容量评估。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q052</span>
-                <h3 class="card-title" title="原题：2&amp;3&amp;4 / 压测/性能测试怎么做、场景">Q052：压测/性能测试怎么做、场景</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：2&amp;3&amp;4 / 压测/性能测试怎么做、场景">压测/性能测试怎么做、场景</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2096,9 +2263,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q053：性能测试相关 5 / 性能测试相关 5 / 性能测试相关  见上，核心是&quot;建模型→加压→看指标→定位瓶颈→优化回归&quot;。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q053</span>
-                <h3 class="card-title" title="原题：5 / 性能测试相关">Q053：性能测试相关</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：5 / 性能测试相关">性能测试相关</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2122,9 +2291,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q054：客户端性能测试 6 / 客户端性能测试 6 / 客户端性能测试  关注：启动时间、页面渲染/帧率（FPS、卡顿/丢帧）、CPU/内存（含内存泄漏）、耗电、流量、Crash/ANR。工具：Android 用 Perfetto/GPU 呈现/adb，iOS 用 Instruments，通用可用厂商性能平台。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q054</span>
-                <h3 class="card-title" title="原题：6 / 客户端性能测试">Q054：客户端性能测试</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / 客户端性能测试">客户端性能测试</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2148,9 +2319,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q055：服务端压测用什么平台/工具 7 / 服务端压测用什么平台/工具 7 / 服务端压测用什么平台/工具  开源常用 **JMeter、Locust（Python，易扩展）、wrk/Gatling**；大厂多用自研全链路压测平台（流量录制回放 + 影子库 + 链路打标）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q055</span>
-                <h3 class="card-title" title="原题：7 / 服务端压测用什么平台/工具">Q055：服务端压测用什么平台/工具</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：7 / 服务端压测用什么平台/工具">服务端压测用什么平台/工具</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2174,9 +2347,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q056：关注哪些压测指标 / 如何评估压测通过 / 通过标准 8&amp;9&amp;10 / 关注哪些压测指标 / 如何评估压测通过 / 通过标准 8&amp;9&amp;10 / 关注哪些压测指标 / 如何评估压测通过 / 通过标准  核心指标：**TPS/QPS、响应时间（平均、P95、P99）、错误率、并发数、资源使用率（CPU/内存/IO/网络）**。  通过标准（举例）：在目标并发下，P99 RT ≤ 约定阈值、错误率 &lt; 0.1%、CPU/内存在安全水位（如 CPU&lt;70%）、无内存泄漏、系统能稳定持续运行且可线性扩展。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q056</span>
-                <h3 class="card-title" title="原题：8&amp;9&amp;10 / 关注哪些压测指标 / 如何评估压测通过 / 通过标准">Q056：关注哪些压测指标 / 如何评估压测通过 / 通过标准</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：8&amp;9&amp;10 / 关注哪些压测指标 / 如何评估压测通过 / 通过标准">关注哪些压测指标 / 如何评估压测通过 / 通过标准</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2200,9 +2375,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q057：压测模型 / 并发多大 11&amp;12 / 压测模型 / 并发多大 11&amp;12 / 压测模型 / 并发多大  压测模型来自**线上真实流量画像**：各接口调用比例、参数分布、读写比例、峰值 QPS，再按容量目标（如支撑 N 倍峰值）设定并发。并发量需结合具体业务真实数据，不应凭空给数。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q057</span>
-                <h3 class="card-title" title="原题：11&amp;12 / 压测模型 / 并发多大">Q057：压测模型 / 并发多大</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：11&amp;12 / 压测模型 / 并发多大">压测模型 / 并发多大</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2226,9 +2403,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q058：整系统压测 / 全链路压测 / 全链路核心目标 14&amp;15&amp;16 / 整系统压测 / 全链路压测 / 全链路核心目标 14&amp;15&amp;16 / 整系统压测 / 全链路压测 / 全链路核心目标  全链路压测 = 在**生产或仿真生产环境**对完整业务链路施压，目标：  - 验证大促/峰值下整体系统容量与稳定性；  - 发现单接口压测发现不了的**链路瓶颈与木桶短板**（某个下游/中间件先挂）；  - 验证限流、降级、扩容预案有效性；  - 容量规划与扩容依据。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q058</span>
-                <h3 class="card-title" title="原题：14&amp;15&amp;16 / 整系统压测 / 全链路压测 / 全链路核心目标">Q058：整系统压测 / 全链路压测 / 全链路核心目标</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14&amp;15&amp;16 / 整系统压测 / 全链路压测 / 全链路核心目标">整系统压测 / 全链路压测 / 全链路核心目标</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2253,9 +2432,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q059：压测环境 17&amp;18 / 压测环境 17&amp;18 / 压测环境  - 独立性能测试环境（成本低，但与生产有差异，结果仅供参考）；  - 仿真/预发环境；  - **生产环境全链路压测**（最真实，需做流量隔离、影子库、数据打标防污染）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q059</span>
-                <h3 class="card-title" title="原题：17&amp;18 / 压测环境">Q059：压测环境</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：17&amp;18 / 压测环境">压测环境</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2279,9 +2460,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q060：压测是否做巡检 / 巡检机制 19&amp;20 / 压测是否做巡检 / 巡检机制 19&amp;20 / 压测是否做巡检 / 巡检机制  做。定期（如每日/每周或大促前）自动跑基线压测，对比历史指标，发现性能劣化（RT 上升、TPS 下降）即告警，防止迭代引入性能回退。机制：定时触发→执行基线场景→指标对比阈值→异常告警与归因。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q060</span>
-                <h3 class="card-title" title="原题：19&amp;20 / 压测是否做巡检 / 巡检机制">Q060：压测是否做巡检 / 巡检机制</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：19&amp;20 / 压测是否做巡检 / 巡检机制">压测是否做巡检 / 巡检机制</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2305,9 +2488,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q061：生产压测数据污染怎么解决 / 数据怎么透传 21&amp;22 / 生产压测数据污染怎么解决 / 数据怎么透传 21&amp;22 / 生产压测数据污染怎么解决 / 数据怎么透传  - **流量打标**：压测请求带特殊标识（如 header `pressure-test=true`），全链路透传该标识；  - **影子库/影子表**：带标识的写操作落到影子存储，不污染真实数据；  - 中间件（MQ、缓存）按标识隔离；  - 标识通过上下文（如 ThreadLocal / 请求头透传）在全链路传递，保证下游都能识别压测流量。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q061</span>
-                <h3 class="card-title" title="原题：21&amp;22 / 生产压测数据污染怎么解决 / 数据怎么透传">Q061：生产压测数据污染怎么解决 / 数据怎么透传</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21&amp;22 / 生产压测数据污染怎么解决 / 数据怎么透传">生产压测数据污染怎么解决 / 数据怎么透传</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2331,9 +2516,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q062：线上性能情况 23 / 线上性能情况 23 / 线上性能情况  如实结合监控数据回答（核心接口 P99、峰值 QPS、资源水位）。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q062</span>
-                <h3 class="card-title" title="原题：23 / 线上性能情况">Q062：线上性能情况</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23 / 线上性能情况">线上性能情况</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2357,9 +2544,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q063：24（同三 17）/ 除降级外稳定性手段 24（同三 17）/ 除降级外稳定性手段 24（同三 17）/ 除降级外稳定性手段  限流、熔断、超时、重试、兜底、开关、故障演练、巡检监控。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q063</span>
-                <h3 class="card-title" title="原题：24（同三 17）/ 除降级外稳定性手段">Q063：24（同三 17）/ 除降级外稳定性手段</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24（同三 17）/ 除降级外稳定性手段">24（同三 17）/ 除降级外稳定性手段</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2383,9 +2572,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q064：HTTP vs HTTPS 1 / HTTP vs HTTPS 1 / HTTP vs HTTPS  HTTPS = HTTP + TLS/SSL 加密。区别：  - HTTP 明文传输不安全，HTTPS 加密 + 身份认证 + 完整性校验；  - 默认端口 HTTP 80 / HTTPS 443；  - HTTPS 需 CA 证书；  - HTTPS 有握手开销，性能略低但安全。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q064</span>
-                <h3 class="card-title" title="原题：1 / HTTP vs HTTPS">Q064：HTTP vs HTTPS</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：1 / HTTP vs HTTPS">HTTP vs HTTPS</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测开面经.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2410,9 +2601,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q065：用 JMeter 做过哪些类型的性能测试 Q16：用 JMeter 做过哪些类型的性能测试 Q16：用 JMeter 做过哪些类型的性能测试    **1. 各类型区别**：    - **基准测试**：单用户/小并发，拿到单接口性能基线。  - **负载测试**：逐步加压，找系统在预期负载下的表现，确定能稳定支撑的并发。  - **压力测试**：持续加压直到系统崩溃，找极限和拐点。  - **容量测试**：评估系统最大处理能力，为扩容提供依据。  - **稳定性测试（疲劳测试）**：较高负载长时间运行（如 8/24h），看有没有内存泄漏、性能衰减。    **2. 单接口 vs 全链路**：核心接口先单压定位单点能力，再按真实比例做混合场景全链路压测，更贴近线上。    **3. 登录 token 处理**：压测不重复登录——提前批量登录拿一批 token 存 CSV，用 `CSV Data Set Config` 参数化，或建 token 池。    **4. 库存/订单不冲突**：提前造足量数据 + 参数化唯一数据（每个线程用不同账号/商品），避免互相抢同一行锁。    **5. 支付接口是否直接压**：一般 **不压真实支付**（涉及真实资金和第三方），用 **挡板/mock** 替代支付网关。    **6. 避免污染生产**：用 **独立压测环境** 或 **影子库/影子表**，绝不在生产真实库直接造压测数据。    **7. 阶梯加压**：用 `ramp-up` 或阶梯线程组（Stepping/Concurrency Thread Group），逐级加并发观察拐点，而不是一上来全量并发。    **8. 确定目标并发**：按生产峰值 QPS/TPS + 余量倒推，或用&quot;日活 × 峰值系数 / 时间窗&quot;估算。    **9. 模拟真实行为**：加 **思考时间**（Timer）、参数化数据、集合点（Synchronizing Timer）、按真实业务比例配置事务占比。    **10. 为什么不用大量监听器**：GUI 模式 + 大量监听器（如&quot;查看结果树&quot;&quot;图形结果&quot;）本身极耗 CPU/内存，会 **干扰压测结果**。正确做法：**非 GUI 模式** 跑（`jmeter -n -t`），结果落 jtl 事后分析。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q065</span>
-                <h3 class="card-title" title="原题：Q16：用 JMeter 做过哪些类型的性能测试">Q065：用 JMeter 做过哪些类型的性能测试</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16：用 JMeter 做过哪些类型的性能测试">用 JMeter 做过哪些类型的性能测试</h3>
+                  <div class="card-meta"><span>来源：05-性能测试.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">05-性能测试.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2446,9 +2639,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q066：性能测试核心指标 Q17：性能测试核心指标 Q17：性能测试核心指标    **1. TPS vs QPS**：    - **TPS**：每秒事务数，一个事务可能含多个请求（业务维度）。  - **QPS**：每秒查询/请求数（请求维度）。  - 一次&quot;下单事务&quot;可能产生多个 QPS。    **2. 并发用户数与 TPS 关系**：利特尔法则 —— `TPS ≈ 并发用户数 / (平均响应时间 + 思考时间)`。没有思考时间的简化场景下退化为 `TPS ≈ 并发用户数 / 平均响应时间`。所以并发高不代表 TPS 高，响应时间是关键变量；加了思考时间后，同样并发数的 TPS 会更低。    **3. 平均/P90/P95/P99**：P95 = 95% 的请求响应时间在该值以内。它们描述响应时间分布。    **4. 为什么不能只看平均响应时间**：平均值会被 **长尾掩盖**——平均 100ms 看着很好，但 P99 可能 5s，意味着 1% 用户体验极差。要看分位值。    **5. 错误率**：失败请求占比，一般要求 &lt; 0.1%~0.5%（按业务定）。错误率升高往往是系统到瓶颈的信号。    **6. 达到拐点的表现**：并发再加，**TPS 不再上升甚至下降，响应时间陡增，错误率上升**——这就是容量拐点。    **7. CPU/内存/磁盘IO/网络IO**：分别反映计算、内存、磁盘读写、网络传输是否成为瓶颈。    **8. 判断容量上限**：综合&quot;TPS 拐点 + 资源是否打满 + 响应时间/错误率是否劣化&quot;。    **9. 是否只关注前端接口**：**不是**。要关注全链路 + 后端资源（DB、缓存、MQ、下游服务），瓶颈往往在后端而非接口本身。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q066</span>
-                <h3 class="card-title" title="原题：Q17：性能测试核心指标">Q066：性能测试核心指标</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17：性能测试核心指标">性能测试核心指标</h3>
+                  <div class="card-meta"><span>来源：05-性能测试.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">05-性能测试.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2481,9 +2676,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q067：压测中 TPS 上不去如何定位 Q18：压测中 TPS 上不去如何定位 Q18：压测中 TPS 上不去如何定位    **先讲方法论，不要上来就猜。** TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻：    &gt; 由利特尔法则 `TPS = 有效并发 / 响应时间(RT)`，TPS 不涨 ⟺ 要么 **RT 在变长**，要么 **有效并发被卡死**（线程/连接/锁池满了，加压根本加不进去）。    所以我的定位顺序是：**先拆 RT、再看饱和度**，而不是一上来看 CPU。    ### 第 0 步：先排除压力机自己    很多&quot;TPS 上不去&quot;是 **JMeter 单机** 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 `TIME_WAIT`）。先确认压力机 CPU &lt; 60%、用分布式压力机，再谈被测系统。**这一步不做，后面全是错的。**    ### 第 1 步：拆 RT，看时间花在哪一段（最快的定位手段）    用链路追踪（SkyWalking/Zipkin）把单请求 RT 拆成 `网关 → 应用 → DB → 下游` 各段耗时。哪段占大头就下钻哪段——这比盲目看一堆机器指标快得多。    ### 第 2 步：按&quot;两种根因&quot;分别下钻    **A. RT 变长型**    - **CPU 高（&gt;80%）**：先分 `us` 还是 `sy`（`top` 看）。`us` 高 → 业务/算法热点，上 **火焰图**（async-profiler）找最耗 CPU 的方法；`sy` 高 → 线程过多、上下文切换频繁或频繁系统调用。  - **GC**：`jstat -gcutil &lt;pid&gt; 1000` 看 GC 频率和耗时。**Full GC 频繁**（比如几秒一次、每次几百 ms）→ 老年代回收不掉 → 内存泄漏或单对象过大 → `jmap` dump 堆 + MAT 分析。表现是 TPS **周期性抖动**、RT 出现 **尖刺**。  - **慢 SQL**：慢查询日志 + `explain`（看 `type=ALL` 全表、`key=NULL` 没走索引、`rows` 巨大）。`show processlist` 看是否大量 `Sending data` 或锁等待。    **B. 有效并发卡死型（CPU 不高 &lt;40% 但 RT 高、TPS 平）—— 实战里最常见**    这是 **等待型瓶颈**，机器没用满却上不去。手段：**连着 `jstack &lt;pid&gt;` 打几次**，看线程大量停在哪：    - 大量 `BLOCKED` 在某个 `synchronized` / 分布式锁 → **锁竞争**。  - 大量 `WAITING` 在 `getConnection`（Druid/HikariCP）→ **数据库连接池太小**。Druid 监控看 `active == max` 且有 `wait`。  - Tomcat `maxThreads` 满 → 请求在队列排队，RT 线性上涨。  - 卡在调用下游 → 下游慢，回到第 1 步看链路。    &gt; ⚠️ 关键取舍：连接池/线程池调大 **不是免费的**——把应用的池调大，压力会直接传导到 DB，要先确认 DB 扛得住，否则只是把瓶颈从应用挪到 DB。    ### 第 3 步：用阶梯加压的曲线形态定性    - RT 平稳、TPS 随并发 **线性上涨** → 还没到瓶颈，继续加。  - TPS 不再涨、**RT 陡增** → 到了 **容量拐点**，记下此时并发数即为容量上限。  - TPS 平了、**但 RT 也平、资源也都不满** → 典型的 **&quot;假饱和&quot;**：被某个池或 **限流** 卡住了，去查线程池/连接池/限流配置。    ### 诚实的经验值    **80% 的&quot;TPS 上不去&quot;，最后查出来是 连接池/线程池配小了、一条慢 SQL、或一个同步锁，而不是机器不够。** 所以遇到这题先别喊&quot;加机器&quot;——先拆 RT、再 `jstack` 看线程卡在哪。能把这套顺序讲出来，比背十条症状有用得多。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q067</span>
-                <h3 class="card-title" title="原题：Q18：压测中 TPS 上不去如何定位">Q067：压测中 TPS 上不去如何定位</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18：压测中 TPS 上不去如何定位">压测中 TPS 上不去如何定位</h3>
+                  <div class="card-meta"><span>来源：05-性能测试.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">05-性能测试.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2524,9 +2721,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q068：压测中出现大量 HTTP 500 如何排查 Q19：压测中出现大量 HTTP 500 如何排查 Q19：压测中出现大量 HTTP 500 如何排查    **1. 全部接口还是单个接口**：先定位范围——全局 500 多是公共依赖（DB/中间件）挂了，单接口 500 是该接口逻辑问题。    **2. 从哪个并发量开始出现**：低并发就有 → 代码 bug；高并发才出现 → 资源/容量问题。    **3. 是否随并发增加而增加**：正相关说明是资源耗尽类问题。    **4. 应用日志报什么**：**这是最关键的一步**——直接看异常堆栈，500 的根因几乎都在应用日志里。    **5. 数据库连接是否打满**：`Too many connections` / 获取连接超时。    **6. 是否请求超时**：下游超时导致上游报错。    **7. 空指针/数组越界等代码异常**：高并发暴露的边界 bug。    **8. 是否死锁**：数据库行锁/死锁，日志会有 `Deadlock found`。    **9. 是否触发限流/熔断/降级**：被保护机制拦截后返回错误（注意这类可能是 429/503，但配置不当也会 500）。    **10. 是否下游服务异常导致**：依赖的服务挂了，异常向上传导成 500。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q068</span>
-                <h3 class="card-title" title="原题：Q19：压测中出现大量 HTTP 500 如何排查">Q068：压测中出现大量 HTTP 500 如何排查</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19：压测中出现大量 HTTP 500 如何排查">压测中出现大量 HTTP 500 如何排查</h3>
+                  <div class="card-meta"><span>来源：05-性能测试.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">05-性能测试.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2559,9 +2758,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q069：基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？ Q16.1：基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？ Q16.1：基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？ 答题要点：这道题可以从主问题「Q16：用 JMeter 做过哪些类型的性能测试」里拆开回答，重点说清楚结论、落地位置和边界。 基准测试：单用户/小并发，拿到单接口性能基线。 负载测试：逐步加压，找系统在预期负载下的表现，确定能稳定支撑的并发。 压力测试：持续加压直到系统崩溃，找极限和拐点。 容量测试：评估系统最大处理能力，为扩容提供依据。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q069</span>
-                <h3 class="card-title" title="原题：Q16.1：基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？">Q069：基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16.1：基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？">基准测试、负载测试、压力测试、容量测试、稳定性测试有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2589,9 +2790,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q070：如何避免压测污染生产数据？ Q16.6：如何避免压测污染生产数据？ Q16.6：如何避免压测污染生产数据？ 答题要点：这道题可以从主问题「Q16：用 JMeter 做过哪些类型的性能测试」里拆开回答，重点说清楚结论、落地位置和边界。 4. 库存/订单不冲突：提前造足量数据 + 参数化唯一数据（每个线程用不同账号/商品），避免互相抢同一行锁。 6. 避免污染生产：用 独立压测环境 或 影子库/影子表，绝不在生产真实库直接造压测数据。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q070</span>
-                <h3 class="card-title" title="原题：Q16.6：如何避免压测污染生产数据？">Q070：如何避免压测污染生产数据？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16.6：如何避免压测污染生产数据？">如何避免压测污染生产数据？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2617,9 +2820,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q071：如何设计阶梯式压测？ Q16.7：如何设计阶梯式压测？ Q16.7：如何设计阶梯式压测？ 答题要点：这道题可以从主问题「Q16：用 JMeter 做过哪些类型的性能测试」里拆开回答，重点说清楚结论、落地位置和边界。 1. 各类型区别： 基准测试：单用户/小并发，拿到单接口性能基线。 负载测试：逐步加压，找系统在预期负载下的表现，确定能稳定支撑的并发。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q071</span>
-                <h3 class="card-title" title="原题：Q16.7：如何设计阶梯式压测？">Q071：如何设计阶梯式压测？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16.7：如何设计阶梯式压测？">如何设计阶梯式压测？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2646,9 +2851,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q072：如何确定目标并发数？ Q16.8：如何确定目标并发数？ Q16.8：如何确定目标并发数？ 答题要点：这道题可以从主问题「Q16：用 JMeter 做过哪些类型的性能测试」里拆开回答，重点说清楚结论、落地位置和边界。 负载测试：逐步加压，找系统在预期负载下的表现，确定能稳定支撑的并发。 8. 确定目标并发：按生产峰值 QPS/TPS + 余量倒推，或用&amp;quot;日活 × 峰值系数 / 时间窗&amp;quot;估算。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q072</span>
-                <h3 class="card-title" title="原题：Q16.8：如何确定目标并发数？">Q072：如何确定目标并发数？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16.8：如何确定目标并发数？">如何确定目标并发数？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2674,9 +2881,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q073：如何模拟真实用户行为？ Q16.9：如何模拟真实用户行为？ Q16.9：如何模拟真实用户行为？ 答题要点：这道题可以从主问题「Q16：用 JMeter 做过哪些类型的性能测试」里拆开回答，重点说清楚结论、落地位置和边界。 9. 模拟真实行为：加 思考时间（Timer）、参数化数据、集合点（Synchronizing Timer）、按真实业务比例配置事务占比。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q073</span>
-                <h3 class="card-title" title="原题：Q16.9：如何模拟真实用户行为？">Q073：如何模拟真实用户行为？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16.9：如何模拟真实用户行为？">如何模拟真实用户行为？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2701,9 +2910,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q074：为什么压测时不能使用大量监听器？ Q16.10：为什么压测时不能使用大量监听器？ Q16.10：为什么压测时不能使用大量监听器？ 答题要点：这道题可以从主问题「Q16：用 JMeter 做过哪些类型的性能测试」里拆开回答，重点说清楚结论、落地位置和边界。 10. 为什么不用大量监听器：GUI 模式 + 大量监听器（如&amp;quot;查看结果树&amp;quot;&amp;quot;图形结果&amp;quot;）本身极耗 CPU/内存，会 干扰压测结果。正确做法：非 GUI 模式 跑（jmeter -n -t），结果落 jtl 事后分析。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q074</span>
-                <h3 class="card-title" title="原题：Q16.10：为什么压测时不能使用大量监听器？">Q074：为什么压测时不能使用大量监听器？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q16.10：为什么压测时不能使用大量监听器？">为什么压测时不能使用大量监听器？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2728,9 +2939,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q075：TPS 和 QPS 有什么区别？ Q17.1：TPS 和 QPS 有什么区别？ Q17.1：TPS 和 QPS 有什么区别？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 1. TPS vs QPS： TPS：每秒事务数，一个事务可能含多个请求（业务维度）。 QPS：每秒查询/请求数（请求维度）。 一次&amp;quot;下单事务&amp;quot;可能产生多个 QPS。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q075</span>
-                <h3 class="card-title" title="原题：Q17.1：TPS 和 QPS 有什么区别？">Q075：TPS 和 QPS 有什么区别？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.1：TPS 和 QPS 有什么区别？">TPS 和 QPS 有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2758,9 +2971,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q076：并发用户数和 TPS 是什么关系？ Q17.2：并发用户数和 TPS 是什么关系？ Q17.2：并发用户数和 TPS 是什么关系？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 1. TPS vs QPS： TPS：每秒事务数，一个事务可能含多个请求（业务维度）。 2. 并发用户数与 TPS 关系：利特尔法则 —— TPS ≈ 并发用户数 / (平均响应时间 + 思考时间)。没有思考时间的简化场景下退化为 TPS ≈ 并发用户数 / 平均响应时间。所以并发高不代表 TPS 高，响应时间是关键变量；加了思考时间后，同样并发数的 TPS 会更低。 6. 达到拐点的表现：并发再加，TPS 不再上升甚至下降，响应时间陡增，错误率上升——这就是容量拐点。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q076</span>
-                <h3 class="card-title" title="原题：Q17.2：并发用户数和 TPS 是什么关系？">Q076：并发用户数和 TPS 是什么关系？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.2：并发用户数和 TPS 是什么关系？">并发用户数和 TPS 是什么关系？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2788,9 +3003,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q077：平均响应时间、P90、P95、P99 分别代表什么？ Q17.3：平均响应时间、P90、P95、P99 分别代表什么？ Q17.3：平均响应时间、P90、P95、P99 分别代表什么？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 3. 平均/P90/P95/P99：P95 = 95% 的请求响应时间在该值以内。它们描述响应时间分布。 4. 为什么不能只看平均响应时间：平均值会被 长尾掩盖——平均 100ms 看着很好，但 P99 可能 5s，意味着 1% 用户体验极差。要看分位值。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q077</span>
-                <h3 class="card-title" title="原题：Q17.3：平均响应时间、P90、P95、P99 分别代表什么？">Q077：平均响应时间、P90、P95、P99 分别代表什么？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.3：平均响应时间、P90、P95、P99 分别代表什么？">平均响应时间、P90、P95、P99 分别代表什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2816,9 +3033,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q078：为什么不能只看平均响应时间？ Q17.4：为什么不能只看平均响应时间？ Q17.4：为什么不能只看平均响应时间？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 2. 并发用户数与 TPS 关系：利特尔法则 —— TPS ≈ 并发用户数 / (平均响应时间 + 思考时间)。没有思考时间的简化场景下退化为 TPS ≈ 并发用户数 / 平均响应时间。所以并发高不代表 TPS 高，响应时间是关键变量；加了思考时间后，同样并发数的 TPS 会更低。 3. 平均/P90/P95/P99：P95 = 95% 的请求响应时间在该值以内。它们描述响应时间分布。 4. 为什么不能只看平均响应时间：平均值会被 长尾掩盖——平均 100ms 看着很好，但 P99 可能 5s，意味着 1% 用户体验极差。要看分位值。 6. 达到拐点的表现：并发再加，TPS 不再上升甚至下降，响应时间陡增，错误率上升——这就是容量拐点。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q078</span>
-                <h3 class="card-title" title="原题：Q17.4：为什么不能只看平均响应时间？">Q078：为什么不能只看平均响应时间？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.4：为什么不能只看平均响应时间？">为什么不能只看平均响应时间？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2846,9 +3065,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q079：错误率多少算异常？ Q17.5：错误率多少算异常？ Q17.5：错误率多少算异常？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 5. 错误率：失败请求占比，一般要求 &amp;lt; 0.1%~0.5%（按业务定）。错误率升高往往是系统到瓶颈的信号。 6. 达到拐点的表现：并发再加，TPS 不再上升甚至下降，响应时间陡增，错误率上升——这就是容量拐点。 8. 判断容量上限：综合&amp;quot;TPS 拐点 + 资源是否打满 + 响应时间/错误率是否劣化&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q079</span>
-                <h3 class="card-title" title="原题：Q17.5：错误率多少算异常？">Q079：错误率多少算异常？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.5：错误率多少算异常？">错误率多少算异常？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2875,9 +3096,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q080：吞吐量达到瓶颈后有什么表现？ Q17.6：吞吐量达到瓶颈后有什么表现？ Q17.6：吞吐量达到瓶颈后有什么表现？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 5. 错误率：失败请求占比，一般要求 &amp;lt; 0.1%~0.5%（按业务定）。错误率升高往往是系统到瓶颈的信号。 6. 达到拐点的表现：并发再加，TPS 不再上升甚至下降，响应时间陡增，错误率上升——这就是容量拐点。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q080</span>
-                <h3 class="card-title" title="原题：Q17.6：吞吐量达到瓶颈后有什么表现？">Q080：吞吐量达到瓶颈后有什么表现？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.6：吞吐量达到瓶颈后有什么表现？">吞吐量达到瓶颈后有什么表现？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2903,9 +3126,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q081：如何判断系统是否达到容量上限？ Q17.8：如何判断系统是否达到容量上限？ Q17.8：如何判断系统是否达到容量上限？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 6. 达到拐点的表现：并发再加，TPS 不再上升甚至下降，响应时间陡增，错误率上升——这就是容量拐点。 8. 判断容量上限：综合&amp;quot;TPS 拐点 + 资源是否打满 + 响应时间/错误率是否劣化&amp;quot;。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q081</span>
-                <h3 class="card-title" title="原题：Q17.8：如何判断系统是否达到容量上限？">Q081：如何判断系统是否达到容量上限？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.8：如何判断系统是否达到容量上限？">如何判断系统是否达到容量上限？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2931,9 +3156,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q082：性能测试是否只关注后端接口？ Q17.9：性能测试是否只关注后端接口？ Q17.9：性能测试是否只关注后端接口？ 答题要点：这道题可以从主问题「Q17：性能测试核心指标」里拆开回答，重点说清楚结论、落地位置和边界。 9. 是否只关注前端接口：不是。要关注全链路 + 后端资源（DB、缓存、MQ、下游服务），瓶颈往往在后端而非接口本身。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q082</span>
-                <h3 class="card-title" title="原题：Q17.9：性能测试是否只关注后端接口？">Q082：性能测试是否只关注后端接口？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q17.9：性能测试是否只关注后端接口？">性能测试是否只关注后端接口？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2958,9 +3185,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q083：Full GC 频繁会产生什么影响？ Q18.4：Full GC 频繁会产生什么影响？ Q18.4：Full GC 频繁会产生什么影响？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 GC：jstat -gcutil &amp;lt;pid&amp;gt; 1000 看 GC 频率和耗时。Full GC 频繁（比如几秒一次、每次几百 ms）→ 老年代回收不掉 → 内存泄漏或单对象过大 → jmap dump 堆 + MAT 分析。表现是 TPS 周期性抖动、RT 出现 尖刺。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q083</span>
-                <h3 class="card-title" title="原题：Q18.4：Full GC 频繁会产生什么影响？">Q083：Full GC 频繁会产生什么影响？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.4：Full GC 频繁会产生什么影响？">Full GC 频繁会产生什么影响？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -2985,9 +3214,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q084：线程池满了会有什么表现？ Q18.6：线程池满了会有什么表现？ Q18.6：线程池满了会有什么表现？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 &amp;gt; ⚠️ 关键取舍：连接池/线程池调大 不是免费的——把应用的池调大，压力会直接传导到 DB，要先确认 DB 扛得住，否则只是把瓶颈从应用挪到 DB。 TPS 平了、但 RT 也平、资源也都不满 → 典型的 &amp;quot;假饱和&amp;quot;：被某个池或 限流 卡住了，去查线程池/连接池/限流配置。 80% 的&amp;quot;TPS 上不去&amp;quot;，最后查出来是 连接池/线程池配小了、一条慢 SQL、或一个同步锁，而不是机器不够。 所以遇到这题先别喊&amp;quot;加机器&amp;quot;——先拆 RT、再 jstack 看线程卡在哪。能把这套顺序讲出来，比背十条症状有用得多。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q084</span>
-                <h3 class="card-title" title="原题：Q18.6：线程池满了会有什么表现？">Q084：线程池满了会有什么表现？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.6：线程池满了会有什么表现？">线程池满了会有什么表现？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3015,9 +3246,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q085：下游服务响应慢如何定位？ Q18.8：下游服务响应慢如何定位？ Q18.8：下游服务响应慢如何定位？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 先讲方法论，不要上来就猜。 TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻： &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 所以我的定位顺序是：先拆 RT、再看饱和度，而不是一上来看 CPU。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q085</span>
-                <h3 class="card-title" title="原题：Q18.8：下游服务响应慢如何定位？">Q085：下游服务响应慢如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.8：下游服务响应慢如何定位？">下游服务响应慢如何定位？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3044,9 +3277,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q086：MQ 消息堆积如何定位？ Q18.9：MQ 消息堆积如何定位？ Q18.9：MQ 消息堆积如何定位？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 先讲方法论，不要上来就猜。 TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻： &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 所以我的定位顺序是：先拆 RT、再看饱和度，而不是一上来看 CPU。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q086</span>
-                <h3 class="card-title" title="原题：Q18.9：MQ 消息堆积如何定位？">Q086：MQ 消息堆积如何定位？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.9：MQ 消息堆积如何定位？">MQ 消息堆积如何定位？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3073,9 +3308,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q087：如何通过 TPS 拐点定位系统容量？ Q18.11：如何通过 TPS 拐点定位系统容量？ Q18.11：如何通过 TPS 拐点定位系统容量？ 答题要点：这道题可以从主问题「Q18：压测中 TPS 上不去如何定位」里拆开回答，重点说清楚结论、落地位置和边界。 先讲方法论，不要上来就猜。 TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻： &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 很多&amp;quot;TPS 上不去&amp;quot;是 JMeter 单机 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 TIME_WAIT）。先确认压力机 CPU &amp;lt; 60%、用分布式压力机，再谈被测系统。这一步不做，后面全是错的。 GC：jstat -gcutil &amp;lt;pid&amp;gt; 1000 看 GC 频率和耗时。Full GC 频繁（比如几秒一次、每次几百 ms）→ 老年代回收不掉 → 内存泄漏或单对象过大 → jmap dump 堆 + MAT 分析。表现是 TPS 周期性抖动、RT 出现 尖刺。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q087</span>
-                <h3 class="card-title" title="原题：Q18.11：如何通过 TPS 拐点定位系统容量？">Q087：如何通过 TPS 拐点定位系统容量？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q18.11：如何通过 TPS 拐点定位系统容量？">如何通过 TPS 拐点定位系统容量？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3103,9 +3340,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q088：是所有接口出现 500，还是某一个接口？ Q19.1：是所有接口出现 500，还是某一个接口？ Q19.1：是所有接口出现 500，还是某一个接口？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 1. 全部接口还是单个接口：先定位范围——全局 500 多是公共依赖（DB/中间件）挂了，单接口 500 是该接口逻辑问题。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q088</span>
-                <h3 class="card-title" title="原题：Q19.1：是所有接口出现 500，还是某一个接口？">Q088：是所有接口出现 500，还是某一个接口？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.1：是所有接口出现 500，还是某一个接口？">是所有接口出现 500，还是某一个接口？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3130,9 +3369,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q089：从什么并发量开始出现 500？ Q19.2：从什么并发量开始出现 500？ Q19.2：从什么并发量开始出现 500？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 2. 从哪个并发量开始出现：低并发就有 → 代码 bug；高并发才出现 → 资源/容量问题。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q089</span>
-                <h3 class="card-title" title="原题：Q19.2：从什么并发量开始出现 500？">Q089：从什么并发量开始出现 500？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.2：从什么并发量开始出现 500？">从什么并发量开始出现 500？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3157,9 +3398,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q090：500 是否随着并发增加而增加？ Q19.3：500 是否随着并发增加而增加？ Q19.3：500 是否随着并发增加而增加？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 3. 是否随并发增加而增加：正相关说明是资源耗尽类问题。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q090</span>
-                <h3 class="card-title" title="原题：Q19.3：500 是否随着并发增加而增加？">Q090：500 是否随着并发增加而增加？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.3：500 是否随着并发增加而增加？">500 是否随着并发增加而增加？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3184,9 +3427,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q091：是否存在请求超时？ Q19.6：是否存在请求超时？ Q19.6：是否存在请求超时？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 5. 数据库连接是否打满：Too many connections / 获取连接超时。 6. 是否请求超时：下游超时导致上游报错。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q091</span>
-                <h3 class="card-title" title="原题：Q19.6：是否存在请求超时？">Q091：是否存在请求超时？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.6：是否存在请求超时？">是否存在请求超时？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3212,9 +3457,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q092：是否存在空指针、数组越界等代码异常？ Q19.7：是否存在空指针、数组越界等代码异常？ Q19.7：是否存在空指针、数组越界等代码异常？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 7. 空指针/数组越界等代码异常：高并发暴露的边界 bug。 10. 是否下游服务异常导致：依赖的服务挂了，异常向上传导成 500。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q092</span>
-                <h3 class="card-title" title="原题：Q19.7：是否存在空指针、数组越界等代码异常？">Q092：是否存在空指针、数组越界等代码异常？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.7：是否存在空指针、数组越界等代码异常？">是否存在空指针、数组越界等代码异常？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3240,9 +3487,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q093：是否出现锁等待或死锁？ Q19.8：是否出现锁等待或死锁？ Q19.8：是否出现锁等待或死锁？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 8. 是否死锁：数据库行锁/死锁，日志会有 Deadlock found。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q093</span>
-                <h3 class="card-title" title="原题：Q19.8：是否出现锁等待或死锁？">Q093：是否出现锁等待或死锁？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.8：是否出现锁等待或死锁？">是否出现锁等待或死锁？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3267,9 +3516,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q094：是否触发限流、熔断、降级？ Q19.9：是否触发限流、熔断、降级？ Q19.9：是否触发限流、熔断、降级？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 9. 是否触发限流/熔断/降级：被保护机制拦截后返回错误（注意这类可能是 429/503，但配置不当也会 500）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q094</span>
-                <h3 class="card-title" title="原题：Q19.9：是否触发限流、熔断、降级？">Q094：是否触发限流、熔断、降级？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.9：是否触发限流、熔断、降级？">是否触发限流、熔断、降级？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3294,9 +3545,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q095：是否为下游服务异常导致？ Q19.10：是否为下游服务异常导致？ Q19.10：是否为下游服务异常导致？ 答题要点：这道题可以从主问题「Q19：压测中出现大量 HTTP 500 如何排查」里拆开回答，重点说清楚结论、落地位置和边界。 6. 是否请求超时：下游超时导致上游报错。 10. 是否下游服务异常导致：依赖的服务挂了，异常向上传导成 500。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q095</span>
-                <h3 class="card-title" title="原题：Q19.10：是否为下游服务异常导致？">Q095：是否为下游服务异常导致？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q19.10：是否为下游服务异常导致？">是否为下游服务异常导致？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3322,9 +3575,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q096：性能指标劣化是否需要阻断？ Q21.6：性能指标劣化是否需要阻断？ Q21.6：性能指标劣化是否需要阻断？ 答题要点：这道题可以从主问题「Q21：如何设计 CI/CD 中的质量门禁」里拆开回答，重点说清楚结论、落地位置和边界。 2. 冒烟失败是否阻断发布：阻断。冒烟挂说明核心链路不通，没有继续的意义。 6. 性能指标劣化是否阻断：关键接口 TPS/响应时间相比基线劣化超过阈值（如 P95 上涨 20%）应阻断或告警。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q096</span>
-                <h3 class="card-title" title="原题：Q21.6：性能指标劣化是否需要阻断？">Q096：性能指标劣化是否需要阻断？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q21.6：性能指标劣化是否需要阻断？">性能指标劣化是否需要阻断？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
@@ -3350,9 +3605,11 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                      data-search="Q097：多个执行节点如何并发执行任务？ Q26.8：多个执行节点如何并发执行任务？ Q26.8：多个执行节点如何并发执行任务？ 答题要点：这道题可以从主问题「Q26：如何设计一个高可用的自动化测试平台」里拆开回答，重点说清楚结论、落地位置和边界。 我会按 前端 + 后端服务 + 任务调度 + 执行节点 + 存储 分层设计。 ┌─────────────┐     ┌──────────────┐     ┌──────────────────┐ │  前端展示层  │ →   │  后端服务层   │ →   │  任务队列         │ │ 用例/任务/报告│     │ 用例/任务/调度 │     │ Redis/RabbitMQ   │ └─────────────┘     │ 节点/权限管理 │     │ /Kafka            │                     └──────────────┘     └────────┬─────────┘                             │                      │ 分发                     ┌───────┴────────┐    ┌────────┴────────┐                     │   存储层        │    │  执行节点集群    │                     │ MySQL+对象存储  │    │ Node1 Node2 ... │                     └────────────────┘    └─────────────────┘ 1. 前端展示层：用例管理页、任务管理页、报告页、节点监控页、环境配置页。 2. 后端服务层核心服务：用例服务、任务服务、调度服务、节点服务、报告服务、权限服务。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q097</span>
-                <h3 class="card-title" title="原题：Q26.8：多个执行节点如何并发执行任务？">Q097：多个执行节点如何并发执行任务？</h3>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q26.8：多个执行节点如何并发执行任务？">多个执行节点如何并发执行任务？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
                 <div class="card-actions">
-                  <span class="badge source-badge">测试开发与AI_Agent面试题汇总.md</span>
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
                   <button type="button" class="action-btn star-btn" title="收藏">★</button>
                   <button type="button" class="toggle-btn">展开</button>
