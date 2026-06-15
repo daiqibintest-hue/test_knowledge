@@ -183,8 +183,9 @@
     const html = state.results.map((r, i) => {
       const item = r.item;
       const active = i === state.activeResult ? ' active' : '';
+      const displayIdx = item.display_idx || ('#' + item.idx);
       return `<a class="search-result-item${active}" data-i="${i}" href="${BASE}${item.url}#card-${item.idx}">
-        <div class="result-top"><span class="result-cat">${escapeHtml(item.category)}</span><span class="result-idx">#${item.idx}</span></div>
+        <div class="result-top"><span class="result-cat">${escapeHtml(item.category)}</span><span class="result-idx">${escapeHtml(displayIdx)}</span></div>
         <div class="result-title">${highlight(item.title, q)}</div>
         <div class="result-snippet">${snippet(item.text, q, 90)}</div>
       </a>`;

@@ -580,6 +580,15 @@ def normalize_title(title: str) -> str:
     return text
 
 
+def clean_title_for_display(title: str) -> str:
+    text = (title or "").strip()
+    text = re.sub(r"^\s*Q?\d+(?:[.&．]\d+)*\s*[：:、.\-/]\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"^\s*\d+(?:\s*[&/]\s*\d+)*\s*/\s*", "", text)
+    text = re.sub(r"^\s*\d+(?:\s*[&/]\s*\d+)*\s*[.、：:\-]\s*", "", text)
+    text = re.sub(r"^\s*第\s*\d+\s*[题问]\s*[：:、.\-]?\s*", "", text)
+    return text.strip() or (title or "").strip()
+
+
 def answer_depth_score(question: dict) -> int:
     html_text = question.get("answer_html", "")
     plain = strip_tags(html_text)
@@ -928,9 +937,20 @@ def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
             "slug": category_slug(category, len(parts) + 1),
             "questions": [],
         }
-        for question in questions:
+        for local_idx, question in enumerate(questions, start=1):
             total += 1
+            original_title = question.get("original_title") or question.get("title", "")
+            display_idx = f"Q{local_idx:03d}"
+            display_title = f"{display_idx}：{clean_title_for_display(original_title)}"
+            question["original_title"] = original_title
+            question["local_idx"] = local_idx
+            question["display_idx"] = display_idx
+            question["display_title"] = display_title
             question["global_idx"] = total
+            question["search_text"] = (
+                f"{display_title} {original_title} "
+                + question.get("search_text", "")
+            )
             part["questions"].append(question)
         parts.append(part)
     return {"intro_html": "", "parts": parts, "total_questions": total}, duplicates
@@ -959,6 +979,9 @@ def render_card(item: dict) -> str:
     scenario_cls = " scenario" if item.get("type") == "scenario" else ""
     source = item.get("source_file", "")
     source_badge = f'<span class="badge source-badge">{escape(source)}</span>' if source else ""
+    display_idx = item.get("display_idx") or f'#{item["global_idx"]}'
+    display_title = item.get("display_title") or item.get("title", "")
+    original_title = item.get("original_title", item.get("title", ""))
     problem = ""
     if item.get("problem_text"):
         problem = (
@@ -973,8 +996,8 @@ def render_card(item: dict) -> str:
                      data-idx="{item["global_idx"]}"
                      data-search="{attr_escape(item.get("search_text", ""))}">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
-                <span class="card-index">#{item["global_idx"]}</span>
-                <h3 class="card-title">{escape(item.get("title", ""))}</h3>
+                <span class="card-index">{escape(display_idx)}</span>
+                <h3 class="card-title" title="原题：{attr_escape(original_title)}">{escape(display_title)}</h3>
                 <div class="card-actions">
                   {source_badge}
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1032,10 +1055,12 @@ def build_search_index(parts: list[dict]) -> list[dict]:
             text = re.sub(r"\s+", " ", text).strip()
             index.append({
                 "idx": item["global_idx"],
-                "title": item.get("title", ""),
+                "display_idx": item.get("display_idx", f'#{item["global_idx"]}'),
+                "title": item.get("display_title", item.get("title", "")),
+                "original_title": item.get("original_title", item.get("title", "")),
                 "category": part["title"],
                 "url": url,
-                "text": text,
+                "text": f'{item.get("original_title", item.get("title", ""))} {text}',
             })
     return index
 
