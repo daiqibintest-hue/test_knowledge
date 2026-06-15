@@ -789,6 +789,33 @@ def answer_blocks(answer_html: str) -> list[str]:
     )
 
 
+def answer_segments(answer_html: str) -> list[str]:
+    blocks = answer_blocks(answer_html)
+    if not blocks:
+        return []
+
+    segments: list[list[str]] = []
+    current: list[str] = []
+
+    def starts_section(block: str) -> bool:
+        plain = strip_tags(block).strip()
+        if not plain:
+            return False
+        return bool(re.match(r"^(?:\d+(?:[./&]\d+)*|[a-zA-Z])\s*[.、：:)]", plain))
+
+    for block in blocks:
+        if starts_section(block) and current:
+            segments.append(current)
+            current = [block]
+        else:
+            current.append(block)
+
+    if current:
+        segments.append(current)
+
+    return ["\n".join(segment) for segment in segments if strip_tags("\n".join(segment)).strip()]
+
+
 def score_answer_block(question_text: str, block_html: str) -> int:
     plain_question = strip_tags(question_text).lower()
     plain_block = strip_tags(block_html).lower()
@@ -808,38 +835,86 @@ def score_answer_block(question_text: str, block_html: str) -> int:
             score += 4
     for token in chinese_tokens:
         if token and token in plain_block:
-            score += 1
+            score += 2
+    for chunk in chinese_chunks:
+        if len(chunk) >= 3 and chunk in plain_block:
+            score += min(len(chunk), 8)
     return score
 
 
-def derive_followup_answer(parent: dict | None, question_text: str) -> str:
+def clean_standalone_answer_html(answer_html: str) -> str:
+    html_out = answer_html
+    html_out = re.sub(
+        r"(<(?:p|li|h4|h5)\b[^>]*>\s*(?:<strong>)?)\d+(?:[./&]\d+)*\s*[.、：:)]\s*",
+        r"\1",
+        html_out,
+    )
+    html_out = re.sub(
+        r"(<(?:p|li|h4|h5)\b[^>]*>\s*(?:<strong>)?)\d+\s*/\s*\d+\s*[.、：:)]\s*",
+        r"\1",
+        html_out,
+    )
+    return html_out
+
+
+def standalone_answer_override(question_text: str) -> str:
+    normalized = normalize_title(question_text)
+    plain = re.sub(r"[\s`*_./-]+", "", question_text.lower())
+    if "pytest" in plain and "插件" in plain and "conftest" in plain:
+        return block_md([
+            "pytest 插件是可复用、可分发的扩展包，适合沉淀跨项目通用能力；conftest.py 是当前项目或当前目录树内的本地 fixture / hook 配置文件，适合放项目级共享前后置。",
+            "- 作用范围：插件通常通过安装或配置后全项目可用；conftest.py 按目录层级生效，当前目录及子目录自动可用。",
+            "- 复用方式：插件适合多个仓库复用；conftest.py 更适合本项目内部组织 fixture。",
+            "- 维护边界：通用能力放插件，业务强相关的登录、造数、清理、环境切换放 conftest.py。",
+        ])
+    return ""
+
+
+def derive_followup_answer(parent: dict | None, question_text: str, followup_index: int | None = None) -> str:
+    override = standalone_answer_override(question_text)
+    if override:
+        return override
+
     if not parent:
         return block_md([
-            "可以从三个角度回答：先给明确结论，再说明落地做法，最后补充风险和边界。",
-            f"- 结论：围绕“{question_text}”直接回答，不要只说概念。",
-            "- 落地：结合项目中的目录结构、接口封装、数据流、日志、CI 或监控说明怎么做。",
-            "- 风险：补充异常处理、边界条件、维护成本和排查路径。",
+            f"这题要直接围绕“{question_text}”回答，先给结论，再说明项目中的落地方式和边界。",
+            "- 结论：用一句话回答当前问题，不要绕回原始大题。",
+            "- 落地：说明代码、配置、目录、流程或平台里具体放在哪里、怎么执行。",
+            "- 边界：补充适用条件、风险点和排查方式。",
         ])
 
-    blocks = answer_blocks(parent.get("answer_html", ""))
+    blocks = answer_segments(parent.get("answer_html", ""))
+    if followup_index:
+        numbered = []
+        for idx, block in enumerate(blocks):
+            plain = strip_tags(block).strip()
+            if re.match(rf"^{followup_index}(?:[./&]\d+)*\s*[.、：:)]", plain):
+                numbered.append((idx, block))
+            elif re.match(rf"^\d+(?:[./&]\d+)*\s*/\s*{followup_index}\b", plain):
+                numbered.append((idx, block))
+        if numbered:
+            return clean_standalone_answer_html(numbered[0][1])
+
     scored: list[tuple[int, int, str]] = [
         (score_answer_block(question_text, block), idx, block)
         for idx, block in enumerate(blocks)
     ]
-    selected_idx = sorted(idx for score, idx, _ in scored if score >= 2)[:4]
+    scored = sorted(scored, key=lambda item: (-item[0], item[1]))
+    top_score = scored[0][0] if scored else 0
+    min_score = max(4, top_score)
+    selected_idx = [
+        idx for score, idx, _ in scored
+        if score >= min_score and score > 0
+    ][:1]
 
     if not selected_idx and blocks:
-        selected_idx = list(range(min(3, len(blocks))))
+        selected_idx = [scored[0][1]] if scored else [0]
 
-    selected = [blocks[idx] for idx in selected_idx]
+    selected = [blocks[idx] for idx in sorted(selected_idx)]
     if not selected:
         selected = [f"<p>{inline_md(strip_tags(parent.get('answer_html', ''))[:260])}</p>"]
 
-    parent_title = parent.get("title", "")
-    return (
-        f"<p><strong>答题要点：</strong>这道题可以从主问题「{inline_md(parent_title)}」里拆开回答，重点说清楚结论、落地位置和边界。</p>\n"
-        + "\n".join(selected)
-    )
+    return clean_standalone_answer_html("\n".join(selected))
 
 
 def build_followup_card_document(documents: list[dict], followup_groups: list[dict], source_path: Path) -> dict:
@@ -862,7 +937,7 @@ def build_followup_card_document(documents: list[dict], followup_groups: list[di
 
         for idx, item in enumerate(group.get("items", []), 1):
             title = f"{group.get('q_id', 'Q')}.{idx}：{item}"
-            answer_html = derive_followup_answer(parent, item)
+            answer_html = derive_followup_answer(parent, item, idx)
             part["questions"].append({
                 "type": "question",
                 "title": title,
