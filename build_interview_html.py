@@ -686,6 +686,192 @@ def append_followups(documents: list[dict], followups: dict[str, str]) -> None:
                     question["search_text"] += " " + strip_tags(followups[q_id])
 
 
+def parse_summary_followup_cards(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
+    groups: list[dict] = []
+    current_q = ""
+    current_title = ""
+    collecting = False
+    items: list[str] = []
+    current_item = ""
+    in_code = False
+
+    def finish_item():
+        nonlocal current_item
+        item = current_item.strip()
+        if item:
+            items.append(item)
+        current_item = ""
+
+    def flush_group():
+        nonlocal items
+        finish_item()
+        if current_q and items:
+            groups.append({
+                "q_id": current_q,
+                "parent_title": current_title,
+                "items": items,
+            })
+        items = []
+
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code = not in_code
+        if in_code:
+            continue
+
+        if line.startswith("## Q"):
+            flush_group()
+            current_title = line[3:].strip()
+            current_q = extract_q_id(current_title)
+            collecting = False
+            continue
+
+        if line.startswith("### "):
+            if line[4:].strip().startswith("追问"):
+                collecting = True
+                continue
+            if collecting:
+                collecting = False
+                finish_item()
+            continue
+
+        if not collecting:
+            continue
+
+        if not stripped or stripped == "---":
+            finish_item()
+            continue
+
+        numbered = re.match(r"^\s*\d+[.)、]\s*(.+)$", line)
+        bulleted = re.match(r"^\s*[-*]\s+(.+)$", line)
+        if numbered or bulleted:
+            finish_item()
+            current_item = (numbered or bulleted).group(1).strip()
+        elif current_item:
+            current_item += " " + stripped
+
+    flush_group()
+    return groups
+
+
+def build_parent_question_index(documents: list[dict]) -> dict[str, dict]:
+    index: dict[str, dict] = {}
+    for doc in documents:
+        for part in doc.get("parts", []):
+            for question in part.get("questions", []):
+                q_id = question.get("q_id")
+                if not q_id:
+                    continue
+                if q_id not in index or answer_depth_score(question) > answer_depth_score(index[q_id]):
+                    index[q_id] = question
+    return index
+
+
+def answer_blocks(answer_html: str) -> list[str]:
+    return re.findall(
+        r"<(?:p|li|h4|h5|pre|ul|ol|div)\b[^>]*>.*?</(?:p|li|h4|h5|pre|ul|ol|div)>",
+        answer_html or "",
+        flags=re.DOTALL,
+    )
+
+
+def score_answer_block(question_text: str, block_html: str) -> int:
+    plain_question = strip_tags(question_text).lower()
+    plain_block = strip_tags(block_html).lower()
+    ascii_tokens = re.findall(r"[a-zA-Z_][a-zA-Z0-9_./-]*", plain_question)
+    chinese_chunks = re.findall(r"[\u4e00-\u9fff]{2,}", plain_question)
+    chinese_tokens: set[str] = set()
+    for chunk in chinese_chunks:
+        if len(chunk) <= 6:
+            chinese_tokens.add(chunk)
+        else:
+            chinese_tokens.update(chunk[i:i + 2] for i in range(len(chunk) - 1))
+            chinese_tokens.update(chunk[i:i + 3] for i in range(len(chunk) - 2))
+
+    score = 0
+    for token in ascii_tokens:
+        if token and token in plain_block:
+            score += 4
+    for token in chinese_tokens:
+        if token and token in plain_block:
+            score += 1
+    return score
+
+
+def derive_followup_answer(parent: dict | None, question_text: str) -> str:
+    if not parent:
+        return block_md([
+            "可以从三个角度回答：先给明确结论，再说明落地做法，最后补充风险和边界。",
+            f"- 结论：围绕“{question_text}”直接回答，不要只说概念。",
+            "- 落地：结合项目中的目录结构、接口封装、数据流、日志、CI 或监控说明怎么做。",
+            "- 风险：补充异常处理、边界条件、维护成本和排查路径。",
+        ])
+
+    blocks = answer_blocks(parent.get("answer_html", ""))
+    scored: list[tuple[int, int, str]] = [
+        (score_answer_block(question_text, block), idx, block)
+        for idx, block in enumerate(blocks)
+    ]
+    selected_idx = sorted(idx for score, idx, _ in scored if score >= 2)[:4]
+
+    if not selected_idx and blocks:
+        selected_idx = list(range(min(3, len(blocks))))
+
+    selected = [blocks[idx] for idx in selected_idx]
+    if not selected:
+        selected = [f"<p>{inline_md(strip_tags(parent.get('answer_html', ''))[:260])}</p>"]
+
+    parent_title = parent.get("title", "")
+    return (
+        f"<p><strong>答题要点：</strong>这道题可以从主问题「{inline_md(parent_title)}」里拆开回答，重点说清楚结论、落地位置和边界。</p>\n"
+        + "\n".join(selected)
+    )
+
+
+def build_followup_card_document(documents: list[dict], followup_groups: list[dict], source_path: Path) -> dict:
+    parent_index = build_parent_question_index(documents)
+    parts_by_category: dict[str, dict] = {}
+
+    for group in followup_groups:
+        parent = parent_index.get(group.get("q_id", ""))
+        parent_title = group.get("parent_title", "")
+        category = infer_category(
+            parent.get("source_part", "") if parent else parent_title,
+            parent.get("title", parent_title) if parent else parent_title,
+            parent.get("source_file", source_path.name) if parent else source_path.name,
+        )
+        part = parts_by_category.setdefault(category, {
+            "id": f"followup-{len(parts_by_category)}",
+            "title": category,
+            "questions": [],
+        })
+
+        for idx, item in enumerate(group.get("items", []), 1):
+            title = f"{group.get('q_id', 'Q')}.{idx}：{item}"
+            answer_html = derive_followup_answer(parent, item)
+            part["questions"].append({
+                "type": "question",
+                "title": title,
+                "problem_text": "",
+                "answer_html": answer_html,
+                "search_text": f"{title} {strip_tags(answer_html)}",
+                "source_file": source_path.name,
+                "source_part": parent_title,
+                "q_id": f"{group.get('q_id', 'Q')}.{idx}",
+            })
+
+    return {
+        "intro_html": "",
+        "parts": list(parts_by_category.values()),
+        "total_questions": sum(len(part["questions"]) for part in parts_by_category.values()),
+    }
+
+
 def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
     buckets = {category: [] for category in TECH_CATEGORY_ORDER}
     duplicates: list[dict] = []
@@ -1056,7 +1242,9 @@ def main():
         annotate_document(parse_md(path.read_text(encoding="utf-8-sig")), path)
         for path in input_files
     ]
-    append_followups(documents, parse_summary_followups(SUMMARY_FILE))
+    followup_groups = parse_summary_followup_cards(SUMMARY_FILE)
+    if followup_groups:
+        documents.append(build_followup_card_document(documents, followup_groups, SUMMARY_FILE))
     data, duplicates = regroup_and_dedup(documents)
 
     # Load Assets
@@ -1090,12 +1278,14 @@ def main():
     )
 
     if args.report_output:
-        write_merge_report(Path(args.report_output), duplicates, data, input_files)
+        report_inputs = input_files + ([SUMMARY_FILE] if followup_groups else [])
+        write_merge_report(Path(args.report_output), duplicates, data, report_inputs)
 
     print(f"已生成首页: {args.index_output}")
     print(f"章节页目录: {chapters_dir}")
     print("源文件: " + " + ".join(path.name for path in input_files))
     print(f"章节数: {len(data['parts'])}, 题目数: {data['total_questions']}")
+    print(f"独立扩展题: {sum(len(group.get('items', [])) for group in followup_groups)} 项")
     print(f"重复处理: {len(duplicates)} 项")
 
 
