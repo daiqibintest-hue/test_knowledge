@@ -390,6 +390,33 @@ body {
 
 .badge-answer { background: #10b981; color: white; }
 .badge-problem { background: var(--scenario-accent); color: white; }
+.source-badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.followup-block {
+  margin-top: 1rem;
+  padding: 0.875rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+}
+.followup-block p:first-child { margin-top: 0; }
+.followup-block p:last-child { margin-bottom: 0; }
+.answer-subtitle {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.answer-subtitle.small {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
 
 .point-list {
   list-style: none;

@@ -7,9 +7,11 @@
 | `测开面试_通用版.md` | 通用测开 + 通用 AI 产品版题目清单 |
 | `测开面试_通用版_含答案.md` | 通用测开 + 通用 AI 产品版含答案 Markdown |
 | `测开面经.md` | 补充面经 Markdown，默认会合并到可视化页面 |
+| `sources/测试开发面试题解答/` | 深度专题源文件，默认按技术主题融合进页面 |
+| `去重合并报告.md` | 构建时输出的保守去重记录 |
 | `interview-qa-general.html` | 可视化 HTML 页面 |
 | `index.html` | GitHub Pages 默认入口，内容与可视化页面一致 |
-| `build_interview_html.py` | 从本目录 Markdown 重新生成 HTML |
+| `build_interview_html.py` | 纯 Python 标准库构建脚本，无需安装第三方依赖 |
 
 ## 使用方式
 
@@ -18,23 +20,25 @@
 更新 Markdown 后，在本目录打开终端运行：
 
 ```bash
-python3 build_interview_html.py
+py build_interview_html.py
 ```
 
-脚本默认合并读取 `测开面试_通用版_含答案.md` 和 `测开面经.md`，并同步更新：
+脚本默认合并读取 `测开面试_通用版_含答案.md`、`测开面经.md` 和 `sources/测试开发面试题解答/` 下的深度专题文件，按技术主题归类并做保守去重，然后同步更新：
 
 - `interview-qa-general.html`
 - `测开面试_通用版_含答案.html`
 - `index.html`
+- `去重合并报告.md`
 
 如需单独生成某个 Markdown 文件，可使用 `--input` / `--output` 参数。显式传入 `--input` 时不会自动合并默认补充源：
 
 ```bash
-python3 build_interview_html.py \
+py build_interview_html.py \
   --input 测开面经.md \
   --output /tmp/mianshi.html \
   --also-output "" \
-  --index-output ""
+  --index-output "" \
+  --report-output ""
 ```
 
 如需在默认源之外继续追加其他文件，可重复传入 `--extra-input`。
