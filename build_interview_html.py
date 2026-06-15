@@ -13,6 +13,7 @@ TEMPLATES_DIR = DESKTOP / "templates"
 ASSETS_DIR = DESKTOP / "assets"
 
 MD_FILE = DESKTOP / "测开面试_通用版_含答案.md"
+DEFAULT_EXTRA_MD_FILES = [DESKTOP / "测开面经.md"]
 OUT_FILE_ASCII = DESKTOP / "interview-qa-general.html"
 OUT_FILE_INDEX = DESKTOP / "index.html"
 
@@ -468,9 +469,48 @@ def parse_md(content: str) -> dict:
     return {"intro_html": intro_html, "parts": parts, "total_questions": global_idx}
 
 
+def merge_parsed_documents(documents: list[dict]) -> dict:
+    """合并多个已解析文档，并重排章节 id 与全局题号。"""
+    if not documents:
+        return {"intro_html": "", "parts": [], "total_questions": 0}
+
+    intro_html = "\n".join(doc["intro_html"] for doc in documents if doc.get("intro_html"))
+    parts: list[dict] = []
+    appendices: list[dict] = []
+
+    for idx, doc in enumerate(documents):
+        for part in doc["parts"]:
+            if idx == 0 and part.get("title", "").startswith("附录"):
+                appendices.append(part)
+            else:
+                parts.append(part)
+    parts.extend(appendices)
+
+    total_questions = 0
+    for part_idx, part in enumerate(parts):
+        part["id"] = f"part-{part_idx}"
+        for question in part["questions"]:
+            total_questions += 1
+            question["global_idx"] = total_questions
+
+    return {"intro_html": intro_html, "parts": parts, "total_questions": total_questions}
+
+
+def resolve_input_file(value: str) -> Path:
+    input_file = Path(value)
+    if not input_file.exists():
+        input_file = DESKTOP / value
+
+    if not input_file.exists():
+        raise SystemExit(f"找不到源文件: {input_file}")
+
+    return input_file
+
+
 def main():
     parser = argparse.ArgumentParser(description="从面试题 Markdown 生成可视化 HTML")
-    parser.add_argument("--input", "-i", default=str(MD_FILE), help="输入 Markdown 文件")
+    parser.add_argument("--input", "-i", default=None, help="输入 Markdown 文件；不传时默认合并主库和补充面经")
+    parser.add_argument("--extra-input", action="append", default=[], help="追加合并的 Markdown 文件，可重复传入")
     parser.add_argument("--output", "-o", default=str(OUT_FILE_ASCII), help="输出 HTML 文件")
     parser.add_argument("--also-output", default=str(DESKTOP / "测开面试_通用版_含答案.html"), help="额外输出 HTML 文件")
     parser.add_argument("--index-output", default=str(OUT_FILE_INDEX), help="GitHub Pages 默认入口")
@@ -478,15 +518,14 @@ def main():
     parser.add_argument("--sidebar-title", default="测开面试题库", help="侧边栏标题")
     args = parser.parse_args()
 
-    input_file = Path(args.input)
-    if not input_file.exists():
-        input_file = DESKTOP / args.input
+    if args.input:
+        input_files = [resolve_input_file(args.input)]
+    else:
+        input_files = [MD_FILE] + [p for p in DEFAULT_EXTRA_MD_FILES if p.exists()]
+    input_files.extend(resolve_input_file(value) for value in args.extra_input)
 
-    if not input_file.exists():
-        raise SystemExit(f"找不到源文件: {input_file}")
-
-    content = input_file.read_text(encoding="utf-8-sig")
-    data = parse_md(content)
+    documents = [parse_md(path.read_text(encoding="utf-8-sig")) for path in input_files]
+    data = merge_parsed_documents(documents)
 
     # Load Template
     env = Environment(
@@ -512,6 +551,7 @@ def main():
         css_content=css_content,
         js_content=js_content
     )
+    html_out = "\n".join(line.rstrip() for line in html_out.splitlines()) + "\n"
 
     Path(args.output).write_text(html_out, encoding="utf-8")
     if args.also_output:
@@ -520,6 +560,7 @@ def main():
         Path(args.index_output).write_text(html_out, encoding="utf-8")
 
     print(f"已生成: {args.output}")
+    print("源文件: " + " + ".join(path.name for path in input_files))
     print(f"章节数: {len(data['parts'])}, 题目数: {data['total_questions']}")
 
 

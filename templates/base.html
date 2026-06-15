@@ -54,7 +54,7 @@
         <section class="part-section" id="{{ part.id }}">
           <h2 class="part-title">{{ part.title }}</h2>
           <p class="part-meta">{{ part.questions | length }} 题</p>
-          
+
           {% if part.freeform_html %}
           <div class="freeform-content">
             {{ part.freeform_html | safe }}
@@ -63,8 +63,8 @@
 
           <div class="cards-grid">
             {% for item in part.questions %}
-            <article class="card {% if item.type == 'scenario' %}scenario{% endif %}" 
-                     data-idx="{{ item.global_idx }}" 
+            <article class="card {% if item.type == 'scenario' %}scenario{% endif %}"
+                     data-idx="{{ item.global_idx }}"
                      data-search="{{ item.search_text | attr_escape }}">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">#{{ item.global_idx }}</span>

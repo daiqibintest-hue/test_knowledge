@@ -6,6 +6,7 @@
 |------|------|
 | `测开面试_通用版.md` | 通用测开 + 通用 AI 产品版题目清单 |
 | `测开面试_通用版_含答案.md` | 通用测开 + 通用 AI 产品版含答案 Markdown |
+| `测开面经.md` | 补充面经 Markdown，默认会合并到可视化页面 |
 | `interview-qa-general.html` | 可视化 HTML 页面 |
 | `index.html` | GitHub Pages 默认入口，内容与可视化页面一致 |
 | `build_interview_html.py` | 从本目录 Markdown 重新生成 HTML |
@@ -20,21 +21,23 @@
 python3 build_interview_html.py
 ```
 
-脚本默认读取 `测开面试_通用版_含答案.md`，并同步更新：
+脚本默认合并读取 `测开面试_通用版_含答案.md` 和 `测开面经.md`，并同步更新：
 
 - `interview-qa-general.html`
 - `测开面试_通用版_含答案.html`
 - `index.html`
 
-如需临时生成其他 Markdown 文件，可使用现有 `--input` / `--output` 参数：
+如需单独生成某个 Markdown 文件，可使用 `--input` / `--output` 参数。显式传入 `--input` 时不会自动合并默认补充源：
 
 ```bash
 python3 build_interview_html.py \
-  --input /Users/daiqibin/Downloads/knowledge-test/测开面经.md \
+  --input 测开面经.md \
   --output /tmp/mianshi.html \
   --also-output "" \
   --index-output ""
 ```
+
+如需在默认源之外继续追加其他文件，可重复传入 `--extra-input`。
 
 ## 上传 GitHub 后预览
 
