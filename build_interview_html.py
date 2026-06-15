@@ -4,19 +4,20 @@
 
 import html
 import re
+import json
+import shutil
 import argparse
 from pathlib import Path
 
 DESKTOP = Path(__file__).resolve().parent
-TEMPLATES_DIR = DESKTOP / "templates"
 ASSETS_DIR = DESKTOP / "assets"
 SOURCE_DIR = DESKTOP / "sources" / "测试开发面试题解答"
 
 MD_FILE = DESKTOP / "测开面试_通用版_含答案.md"
 DEFAULT_EXTRA_MD_FILES = [DESKTOP / "测开面经.md"]
-OUT_FILE_ASCII = DESKTOP / "interview-qa-general.html"
 OUT_FILE_INDEX = DESKTOP / "index.html"
-OUT_FILE_FULL = DESKTOP / "测开面试_通用版_含答案.html"
+CHAPTERS_DIR = DESKTOP / "chapters"
+SEARCH_INDEX_FILE = ASSETS_DIR / "search-index.json"
 MERGE_REPORT_FILE = DESKTOP / "去重合并报告.md"
 SUMMARY_FILE = SOURCE_DIR / "测试开发与AI_Agent面试题汇总.md"
 
@@ -56,6 +57,31 @@ SOURCE_CATEGORY_BY_FILE = {
     "13-30分钟高频必问.md": "综合追问 / 高频必问",
     "14-补充题.md": "综合追问 / 高频必问",
 }
+
+# 章节 -> 稳定的 ASCII slug，用于生成 chapters/<slug>.html 的文件名与跨页链接
+CATEGORY_SLUG = {
+    "测试流程与设计": "process-design",
+    "接口测试": "api-test",
+    "接口自动化框架": "api-automation",
+    "pytest": "pytest",
+    "接口依赖与业务链路": "api-dependency",
+    "数据库与数据校验": "database",
+    "Linux / 日志分析": "linux-log",
+    "性能测试": "performance",
+    "CI/CD 与测试左移": "cicd",
+    "精准测试": "precise-test",
+    "自动化测试平台": "platform",
+    "AI Agent / RAG / AI 测试": "ai-agent",
+    "UI 自动化": "ui-automation",
+    "兼容性 / 弱网": "compatibility",
+    "安全权限": "security",
+    "代码实战": "coding",
+    "综合追问 / 高频必问": "comprehensive",
+}
+
+
+def category_slug(title: str, index: int) -> str:
+    return CATEGORY_SLUG.get(title) or f"chapter-{index}"
 
 
 def escape(s: str) -> str:
@@ -401,11 +427,10 @@ def parse_md(content: str) -> dict:
             append_answer_line(rest)
 
     def append_part_line(raw: str):
-        if current_part is None:
-            if raw.strip() and raw.strip() != "---":
-                intro_lines.append(raw)
-            return
-        current_part.setdefault("freeform", []).append(raw)
+        # 章节标题后、首个问题前的散文目前无展示位（章节会按技术分类重组），
+        # 仅保留文档开头、首个章节之前的内容作为 intro。
+        if current_part is None and raw.strip() and raw.strip() != "---":
+            intro_lines.append(raw)
 
     def append_answer_line(raw: str):
         answer_buf.append(raw)
@@ -514,11 +539,6 @@ def parse_md(content: str) -> dict:
                 items.append(l.strip())
         if items:
             intro_html = "".join(f"<p>{inline_md(x)}</p>" for x in items)
-
-    for p in parts:
-        if p.get("freeform"):
-            p["freeform_html"] = block_md([l.rstrip("\n") + "\n" for l in p["freeform"]])
-            del p["freeform"]
 
     return {"intro_html": intro_html, "parts": parts, "total_questions": global_idx}
 
@@ -719,6 +739,7 @@ def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
         part = {
             "id": f"part-{len(parts)}",
             "title": category,
+            "slug": category_slug(category, len(parts) + 1),
             "questions": [],
         }
         for question in questions:
@@ -729,8 +750,23 @@ def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
     return {"intro_html": "", "parts": parts, "total_questions": total}, duplicates
 
 
-def render_nav(parts: list[dict]) -> str:
-    return "\n".join(f'<li><a href="#{part["id"]}">{escape(part["title"])}</a></li>' for part in parts)
+def render_nav(parts: list[dict], prefix: str, current_slug: str | None) -> str:
+    """侧边栏导航：跨页链接到各章节页，高亮当前页。
+
+    prefix 为相对路径前缀：首页为 "chapters/"，章节页为 ""（同级）。
+    """
+    home_href = f"{prefix}index.html" if prefix else "../index.html"
+    home_active = " active" if current_slug is None else ""
+    items = [f'<li><a class="nav-home{home_active}" href="{home_href}">🏠 首页目录</a></li>']
+    for part in parts:
+        href = f"{prefix}{part['slug']}.html"
+        active = " active" if part["slug"] == current_slug else ""
+        count = len(part.get("questions", []))
+        items.append(
+            f'<li><a class="nav-chapter{active}" href="{href}">'
+            f'{escape(part["title"])}<span class="nav-count">{count}</span></a></li>'
+        )
+    return "\n".join(items)
 
 
 def render_card(item: dict) -> str:
@@ -747,6 +783,7 @@ def render_card(item: dict) -> str:
         )
     return f"""
             <article class="card{scenario_cls}"
+                     id="card-{item["global_idx"]}"
                      data-idx="{item["global_idx"]}"
                      data-search="{attr_escape(item.get("search_text", ""))}">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
@@ -772,11 +809,9 @@ def render_card(item: dict) -> str:
 """
 
 
-def render_sections(parts: list[dict]) -> str:
-    rendered = []
-    for part in parts:
-        cards = "\n".join(render_card(item) for item in part.get("questions", []))
-        rendered.append(f"""
+def render_chapter_section(part: dict) -> str:
+    cards = "\n".join(render_card(item) for item in part.get("questions", []))
+    return f"""
         <section class="part-section" id="{part["id"]}">
           <h2 class="part-title">{escape(part["title"])}</h2>
           <p class="part-meta">{len(part.get("questions", []))} 题</p>
@@ -784,12 +819,80 @@ def render_sections(parts: list[dict]) -> str:
             {cards}
           </div>
         </section>
-""")
-    return "\n".join(rendered)
+"""
 
 
-def render_html(data: dict, page_title: str, sidebar_title: str, css_content: str, js_content: str) -> str:
-    intro = f'<div class="intro">{data["intro_html"]}</div>' if data.get("intro_html") else ""
+def render_directory(parts: list[dict]) -> str:
+    """首页章节目录卡片。"""
+    cards = []
+    for idx, part in enumerate(parts, start=1):
+        count = len(part.get("questions", []))
+        cards.append(f"""
+            <a class="chapter-card" href="chapters/{part['slug']}.html">
+              <span class="chapter-card-num">第 {idx} 章</span>
+              <h3 class="chapter-card-title">{escape(part["title"])}</h3>
+              <span class="chapter-card-meta">{count} 题</span>
+            </a>""")
+    return f'<div class="chapter-grid">{"".join(cards)}</div>'
+
+
+def build_search_index(parts: list[dict]) -> list[dict]:
+    """全局搜索索引：每题 idx / title / category / url / text。"""
+    index = []
+    for part in parts:
+        url = f"chapters/{part['slug']}.html"
+        for item in part.get("questions", []):
+            text = strip_tags(item.get("answer_html", ""))
+            text = re.sub(r"\s+", " ", text).strip()
+            index.append({
+                "idx": item["global_idx"],
+                "title": item.get("title", ""),
+                "category": part["title"],
+                "url": url,
+                "text": text,
+            })
+    return index
+
+
+def render_topbar() -> str:
+    return """
+      <header class="topbar">
+        <button type="button" class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="search" placeholder="全局搜索题目、答案或关键词..." autocomplete="off">
+          <div class="search-results" id="searchResults" hidden></div>
+        </div>
+        <div class="search-nav">
+          <button type="button" id="searchPrev" disabled title="上一个 (↑)">↑</button>
+          <button type="button" id="searchNext" disabled title="下一个 (↓)">↓</button>
+        </div>
+        <span class="search-stats" id="searchStats"></span>
+        <div class="toolbar">
+          <button type="button" id="randomBtn">随机一题</button>
+          <button type="button" id="expandAll">全部展开</button>
+          <button type="button" id="collapseAll">全部折叠</button>
+          <button type="button" id="themeBtn">深色模式</button>
+        </div>
+      </header>
+"""
+
+
+def render_page(
+    *,
+    page_title: str,
+    sidebar_title: str,
+    css_content: str,
+    js_content: str,
+    parts: list[dict],
+    total_questions: int,
+    nav_prefix: str,
+    current_slug: str | None,
+    asset_prefix: str,
+    body_html: str,
+    search_index: list[dict],
+) -> str:
+    index_json = json.dumps(search_index, ensure_ascii=False)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -806,37 +909,17 @@ def render_html(data: dict, page_title: str, sidebar_title: str, css_content: st
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h1>{escape(sidebar_title)}</h1>
-        <div class="sub">含答案 · 共 {data["total_questions"]} 题</div>
+        <div class="sub">含答案 · 共 {total_questions} 题</div>
       </div>
       <ul class="nav-list">
-        {render_nav(data["parts"])}
+        {render_nav(parts, nav_prefix, current_slug)}
       </ul>
     </aside>
 
     <div class="main-wrap">
-      <header class="topbar">
-        <button type="button" class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="search" id="search" placeholder="搜索题目、答案或关键词..." autocomplete="off">
-        </div>
-        <div class="search-nav">
-          <button type="button" id="searchPrev" disabled title="上一个 (Shift+Enter)">↑</button>
-          <button type="button" id="searchNext" disabled title="下一个 (Enter)">↓</button>
-        </div>
-        <span class="search-stats" id="searchStats"></span>
-        <div class="toolbar">
-          <button type="button" id="randomBtn">随机一题</button>
-          <button type="button" id="expandAll">全部展开</button>
-          <button type="button" id="collapseAll">全部折叠</button>
-          <button type="button" id="themeBtn">深色模式</button>
-        </div>
-      </header>
-
+{render_topbar()}
       <main class="content">
-        {intro}
-        {render_sections(data["parts"])}
-        <p class="no-results" id="noResults">未找到相关内容，请尝试其他关键词</p>
+{body_html}
       </main>
     </div>
   </div>
@@ -844,11 +927,58 @@ def render_html(data: dict, page_title: str, sidebar_title: str, css_content: st
   <button type="button" class="back-top" id="backTop" aria-label="回到顶部">↑</button>
 
   <script>
+    window.__BASE_PREFIX__ = "{asset_prefix}";
+    window.__SEARCH_INDEX__ = {index_json};
+  </script>
+  <script>
 {js_content}
   </script>
 </body>
 </html>
 """
+
+
+def render_index_page(data: dict, page_title: str, sidebar_title: str, css_content: str, js_content: str, search_index: list[dict]) -> str:
+    intro = f'<div class="intro">{data["intro_html"]}</div>' if data.get("intro_html") else ""
+    body = f"""
+        {intro}
+        <section class="home-hero">
+          <h2 class="home-title">{escape(sidebar_title)}</h2>
+          <p class="home-sub">按章节浏览 · 共 {len(data["parts"])} 章 / {data["total_questions"]} 题。点击任一章节进入，或在上方搜索框全局检索。</p>
+        </section>
+        {render_directory(data["parts"])}
+"""
+    return render_page(
+        page_title=page_title,
+        sidebar_title=sidebar_title,
+        css_content=css_content,
+        js_content=js_content,
+        parts=data["parts"],
+        total_questions=data["total_questions"],
+        nav_prefix="chapters/",
+        current_slug=None,
+        asset_prefix="",
+        body_html=body,
+        search_index=search_index,
+    )
+
+
+def render_chapter_page(part: dict, data: dict, page_title: str, sidebar_title: str, css_content: str, js_content: str, search_index: list[dict]) -> str:
+    body = render_chapter_section(part)
+    title = f"{part['title']} · {page_title}"
+    return render_page(
+        page_title=title,
+        sidebar_title=sidebar_title,
+        css_content=css_content,
+        js_content=js_content,
+        parts=data["parts"],
+        total_questions=data["total_questions"],
+        nav_prefix="",
+        current_slug=part["slug"],
+        asset_prefix="../",
+        body_html=body,
+        search_index=search_index,
+    )
 
 
 def write_merge_report(path: Path, duplicates: list[dict], data: dict, input_files: list[Path]) -> None:
@@ -879,33 +1009,6 @@ def write_merge_report(path: Path, duplicates: list[dict], data: dict, input_fil
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def merge_parsed_documents(documents: list[dict]) -> dict:
-    """兼容旧调用：合并多个已解析文档，并重排章节 id 与全局题号。"""
-    data, _ = regroup_and_dedup(documents)
-    return data
-
-    intro_html = "\n".join(doc["intro_html"] for doc in documents if doc.get("intro_html"))
-    parts: list[dict] = []
-    appendices: list[dict] = []
-
-    for idx, doc in enumerate(documents):
-        for part in doc["parts"]:
-            if idx == 0 and part.get("title", "").startswith("附录"):
-                appendices.append(part)
-            else:
-                parts.append(part)
-    parts.extend(appendices)
-
-    total_questions = 0
-    for part_idx, part in enumerate(parts):
-        part["id"] = f"part-{part_idx}"
-        for question in part["questions"]:
-            total_questions += 1
-            question["global_idx"] = total_questions
-
-    return {"intro_html": intro_html, "parts": parts, "total_questions": total_questions}
-
-
 def resolve_input_file(value: str) -> Path:
     input_file = Path(value)
     if not input_file.exists():
@@ -928,13 +1031,16 @@ def default_source_files() -> list[Path]:
     return files
 
 
+def normalize_html(html_out: str) -> str:
+    return "\n".join(line.rstrip() for line in html_out.splitlines()) + "\n"
+
+
 def main():
-    parser = argparse.ArgumentParser(description="从面试题 Markdown 生成可视化 HTML")
+    parser = argparse.ArgumentParser(description="从面试题 Markdown 生成按章节拆分的多页可视化站点")
     parser.add_argument("--input", "-i", default=None, help="输入 Markdown 文件；不传时默认合并主库、补充面经和 sources 深度资料")
     parser.add_argument("--extra-input", action="append", default=[], help="追加合并的 Markdown 文件，可重复传入")
-    parser.add_argument("--output", "-o", default=str(OUT_FILE_ASCII), help="输出 HTML 文件")
-    parser.add_argument("--also-output", default=str(OUT_FILE_FULL), help="额外输出 HTML 文件")
-    parser.add_argument("--index-output", default=str(OUT_FILE_INDEX), help="GitHub Pages 默认入口")
+    parser.add_argument("--index-output", default=str(OUT_FILE_INDEX), help="首页/目录入口 HTML")
+    parser.add_argument("--chapters-dir", default=str(CHAPTERS_DIR), help="各章节页面输出目录")
     parser.add_argument("--report-output", default=str(MERGE_REPORT_FILE), help="去重合并报告；传空字符串可关闭")
     parser.add_argument("--title", default="测开面试题库（通用版）", help="HTML 标题")
     parser.add_argument("--sidebar-title", default="测开面试题库", help="侧边栏标题")
@@ -957,18 +1063,37 @@ def main():
     css_content = (ASSETS_DIR / "style.css").read_text(encoding="utf-8")
     js_content = (ASSETS_DIR / "script.js").read_text(encoding="utf-8")
 
-    html_out = render_html(data, args.title, args.sidebar_title, css_content, js_content)
-    html_out = "\n".join(line.rstrip() for line in html_out.splitlines()) + "\n"
+    search_index = build_search_index(data["parts"])
 
-    Path(args.output).write_text(html_out, encoding="utf-8")
-    if args.also_output:
-        Path(args.also_output).write_text(html_out, encoding="utf-8")
-    if args.index_output:
-        Path(args.index_output).write_text(html_out, encoding="utf-8")
+    # 首页目录
+    index_html = render_index_page(
+        data, args.title, args.sidebar_title, css_content, js_content, search_index
+    )
+    Path(args.index_output).write_text(normalize_html(index_html), encoding="utf-8")
+
+    # 每个章节一个页面（重建 chapters 目录，避免遗留旧 slug 文件）
+    chapters_dir = Path(args.chapters_dir)
+    if chapters_dir.exists():
+        shutil.rmtree(chapters_dir)
+    chapters_dir.mkdir(parents=True, exist_ok=True)
+    for part in data["parts"]:
+        page_html = render_chapter_page(
+            part, data, args.title, args.sidebar_title, css_content, js_content, search_index
+        )
+        (chapters_dir / f"{part['slug']}.html").write_text(
+            normalize_html(page_html), encoding="utf-8"
+        )
+
+    # 搜索索引（同时作为构建产物输出，便于外部复用）
+    SEARCH_INDEX_FILE.write_text(
+        json.dumps(search_index, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
     if args.report_output:
         write_merge_report(Path(args.report_output), duplicates, data, input_files)
 
-    print(f"已生成: {args.output}")
+    print(f"已生成首页: {args.index_output}")
+    print(f"章节页目录: {chapters_dir}")
     print("源文件: " + " + ".join(path.name for path in input_files))
     print(f"章节数: {len(data['parts'])}, 题目数: {data['total_questions']}")
     print(f"重复处理: {len(duplicates)} 项")
