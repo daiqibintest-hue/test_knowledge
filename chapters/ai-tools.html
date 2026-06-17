@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>安全权限 · 测开面试题库（通用版）</title>
+  <title>AI 工具生态与能力扩展 · 测开面试题库（通用版）</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -757,12 +757,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 <li><a class="nav-chapter" href="llm-prompt.html">LLM 基础与 Prompt<span class="nav-count">19</span></a></li>
 <li><a class="nav-chapter" href="rag.html">RAG 知识增强<span class="nav-count">62</span></a></li>
 <li><a class="nav-chapter" href="ai-agent.html">AI Agent 自动执行<span class="nav-count">39</span></a></li>
-<li><a class="nav-chapter" href="ai-tools.html">AI 工具生态与能力扩展<span class="nav-count">42</span></a></li>
+<li><a class="nav-chapter active" href="ai-tools.html">AI 工具生态与能力扩展<span class="nav-count">42</span></a></li>
 <li><a class="nav-chapter" href="ai-evaluation.html">AI 测试与评测<span class="nav-count">140</span></a></li>
 <li><a class="nav-chapter" href="llmops.html">LLMOps 工程化工具<span class="nav-count">6</span></a></li>
 <li><a class="nav-chapter" href="ui-automation.html">UI 自动化<span class="nav-count">28</span></a></li>
 <li><a class="nav-chapter" href="compatibility.html">兼容性 / 弱网<span class="nav-count">34</span></a></li>
-<li><a class="nav-chapter active" href="security.html">安全权限<span class="nav-count">19</span></a></li>
+<li><a class="nav-chapter" href="security.html">安全权限<span class="nav-count">19</span></a></li>
 <li><a class="nav-chapter" href="coding.html">代码实战<span class="nav-count">5</span></a></li>
 <li><a class="nav-chapter" href="comprehensive.html">综合追问 / 高频必问<span class="nav-count">99</span></a></li>
       </ul>
@@ -792,19 +792,19 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
       <main class="content">
 
-        <section class="part-section" id="part-19">
-          <h2 class="part-title">安全权限</h2>
-          <p class="part-meta">19 题</p>
+        <section class="part-section" id="part-14">
+          <h2 class="part-title">AI 工具生态与能力扩展</h2>
+          <p class="part-meta">42 题</p>
           <div class="cards-grid">
 
             <article class="card"
-                     id="card-941"
-                     data-idx="941"
-                     data-search="Q001：如何测试接口越权？ 8. 如何测试接口越权？ 8. 如何测试接口越权？    两类：  - **水平越权**：A 用户的 Token 访问 B 用户的资源。比如业务人员 A 用自己 Token 访问 GET /orders/{B 业务人员的工单 ID}，预期 403；  - **垂直越权**：低权限用户访问高权限接口。比如运营专员用 Token 访问 DELETE /admin/users/{id}，预期 403。  测试时遍历所有&quot;含 ID 的接口&quot;，用低权限 Token 替换 URL/Body 中的 ID 进行扫描。   ">
+                     id="card-691"
+                     data-idx="691"
+                     data-search="Q001：什么是 MCP？ 1. 什么是 MCP？ 1. 什么是 MCP？    Model Context Protocol，模型上下文协议，Anthropic 2024 年底提出。本质是 LLM 与外部工具/数据源之间的标准化通信协议，底层走 **JSON-RPC 2.0**：client 和 server 连上后先做一次 `initialize` 握手，协商协议版本和各自的 capabilities，之后就能 `list_tools` 发现工具、`call_tool` 调用。让 LLM 通过统一接口接入数据库、API、文件系统、企业内部系统，类似&quot;USB for AI&quot;——工具实现一次，任意兼容 MCP 的 Client 都能用。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：8. 如何测试接口越权？">如何测试接口越权？</h3>
+                  <h3 class="card-title" title="原题：1. 什么是 MCP？">什么是 MCP？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -818,9 +818,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>两类：</p>
-<ul><li><strong>水平越权</strong>：A 用户的 Token 访问 B 用户的资源。比如业务人员 A 用自己 Token 访问 GET /orders/{B 业务人员的工单 ID}，预期 403；</li><li><strong>垂直越权</strong>：低权限用户访问高权限接口。比如运营专员用 Token 访问 DELETE /admin/users/{id}，预期 403。</li></ul>
-<p>测试时遍历所有&quot;含 ID 的接口&quot;，用低权限 Token 替换 URL/Body 中的 ID 进行扫描。</p>
+                    <p>Model Context Protocol，模型上下文协议，Anthropic 2024 年底提出。本质是 LLM 与外部工具/数据源之间的标准化通信协议，底层走 <strong>JSON-RPC 2.0</strong>：client 和 server 连上后先做一次 <code>initialize</code> 握手，协商协议版本和各自的 capabilities，之后就能 <code>list_tools</code> 发现工具、<code>call_tool</code> 调用。让 LLM 通过统一接口接入数据库、API、文件系统、企业内部系统，类似&quot;USB for AI&quot;——工具实现一次，任意兼容 MCP 的 Client 都能用。</p>
                   </div>
                 </div>
               </div>
@@ -828,13 +826,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-942"
-                     data-idx="942"
-                     data-search="Q002：权限测试怎么做？ 1. 权限测试怎么做？ 1. 权限测试怎么做？    四个层次：①菜单权限（不同角色看到不同入口）；②接口权限（直接请求接口能否绕过）；③数据权限（业务人员只能看自己工单）；④操作权限（按钮可点击但接口未鉴权？）。每层都单独构造测试用例。   ">
+                     id="card-692"
+                     data-idx="692"
+                     data-search="Q002：MCP 和 Function Calling 有什么区别？ 2. MCP 和 Function Calling 有什么区别？ 2. MCP 和 Function Calling 有什么区别？    - **Function Calling**：模型厂商私有的函数调用机制，与具体模型绑定（OpenAI/Anthropic 各有差异）；  - **MCP**：跨模型/跨厂商的开放协议，工具一次实现可被任意 MCP 兼容的 Client 使用。  类比：FC 像各厂商私有充电口，MCP 像 USB-C 通用标准。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：1. 权限测试怎么做？">权限测试怎么做？</h3>
+                  <h3 class="card-title" title="原题：2. MCP 和 Function Calling 有什么区别？">MCP 和 Function Calling 有什么区别？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -848,7 +846,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>四个层次：</p><ul class="point-list"><li>①菜单权限（不同角色看到不同入口）</li><li>②接口权限（直接请求接口能否绕过）</li><li>③数据权限（业务人员只能看自己工单）</li><li>④操作权限（按钮可点击但接口未鉴权？）。每层都单独构造测试用例。</li></ul>
+                    <ul><li><strong>Function Calling</strong>：模型厂商私有的函数调用机制，与具体模型绑定（OpenAI/Anthropic 各有差异）；</li><li><strong>MCP</strong>：跨模型/跨厂商的开放协议，工具一次实现可被任意 MCP 兼容的 Client 使用。</li></ul>
+<p>类比：FC 像各厂商私有充电口，MCP 像 USB-C 通用标准。</p>
                   </div>
                 </div>
               </div>
@@ -856,13 +855,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-943"
-                     data-idx="943"
-                     data-search="Q003：RBAC 是什么？ 2. RBAC 是什么？ 2. RBAC 是什么？    Role-Based Access Control，基于角色的权限控制。三要素：①用户 User；②角色 Role；③权限 Permission。关系是 User-Role 多对多、Role-Permission 多对多。我们系统有 6 个角色（超级管理员、企业管理员、部门负责人、业务人员、运营专员、客户），20+ 权限点。   ">
+                     id="card-693"
+                     data-idx="693"
+                     data-search="Q003：MCP Server 和 MCP Client 分别是什么？ 3. MCP Server 和 MCP Client 分别是什么？ 3. MCP Server 和 MCP Client 分别是什么？    - **MCP Server**：提供能力的一方（如数据库 Server、文件系统 Server），暴露 Tools/Resources/Prompts；  - **MCP Client**：消费能力的一方（如 Claude Desktop、Cursor、IDE 插件），调用 Server 完成任务。    一个 Agent 可同时连接多个 MCP Server。两种连接方式（transport）要分清：**stdio**——server 是本地子进程，client 在配置里用 `command + args` 拉起、走 stdin/stdout，本地工具最常用；**SSE / Streamable HTTP**——server 是远程服务、走 HTTP 长连接，适合团队共享的远程 MCP。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：2. RBAC 是什么？">RBAC 是什么？</h3>
+                  <h3 class="card-title" title="原题：3. MCP Server 和 MCP Client 分别是什么？">MCP Server 和 MCP Client 分别是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -876,7 +875,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>Role-Based Access Control，基于角色的权限控制。三要素：</p><ul class="point-list"><li>①用户 User</li><li>②角色 Role</li><li>③权限 Permission。关系是 User-Role 多对多、Role-Permission 多对多。我们系统有 6 个角色（超级管理员、企业管理员、部门负责人、业务人员、运营专员、客户），20+ 权限点。</li></ul>
+                    <ul><li><strong>MCP Server</strong>：提供能力的一方（如数据库 Server、文件系统 Server），暴露 Tools/Resources/Prompts；</li><li><strong>MCP Client</strong>：消费能力的一方（如 Claude Desktop、Cursor、IDE 插件），调用 Server 完成任务。</li></ul>
+<p>一个 Agent 可同时连接多个 MCP Server。两种连接方式（transport）要分清：<strong>stdio</strong>——server 是本地子进程，client 在配置里用 <code>command + args</code> 拉起、走 stdin/stdout，本地工具最常用；<strong>SSE / Streamable HTTP</strong>——server 是远程服务、走 HTTP 长连接，适合团队共享的远程 MCP。</p>
                   </div>
                 </div>
               </div>
@@ -884,13 +884,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-944"
-                     data-idx="944"
-                     data-search="Q004：菜单权限和接口权限有什么区别？ 3. 菜单权限和接口权限有什么区别？ 3. 菜单权限和接口权限有什么区别？    ①菜单权限：前端按角色隐藏入口，是 UX 层；②接口权限：后端鉴权，是安全层。**前端隐藏 ≠ 安全**！必须后端鉴权才算真权限。我们测试一定会绕过前端直接构造请求测接口权限。   ">
+                     id="card-694"
+                     data-idx="694"
+                     data-search="Q004：MCP Tools、Resources、Prompts 分别是什么？ 4. MCP Tools、Resources、Prompts 分别是什么？ 4. MCP Tools、Resources、Prompts 分别是什么？    - **Tools**：可被模型调用的函数（如 `query_database`、`send_email`）；  - **Resources**：模型可读取的数据（如某个文件、某个 URI）；  - **Prompts**：预设的 Prompt 模板（如&quot;代码审查模板&quot;）。  三者覆盖了&quot;动作 / 数据 / 指令&quot;三个维度。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：3. 菜单权限和接口权限有什么区别？">菜单权限和接口权限有什么区别？</h3>
+                  <h3 class="card-title" title="原题：4. MCP Tools、Resources、Prompts 分别是什么？">MCP Tools、Resources、Prompts 分别是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -904,7 +904,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①菜单权限：前端按角色隐藏入口，是 UX 层</li><li>②接口权限：后端鉴权，是安全层。<strong>前端隐藏 ≠ 安全</strong>！必须后端鉴权才算真权限。我们测试一定会绕过前端直接构造请求测接口权限。</li></ul>
+                    <ul><li><strong>Tools</strong>：可被模型调用的函数（如 <code>query_database</code>、<code>send_email</code>）；</li><li><strong>Resources</strong>：模型可读取的数据（如某个文件、某个 URI）；</li><li><strong>Prompts</strong>：预设的 Prompt 模板（如&quot;代码审查模板&quot;）。</li></ul>
+<p>三者覆盖了&quot;动作 / 数据 / 指令&quot;三个维度。</p>
                   </div>
                 </div>
               </div>
@@ -912,13 +913,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-945"
-                     data-idx="945"
-                     data-search="Q005：前端隐藏按钮是否等于权限控制？ 4. 前端隐藏按钮是否等于权限控制？ 4. 前端隐藏按钮是否等于权限控制？    不等于。前端隐藏只是不显示，但用户可以：①F12 改 DOM 让按钮显示；②直接发请求绕过前端；③用其他客户端调接口。所以必须后端鉴权。这是我们必测的安全用例。   ">
+                     id="card-695"
+                     data-idx="695"
+                     data-search="Q005：MCP 适合接入哪些系统？ 5. MCP 适合接入哪些系统？ 5. MCP 适合接入哪些系统？    ①企业内部系统（CRM、ERP、工单）；②数据库（只读查询场景）；③DevOps 工具（Jenkins、Jira、GitHub）；④文件系统/知识库；⑤监控告警系统；⑥浏览器自动化（Playwright MCP）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：4. 前端隐藏按钮是否等于权限控制？">前端隐藏按钮是否等于权限控制？</h3>
+                  <h3 class="card-title" title="原题：5. MCP 适合接入哪些系统？">MCP 适合接入哪些系统？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -932,7 +933,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>不等于。前端隐藏只是不显示，但用户可以：</p><ul class="point-list"><li>①F12 改 DOM 让按钮显示</li><li>②直接发请求绕过前端</li><li>③用其他客户端调接口。所以必须后端鉴权。这是我们必测的安全用例。</li></ul>
+                    <ul class="point-list"><li>①企业内部系统（CRM、ERP、工单）</li><li>②数据库（只读查询场景）</li><li>③DevOps 工具（Jenkins、Jira、GitHub）</li><li>④文件系统/知识库</li><li>⑤监控告警系统</li><li>⑥浏览器自动化（Playwright MCP）。</li></ul>
                   </div>
                 </div>
               </div>
@@ -940,13 +941,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-946"
-                     data-idx="946"
-                     data-search="Q006：水平越权怎么测试？ 5. 水平越权怎么测试？ 5. 水平越权怎么测试？    ①用业务人员 A 的 Token；②请求 /orders/{B 业务人员的工单 ID}；③预期返回 403/404，不能返回工单详情；④遍历所有&quot;带 ID 的接口&quot;做这种扫描；⑤包括查询、修改、删除、附件下载。不要只测页面按钮隐藏，接口层必须直接打请求验证。   ">
+                     id="card-696"
+                     data-idx="696"
+                     data-search="Q006：Playwright MCP 可以做什么？ 6. Playwright MCP 可以做什么？ 6. Playwright MCP 可以做什么？    让 Agent 通过自然语言驱动浏览器：①打开页面；②点击/输入；③截图；④抓取 DOM；⑤生成测试脚本。测试场景：让 AI 自己探索应用、生成 E2E 用例草稿、复现 Bug 步骤。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：5. 水平越权怎么测试？">水平越权怎么测试？</h3>
+                  <h3 class="card-title" title="原题：6. Playwright MCP 可以做什么？">Playwright MCP 可以做什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -960,7 +961,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①用业务人员 A 的 Token</li><li>②请求 /orders/{B 业务人员的工单 ID}</li><li>③预期返回 403/404，不能返回工单详情</li><li>④遍历所有&quot;带 ID 的接口&quot;做这种扫描</li><li>⑤包括查询、修改、删除、附件下载。不要只测页面按钮隐藏，接口层必须直接打请求验证。</li></ul>
+                    <p>让 Agent 通过自然语言驱动浏览器：</p><ul class="point-list"><li>①打开页面</li><li>②点击/输入</li><li>③截图</li><li>④抓取 DOM</li><li>⑤生成测试脚本。测试场景：让 AI 自己探索应用、生成 E2E 用例草稿、复现 Bug 步骤。</li></ul>
                   </div>
                 </div>
               </div>
@@ -968,13 +969,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-947"
-                     data-idx="947"
-                     data-search="Q007：垂直越权怎么测试？ 6. 垂直越权怎么测试？ 6. 垂直越权怎么测试？    ①用低权限角色（运营专员）的 Token；②请求高权限接口（DELETE /admin/users）；③预期 403；④覆盖所有管理员独有接口；⑤区分&quot;全部不可访问&quot;和&quot;部分可访问&quot;。   ">
+                     id="card-697"
+                     data-idx="697"
+                     data-search="Q007：企业微信 MCP 可以做什么？ 7. 企业微信 MCP 可以做什么？ 7. 企业微信 MCP 可以做什么？    让 Agent 操作企业微信：①发消息到群；②创建会议；③查询通讯录；④发送告警卡片。测试集成场景：自动化报告发群、缺陷自动通知开发、夜间巡检异常告警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：6. 垂直越权怎么测试？">垂直越权怎么测试？</h3>
+                  <h3 class="card-title" title="原题：7. 企业微信 MCP 可以做什么？">企业微信 MCP 可以做什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -988,7 +989,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①用低权限角色（运营专员）的 Token</li><li>②请求高权限接口（DELETE /admin/users）</li><li>③预期 403</li><li>④覆盖所有管理员独有接口</li><li>⑤区分&quot;全部不可访问&quot;和&quot;部分可访问&quot;。</li></ul>
+                    <p>让 Agent 操作企业微信：</p><ul class="point-list"><li>①发消息到群</li><li>②创建会议</li><li>③查询通讯录</li><li>④发送告警卡片。测试集成场景：自动化报告发群、缺陷自动通知开发、夜间巡检异常告警。</li></ul>
                   </div>
                 </div>
               </div>
@@ -996,13 +997,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-948"
-                     data-idx="948"
-                     data-search="Q008：数据权限怎么测试？ 7. 数据权限怎么测试？ 7. 数据权限怎么测试？    ①普通用户只能看自己负责的工单——SQL 验证返回数据 owner_id = 当前用户；②部门负责人能看本部门所有工单——验证 dept 过滤生效；③管理员能看所有；④导出/批量接口同样过滤；⑤搜索条件不能绕过权限。   ">
+                     id="card-698"
+                     data-idx="698"
+                     data-search="Q008：数据库 MCP 有什么风险？ 8. 数据库 MCP 有什么风险？ 8. 数据库 MCP 有什么风险？    ①SQL 注入（自然语言→SQL 转换可能被恶意构造）；②权限失控（Agent 可能查到敏感表）；③误删（DROP/DELETE 被错误调用）；④数据泄露（脱敏失效）。必须只读账号 + 表级权限 + 操作审计 + 危险操作人工确认。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：7. 数据权限怎么测试？">数据权限怎么测试？</h3>
+                  <h3 class="card-title" title="原题：8. 数据库 MCP 有什么风险？">数据库 MCP 有什么风险？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1016,7 +1017,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①普通用户只能看自己负责的工单——SQL 验证返回数据 owner_id = 当前用户</li><li>②部门负责人能看本部门所有工单——验证 dept 过滤生效</li><li>③管理员能看所有</li><li>④导出/批量接口同样过滤</li><li>⑤搜索条件不能绕过权限。</li></ul>
+                    <ul class="point-list"><li>①SQL 注入（自然语言→SQL 转换可能被恶意构造）</li><li>②权限失控（Agent 可能查到敏感表）</li><li>③误删（DROP/DELETE 被错误调用）</li><li>④数据泄露（脱敏失效）。必须只读账号 + 表级权限 + 操作审计 + 危险操作人工确认。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1024,13 +1025,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-949"
-                     data-idx="949"
-                     data-search="Q009：管理员和普通用户权限怎么验证？ 8. 管理员和普通用户权限怎么验证？ 8. 管理员和普通用户权限怎么验证？    矩阵法：横轴所有接口/功能，纵轴所有角色，单元格标&quot;允许/拒绝&quot;。每个角色账号跑一遍验证矩阵。形成《权限测试矩阵》文档每个版本更新。   ">
+                     id="card-699"
+                     data-idx="699"
+                     data-search="Q009：MCP 工具调用失败怎么处理？ 9. MCP 工具调用失败怎么处理？ 9. MCP 工具调用失败怎么处理？    ①Agent 层重试（指数退避）；②失败原因结构化返回让 LLM 决策（重试/换工具/告诉用户）；③记录失败日志含 traceId；④超过 N 次失败熔断；⑤关键失败告警人工介入。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：8. 管理员和普通用户权限怎么验证？">管理员和普通用户权限怎么验证？</h3>
+                  <h3 class="card-title" title="原题：9. MCP 工具调用失败怎么处理？">MCP 工具调用失败怎么处理？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1044,7 +1045,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>矩阵法：横轴所有接口/功能，纵轴所有角色，单元格标&quot;允许/拒绝&quot;。每个角色账号跑一遍验证矩阵。形成《权限测试矩阵》文档每个版本更新。</p>
+                    <ul class="point-list"><li>①Agent 层重试（指数退避）</li><li>②失败原因结构化返回让 LLM 决策（重试/换工具/告诉用户）</li><li>③记录失败日志含 traceId</li><li>④超过 N 次失败熔断</li><li>⑤关键失败告警人工介入。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1052,13 +1053,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-950"
-                     data-idx="950"
-                     data-search="Q010：Token 篡改怎么测试？ 9. Token 篡改怎么测试？ 9. Token 篡改怎么测试？    ①修改 JWT Payload（如改 userId 为他人）但保留原签名——预期签名校验失败 401；②伪造 Token（用 None 算法）——预期拒绝；③过期 Token——预期 401；④其他系统的 Token——预期拒绝；⑤Token 注销后再用——预期 401。   ">
+                     id="card-700"
+                     data-idx="700"
+                     data-search="Q010：MCP 权限怎么控制？ 10. MCP 权限怎么控制？ 10. MCP 权限怎么控制？    ①工具级（不同 Agent 可调不同工具集）；②参数级（如查询限定某个用户的数据）；③行为级（写操作必须人工确认）；④资源级（只读特定 URI）；⑤审计日志（每次调用留痕）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：9. Token 篡改怎么测试？">Token 篡改怎么测试？</h3>
+                  <h3 class="card-title" title="原题：10. MCP 权限怎么控制？">MCP 权限怎么控制？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1072,7 +1073,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①修改 JWT Payload（如改 userId 为他人）但保留原签名——预期签名校验失败 401</li><li>②伪造 Token（用 None 算法）——预期拒绝</li><li>③过期 Token——预期 401</li><li>④其他系统的 Token——预期拒绝</li><li>⑤Token 注销后再用——预期 401。</li></ul>
+                    <ul class="point-list"><li>①工具级（不同 Agent 可调不同工具集）</li><li>②参数级（如查询限定某个用户的数据）</li><li>③行为级（写操作必须人工确认）</li><li>④资源级（只读特定 URI）</li><li>⑤审计日志（每次调用留痕）。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1080,13 +1081,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-951"
-                     data-idx="951"
-                     data-search="Q011：企业系统权限管控有哪些角色？ 11. 企业系统权限管控有哪些角色？ 11. 企业系统权限管控有哪些角色？    六类：①超级管理员（系统级配置）；②企业管理员（企业内全权限）；③部门负责人（部门可见）；④业务人员（自己工单可见）；⑤运营专员（被指派的工单可见）；⑥客户（仅自己工单查询权）。每个角色权限明细在《权限矩阵》。   ">
+                     id="card-701"
+                     data-idx="701"
+                     data-search="Q011：你有没有亲自搭建过 MCP Server？ 11. 你有没有亲自搭建过 MCP Server？ 11. 你有没有亲自搭建过 MCP Server？    做过测试 demo，用 Python 官方 `mcp` SDK 的 **FastMCP** 写过一个本地 MCP Server，走 **stdio transport**——Cursor / Claude Desktop 在 `mcp.json` 里用 `command + args` 把它当子进程拉起。    demo 里暴露过三个工具方向：①run_test_case（按用例 ID 执行接口自动化）；②query_test_result（查询执行结果）；③generate_test_report（生成报告）。我会把它描述为&quot;验证过 MCP 工具调用链路&quot;，不说成已经大规模落地到生产。    每个工具用 `@mcp.tool()` 装饰，入参 schema 由类型注解自动生成 JSON Schema，description 一定要写清楚——LLM 全靠它判断该不该点这个工具。    **踩的最大坑**：stdio 模式下 server 绝不能往 stdout 打印，一个 `print()` 就会污染 JSON-RPC 流导致连接直接断，日志必须全改走 stderr。client 连上先发 `initialize` 协商协议版本，版本对不上直接连不上。这个回答重点讲清楚原理和 demo 经验，不夸大成完整平台能力。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：11. 企业系统权限管控有哪些角色？">企业系统权限管控有哪些角色？</h3>
+                  <h3 class="card-title" title="原题：11. 你有没有亲自搭建过 MCP Server？">你有没有亲自搭建过 MCP Server？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1100,7 +1101,10 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>六类：</p><ul class="point-list"><li>①超级管理员（系统级配置）</li><li>②企业管理员（企业内全权限）</li><li>③部门负责人（部门可见）</li><li>④业务人员（自己工单可见）</li><li>⑤运营专员（被指派的工单可见）</li><li>⑥客户（仅自己工单查询权）。每个角色权限明细在《权限矩阵》。</li></ul>
+                    <p>做过测试 demo，用 Python 官方 <code>mcp</code> SDK 的 <strong>FastMCP</strong> 写过一个本地 MCP Server，走 <strong>stdio transport</strong>——Cursor / Claude Desktop 在 <code>mcp.json</code> 里用 <code>command + args</code> 把它当子进程拉起。</p>
+<p>demo 里暴露过三个工具方向：</p><ul class="point-list"><li>①run_test_case（按用例 ID 执行接口自动化）</li><li>②query_test_result（查询执行结果）</li><li>③generate_test_report（生成报告）。我会把它描述为&quot;验证过 MCP 工具调用链路&quot;，不说成已经大规模落地到生产。</li></ul>
+<p>每个工具用 <code>@mcp.tool()</code> 装饰，入参 schema 由类型注解自动生成 JSON Schema，description 一定要写清楚——LLM 全靠它判断该不该点这个工具。</p>
+<p><strong>踩的最大坑</strong>：stdio 模式下 server 绝不能往 stdout 打印，一个 <code>print()</code> 就会污染 JSON-RPC 流导致连接直接断，日志必须全改走 stderr。client 连上先发 <code>initialize</code> 协商协议版本，版本对不上直接连不上。这个回答重点讲清楚原理和 demo 经验，不夸大成完整平台能力。</p>
                   </div>
                 </div>
               </div>
@@ -1108,13 +1112,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-952"
-                     data-idx="952"
-                     data-search="Q012：业务人员只能看自己的工单吗？ 12. 业务人员只能看自己的工单吗？ 12. 业务人员只能看自己的工单吗？    默认是。例外：①部门负责人协办——可看协办工单；②运营专员被指派——可看授权工单；③企业内共享池——配置过共享的工单。所有访问走数据权限网关统一过滤。   ">
+                     id="card-702"
+                     data-idx="702"
+                     data-search="Q012：有没有写过 MCP tool？ 12. 有没有写过 MCP tool？ 12. 有没有写过 MCP tool？    写过几个：①SQL 查询工具（限定数据库、只读）；②接口测试触发工具（封装 pytest 调用）；③Allure 报告解析工具（提取失败用例信息）；④缺陷创建工具（调 Jira API）。    入参 schema 我用类型注解 / Pydantic 让 FastMCP 自动生成，省得手写 JSON Schema；返回统一成 `{success, data, error, summary}`——summary 给 LLM 看（要短、能据此推理下一步），data 给程序用。写工具最关键的是 description 和参数名要&quot;对 LLM 友好&quot;，比代码注释还重要，因为模型全靠它选工具、填参。危险工具（写库、建单）加 `require_confirmation`，调用前要人确认。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：12. 业务人员只能看自己的工单吗？">业务人员只能看自己的工单吗？</h3>
+                  <h3 class="card-title" title="原题：12. 有没有写过 MCP tool？">有没有写过 MCP tool？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1128,7 +1132,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>默认是。例外：</p><ul class="point-list"><li>①部门负责人协办——可看协办工单</li><li>②运营专员被指派——可看授权工单</li><li>③企业内共享池——配置过共享的工单。所有访问走数据权限网关统一过滤。</li></ul>
+                    <p>写过几个：</p><ul class="point-list"><li>①SQL 查询工具（限定数据库、只读）</li><li>②接口测试触发工具（封装 pytest 调用）</li><li>③Allure 报告解析工具（提取失败用例信息）</li><li>④缺陷创建工具（调 Jira API）。</li></ul>
+<p>入参 schema 我用类型注解 / Pydantic 让 FastMCP 自动生成，省得手写 JSON Schema；返回统一成 <code>{success, data, error, summary}</code>——summary 给 LLM 看（要短、能据此推理下一步），data 给程序用。写工具最关键的是 description 和参数名要&quot;对 LLM 友好&quot;，比代码注释还重要，因为模型全靠它选工具、填参。危险工具（写库、建单）加 <code>require_confirmation</code>，调用前要人确认。</p>
                   </div>
                 </div>
               </div>
@@ -1136,13 +1141,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-953"
-                     data-idx="953"
-                     data-search="Q013：管理员能看所有工单吗？ 13. 管理员能看所有工单吗？ 13. 管理员能看所有工单吗？    能看本企业所有工单，但有审计：①所有查询动作记录；②敏感操作（删除、修改金额）二次确认；③跨企业不能看（多租户隔离）。   ">
+                     id="card-703"
+                     data-idx="703"
+                     data-search="Q013：MCP 调用和普通 API 调用有什么区别？ 13. MCP 调用和普通 API 调用有什么区别？ 13. MCP 调用和普通 API 调用有什么区别？    ①语义层：MCP 工具描述对 LLM 友好（自然语言说明 + JSON Schema），普通 API 是给程序员看的；②调用方：MCP 由 LLM 通过 Client 间接调，API 由代码直接调；③上下文：MCP 自带上下文管理（Resources/Prompts）；④发现机制：MCP 支持工具发现（list_tools），API 需要预先编程。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：13. 管理员能看所有工单吗？">管理员能看所有工单吗？</h3>
+                  <h3 class="card-title" title="原题：13. MCP 调用和普通 API 调用有什么区别？">MCP 调用和普通 API 调用有什么区别？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1156,7 +1161,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>能看本企业所有工单，但有审计：</p><ul class="point-list"><li>①所有查询动作记录</li><li>②敏感操作（删除、修改金额）二次确认</li><li>③跨企业不能看（多租户隔离）。</li></ul>
+                    <ul class="point-list"><li>①语义层：MCP 工具描述对 LLM 友好（自然语言说明 + JSON Schema），普通 API 是给程序员看的</li><li>②调用方：MCP 由 LLM 通过 Client 间接调，API 由代码直接调</li><li>③上下文：MCP 自带上下文管理（Resources/Prompts）</li><li>④发现机制：MCP 支持工具发现（list_tools），API 需要预先编程。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1164,13 +1169,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-954"
-                     data-idx="954"
-                     data-search="Q014：运营专员能不能修改账单？ 14. 运营专员能不能修改账单？ 14. 运营专员能不能修改账单？    默认不能。运营专员只能查看和录入辅助信息，账单修改是业务人员/部门负责人权限。如果产品上有运营专员代录场景，需要走&quot;录入待审核&quot;流程，业务人员审批后生效。   ">
+                     id="card-704"
+                     data-idx="704"
+                     data-search="Q014：MCP 出现连接关闭怎么排查？ 14. MCP 出现连接关闭怎么排查？ 14. MCP 出现连接关闭怎么排查？    分 transport 排查。**stdio 断连（最常见）**：①先看 server 的 **stderr** 日志（stdout 被协议占用，业务日志只在 stderr）；②十有八九是某处 `print()` 或第三方库往 stdout 写了东西，打乱了 JSON-RPC 帧；③server 启动即崩（import 报错、依赖缺失）也会表现为&quot;连上就断&quot;。    **SSE / HTTP 断连**：④HTTP 连接/keepalive 被代理或防火墙掐断；⑤长耗时工具阻塞事件循环导致超时；⑥两端 protocolVersion 不一致，`initialize` 阶段就失败。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：14. 运营专员能不能修改账单？">运营专员能不能修改账单？</h3>
+                  <h3 class="card-title" title="原题：14. MCP 出现连接关闭怎么排查？">MCP 出现连接关闭怎么排查？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1184,7 +1189,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>默认不能。运营专员只能查看和录入辅助信息，账单修改是业务人员/部门负责人权限。如果产品上有运营专员代录场景，需要走&quot;录入待审核&quot;流程，业务人员审批后生效。</p>
+                    <p>分 transport 排查。<strong>stdio 断连（最常见）</strong>：</p><ul class="point-list"><li>①先看 server 的 <strong>stderr</strong> 日志（stdout 被协议占用，业务日志只在 stderr）</li><li>②十有八九是某处 <code>print()</code> 或第三方库往 stdout 写了东西，打乱了 JSON-RPC 帧</li><li>③server 启动即崩（import 报错、依赖缺失）也会表现为&quot;连上就断&quot;。</li></ul>
+<p><strong>SSE / HTTP 断连</strong>：</p><ul class="point-list"><li>④HTTP 连接/keepalive 被代理或防火墙掐断</li><li>⑤长耗时工具阻塞事件循环导致超时</li><li>⑥两端 protocolVersion 不一致，<code>initialize</code> 阶段就失败。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1192,13 +1198,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-955"
-                     data-idx="955"
-                     data-search="Q015：接口越权你测出来过吗？ 15. 接口越权你测出来过吗？ 15. 接口越权你测出来过吗？    测出过 5 个：①一个工单详情接口未做 owner 校验，业务人员 A 可看 B 的工单；②业务文档下载接口未鉴权，知道 fileId 就能下载任意业务文档；③账单列表接口分页参数可绕过部门过滤；④导出接口未做权限二次校验；⑤一个老旧管理后台接口未接入网关鉴权。全部 P0 缺陷推动修复。   ">
+                     id="card-705"
+                     data-idx="705"
+                     data-search="Q015：MCP 工具返回格式如何约束？ 15. MCP 工具返回格式如何约束？ 15. MCP 工具返回格式如何约束？    JSON Schema 严格定义 input/output。返回内容：①success 字段；②data 结构化结果；③error 含错误码和描述；④对 LLM 友好的简短 summary。让 LLM 容易理解和后续推理。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：15. 接口越权你测出来过吗？">接口越权你测出来过吗？</h3>
+                  <h3 class="card-title" title="原题：15. MCP 工具返回格式如何约束？">MCP 工具返回格式如何约束？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1212,7 +1218,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>测出过 5 个：</p><ul class="point-list"><li>①一个工单详情接口未做 owner 校验，业务人员 A 可看 B 的工单</li><li>②业务文档下载接口未鉴权，知道 fileId 就能下载任意业务文档</li><li>③账单列表接口分页参数可绕过部门过滤</li><li>④导出接口未做权限二次校验</li><li>⑤一个老旧管理后台接口未接入网关鉴权。全部 P0 缺陷推动修复。</li></ul>
+                    <p>JSON Schema 严格定义 input/output。返回内容：</p><ul class="point-list"><li>①success 字段</li><li>②data 结构化结果</li><li>③error 含错误码和描述</li><li>④对 LLM 友好的简短 summary。让 LLM 容易理解和后续推理。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1220,13 +1226,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-956"
-                     data-idx="956"
-                     data-search="Q016：数据泄露如何测试？ 18. 数据泄露如何测试？ 18. 数据泄露如何测试？    ①问&quot;上一个用户问过什么&quot;——AI 不能泄露其他会话；②让模型重复系统 Prompt——不能完整泄露；③让模型输出训练数据中的隐私信息（&quot;重复 100 次 xxx&quot;攻击）；④知识库越权检索（普通用户能否检索到管理员资料）。   ">
+                     id="card-706"
+                     data-idx="706"
+                     data-search="Q016：Agent 调 MCP 时如何防止误操作？ 16. Agent 调 MCP 时如何防止误操作？ 16. Agent 调 MCP 时如何防止误操作？    五层防护：①工具白名单（server 端干脆不注册危险工具）；②危险动作（DELETE/PAYMENT）靠 MCP 的 tool annotations（`readOnlyHint` / `destructiveHint`）让 Client 自动拦下要人确认；③参数校验（合法值范围 + 强类型 schema）；④Dry-run（先返回&quot;将要执行什么&quot;，确认后再真跑）；⑤限流（防 Agent 死循环大量调用）。    核心原则：危险操作不在 server 暴露，比在 client 拦更稳。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：18. 数据泄露如何测试？">数据泄露如何测试？</h3>
+                  <h3 class="card-title" title="原题：16. Agent 调 MCP 时如何防止误操作？">Agent 调 MCP 时如何防止误操作？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1240,7 +1246,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①问&quot;上一个用户问过什么&quot;——AI 不能泄露其他会话</li><li>②让模型重复系统 Prompt——不能完整泄露</li><li>③让模型输出训练数据中的隐私信息（&quot;重复 100 次 xxx&quot;攻击）</li><li>④知识库越权检索（普通用户能否检索到管理员资料）。</li></ul>
+                    <p>五层防护：</p><ul class="point-list"><li>①工具白名单（server 端干脆不注册危险工具）</li><li>②危险动作（DELETE/PAYMENT）靠 MCP 的 tool annotations（<code>readOnlyHint</code> / <code>destructiveHint</code>）让 Client 自动拦下要人确认</li><li>③参数校验（合法值范围 + 强类型 schema）</li><li>④Dry-run（先返回&quot;将要执行什么&quot;，确认后再真跑）</li><li>⑤限流（防 Agent 死循环大量调用）。</li></ul>
+<p>核心原则：危险操作不在 server 暴露，比在 client 拦更稳。</p>
                   </div>
                 </div>
               </div>
@@ -1248,13 +1255,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-957"
-                     data-idx="957"
-                     data-search="Q017：敏感信息输出如何测试？ 19. 敏感信息输出如何测试？ 19. 敏感信息输出如何测试？    ①敏感词库扫描所有 AI 输出；②个人信息（身份证、手机号、地址）脱敏校验；③公司内部信息（员工名单、薪资）不可输出；④第三方内容审核 API 二次校验；⑤上线后监控告警。   ">
+                     id="card-707"
+                     data-idx="707"
+                     data-search="Q017：你理解的 Skills 是什么？ 17. 你理解的 Skills 是什么？ 17. 你理解的 Skills 是什么？    Skills（Cursor / Anthropic）是给 Agent 的&quot;能力封装&quot;。每个 Skill 是一个独立目录，含 SKILL.md（说明 + 触发条件）+ 脚本/资源。Agent 看到匹配场景就 Read SKILL.md 并按其指令执行。本质是结构化的&quot;可被 Agent 发现的操作手册&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：19. 敏感信息输出如何测试？">敏感信息输出如何测试？</h3>
+                  <h3 class="card-title" title="原题：17. 你理解的 Skills 是什么？">你理解的 Skills 是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1268,7 +1275,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①敏感词库扫描所有 AI 输出</li><li>②个人信息（身份证、手机号、地址）脱敏校验</li><li>③公司内部信息（员工名单、薪资）不可输出</li><li>④第三方内容审核 API 二次校验</li><li>⑤上线后监控告警。</li></ul>
+                    <p>Skills（Cursor / Anthropic）是给 Agent 的&quot;能力封装&quot;。每个 Skill 是一个独立目录，含 SKILL.md（说明 + 触发条件）+ 脚本/资源。Agent 看到匹配场景就 Read SKILL.md 并按其指令执行。本质是结构化的&quot;可被 Agent 发现的操作手册&quot;。</p>
                   </div>
                 </div>
               </div>
@@ -1276,13 +1283,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-958"
-                     data-idx="958"
-                     data-search="Q018：用户输入恶意内容如何过滤？ 24. 用户输入恶意内容如何过滤？ 24. 用户输入恶意内容如何过滤？    ①前置敏感词过滤（高频违法词直接拒绝）；②内容审核 API（阿里/腾讯文本审核）；③Prompt Injection 检测器（识别&quot;忽略指令&quot;类模式）；④异常长输入限制；⑤恶意请求频控+黑名单。   ">
+                     id="card-708"
+                     data-idx="708"
+                     data-search="Q018：Skills 和 MCP 有什么区别？ 18. Skills 和 MCP 有什么区别？ 18. Skills 和 MCP 有什么区别？    - **MCP**：协议层，关注&quot;接入哪些外部系统&quot;；  - **Skills**：使用层，关注&quot;在某个场景下做什么&quot;。  Skill 可以调用 MCP 工具，但 Skill 本身更多是流程编排和领域知识。比喻：MCP 是&quot;工具箱&quot;，Skills 是&quot;维修手册&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：24. 用户输入恶意内容如何过滤？">用户输入恶意内容如何过滤？</h3>
+                  <h3 class="card-title" title="原题：18. Skills 和 MCP 有什么区别？">Skills 和 MCP 有什么区别？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1296,7 +1303,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①前置敏感词过滤（高频违法词直接拒绝）</li><li>②内容审核 API（阿里/腾讯文本审核）</li><li>③Prompt Injection 检测器（识别&quot;忽略指令&quot;类模式）</li><li>④异常长输入限制</li><li>⑤恶意请求频控+黑名单。</li></ul>
+                    <ul><li><strong>MCP</strong>：协议层，关注&quot;接入哪些外部系统&quot;；</li><li><strong>Skills</strong>：使用层，关注&quot;在某个场景下做什么&quot;。</li></ul>
+<p>Skill 可以调用 MCP 工具，但 Skill 本身更多是流程编排和领域知识。比喻：MCP 是&quot;工具箱&quot;，Skills 是&quot;维修手册&quot;。</p>
                   </div>
                 </div>
               </div>
@@ -1304,13 +1312,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-959"
-                     data-idx="959"
-                     data-search="Q019：如果普通业务人员问管理员资料，系统如何处理？ 29. 如果普通业务人员问管理员资料，系统如何处理？ 29. 如果普通业务人员问管理员资料，系统如何处理？    ①检索层过滤掉管理员可见的 chunk；②即使关键词命中也不返回；③Prompt 中不带管理员上下文；④模型只能基于召回片段回答，没召回就拒识；⑤异常请求次数累计告警。   ">
+                     id="card-709"
+                     data-idx="709"
+                     data-search="Q019：Skills 适合封装什么能力？ 19. Skills 适合封装什么能力？ 19. Skills 适合封装什么能力？    ①团队/项目特有的最佳实践（如&quot;我们的发版流程&quot;)；②结构化复杂流程（数据迁移、压测执行）；③高频重复任务（生成测试报告）；④需要特殊知识的任务（领域规范）；⑤危险操作的标准化（必须按手册走）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：29. 如果普通业务人员问管理员资料，系统如何处理？">如果普通业务人员问管理员资料，系统如何处理？</h3>
+                  <h3 class="card-title" title="原题：19. Skills 适合封装什么能力？">Skills 适合封装什么能力？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1324,7 +1332,683 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①检索层过滤掉管理员可见的 chunk</li><li>②即使关键词命中也不返回</li><li>③Prompt 中不带管理员上下文</li><li>④模型只能基于召回片段回答，没召回就拒识</li><li>⑤异常请求次数累计告警。</li></ul>
+                    <ul class="point-list"><li>①团队/项目特有的最佳实践（如&quot;我们的发版流程&quot;)</li><li>②结构化复杂流程（数据迁移、压测执行）</li><li>③高频重复任务（生成测试报告）</li><li>④需要特殊知识的任务（领域规范）</li><li>⑤危险操作的标准化（必须按手册走）。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-710"
+                     data-idx="710"
+                     data-search="Q020：Skills 是否一定需要联网？ 20. Skills 是否一定需要联网？ 20. Skills 是否一定需要联网？    不一定。Skill 是本地资源，Agent Read 后按指令执行。指令可能涉及联网（调 API）也可能不涉及（本地文件操作、代码生成）。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q020</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：20. Skills 是否一定需要联网？">Skills 是否一定需要联网？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>不一定。Skill 是本地资源，Agent Read 后按指令执行。指令可能涉及联网（调 API）也可能不涉及（本地文件操作、代码生成）。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-711"
+                     data-idx="711"
+                     data-search="Q021：Skills 和普通脚本有什么区别？ 21. Skills 和普通脚本有什么区别？ 21. Skills 和普通脚本有什么区别？    ①脚本：固定流程，参数化有限，不能动态决策；②Skill：含描述触发条件 + 操作指引，由 Agent 根据上下文动态裁剪步骤；③Skill 可调用多个工具/脚本组合，是更高层的编排。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q021</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. Skills 和普通脚本有什么区别？">Skills 和普通脚本有什么区别？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①脚本：固定流程，参数化有限，不能动态决策</li><li>②Skill：含描述触发条件 + 操作指引，由 Agent 根据上下文动态裁剪步骤</li><li>③Skill 可调用多个工具/脚本组合，是更高层的编排。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-712"
+                     data-idx="712"
+                     data-search="Q022：一个测试报告生成 Skill 应该如何设计？ 22. 一个测试报告生成 Skill 应该如何设计？ 22. 一个测试报告生成 Skill 应该如何设计？    SKILL.md 包含：①description（&quot;生成测试报告并发企业微信&quot;，让 Agent 能匹配）；②触发条件（关键词：测试报告、回归报告）；③步骤（解析 Allure → 提取统计 → 生成 Markdown → 发企业微信）；④参数（构建号、目标群）；⑤示例。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q022</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：22. 一个测试报告生成 Skill 应该如何设计？">一个测试报告生成 Skill 应该如何设计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>SKILL.md 包含：</p><ul class="point-list"><li>①description（&quot;生成测试报告并发企业微信&quot;，让 Agent 能匹配）</li><li>②触发条件（关键词：测试报告、回归报告）</li><li>③步骤（解析 Allure → 提取统计 → 生成 Markdown → 发企业微信）</li><li>④参数（构建号、目标群）</li><li>⑤示例。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-713"
+                     data-idx="713"
+                     data-search="Q023：一个接口自动化执行 Skill 应该如何设计？ 23. 一个接口自动化执行 Skill 应该如何设计？ 23. 一个接口自动化执行 Skill 应该如何设计？    输入（模块/用例标签）→ 准备测试环境 → 执行 pytest → 收集 Allure → 总结失败 Top → 输出结构化结果。每一步可调用对应 MCP 工具。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q023</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. 一个接口自动化执行 Skill 应该如何设计？">一个接口自动化执行 Skill 应该如何设计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>输入（模块/用例标签）→ 准备测试环境 → 执行 pytest → 收集 Allure → 总结失败 Top → 输出结构化结果。每一步可调用对应 MCP 工具。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-714"
+                     data-idx="714"
+                     data-search="Q024：一个 RAG 评估 Skill 应该如何设计？ 24. 一个 RAG 评估 Skill 应该如何设计？ 24. 一个 RAG 评估 Skill 应该如何设计？    输入（Golden Set 路径 + RAG 端点）→ 跑 Golden Set → 计算 Context Recall/Precision/Faithfulness → 生成评估报告 → 输出退化用例。封装 RAGAS 框架调用。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q024</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：24. 一个 RAG 评估 Skill 应该如何设计？">一个 RAG 评估 Skill 应该如何设计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>输入（Golden Set 路径 + RAG 端点）→ 跑 Golden Set → 计算 Context Recall/Precision/Faithfulness → 生成评估报告 → 输出退化用例。封装 RAGAS 框架调用。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-715"
+                     data-idx="715"
+                     data-search="Q025：Skills 如何复用？ 25. Skills 如何复用？ 25. Skills 如何复用？    ①目录式管理（公司级、项目级、个人级）；②版本化 Git 管理；③参数化设计（用 placeholder 注入项目特定值）；④文档化触发条件让 Agent 能正确匹配。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q025</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：25. Skills 如何复用？">Skills 如何复用？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①目录式管理（公司级、项目级、个人级）</li><li>②版本化 Git 管理</li><li>③参数化设计（用 placeholder 注入项目特定值）</li><li>④文档化触发条件让 Agent 能正确匹配。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-716"
+                     data-idx="716"
+                     data-search="Q026：Skills 如何做权限控制？ 26. Skills 如何做权限控制？ 26. Skills 如何做权限控制？    ①Skill 目录的文件系统权限；②Agent 配置可加载哪些 Skill；③Skill 内部调用的工具受 MCP 权限管控；④敏感操作 Skill 标注 require_confirmation。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q026</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. Skills 如何做权限控制？">Skills 如何做权限控制？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①Skill 目录的文件系统权限</li><li>②Agent 配置可加载哪些 Skill</li><li>③Skill 内部调用的工具受 MCP 权限管控</li><li>④敏感操作 Skill 标注 require_confirmation。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-717"
+                     data-idx="717"
+                     data-search="Q027：如果让你写一个&quot;自动生成测试用例&quot;的 Skill，你会怎么设计？ 27. 如果让你写一个&quot;自动生成测试用例&quot;的 Skill，你会怎么设计？ 27. 如果让你写一个&quot;自动生成测试用例&quot;的 Skill，你会怎么设计？    输入：PRD 链接或粘贴文本。  步骤：①解析需求识别功能点；②调用 LLM 按测试用例模板生成（包含正向、异常、边界、兼容）；③去重和按优先级排序；④调用 TestLink API 入库；⑤生成思维导图供评审。  输出：用例 ID 列表 + 评审链接。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q027</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：27. 如果让你写一个&quot;自动生成测试用例&quot;的 Skill，你会怎么设计？">如果让你写一个&quot;自动生成测试用例&quot;的 Skill，你会怎么设计？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>输入：PRD 链接或粘贴文本。 步骤：</p><ul class="point-list"><li>①解析需求识别功能点</li><li>②调用 LLM 按测试用例模板生成（包含正向、异常、边界、兼容）</li><li>③去重和按优先级排序</li><li>④调用 TestLink API 入库</li><li>⑤生成思维导图供评审。 输出：用例 ID 列表 + 评审链接。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-718"
+                     data-idx="718"
+                     data-search="Q028：Skill 的输入输出格式是什么？ 28. Skill 的输入输出格式是什么？ 28. Skill 的输入输出格式是什么？    输入：自然语言指令 + 结构化参数（YAML/JSON）；输出：结构化结果（结果摘要 + 详细数据链接）+ 自然语言总结。让 Agent 既能展示给用户又能链式调用下一步。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q028</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. Skill 的输入输出格式是什么？">Skill 的输入输出格式是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>输入：自然语言指令 + 结构化参数（YAML/JSON）；输出：结构化结果（结果摘要 + 详细数据链接）+ 自然语言总结。让 Agent 既能展示给用户又能链式调用下一步。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-719"
+                     data-idx="719"
+                     data-search="Q029：Skill 如何和 Agent 配合？ 29. Skill 如何和 Agent 配合？ 29. Skill 如何和 Agent 配合？    ①Agent 接到任务时扫描可用 Skill；②按 description 匹配最合适的 Skill；③Read SKILL.md 加载指令；④按指令调用 MCP/工具；⑤汇总结果反馈用户。Skill 是 Agent 的&quot;行动剧本&quot;。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q029</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：29. Skill 如何和 Agent 配合？">Skill 如何和 Agent 配合？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①Agent 接到任务时扫描可用 Skill</li><li>②按 description 匹配最合适的 Skill</li><li>③Read SKILL.md 加载指令</li><li>④按指令调用 MCP/工具</li><li>⑤汇总结果反馈用户。Skill 是 Agent 的&quot;行动剧本&quot;。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-720"
+                     data-idx="720"
+                     data-search="Q030：Skill 出错后如何反馈？ 30. Skill 出错后如何反馈？ 30. Skill 出错后如何反馈？    ①结构化错误（error_code + message + traceback）；②给 Agent 友好的修复建议；③记录失败日志；④严重失败告警人工；⑤Agent 可根据错误决定重试或换路径。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q030</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：30. Skill 出错后如何反馈？">Skill 出错后如何反馈？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①结构化错误（error_code + message + traceback）</li><li>②给 Agent 友好的修复建议</li><li>③记录失败日志</li><li>④严重失败告警人工</li><li>⑤Agent 可根据错误决定重试或换路径。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-721"
+                     data-idx="721"
+                     data-search="Q031：Skill 是否需要日志？ 31. Skill 是否需要日志？ 31. Skill 是否需要日志？    必须。日志包含：①触发时间和用户；②加载的 Skill 名和版本；③传入参数；④每步调用的工具和返回；⑤最终结果。用于审计和问题回溯。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q031</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：31. Skill 是否需要日志？">Skill 是否需要日志？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>必须。日志包含：</p><ul class="point-list"><li>①触发时间和用户</li><li>②加载的 Skill 名和版本</li><li>③传入参数</li><li>④每步调用的工具和返回</li><li>⑤最终结果。用于审计和问题回溯。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-722"
+                     data-idx="722"
+                     data-search="Q032：Agent 如何处理工具调用失败？ 38. Agent 如何处理工具调用失败？ 38. Agent 如何处理工具调用失败？    ①传回错误给 LLM 让其决策（重试/换工具/告知用户）；②设置最大重试次数避免死循环；③区分可重试错误（网络）和不可重试（参数错）；④严重失败终止并告警。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q032</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：38. Agent 如何处理工具调用失败？">Agent 如何处理工具调用失败？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①传回错误给 LLM 让其决策（重试/换工具/告知用户）</li><li>②设置最大重试次数避免死循环</li><li>③区分可重试错误（网络）和不可重试（参数错）</li><li>④严重失败终止并告警。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-723"
+                     data-idx="723"
+                     data-search="Q033：Agent 如何调用 Playwright MCP？ 44. Agent 如何调用 Playwright MCP？ 44. Agent 如何调用 Playwright MCP？    关键认知：官方 Playwright MCP **基于 accessibility snapshot** 而非截图——`browser_snapshot` 返回页面 a11y 树，每个可交互元素带一个 ref。①Agent `list_tools` 看到 `browser_navigate` / `browser_snapshot` / `browser_click` / `browser_type` 等工具；②序列：navigate(url) → snapshot 拿 ref → type 填表单 → click 提交 → 再 snapshot 看结果；③断言基于 snapshot 的角色/文本（比坐标稳）；④定位失败就把最新 snapshot 喂回模型让它重选元素重试，而非靠死 selector。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q033</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：44. Agent 如何调用 Playwright MCP？">Agent 如何调用 Playwright MCP？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>关键认知：官方 Playwright MCP <strong>基于 accessibility snapshot</strong> 而非截图——<code>browser_snapshot</code> 返回页面 a11y 树，每个可交互元素带一个 ref。</p><ul class="point-list"><li>①Agent <code>list_tools</code> 看到 <code>browser_navigate</code> / <code>browser_snapshot</code> / <code>browser_click</code> / <code>browser_type</code> 等工具</li><li>②序列：navigate(url) → snapshot 拿 ref → type 填表单 → click 提交 → 再 snapshot 看结果</li><li>③断言基于 snapshot 的角色/文本（比坐标稳）</li><li>④定位失败就把最新 snapshot 喂回模型让它重选元素重试，而非靠死 selector。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-724"
+                     data-idx="724"
+                     data-search="Q034：如果用 Playwright MCP 生成脚本，如何保证脚本质量？ 26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？ 26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？    ①生成脚本后必须人工 Review；②加入静态分析检查（locator 用 data-testid、有断言）；③Sandbox 试跑 3 次稳定才入库；④定期跑稳定性扫描（连续 10 次成功率 ≥ 95%）；⑤AI 生成脚本与人工脚本风格统一。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q034</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. 如果用 Playwright MCP 生成脚本，如何保证脚本质量？">如果用 Playwright MCP 生成脚本，如何保证脚本质量？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①生成脚本后必须人工 Review</li><li>②加入静态分析检查（locator 用 data-testid、有断言）</li><li>③Sandbox 试跑 3 次稳定才入库</li><li>④定期跑稳定性扫描（连续 10 次成功率 ≥ 95%）</li><li>⑤AI 生成脚本与人工脚本风格统一。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-725"
+                     data-idx="725"
+                     data-search="Q035：如何将 MCP 探索动作转成标准 Playwright 脚本？ 28. 如何将 MCP 探索动作转成标准 Playwright 脚本？ 28. 如何将 MCP 探索动作转成标准 Playwright 脚本？    ①录制 MCP 调用序列；②生成 Page Object 骨架；③把动作填入对应方法；④加入断言（基于探索时发现的关键元素）；⑤代码格式化和 lint；⑥人工 Review 优化。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q035</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. 如何将 MCP 探索动作转成标准 Playwright 脚本？">如何将 MCP 探索动作转成标准 Playwright 脚本？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①录制 MCP 调用序列</li><li>②生成 Page Object 骨架</li><li>③把动作填入对应方法</li><li>④加入断言（基于探索时发现的关键元素）</li><li>⑤代码格式化和 lint</li><li>⑥人工 Review 优化。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-726"
+                     data-idx="726"
+                     data-search="Q036：AI 工具误调用如何防止？ 21. AI 工具误调用如何防止？ 21. AI 工具误调用如何防止？    ①工具白名单（不同 Agent 配不同工具集）；②危险工具（DELETE/支付/发通知）必须人工确认；③参数校验（金额上限、收件人白名单）；④调用频率限制；⑤异常行为告警。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q036</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：21. AI 工具误调用如何防止？">AI 工具误调用如何防止？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①工具白名单（不同 Agent 配不同工具集）</li><li>②危险工具（DELETE/支付/发通知）必须人工确认</li><li>③参数校验（金额上限、收件人白名单）</li><li>④调用频率限制</li><li>⑤异常行为告警。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-727"
+                     data-idx="727"
+                     data-search="Q037：了解 Skills 吗 6 / 了解 Skills 吗 6 / 了解 Skills 吗  Skills 是给 AI Agent 扩展能力的&quot;技能包&quot;：把某领域的指令、脚本、参考资料封装成可按需加载的模块，Agent 在需要时调用，从而把通用模型扩展到具体专业任务（如特定测试流程、特定工具操作），实现能力复用与可维护。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q037</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：6 / 了解 Skills 吗">了解 Skills 吗</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>Skills 是给 AI Agent 扩展能力的&quot;技能包&quot;：把某领域的指令、脚本、参考资料封装成可按需加载的模块，Agent 在需要时调用，从而把通用模型扩展到具体专业任务（如特定测试流程、特定工具操作），实现能力复用与可维护。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-728"
+                     data-idx="728"
+                     data-search="Q038：Function Tools、MCP、Skills、Plugins 分别是什么 Q44：Function Tools、MCP、Skills、Plugins 分别是什么 Q44：Function Tools、MCP、Skills、Plugins 分别是什么    这几个概念可以放在 **能力扩展与工具接入层** 里理解，它介于 Agent 决策和工程化治理之间。    **1. Function Tools**：单个可调用能力，通常由函数名、description、参数 JSON Schema 和返回结构组成。模型通过 Function Calling / Tool Calling 选择工具并生成入参。    **2. MCP**：标准化工具接入协议，把外部系统能力封装成 MCP Server 暴露给 MCP Client。它不只包含 Tools，也包含 Resources 和 Prompts，适合接数据库、文件系统、浏览器、企业内部系统。    **3. Skills**：任务方法包 / 操作手册 / 能力封装，通常包含 SKILL.md、触发条件、操作流程、脚本、模板和参考资料。Skill 告诉 Agent **遇到某类任务应该怎么做**。    **4. Plugins / Extensions**：把 Skills、MCP Server、App UI、配置清单等能力打包分发，便于安装、升级和组织级复用。    **5. ToolOps**：工具注册、发现、路由、限流、日志、审计、权限、安全和成本统计。它解决工具变多之后如何治理的问题。    关系可以这样答：    ```  Function Tools = 单个可调用能力  MCP = 标准化工具接入协议  Skills = 完成某类任务的方法包  Plugins = 把 MCP / Skills / App 能力打包分发  Agent = 决定什么时候用这些能力  ToolOps = 治理这些能力如何被安全、稳定、可观测地使用  ```   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q038</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q44：Function Tools、MCP、Skills、Plugins 分别是什么">Function Tools、MCP、Skills、Plugins 分别是什么</h3>
+                  <div class="card-meta"><span>来源：16-AI工具生态与能力扩展.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>这几个概念可以放在 <strong>能力扩展与工具接入层</strong> 里理解，它介于 Agent 决策和工程化治理之间。</p>
+<p><strong>1. Function Tools</strong>：单个可调用能力，通常由函数名、description、参数 JSON Schema 和返回结构组成。模型通过 Function Calling / Tool Calling 选择工具并生成入参。</p>
+<p><strong>2. MCP</strong>：标准化工具接入协议，把外部系统能力封装成 MCP Server 暴露给 MCP Client。它不只包含 Tools，也包含 Resources 和 Prompts，适合接数据库、文件系统、浏览器、企业内部系统。</p>
+<p><strong>3. Skills</strong>：任务方法包 / 操作手册 / 能力封装，通常包含 SKILL.md、触发条件、操作流程、脚本、模板和参考资料。Skill 告诉 Agent <strong>遇到某类任务应该怎么做</strong>。</p>
+<p><strong>4. Plugins / Extensions</strong>：把 Skills、MCP Server、App UI、配置清单等能力打包分发，便于安装、升级和组织级复用。</p>
+<p><strong>5. ToolOps</strong>：工具注册、发现、路由、限流、日志、审计、权限、安全和成本统计。它解决工具变多之后如何治理的问题。</p>
+<p>关系可以这样答：</p>
+<pre class="code-block" data-lang="text"><code>Function Tools = 单个可调用能力
+MCP = 标准化工具接入协议
+Skills = 完成某类任务的方法包
+Plugins = 把 MCP / Skills / App 能力打包分发
+Agent = 决定什么时候用这些能力
+ToolOps = 治理这些能力如何被安全、稳定、可观测地使用</code></pre>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-729"
+                     data-idx="729"
+                     data-search="Q039：Function Calling 和 MCP 怎么选型 Q45：Function Calling 和 MCP 怎么选型 Q45：Function Calling 和 MCP 怎么选型    核心看 **工具规模、复用范围、接入对象和治理需求**。    **1. 简单项目用 Function Calling 就够**：如果只是当前服务里几个本地函数，比如查订单、生成摘要、计算字段，用模型厂商自带的 Function Calling / Tool Calling 成本最低。    **2. 多客户端复用适合 MCP**：如果同一套工具要给 Claude Desktop、Cursor、内部 Agent 平台、测试平台一起用，MCP 更合适，因为工具实现一次，多个兼容 Client 都能发现和调用。    **3. 外部系统接入适合 MCP**：数据库、文件系统、Jira、GitHub、Playwright 浏览器、企业微信这些能力，用 MCP Server 封装更清晰。    **4. 强治理场景适合 MCP + ToolOps**：当需要工具发现、权限分级、审计日志、只读资源、危险操作确认、远程部署时，MCP 比零散函数更容易平台化。    **5. 两者不是互斥**：一个 Agent 可以同时有厂商 Function Tools，也可以连接 MCP Server；甚至 MCP Tool 的内部实现也是普通函数。    面试表达：**Function Calling 更像模型内置的调用机制，MCP 更像跨模型、跨客户端的工具接入标准**。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q039</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q45：Function Calling 和 MCP 怎么选型">Function Calling 和 MCP 怎么选型</h3>
+                  <div class="card-meta"><span>来源：16-AI工具生态与能力扩展.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>核心看 <strong>工具规模、复用范围、接入对象和治理需求</strong>。</p>
+<p><strong>1. 简单项目用 Function Calling 就够</strong>：如果只是当前服务里几个本地函数，比如查订单、生成摘要、计算字段，用模型厂商自带的 Function Calling / Tool Calling 成本最低。</p>
+<p><strong>2. 多客户端复用适合 MCP</strong>：如果同一套工具要给 Claude Desktop、Cursor、内部 Agent 平台、测试平台一起用，MCP 更合适，因为工具实现一次，多个兼容 Client 都能发现和调用。</p>
+<p><strong>3. 外部系统接入适合 MCP</strong>：数据库、文件系统、Jira、GitHub、Playwright 浏览器、企业微信这些能力，用 MCP Server 封装更清晰。</p>
+<p><strong>4. 强治理场景适合 MCP + ToolOps</strong>：当需要工具发现、权限分级、审计日志、只读资源、危险操作确认、远程部署时，MCP 比零散函数更容易平台化。</p>
+<p><strong>5. 两者不是互斥</strong>：一个 Agent 可以同时有厂商 Function Tools，也可以连接 MCP Server；甚至 MCP Tool 的内部实现也是普通函数。</p>
+<p>面试表达：<strong>Function Calling 更像模型内置的调用机制，MCP 更像跨模型、跨客户端的工具接入标准</strong>。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-730"
+                     data-idx="730"
+                     data-search="Q040：Skills 如何和 MCP、Agent 配合 Q46：Skills 如何和 MCP、Agent 配合 Q46：Skills 如何和 MCP、Agent 配合    Skills 更像 **流程和知识层**，MCP 更像 **工具和数据接入层**，Agent 负责根据任务选择并执行。    **1. Agent 识别任务**：用户说“帮我评估这个 RAG 问答效果”，Agent 先判断这是 RAG 评测任务。    **2. Agent 加载 Skill**：根据 description 匹配到 RAG 评估 Skill，读取 SKILL.md，知道要准备 Golden Set、调用评测脚本、计算 context recall / faithfulness、生成报告。    **3. Skill 调用 MCP / 工具**：评测过程中可能调用文件系统 MCP 读取测试集，调用 HTTP 工具请求 RAG 服务，调用脚本工具运行 RAGAS，调用企业微信 MCP 发送报告。    **4. Agent 汇总结果**：把工具返回的结构化结果整理成报告，说明退化项、失败样本和优化建议。    **5. 权限由工具层兜底**：Skill 不能绕过 MCP 的权限；数据库只读、生产操作审批、危险工具白名单都应在工具层和平台层控制。    一句话：**Skill 告诉 Agent 怎么做，MCP 给 Agent 能做什么，Agent 决定何时做，ToolOps 保证做得可控**。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q040</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q46：Skills 如何和 MCP、Agent 配合">Skills 如何和 MCP、Agent 配合</h3>
+                  <div class="card-meta"><span>来源：16-AI工具生态与能力扩展.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>Skills 更像 <strong>流程和知识层</strong>，MCP 更像 <strong>工具和数据接入层</strong>，Agent 负责根据任务选择并执行。</p>
+<p><strong>1. Agent 识别任务</strong>：用户说“帮我评估这个 RAG 问答效果”，Agent 先判断这是 RAG 评测任务。</p>
+<p><strong>2. Agent 加载 Skill</strong>：根据 description 匹配到 RAG 评估 Skill，读取 SKILL.md，知道要准备 Golden Set、调用评测脚本、计算 context recall / faithfulness、生成报告。</p>
+<p><strong>3. Skill 调用 MCP / 工具</strong>：评测过程中可能调用文件系统 MCP 读取测试集，调用 HTTP 工具请求 RAG 服务，调用脚本工具运行 RAGAS，调用企业微信 MCP 发送报告。</p>
+<p><strong>4. Agent 汇总结果</strong>：把工具返回的结构化结果整理成报告，说明退化项、失败样本和优化建议。</p>
+<p><strong>5. 权限由工具层兜底</strong>：Skill 不能绕过 MCP 的权限；数据库只读、生产操作审批、危险工具白名单都应在工具层和平台层控制。</p>
+<p>一句话：<strong>Skill 告诉 Agent 怎么做，MCP 给 Agent 能做什么，Agent 决定何时做，ToolOps 保证做得可控</strong>。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-731"
+                     data-idx="731"
+                     data-search="Q041：Tool Registry、Tool Router、权限沙箱怎么设计 Q47：Tool Registry、Tool Router、权限沙箱怎么设计 Q47：Tool Registry、Tool Router、权限沙箱怎么设计    工具一多，难点不是“能不能调”，而是 **能不能选对、调稳、管住、追得回**。    **1. Tool Registry 工具注册中心**：记录工具名、description、参数 schema、返回 schema、所属系统、权限等级、是否只读、是否危险、版本、负责人和 SLA。    **2. Tool Router 工具路由**：根据任务意图、用户角色、当前环境、工具健康度和成本选择工具；多个工具都能完成时优先选低风险、低成本、成功率高的。    **3. 参数校验**：所有入参先过 JSON Schema / Pydantic 校验，再做业务规则校验，比如金额上限、项目 ID 白名单、SQL 只允许 SELECT。    **4. 权限沙箱**：按 Agent 角色分配工具白名单；测试环境和生产环境隔离；生产默认只读；危险动作必须 dry-run + 人工确认。    **5. 调用观测**：记录 traceId、用户、Agent、工具名、参数摘要、耗时、返回状态、错误码、token / 成本和后续动作。    **6. 失败治理**：区分可重试错误和不可重试错误，设置最大重试次数、熔断、降级和人工接管，避免 Agent 死循环。    **7. 审计合规**：敏感参数脱敏存储，关键操作保留审批记录，工具版本变更要可追溯。    测试开发视角要强调：**工具接入不是越多越好，真正可用的工具必须有 schema、权限、日志、失败处理和审计闭环**。 ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q041</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q47：Tool Registry、Tool Router、权限沙箱怎么设计">Tool Registry、Tool Router、权限沙箱怎么设计</h3>
+                  <div class="card-meta"><span>来源：16-AI工具生态与能力扩展.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>工具一多，难点不是“能不能调”，而是 <strong>能不能选对、调稳、管住、追得回</strong>。</p>
+<p><strong>1. Tool Registry 工具注册中心</strong>：记录工具名、description、参数 schema、返回 schema、所属系统、权限等级、是否只读、是否危险、版本、负责人和 SLA。</p>
+<p><strong>2. Tool Router 工具路由</strong>：根据任务意图、用户角色、当前环境、工具健康度和成本选择工具；多个工具都能完成时优先选低风险、低成本、成功率高的。</p>
+<p><strong>3. 参数校验</strong>：所有入参先过 JSON Schema / Pydantic 校验，再做业务规则校验，比如金额上限、项目 ID 白名单、SQL 只允许 SELECT。</p>
+<p><strong>4. 权限沙箱</strong>：按 Agent 角色分配工具白名单；测试环境和生产环境隔离；生产默认只读；危险动作必须 dry-run + 人工确认。</p>
+<p><strong>5. 调用观测</strong>：记录 traceId、用户、Agent、工具名、参数摘要、耗时、返回状态、错误码、token / 成本和后续动作。</p>
+<p><strong>6. 失败治理</strong>：区分可重试错误和不可重试错误，设置最大重试次数、熔断、降级和人工接管，避免 Agent 死循环。</p>
+<p><strong>7. 审计合规</strong>：敏感参数脱敏存储，关键操作保留审批记录，工具版本变更要可追溯。</p>
+<p>测试开发视角要强调：<strong>工具接入不是越多越好，真正可用的工具必须有 schema、权限、日志、失败处理和审计闭环</strong>。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-732"
+                     data-idx="732"
+                     data-search="Q042：Function Calling 和 Tools 是什么关系？ Q28.5：Function Calling 和 Tools 是什么关系？ Q28.5：Function Calling 和 Tools 是什么关系？ Function Calling 和 Tools 的关系：Function Calling 是 LLM 选择调用哪个函数、并按 schema 生成入参 的机制；Tools 是 被调用的具体能力。FC 是&amp;quot;决定怎么调&amp;quot;，Tools 是&amp;quot;被调的东西&amp;quot;。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q042</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q28.5：Function Calling 和 Tools 是什么关系？">Function Calling 和 Tools 是什么关系？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>Function Calling 和 Tools 的关系</strong>：Function Calling 是 LLM <strong>选择调用哪个函数、并按 schema 生成入参</strong> 的机制；Tools 是 <strong>被调用的具体能力</strong>。FC 是&quot;决定怎么调&quot;，Tools 是&quot;被调的东西&quot;。</p>
                   </div>
                 </div>
               </div>

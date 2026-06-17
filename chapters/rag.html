@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>安全权限 · 测开面试题库（通用版）</title>
+  <title>RAG 知识增强 · 测开面试题库（通用版）</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -755,14 +755,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 <li><a class="nav-chapter" href="precise-test.html">精准测试<span class="nav-count">25</span></a></li>
 <li><a class="nav-chapter" href="platform.html">自动化测试平台<span class="nav-count">22</span></a></li>
 <li><a class="nav-chapter" href="llm-prompt.html">LLM 基础与 Prompt<span class="nav-count">19</span></a></li>
-<li><a class="nav-chapter" href="rag.html">RAG 知识增强<span class="nav-count">62</span></a></li>
+<li><a class="nav-chapter active" href="rag.html">RAG 知识增强<span class="nav-count">62</span></a></li>
 <li><a class="nav-chapter" href="ai-agent.html">AI Agent 自动执行<span class="nav-count">39</span></a></li>
 <li><a class="nav-chapter" href="ai-tools.html">AI 工具生态与能力扩展<span class="nav-count">42</span></a></li>
 <li><a class="nav-chapter" href="ai-evaluation.html">AI 测试与评测<span class="nav-count">140</span></a></li>
 <li><a class="nav-chapter" href="llmops.html">LLMOps 工程化工具<span class="nav-count">6</span></a></li>
 <li><a class="nav-chapter" href="ui-automation.html">UI 自动化<span class="nav-count">28</span></a></li>
 <li><a class="nav-chapter" href="compatibility.html">兼容性 / 弱网<span class="nav-count">34</span></a></li>
-<li><a class="nav-chapter active" href="security.html">安全权限<span class="nav-count">19</span></a></li>
+<li><a class="nav-chapter" href="security.html">安全权限<span class="nav-count">19</span></a></li>
 <li><a class="nav-chapter" href="coding.html">代码实战<span class="nav-count">5</span></a></li>
 <li><a class="nav-chapter" href="comprehensive.html">综合追问 / 高频必问<span class="nav-count">99</span></a></li>
       </ul>
@@ -792,19 +792,19 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
       <main class="content">
 
-        <section class="part-section" id="part-19">
-          <h2 class="part-title">安全权限</h2>
-          <p class="part-meta">19 题</p>
+        <section class="part-section" id="part-12">
+          <h2 class="part-title">RAG 知识增强</h2>
+          <p class="part-meta">62 题</p>
           <div class="cards-grid">
 
             <article class="card"
-                     id="card-941"
-                     data-idx="941"
-                     data-search="Q001：如何测试接口越权？ 8. 如何测试接口越权？ 8. 如何测试接口越权？    两类：  - **水平越权**：A 用户的 Token 访问 B 用户的资源。比如业务人员 A 用自己 Token 访问 GET /orders/{B 业务人员的工单 ID}，预期 403；  - **垂直越权**：低权限用户访问高权限接口。比如运营专员用 Token 访问 DELETE /admin/users/{id}，预期 403。  测试时遍历所有&quot;含 ID 的接口&quot;，用低权限 Token 替换 URL/Body 中的 ID 进行扫描。   ">
+                     id="card-590"
+                     data-idx="590"
+                     data-search="Q001：你简历写&quot;策略命中率 95%+&quot;，命中率公式是什么？ 11. 你简历写&quot;策略命中率 95%+&quot;，命中率公式是什么？ 11. 你简历写&quot;策略命中率 95%+&quot;，命中率公式是什么？    公式：`命中率 = 策略推荐与用户实际行为一致的样本数 / 总测试样本数 * 100%`。分母是 1000 条标注好的历史通知场景，分子是策略系统输出与人工标注一致的条数。统计周期是月度。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：8. 如何测试接口越权？">如何测试接口越权？</h3>
+                  <h3 class="card-title" title="原题：11. 你简历写&quot;策略命中率 95%+&quot;，命中率公式是什么？">你简历写&quot;策略命中率 95%+&quot;，命中率公式是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -818,9 +818,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>两类：</p>
-<ul><li><strong>水平越权</strong>：A 用户的 Token 访问 B 用户的资源。比如业务人员 A 用自己 Token 访问 GET /orders/{B 业务人员的工单 ID}，预期 403；</li><li><strong>垂直越权</strong>：低权限用户访问高权限接口。比如运营专员用 Token 访问 DELETE /admin/users/{id}，预期 403。</li></ul>
-<p>测试时遍历所有&quot;含 ID 的接口&quot;，用低权限 Token 替换 URL/Body 中的 ID 进行扫描。</p>
+                    <p>公式：<code>命中率 = 策略推荐与用户实际行为一致的样本数 / 总测试样本数 * 100%</code>。分母是 1000 条标注好的历史通知场景，分子是策略系统输出与人工标注一致的条数。统计周期是月度。</p>
                   </div>
                 </div>
               </div>
@@ -828,13 +826,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-942"
-                     data-idx="942"
-                     data-search="Q002：权限测试怎么做？ 1. 权限测试怎么做？ 1. 权限测试怎么做？    四个层次：①菜单权限（不同角色看到不同入口）；②接口权限（直接请求接口能否绕过）；③数据权限（业务人员只能看自己工单）；④操作权限（按钮可点击但接口未鉴权？）。每层都单独构造测试用例。   ">
+                     id="card-591"
+                     data-idx="591"
+                     data-search="Q002：是否区分正样本和负样本？ 14. 是否区分正样本和负样本？ 14. 是否区分正样本和负样本？    区分。①正样本：明确符合某类别的场景；②负样本：易混淆边界、不属于任何已知类别（应被分到&quot;其他&quot;）。负样本占 20%，主要测召回率和拒识能力。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：1. 权限测试怎么做？">权限测试怎么做？</h3>
+                  <h3 class="card-title" title="原题：14. 是否区分正样本和负样本？">是否区分正样本和负样本？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -848,7 +846,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>四个层次：</p><ul class="point-list"><li>①菜单权限（不同角色看到不同入口）</li><li>②接口权限（直接请求接口能否绕过）</li><li>③数据权限（业务人员只能看自己工单）</li><li>④操作权限（按钮可点击但接口未鉴权？）。每层都单独构造测试用例。</li></ul>
+                    <p>区分。</p><ul class="point-list"><li>①正样本：明确符合某类别的场景</li><li>②负样本：易混淆边界、不属于任何已知类别（应被分到&quot;其他&quot;）。负样本占 20%，主要测召回率和拒识能力。</li></ul>
                   </div>
                 </div>
               </div>
@@ -856,13 +854,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-943"
-                     data-idx="943"
-                     data-search="Q003：RBAC 是什么？ 2. RBAC 是什么？ 2. RBAC 是什么？    Role-Based Access Control，基于角色的权限控制。三要素：①用户 User；②角色 Role；③权限 Permission。关系是 User-Role 多对多、Role-Permission 多对多。我们系统有 6 个角色（超级管理员、企业管理员、部门负责人、业务人员、运营专员、客户），20+ 权限点。   ">
+                     id="card-592"
+                     data-idx="592"
+                     data-search="Q003：有没有人工标注标准？ 15. 有没有人工标注标准？ 15. 有没有人工标注标准？    有《通知场景标注手册》：①类别定义和典型案例；②边界情况裁定原则；③双人标注，分歧仲裁。Kappa 一致性 &gt; 0.8 才视为可靠测试集。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：2. RBAC 是什么？">RBAC 是什么？</h3>
+                  <h3 class="card-title" title="原题：15. 有没有人工标注标准？">有没有人工标注标准？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -876,7 +874,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>Role-Based Access Control，基于角色的权限控制。三要素：</p><ul class="point-list"><li>①用户 User</li><li>②角色 Role</li><li>③权限 Permission。关系是 User-Role 多对多、Role-Permission 多对多。我们系统有 6 个角色（超级管理员、企业管理员、部门负责人、业务人员、运营专员、客户），20+ 权限点。</li></ul>
+                    <p>有《通知场景标注手册》：</p><ul class="point-list"><li>①类别定义和典型案例</li><li>②边界情况裁定原则</li><li>③双人标注，分歧仲裁。Kappa 一致性 &gt; 0.8 才视为可靠测试集。</li></ul>
                   </div>
                 </div>
               </div>
@@ -884,13 +882,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-944"
-                     data-idx="944"
-                     data-search="Q004：菜单权限和接口权限有什么区别？ 3. 菜单权限和接口权限有什么区别？ 3. 菜单权限和接口权限有什么区别？    ①菜单权限：前端按角色隐藏入口，是 UX 层；②接口权限：后端鉴权，是安全层。**前端隐藏 ≠ 安全**！必须后端鉴权才算真权限。我们测试一定会绕过前端直接构造请求测接口权限。   ">
+                     id="card-593"
+                     data-idx="593"
+                     data-search="Q004：AI 返回异常具体是什么异常？ 18. AI 返回异常具体是什么异常？ 18. AI 返回异常具体是什么异常？    五类异常：①生成失败（超时、token 用尽、内容审核拦截）；②格式错误（要求 JSON 但返回自然语言）；③内容错误（事实错误、规范条款编号错）；④幻觉（引用不存在的规范条款）；⑤安全异常（输出敏感/违法内容）。每类有独立监控告警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：3. 菜单权限和接口权限有什么区别？">菜单权限和接口权限有什么区别？</h3>
+                  <h3 class="card-title" title="原题：18. AI 返回异常具体是什么异常？">AI 返回异常具体是什么异常？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -904,7 +902,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①菜单权限：前端按角色隐藏入口，是 UX 层</li><li>②接口权限：后端鉴权，是安全层。<strong>前端隐藏 ≠ 安全</strong>！必须后端鉴权才算真权限。我们测试一定会绕过前端直接构造请求测接口权限。</li></ul>
+                    <p>五类异常：</p><ul class="point-list"><li>①生成失败（超时、token 用尽、内容审核拦截）</li><li>②格式错误（要求 JSON 但返回自然语言）</li><li>③内容错误（事实错误、规范条款编号错）</li><li>④幻觉（引用不存在的规范条款）</li><li>⑤安全异常（输出敏感/违法内容）。每类有独立监控告警。</li></ul>
                   </div>
                 </div>
               </div>
@@ -912,13 +910,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-945"
-                     data-idx="945"
-                     data-search="Q005：前端隐藏按钮是否等于权限控制？ 4. 前端隐藏按钮是否等于权限控制？ 4. 前端隐藏按钮是否等于权限控制？    不等于。前端隐藏只是不显示，但用户可以：①F12 改 DOM 让按钮显示；②直接发请求绕过前端；③用其他客户端调接口。所以必须后端鉴权。这是我们必测的安全用例。   ">
+                     id="card-594"
+                     data-idx="594"
+                     data-search="Q005：分类任务中 TP、FP、FN、TN 分别是什么？ 20. 分类任务中 TP、FP、FN、TN 分别是什么？ 20. 分类任务中 TP、FP、FN、TN 分别是什么？    以&quot;是否为运营触达类通知&quot;为例：  - **TP**：是运营触达，模型说是；  - **FP**：不是运营触达，模型说是（误报）；  - **FN**：是运营触达，模型说不是（漏报）；  - **TN**：不是运营触达，模型说不是。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：4. 前端隐藏按钮是否等于权限控制？">前端隐藏按钮是否等于权限控制？</h3>
+                  <h3 class="card-title" title="原题：20. 分类任务中 TP、FP、FN、TN 分别是什么？">分类任务中 TP、FP、FN、TN 分别是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -932,7 +930,8 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>不等于。前端隐藏只是不显示，但用户可以：</p><ul class="point-list"><li>①F12 改 DOM 让按钮显示</li><li>②直接发请求绕过前端</li><li>③用其他客户端调接口。所以必须后端鉴权。这是我们必测的安全用例。</li></ul>
+                    <p>以&quot;是否为运营触达类通知&quot;为例：</p>
+<ul><li><strong>TP</strong>：是运营触达，模型说是；</li><li><strong>FP</strong>：不是运营触达，模型说是（误报）；</li><li><strong>FN</strong>：是运营触达，模型说不是（漏报）；</li><li><strong>TN</strong>：不是运营触达，模型说不是。</li></ul>
                   </div>
                 </div>
               </div>
@@ -940,13 +939,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-946"
-                     data-idx="946"
-                     data-search="Q006：水平越权怎么测试？ 5. 水平越权怎么测试？ 5. 水平越权怎么测试？    ①用业务人员 A 的 Token；②请求 /orders/{B 业务人员的工单 ID}；③预期返回 403/404，不能返回工单详情；④遍历所有&quot;带 ID 的接口&quot;做这种扫描；⑤包括查询、修改、删除、附件下载。不要只测页面按钮隐藏，接口层必须直接打请求验证。   ">
+                     id="card-595"
+                     data-idx="595"
+                     data-search="Q006：如何构建 Golden Dataset？ 25. 如何构建 Golden Dataset？ 25. 如何构建 Golden Dataset？    五步：①从真实用户问题采样（脱敏后）；②业务专家+业务人员双人标注答案；③覆盖典型场景 + 长尾 + 边界 + 对抗；④双人交叉校验；⑤定期更新（季度增删 10%）。规模 500-1000 条，保证统计显著性。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：5. 水平越权怎么测试？">水平越权怎么测试？</h3>
+                  <h3 class="card-title" title="原题：25. 如何构建 Golden Dataset？">如何构建 Golden Dataset？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -960,7 +959,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①用业务人员 A 的 Token</li><li>②请求 /orders/{B 业务人员的工单 ID}</li><li>③预期返回 403/404，不能返回工单详情</li><li>④遍历所有&quot;带 ID 的接口&quot;做这种扫描</li><li>⑤包括查询、修改、删除、附件下载。不要只测页面按钮隐藏，接口层必须直接打请求验证。</li></ul>
+                    <p>五步：</p><ul class="point-list"><li>①从真实用户问题采样（脱敏后）</li><li>②业务专家+业务人员双人标注答案</li><li>③覆盖典型场景 + 长尾 + 边界 + 对抗</li><li>④双人交叉校验</li><li>⑤定期更新（季度增删 10%）。规模 500-1000 条，保证统计显著性。</li></ul>
                   </div>
                 </div>
               </div>
@@ -968,13 +967,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-947"
-                     data-idx="947"
-                     data-search="Q007：垂直越权怎么测试？ 6. 垂直越权怎么测试？ 6. 垂直越权怎么测试？    ①用低权限角色（运营专员）的 Token；②请求高权限接口（DELETE /admin/users）；③预期 403；④覆盖所有管理员独有接口；⑤区分&quot;全部不可访问&quot;和&quot;部分可访问&quot;。   ">
+                     id="card-596"
+                     data-idx="596"
+                     data-search="Q007：你们是否有标准答案集？ 29. 你们是否有标准答案集？ 29. 你们是否有标准答案集？    有 RAG Golden Set 500 条知识库问答，每条包含：①question；②expected_answer（标准答案文本）；③key_points（必须命中的事实点）；④expected_law_refs（必须引用的规范条款）；⑤forbidden_content（不能出现的内容）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：6. 垂直越权怎么测试？">垂直越权怎么测试？</h3>
+                  <h3 class="card-title" title="原题：29. 你们是否有标准答案集？">你们是否有标准答案集？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -988,7 +987,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①用低权限角色（运营专员）的 Token</li><li>②请求高权限接口（DELETE /admin/users）</li><li>③预期 403</li><li>④覆盖所有管理员独有接口</li><li>⑤区分&quot;全部不可访问&quot;和&quot;部分可访问&quot;。</li></ul>
+                    <p>有 RAG Golden Set 500 条知识库问答，每条包含：</p><ul class="point-list"><li>①question</li><li>②expected_answer（标准答案文本）</li><li>③key_points（必须命中的事实点）</li><li>④expected_law_refs（必须引用的规范条款）</li><li>⑤forbidden_content（不能出现的内容）。</li></ul>
                   </div>
                 </div>
               </div>
@@ -996,13 +995,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-948"
-                     data-idx="948"
-                     data-search="Q008：数据权限怎么测试？ 7. 数据权限怎么测试？ 7. 数据权限怎么测试？    ①普通用户只能看自己负责的工单——SQL 验证返回数据 owner_id = 当前用户；②部门负责人能看本部门所有工单——验证 dept 过滤生效；③管理员能看所有；④导出/批量接口同样过滤；⑤搜索条件不能绕过权限。   ">
+                     id="card-597"
+                     data-idx="597"
+                     data-search="Q008：用户问知识库外的问题，AI 应该怎么回答？ 39. 用户问知识库外的问题，AI 应该怎么回答？ 39. 用户问知识库外的问题，AI 应该怎么回答？    应该明确说&quot;我不知道&quot;或&quot;知识库未覆盖&quot;，而不是强行编造。测试时构造知识库外的问题（如其他行业规范、最新业务规则），预期看到拒识响应。这是反幻觉的关键设计。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：7. 数据权限怎么测试？">数据权限怎么测试？</h3>
+                  <h3 class="card-title" title="原题：39. 用户问知识库外的问题，AI 应该怎么回答？">用户问知识库外的问题，AI 应该怎么回答？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1016,7 +1015,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①普通用户只能看自己负责的工单——SQL 验证返回数据 owner_id = 当前用户</li><li>②部门负责人能看本部门所有工单——验证 dept 过滤生效</li><li>③管理员能看所有</li><li>④导出/批量接口同样过滤</li><li>⑤搜索条件不能绕过权限。</li></ul>
+                    <p>应该明确说&quot;我不知道&quot;或&quot;知识库未覆盖&quot;，而不是强行编造。测试时构造知识库外的问题（如其他行业规范、最新业务规则），预期看到拒识响应。这是反幻觉的关键设计。</p>
                   </div>
                 </div>
               </div>
@@ -1024,13 +1023,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-949"
-                     data-idx="949"
-                     data-search="Q009：管理员和普通用户权限怎么验证？ 8. 管理员和普通用户权限怎么验证？ 8. 管理员和普通用户权限怎么验证？    矩阵法：横轴所有接口/功能，纵轴所有角色，单元格标&quot;允许/拒绝&quot;。每个角色账号跑一遍验证矩阵。形成《权限测试矩阵》文档每个版本更新。   ">
+                     id="card-598"
+                     data-idx="598"
+                     data-search="Q009：企业知识库问答是否有安全边界？ 47. 企业知识库问答是否有安全边界？ 47. 企业知识库问答是否有安全边界？    有：①不给具体专业建议（用&quot;建议咨询人工客服/业务专家&quot;兜底）；②不输出违法操作教程；③不引用不存在规范条款；④不泄露其他业务单据信息；⑤敏感问题（自杀、伤害）给出心理援助提示。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：8. 管理员和普通用户权限怎么验证？">管理员和普通用户权限怎么验证？</h3>
+                  <h3 class="card-title" title="原题：47. 企业知识库问答是否有安全边界？">企业知识库问答是否有安全边界？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1044,7 +1043,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>矩阵法：横轴所有接口/功能，纵轴所有角色，单元格标&quot;允许/拒绝&quot;。每个角色账号跑一遍验证矩阵。形成《权限测试矩阵》文档每个版本更新。</p>
+                    <p>有：</p><ul class="point-list"><li>①不给具体专业建议（用&quot;建议咨询人工客服/业务专家&quot;兜底）</li><li>②不输出违法操作教程</li><li>③不引用不存在规范条款</li><li>④不泄露其他业务单据信息</li><li>⑤敏感问题（自杀、伤害）给出心理援助提示。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1052,13 +1051,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-950"
-                     data-idx="950"
-                     data-search="Q010：Token 篡改怎么测试？ 9. Token 篡改怎么测试？ 9. Token 篡改怎么测试？    ①修改 JWT Payload（如改 userId 为他人）但保留原签名——预期签名校验失败 401；②伪造 Token（用 None 算法）——预期拒绝；③过期 Token——预期 401；④其他系统的 Token——预期拒绝；⑤Token 注销后再用——预期 401。   ">
+                     id="card-599"
+                     data-idx="599"
+                     data-search="Q010：什么是 RAG？ 49. 什么是 RAG？ 49. 什么是 RAG？    Retrieval-Augmented Generation，检索增强生成。流程：用户问题 → 向量化 → 在知识库检索相关片段 → 拼入 Prompt → 大模型基于上下文生成答案。优势：①减少幻觉；②知识可更新；③可解释（能给出引用）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：9. Token 篡改怎么测试？">Token 篡改怎么测试？</h3>
+                  <h3 class="card-title" title="原题：49. 什么是 RAG？">什么是 RAG？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1072,7 +1071,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①修改 JWT Payload（如改 userId 为他人）但保留原签名——预期签名校验失败 401</li><li>②伪造 Token（用 None 算法）——预期拒绝</li><li>③过期 Token——预期 401</li><li>④其他系统的 Token——预期拒绝</li><li>⑤Token 注销后再用——预期 401。</li></ul>
+                    <p>Retrieval-Augmented Generation，检索增强生成。流程：用户问题 → 向量化 → 在知识库检索相关片段 → 拼入 Prompt → 大模型基于上下文生成答案。优势：</p><ul class="point-list"><li>①减少幻觉</li><li>②知识可更新</li><li>③可解释（能给出引用）。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1080,14 +1079,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-951"
-                     data-idx="951"
-                     data-search="Q011：企业系统权限管控有哪些角色？ 11. 企业系统权限管控有哪些角色？ 11. 企业系统权限管控有哪些角色？    六类：①超级管理员（系统级配置）；②企业管理员（企业内全权限）；③部门负责人（部门可见）；④业务人员（自己工单可见）；⑤运营专员（被指派的工单可见）；⑥客户（仅自己工单查询权）。每个角色权限明细在《权限矩阵》。   ">
+                     id="card-600"
+                     data-idx="600"
+                     data-search="Q011：RAG 的完整流程 Q29：RAG 的完整流程 Q29：RAG 的完整流程    RAG（检索增强生成）= **先检索相关知识，再让 LLM 基于检索内容生成答案**，用外部知识弥补 LLM 知识不足和过期的问题。    ```  离线：文档 → 清洗 → 分块(chunk) → embedding → 存入向量库  在线：用户问题 → embedding → 向量检索 Top-K → rerank → 拼 prompt → LLM 生成 → 带引用返回  ```    **1. 文档为什么要分块**：文档太长塞不进上下文，且检索粒度太粗不精准；分块让检索能定位到 **相关片段**。    **2. chunk 太大的问题**：包含太多无关内容（噪声），稀释相关性，还可能超 token。    **3. chunk 太小的问题**：**语义被切断**，一句话被拆开，检索回来上下文不完整，答非所问。要用合理大小 + **重叠（overlap）** 缓解。    **4. embedding 是什么**：把文本转成 **高维向量**，语义相近的文本向量距离也近，是语义检索的基础。    **5. 向量数据库里存什么**：**向量 + 原文 chunk + 元数据**（来源、标题、更新时间），检索命中向量后取回原文。    **6. 余弦相似度解决什么**：衡量两个向量的 **语义相似程度**，用来从向量库里找和问题最相关的内容。    **7. Top-K 召回是什么意思**：取相似度最高的 **K 个片段** 作为候选上下文。    **8. rerank 为什么必要**：向量召回是&quot;粗排&quot;，可能把相关性一般的也召回来；**rerank（精排）** 用更强的模型对候选重新打分排序，把最相关的排前面，显著提升质量。    **9. prompt 如何组装**：把检索到的片段作为&quot;参考资料&quot; + 用户问题 + 指令（&quot;仅根据以下资料回答，不要编造&quot;)拼成 prompt 给 LLM。    **10. RAG 如何降低幻觉**：让 LLM **基于检索到的真实资料** 回答，并 **强制引用来源**，约束它别凭空生成。    **11. RAG 是否能完全避免幻觉**：**不能**。检索内容不全/不准、或 LLM 没严格遵循资料时仍会幻觉。RAG 是 **大幅降低**，不是根除。    **12. 检索不到答案怎么办**：让模型 **明确回答&quot;知识库中没有相关信息，无法回答&quot;**，而不是硬编一个看似合理的答案——这是工程上必须显式处理的兜底。    **13. 如何保证知识库内容时效性**：**定期更新 + 版本管理 + 增量同步**，旧文档下线或标注失效，元数据带更新时间，避免基于过期文档作答。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：11. 企业系统权限管控有哪些角色？">企业系统权限管控有哪些角色？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q29：RAG 的完整流程">RAG 的完整流程</h3>
+                  <div class="card-meta"><span>来源：09-AI_Agent基础.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1100,7 +1099,22 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>六类：</p><ul class="point-list"><li>①超级管理员（系统级配置）</li><li>②企业管理员（企业内全权限）</li><li>③部门负责人（部门可见）</li><li>④业务人员（自己工单可见）</li><li>⑤运营专员（被指派的工单可见）</li><li>⑥客户（仅自己工单查询权）。每个角色权限明细在《权限矩阵》。</li></ul>
+                    <p>RAG（检索增强生成）= <strong>先检索相关知识，再让 LLM 基于检索内容生成答案</strong>，用外部知识弥补 LLM 知识不足和过期的问题。</p>
+<pre class="code-block" data-lang="text"><code>离线：文档 → 清洗 → 分块(chunk) → embedding → 存入向量库
+在线：用户问题 → embedding → 向量检索 Top-K → rerank → 拼 prompt → LLM 生成 → 带引用返回</code></pre>
+<p><strong>1. 文档为什么要分块</strong>：文档太长塞不进上下文，且检索粒度太粗不精准；分块让检索能定位到 <strong>相关片段</strong>。</p>
+<p><strong>2. chunk 太大的问题</strong>：包含太多无关内容（噪声），稀释相关性，还可能超 token。</p>
+<p><strong>3. chunk 太小的问题</strong>：<strong>语义被切断</strong>，一句话被拆开，检索回来上下文不完整，答非所问。要用合理大小 + <strong>重叠（overlap）</strong> 缓解。</p>
+<p><strong>4. embedding 是什么</strong>：把文本转成 <strong>高维向量</strong>，语义相近的文本向量距离也近，是语义检索的基础。</p>
+<p><strong>5. 向量数据库里存什么</strong>：<strong>向量 + 原文 chunk + 元数据</strong>（来源、标题、更新时间），检索命中向量后取回原文。</p>
+<p><strong>6. 余弦相似度解决什么</strong>：衡量两个向量的 <strong>语义相似程度</strong>，用来从向量库里找和问题最相关的内容。</p>
+<p><strong>7. Top-K 召回是什么意思</strong>：取相似度最高的 <strong>K 个片段</strong> 作为候选上下文。</p>
+<p><strong>8. rerank 为什么必要</strong>：向量召回是&quot;粗排&quot;，可能把相关性一般的也召回来；<strong>rerank（精排）</strong> 用更强的模型对候选重新打分排序，把最相关的排前面，显著提升质量。</p>
+<p><strong>9. prompt 如何组装</strong>：把检索到的片段作为&quot;参考资料&quot; + 用户问题 + 指令（&quot;仅根据以下资料回答，不要编造&quot;)拼成 prompt 给 LLM。</p>
+<p><strong>10. RAG 如何降低幻觉</strong>：让 LLM <strong>基于检索到的真实资料</strong> 回答，并 <strong>强制引用来源</strong>，约束它别凭空生成。</p>
+<p><strong>11. RAG 是否能完全避免幻觉</strong>：<strong>不能</strong>。检索内容不全/不准、或 LLM 没严格遵循资料时仍会幻觉。RAG 是 <strong>大幅降低</strong>，不是根除。</p>
+<p><strong>12. 检索不到答案怎么办</strong>：让模型 <strong>明确回答&quot;知识库中没有相关信息，无法回答&quot;</strong>，而不是硬编一个看似合理的答案——这是工程上必须显式处理的兜底。</p>
+<p><strong>13. 如何保证知识库内容时效性</strong>：<strong>定期更新 + 版本管理 + 增量同步</strong>，旧文档下线或标注失效，元数据带更新时间，避免基于过期文档作答。</p>
                   </div>
                 </div>
               </div>
@@ -1108,13 +1122,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-952"
-                     data-idx="952"
-                     data-search="Q012：业务人员只能看自己的工单吗？ 12. 业务人员只能看自己的工单吗？ 12. 业务人员只能看自己的工单吗？    默认是。例外：①部门负责人协办——可看协办工单；②运营专员被指派——可看授权工单；③企业内共享池——配置过共享的工单。所有访问走数据权限网关统一过滤。   ">
+                     id="card-601"
+                     data-idx="601"
+                     data-search="Q012：RAG 为什么能减少幻觉？ 51. RAG 为什么能减少幻觉？ 51. RAG 为什么能减少幻觉？    让模型基于外部检索的真实文档作答而非凭记忆生成。当 Prompt 明确指示&quot;只基于以下内容回答&quot;时，模型编造空间减少。但减少不等于消除。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：12. 业务人员只能看自己的工单吗？">业务人员只能看自己的工单吗？</h3>
+                  <h3 class="card-title" title="原题：51. RAG 为什么能减少幻觉？">RAG 为什么能减少幻觉？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1128,7 +1142,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>默认是。例外：</p><ul class="point-list"><li>①部门负责人协办——可看协办工单</li><li>②运营专员被指派——可看授权工单</li><li>③企业内共享池——配置过共享的工单。所有访问走数据权限网关统一过滤。</li></ul>
+                    <p>让模型基于外部检索的真实文档作答而非凭记忆生成。当 Prompt 明确指示&quot;只基于以下内容回答&quot;时，模型编造空间减少。但减少不等于消除。</p>
                   </div>
                 </div>
               </div>
@@ -1136,13 +1150,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-953"
-                     data-idx="953"
-                     data-search="Q013：管理员能看所有工单吗？ 13. 管理员能看所有工单吗？ 13. 管理员能看所有工单吗？    能看本企业所有工单，但有审计：①所有查询动作记录；②敏感操作（删除、修改金额）二次确认；③跨企业不能看（多租户隔离）。   ">
+                     id="card-602"
+                     data-idx="602"
+                     data-search="Q013：RAG 一定能解决幻觉吗？ 52. RAG 一定能解决幻觉吗？ 52. RAG 一定能解决幻觉吗？    不能完全。剩余幻觉来源：①检索失败时模型仍编造（兜底缺失）；②检索片段不全模型自行补充；③模型未严格遵守&quot;基于上下文&quot;指令；④Prompt 设计不严。需要工程化兜底（拒识、引用校验）。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：13. 管理员能看所有工单吗？">管理员能看所有工单吗？</h3>
+                  <h3 class="card-title" title="原题：52. RAG 一定能解决幻觉吗？">RAG 一定能解决幻觉吗？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1156,7 +1170,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>能看本企业所有工单，但有审计：</p><ul class="point-list"><li>①所有查询动作记录</li><li>②敏感操作（删除、修改金额）二次确认</li><li>③跨企业不能看（多租户隔离）。</li></ul>
+                    <p>不能完全。剩余幻觉来源：</p><ul class="point-list"><li>①检索失败时模型仍编造（兜底缺失）</li><li>②检索片段不全模型自行补充</li><li>③模型未严格遵守&quot;基于上下文&quot;指令</li><li>④Prompt 设计不严。需要工程化兜底（拒识、引用校验）。</li></ul>
                   </div>
                 </div>
               </div>
@@ -1164,13 +1178,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-954"
-                     data-idx="954"
-                     data-search="Q014：运营专员能不能修改账单？ 14. 运营专员能不能修改账单？ 14. 运营专员能不能修改账单？    默认不能。运营专员只能查看和录入辅助信息，账单修改是业务人员/部门负责人权限。如果产品上有运营专员代录场景，需要走&quot;录入待审核&quot;流程，业务人员审批后生效。   ">
+                     id="card-603"
+                     data-idx="603"
+                     data-search="Q014：Embedding 是什么？ 53. Embedding 是什么？ 53. Embedding 是什么？    把文本映射到高维向量空间的过程，使语义相近的文本向量距离也近。常见模型：OpenAI text-embedding-3、bge-large-zh、m3e-large。维度 768-1536 居多。质量直接决定检索召回。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：14. 运营专员能不能修改账单？">运营专员能不能修改账单？</h3>
+                  <h3 class="card-title" title="原题：53. Embedding 是什么？">Embedding 是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1184,7 +1198,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>默认不能。运营专员只能查看和录入辅助信息，账单修改是业务人员/部门负责人权限。如果产品上有运营专员代录场景，需要走&quot;录入待审核&quot;流程，业务人员审批后生效。</p>
+                    <p>把文本映射到高维向量空间的过程，使语义相近的文本向量距离也近。常见模型：OpenAI text-embedding-3、bge-large-zh、m3e-large。维度 768-1536 居多。质量直接决定检索召回。</p>
                   </div>
                 </div>
               </div>
@@ -1192,13 +1206,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-955"
-                     data-idx="955"
-                     data-search="Q015：接口越权你测出来过吗？ 15. 接口越权你测出来过吗？ 15. 接口越权你测出来过吗？    测出过 5 个：①一个工单详情接口未做 owner 校验，业务人员 A 可看 B 的工单；②业务文档下载接口未鉴权，知道 fileId 就能下载任意业务文档；③账单列表接口分页参数可绕过部门过滤；④导出接口未做权限二次校验；⑤一个老旧管理后台接口未接入网关鉴权。全部 P0 缺陷推动修复。   ">
+                     id="card-604"
+                     data-idx="604"
+                     data-search="Q015：向量数据库的作用是什么？ 54. 向量数据库的作用是什么？ 54. 向量数据库的作用是什么？    存储文档向量并支持高效相似度检索（余弦/内积/欧氏）。主流：Milvus、Pinecone、Qdrant、Weaviate、PG vector。核心能力：高维向量索引（HNSW/IVF）、亿级扩展性、混合检索。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：15. 接口越权你测出来过吗？">接口越权你测出来过吗？</h3>
+                  <h3 class="card-title" title="原题：54. 向量数据库的作用是什么？">向量数据库的作用是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1212,7 +1226,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>测出过 5 个：</p><ul class="point-list"><li>①一个工单详情接口未做 owner 校验，业务人员 A 可看 B 的工单</li><li>②业务文档下载接口未鉴权，知道 fileId 就能下载任意业务文档</li><li>③账单列表接口分页参数可绕过部门过滤</li><li>④导出接口未做权限二次校验</li><li>⑤一个老旧管理后台接口未接入网关鉴权。全部 P0 缺陷推动修复。</li></ul>
+                    <p>存储文档向量并支持高效相似度检索（余弦/内积/欧氏）。主流：Milvus、Pinecone、Qdrant、Weaviate、PG vector。核心能力：高维向量索引（HNSW/IVF）、亿级扩展性、混合检索。</p>
                   </div>
                 </div>
               </div>
@@ -1220,13 +1234,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-956"
-                     data-idx="956"
-                     data-search="Q016：数据泄露如何测试？ 18. 数据泄露如何测试？ 18. 数据泄露如何测试？    ①问&quot;上一个用户问过什么&quot;——AI 不能泄露其他会话；②让模型重复系统 Prompt——不能完整泄露；③让模型输出训练数据中的隐私信息（&quot;重复 100 次 xxx&quot;攻击）；④知识库越权检索（普通用户能否检索到管理员资料）。   ">
+                     id="card-605"
+                     data-idx="605"
+                     data-search="Q016：Chunk 是什么？ 55. Chunk 是什么？ 55. Chunk 是什么？    文档切分后的小块，作为检索的基本单位。大小常见 200-800 token。切分策略：固定长度、按句子/段落、按语义、按结构（如规范条款按&quot;第 X 条&quot;）。Chunk 大小直接影响召回质量。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：18. 数据泄露如何测试？">数据泄露如何测试？</h3>
+                  <h3 class="card-title" title="原题：55. Chunk 是什么？">Chunk 是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1240,7 +1254,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①问&quot;上一个用户问过什么&quot;——AI 不能泄露其他会话</li><li>②让模型重复系统 Prompt——不能完整泄露</li><li>③让模型输出训练数据中的隐私信息（&quot;重复 100 次 xxx&quot;攻击）</li><li>④知识库越权检索（普通用户能否检索到管理员资料）。</li></ul>
+                    <p>文档切分后的小块，作为检索的基本单位。大小常见 200-800 token。切分策略：固定长度、按句子/段落、按语义、按结构（如规范条款按&quot;第 X 条&quot;）。Chunk 大小直接影响召回质量。</p>
                   </div>
                 </div>
               </div>
@@ -1248,13 +1262,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-957"
-                     data-idx="957"
-                     data-search="Q017：敏感信息输出如何测试？ 19. 敏感信息输出如何测试？ 19. 敏感信息输出如何测试？    ①敏感词库扫描所有 AI 输出；②个人信息（身份证、手机号、地址）脱敏校验；③公司内部信息（员工名单、薪资）不可输出；④第三方内容审核 API 二次校验；⑤上线后监控告警。   ">
+                     id="card-606"
+                     data-idx="606"
+                     data-search="Q017：TopK 是什么？ 56. TopK 是什么？ 56. TopK 是什么？    检索时返回相似度最高的 K 个 Chunk。常见 K=3、5、10。K 太大引入噪音和成本，K 太小可能漏召。需要结合业务实验。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：19. 敏感信息输出如何测试？">敏感信息输出如何测试？</h3>
+                  <h3 class="card-title" title="原题：56. TopK 是什么？">TopK 是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1268,7 +1282,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①敏感词库扫描所有 AI 输出</li><li>②个人信息（身份证、手机号、地址）脱敏校验</li><li>③公司内部信息（员工名单、薪资）不可输出</li><li>④第三方内容审核 API 二次校验</li><li>⑤上线后监控告警。</li></ul>
+                    <p>检索时返回相似度最高的 K 个 Chunk。常见 K=3、5、10。K 太大引入噪音和成本，K 太小可能漏召。需要结合业务实验。</p>
                   </div>
                 </div>
               </div>
@@ -1276,13 +1290,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-958"
-                     data-idx="958"
-                     data-search="Q018：用户输入恶意内容如何过滤？ 24. 用户输入恶意内容如何过滤？ 24. 用户输入恶意内容如何过滤？    ①前置敏感词过滤（高频违法词直接拒绝）；②内容审核 API（阿里/腾讯文本审核）；③Prompt Injection 检测器（识别&quot;忽略指令&quot;类模式）；④异常长输入限制；⑤恶意请求频控+黑名单。   ">
+                     id="card-607"
+                     data-idx="607"
+                     data-search="Q018：Rerank 是什么？ 57. Rerank 是什么？ 57. Rerank 是什么？    重排序。先用快速 Embedding 召回 Top-N（如 N=20），再用更精的 Cross-Encoder 模型重排取 Top-K（如 K=3）。两阶段架构平衡效率和精度。常用 bge-reranker、Cohere Rerank。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：24. 用户输入恶意内容如何过滤？">用户输入恶意内容如何过滤？</h3>
+                  <h3 class="card-title" title="原题：57. Rerank 是什么？">Rerank 是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1296,7 +1310,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①前置敏感词过滤（高频违法词直接拒绝）</li><li>②内容审核 API（阿里/腾讯文本审核）</li><li>③Prompt Injection 检测器（识别&quot;忽略指令&quot;类模式）</li><li>④异常长输入限制</li><li>⑤恶意请求频控+黑名单。</li></ul>
+                    <p>重排序。先用快速 Embedding 召回 Top-N（如 N=20），再用更精的 Cross-Encoder 模型重排取 Top-K（如 K=3）。两阶段架构平衡效率和精度。常用 bge-reranker、Cohere Rerank。</p>
                   </div>
                 </div>
               </div>
@@ -1304,13 +1318,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-959"
-                     data-idx="959"
-                     data-search="Q019：如果普通业务人员问管理员资料，系统如何处理？ 29. 如果普通业务人员问管理员资料，系统如何处理？ 29. 如果普通业务人员问管理员资料，系统如何处理？    ①检索层过滤掉管理员可见的 chunk；②即使关键词命中也不返回；③Prompt 中不带管理员上下文；④模型只能基于召回片段回答，没召回就拒识；⑤异常请求次数累计告警。   ">
+                     id="card-608"
+                     data-idx="608"
+                     data-search="Q019：混合检索是什么？ 58. 混合检索是什么？ 58. 混合检索是什么？    向量检索 + 关键词检索（BM25）结合。向量检索擅长语义但可能漏精确关键词（如规范条款编号），关键词检索补足。两路结果用 RRF 或加权融合。业务场景特别有效。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q019</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：29. 如果普通业务人员问管理员资料，系统如何处理？">如果普通业务人员问管理员资料，系统如何处理？</h3>
+                  <h3 class="card-title" title="原题：58. 混合检索是什么？">混合检索是什么？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1324,7 +1338,1221 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <ul class="point-list"><li>①检索层过滤掉管理员可见的 chunk</li><li>②即使关键词命中也不返回</li><li>③Prompt 中不带管理员上下文</li><li>④模型只能基于召回片段回答，没召回就拒识</li><li>⑤异常请求次数累计告警。</li></ul>
+                    <p>向量检索 + 关键词检索（BM25）结合。向量检索擅长语义但可能漏精确关键词（如规范条款编号），关键词检索补足。两路结果用 RRF 或加权融合。业务场景特别有效。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-609"
+                     data-idx="609"
+                     data-search="Q020：你们企业知识库问答是怎么接入 RAG 的？ 59. 你们企业知识库问答是怎么接入 RAG 的？ 59. 你们企业知识库问答是怎么接入 RAG 的？    架构：①知识库（产品手册、业务 SOP、服务协议、内部 FAQ + 历史工单）；②文档解析（PDF + OCR）；③切分（按规范条款结构，每条一个 Chunk）；④Embedding（bge-large-zh）；⑤向量库（Milvus）；⑥检索（向量 + 关键词混合）；⑦Rerank；⑧大模型生成。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q020</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：59. 你们企业知识库问答是怎么接入 RAG 的？">你们企业知识库问答是怎么接入 RAG 的？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>架构：</p><ul class="point-list"><li>①知识库（产品手册、业务 SOP、服务协议、内部 FAQ + 历史工单）</li><li>②文档解析（PDF + OCR）</li><li>③切分（按规范条款结构，每条一个 Chunk）</li><li>④Embedding（bge-large-zh）</li><li>⑤向量库（Milvus）</li><li>⑥检索（向量 + 关键词混合）</li><li>⑦Rerank</li><li>⑧大模型生成。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-610"
+                     data-idx="610"
+                     data-search="Q021：知识库来源是什么？ 60. 知识库来源是什么？ 60. 知识库来源是什么？    三大类：①官方/企业规范（官网或内部规范库同步，定期更新）；②行业标准和最佳实践（由业务专家维护）；③内部知识（公司工单库、业务人员手册、业务 FAQ）。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q021</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：60. 知识库来源是什么？">知识库来源是什么？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>三大类：</p><ul class="point-list"><li>①官方/企业规范（官网或内部规范库同步，定期更新）</li><li>②行业标准和最佳实践（由业务专家维护）</li><li>③内部知识（公司工单库、业务人员手册、业务 FAQ）。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-611"
+                     data-idx="611"
+                     data-search="Q022：文档是规范条款、案例、内部制度，还是业务 FAQ？ 61. 文档是规范条款、案例、内部制度，还是业务 FAQ？ 61. 文档是规范条款、案例、内部制度，还是业务 FAQ？    全都有：①规范条款 70%；②案例 15%；③内部 FAQ 10%；④业务人员手册 5%。不同类型用不同切分策略：规范条款按条切，案例按背景/处理过程/规范条款三段切，FAQ 按 Q&amp;A 对切。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q022</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：61. 文档是规范条款、案例、内部制度，还是业务 FAQ？">文档是规范条款、案例、内部制度，还是业务 FAQ？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>全都有：</p><ul class="point-list"><li>①规范条款 70%</li><li>②案例 15%</li><li>③内部 FAQ 10%</li><li>④业务人员手册 5%。不同类型用不同切分策略：规范条款按条切，案例按背景/处理过程/规范条款三段切，FAQ 按 Q&amp;A 对切。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-612"
+                     data-idx="612"
+                     data-search="Q023：文档如何切分？ 62. 文档如何切分？ 62. 文档如何切分？    按文档类型差异化：①规范条款按&quot;第 X 条&quot;为最小单元（不可拆分）；②案例按段落 + 句子边界，500 token 一段；③FAQ 一个 Q&amp;A 一个 chunk。所有 chunk 保留 50-100 token 重叠避免上下文断裂。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q023</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：62. 文档如何切分？">文档如何切分？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>按文档类型差异化：</p><ul class="point-list"><li>①规范条款按&quot;第 X 条&quot;为最小单元（不可拆分）</li><li>②案例按段落 + 句子边界，500 token 一段</li><li>③FAQ 一个 Q&amp;A 一个 chunk。所有 chunk 保留 50-100 token 重叠避免上下文断裂。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-613"
+                     data-idx="613"
+                     data-search="Q024：Chunk 大小是多少？ 63. Chunk 大小是多少？ 63. Chunk 大小是多少？    默认 500 token。规范条款特殊处理（按条目，平均 200 token）。FAQ 视长度（短 100、长 500）。Chunk 大小经过 A/B 测试：试过 200/500/800/1200，500 在业务场景效果最好。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q024</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：63. Chunk 大小是多少？">Chunk 大小是多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>默认 500 token。规范条款特殊处理（按条目，平均 200 token）。FAQ 视长度（短 100、长 500）。Chunk 大小经过 A/B 测试：试过 200/500/800/1200，500 在业务场景效果最好。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-614"
+                     data-idx="614"
+                     data-search="Q025：有没有重叠？ 64. 有没有重叠？ 64. 有没有重叠？    有，50-100 token 重叠（约 10-20% 重叠率）。规范条款之间不重叠（每条独立完整）。重叠避免在句子中间切断导致语义丢失。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q025</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：64. 有没有重叠？">有没有重叠？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>有，50-100 token 重叠（约 10-20% 重叠率）。规范条款之间不重叠（每条独立完整）。重叠避免在句子中间切断导致语义丢失。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-615"
+                     data-idx="615"
+                     data-search="Q026：用的什么向量数据库？ 65. 用的什么向量数据库？ 65. 用的什么向量数据库？    Milvus 2.x。原因：①开源可控；②性能好（HNSW 索引 100ms 内返回）；③支持标量过滤（按文档类型、权限标签筛选）；④活跃社区。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q026</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：65. 用的什么向量数据库？">用的什么向量数据库？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>Milvus 2.x。原因：</p><ul class="point-list"><li>①开源可控</li><li>②性能好（HNSW 索引 100ms 内返回）</li><li>③支持标量过滤（按文档类型、权限标签筛选）</li><li>④活跃社区。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-616"
+                     data-idx="616"
+                     data-search="Q027：用的什么 Embedding 模型？ 66. 用的什么 Embedding 模型？ 66. 用的什么 Embedding 模型？    BAAI/bge-large-zh-v1.5。原因：①中文场景表现优秀；②开源可本地部署（数据合规）；③1024 维平衡精度和成本。对比过 text-embedding-3（API 依赖）、m3e、acge，bge 综合最优。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q027</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：66. 用的什么 Embedding 模型？">用的什么 Embedding 模型？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>BAAI/bge-large-zh-v1.5。原因：</p><ul class="point-list"><li>①中文场景表现优秀</li><li>②开源可本地部署（数据合规）</li><li>③1024 维平衡精度和成本。对比过 text-embedding-3（API 依赖）、m3e、acge，bge 综合最优。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-617"
+                     data-idx="617"
+                     data-search="Q028：TopK 设置多少？ 67. TopK 设置多少？ 67. TopK 设置多少？    两阶段：①初筛 Top-20（向量+关键词混合）；②Rerank 后 Top-5 进 Prompt。Top-5 是经过实验的最优值：Top-3 偶有漏召，Top-10 引入过多噪音。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q028</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：67. TopK 设置多少？">TopK 设置多少？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>两阶段：</p><ul class="point-list"><li>①初筛 Top-20（向量+关键词混合）</li><li>②Rerank 后 Top-5 进 Prompt。Top-5 是经过实验的最优值：Top-3 偶有漏召，Top-10 引入过多噪音。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-618"
+                     data-idx="618"
+                     data-search="Q029：RAG 答非所问的原因有哪些？ 79. RAG 答非所问的原因有哪些？ 79. RAG 答非所问的原因有哪些？    6 大类：①Query 理解错（多意/含糊）；②向量检索召回了不相关 chunk；③关键词检索误命中；④TopK 太大引入噪音；⑤Rerank 模型质量差；⑥Prompt 没有约束；⑦模型自由发挥。逐层定位。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q029</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：79. RAG 答非所问的原因有哪些？">RAG 答非所问的原因有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>6 大类：</p><ul class="point-list"><li>①Query 理解错（多意/含糊）</li><li>②向量检索召回了不相关 chunk</li><li>③关键词检索误命中</li><li>④TopK 太大引入噪音</li><li>⑤Rerank 模型质量差</li><li>⑥Prompt 没有约束</li><li>⑦模型自由发挥。逐层定位。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-619"
+                     data-idx="619"
+                     data-search="Q030：RAG 找不到答案的原因有哪些？ 80. RAG 找不到答案的原因有哪些？ 80. RAG 找不到答案的原因有哪些？    ①知识库没有这块内容；②Chunk 切分把答案切断；③Embedding 模型对术语不敏感；④TopK 太小漏召；⑤关键词不匹配（同义词未扩展）；⑥Rerank 把对的 chunk 排到 Top-K 外。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q030</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：80. RAG 找不到答案的原因有哪些？">RAG 找不到答案的原因有哪些？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①知识库没有这块内容</li><li>②Chunk 切分把答案切断</li><li>③Embedding 模型对术语不敏感</li><li>④TopK 太小漏召</li><li>⑤关键词不匹配（同义词未扩展）</li><li>⑥Rerank 把对的 chunk 排到 Top-K 外。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-620"
+                     data-idx="620"
+                     data-search="Q031：Chunk 太大有什么问题？ 81. Chunk 太大有什么问题？ 81. Chunk 太大有什么问题？    ①检索精度下降（一个 chunk 包含多个主题，向量稀释）；②Prompt 上下文窗口被占满；③成本上升；④Top-K 引入更多无关信息。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q031</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：81. Chunk 太大有什么问题？">Chunk 太大有什么问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①检索精度下降（一个 chunk 包含多个主题，向量稀释）</li><li>②Prompt 上下文窗口被占满</li><li>③成本上升</li><li>④Top-K 引入更多无关信息。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-621"
+                     data-idx="621"
+                     data-search="Q032：Chunk 太小有什么问题？ 82. Chunk 太小有什么问题？ 82. Chunk 太小有什么问题？    ①语义不完整（一句话不够表达上下文）；②同一主题被切散，需要拼接多个 chunk；③向量丢失上下文。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q032</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：82. Chunk 太小有什么问题？">Chunk 太小有什么问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①语义不完整（一句话不够表达上下文）</li><li>②同一主题被切散，需要拼接多个 chunk</li><li>③向量丢失上下文。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-622"
+                     data-idx="622"
+                     data-search="Q033：TopK 太大有什么问题？ 83. TopK 太大有什么问题？ 83. TopK 太大有什么问题？    ①Prompt 噪音多影响生成质量；②上下文窗口占用大；③成本高（计算+ token 费）；④可能稀释关键信息让模型抓不住重点。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q033</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：83. TopK 太大有什么问题？">TopK 太大有什么问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①Prompt 噪音多影响生成质量</li><li>②上下文窗口占用大</li><li>③成本高（计算+ token 费）</li><li>④可能稀释关键信息让模型抓不住重点。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-623"
+                     data-idx="623"
+                     data-search="Q034：TopK 太小有什么问题？ 84. TopK 太小有什么问题？ 84. TopK 太小有什么问题？    ①漏召正确答案所在 chunk；②答案不完整（需要多个 chunk 互补的场景）；③模型不得不发挥（幻觉风险）。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q034</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：84. TopK 太小有什么问题？">TopK 太小有什么问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①漏召正确答案所在 chunk</li><li>②答案不完整（需要多个 chunk 互补的场景）</li><li>③模型不得不发挥（幻觉风险）。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-624"
+                     data-idx="624"
+                     data-search="Q035：文档重复会带来什么问题？ 85. 文档重复会带来什么问题？ 85. 文档重复会带来什么问题？    ①Top-K 全是同一份内容的不同副本，浪费上下文；②如果版本不同（新旧版规范）会产生冲突；③向量数据库存储和检索成本上升。解决：入库去重（哈希）+ 版本管理。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q035</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：85. 文档重复会带来什么问题？">文档重复会带来什么问题？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <ul class="point-list"><li>①Top-K 全是同一份内容的不同副本，浪费上下文</li><li>②如果版本不同（新旧版规范）会产生冲突</li><li>③向量数据库存储和检索成本上升。解决：入库去重（哈希）+ 版本管理。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-625"
+                     data-idx="625"
+                     data-search="Q036：RAG 回答是否需要引用来源？ 90. RAG 回答是否需要引用来源？ 90. RAG 回答是否需要引用来源？    强烈需要。业务场景必须引用：①让用户可核对；②增加可信度；③倒逼模型不编造；④出问题可追溯。我们规定答案必须包含&quot;参考依据：《xxx》第 X 条&quot;。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q036</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：90. RAG 回答是否需要引用来源？">RAG 回答是否需要引用来源？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>强烈需要。业务场景必须引用：</p><ul class="point-list"><li>①让用户可核对</li><li>②增加可信度</li><li>③倒逼模型不编造</li><li>④出问题可追溯。我们规定答案必须包含&quot;参考依据：《xxx》第 X 条&quot;。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-626"
+                     data-idx="626"
+                     data-search="Q037：有没有展示引用片段？ 91. 有没有展示引用片段？ 91. 有没有展示引用片段？    有，UI 上每条答案下方折叠展示&quot;参考依据&quot;，点开可看完整 chunk + 原文出处链接。这同时也是用户教育——让他们知道答案有据可查。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q037</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：91. 有没有展示引用片段？">有没有展示引用片段？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>有，UI 上每条答案下方折叠展示&quot;参考依据&quot;，点开可看完整 chunk + 原文出处链接。这同时也是用户教育——让他们知道答案有据可查。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-627"
+                     data-idx="627"
+                     data-search="Q038：知识库问答是否支持&quot;不知道就回答不知道&quot;？ 93. 知识库问答是否支持&quot;不知道就回答不知道&quot;？ 93. 知识库问答是否支持&quot;不知道就回答不知道&quot;？    支持，是核心设计。Prompt 中明确：「若上下文中没有相关内容，请回答&quot;我暂时没有相关资料，建议咨询业务专家&quot;」。测试集中专门构造知识库外问题验证拒识能力，拒识准确率要求 ≥ 90%。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q038</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：93. 知识库问答是否支持&quot;不知道就回答不知道&quot;？">知识库问答是否支持&quot;不知道就回答不知道&quot;？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>支持，是核心设计。Prompt 中明确：「若上下文中没有相关内容，请回答&quot;我暂时没有相关资料，建议咨询业务专家&quot;」。测试集中专门构造知识库外问题验证拒识能力，拒识准确率要求 ≥ 90%。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-628"
+                     data-idx="628"
+                     data-search="Q039：你们如何防止模型自由发挥？ 94. 你们如何防止模型自由发挥？ 94. 你们如何防止模型自由发挥？    五招：①Prompt 强约束&quot;只基于上下文&quot;；②温度设为 0；③上下文中无相关信息时强制拒识；④答案必须包含可核对的引用；⑤后处理校验（如规范条款编号库交叉验证）。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q039</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：94. 你们如何防止模型自由发挥？">你们如何防止模型自由发挥？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>五招：</p><ul class="point-list"><li>①Prompt 强约束&quot;只基于上下文&quot;</li><li>②温度设为 0</li><li>③上下文中无相关信息时强制拒识</li><li>④答案必须包含可核对的引用</li><li>⑤后处理校验（如规范条款编号库交叉验证）。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-629"
+                     data-idx="629"
+                     data-search="Q040：是直接调用模型，还是接了 RAG？ 12. 是直接调用模型，还是接了 RAG？ 12. 是直接调用模型，还是接了 RAG？    接了 RAG。原因：①模型知识有时间截止；②业务规则会更新；③需要可解释（引用）；④需要业务私有知识（内部 FAQ）。纯模型调用只用在不涉及具体规范条款的通用对话场景。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q040</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：12. 是直接调用模型，还是接了 RAG？">是直接调用模型，还是接了 RAG？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>接了 RAG。原因：</p><ul class="point-list"><li>①模型知识有时间截止</li><li>②业务规则会更新</li><li>③需要可解释（引用）</li><li>④需要业务私有知识（内部 FAQ）。纯模型调用只用在不涉及具体规范条款的通用对话场景。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-630"
+                     data-idx="630"
+                     data-search="Q041：知识库问答有没有置信度？ 14. 知识库问答有没有置信度？ 14. 知识库问答有没有置信度？    有两层：①检索置信度（Top-1 相似度分数）；②生成置信度（基于 logprobs 或 LLM 自评）。综合分 &lt; 阈值时降级为&quot;建议咨询人工客服/业务专家&quot;。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q041</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：14. 知识库问答有没有置信度？">知识库问答有没有置信度？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>有两层：</p><ul class="point-list"><li>①检索置信度（Top-1 相似度分数）</li><li>②生成置信度（基于 logprobs 或 LLM 自评）。综合分 &lt; 阈值时降级为&quot;建议咨询人工客服/业务专家&quot;。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-631"
+                     data-idx="631"
+                     data-search="Q042：RAG 是否可能泄露无权限文档？ 23. RAG 是否可能泄露无权限文档？ 23. RAG 是否可能泄露无权限文档？    可能。如果向量检索没有做权限过滤，普通用户的 query 可能命中敏感文档。修复：①入库时给 chunk 打权限标签；②检索时按用户角色过滤（Milvus scalar filter）；③测试用低权限账号问敏感问题，验证不召回。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q042</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：23. RAG 是否可能泄露无权限文档？">RAG 是否可能泄露无权限文档？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>可能。如果向量检索没有做权限过滤，普通用户的 query 可能命中敏感文档。修复：</p><ul class="point-list"><li>①入库时给 chunk 打权限标签</li><li>②检索时按用户角色过滤（Milvus scalar filter）</li><li>③测试用低权限账号问敏感问题，验证不召回。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-632"
+                     data-idx="632"
+                     data-search="Q043：企业知识库 AI 是否可能把其他业务单据信息泄露给当前用户？ 26. 企业知识库 AI 是否可能把其他业务单据信息泄露给当前用户？ 26. 企业知识库 AI 是否可能把其他业务单据信息泄露给当前用户？    存在风险，必须防护：①RAG 检索按用户权限过滤；②Prompt 不携带其他用户上下文；③多租户隔离（不同企业完全独立）；④会话独立（不跨用户串扰）；⑤测试用例专门构造&quot;问其他业务人员工单&quot;场景验证拒绝。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q043</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：26. 企业知识库 AI 是否可能把其他业务单据信息泄露给当前用户？">企业知识库 AI 是否可能把其他业务单据信息泄露给当前用户？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>存在风险，必须防护：</p><ul class="point-list"><li>①RAG 检索按用户权限过滤</li><li>②Prompt 不携带其他用户上下文</li><li>③多租户隔离（不同企业完全独立）</li><li>④会话独立（不跨用户串扰）</li><li>⑤测试用例专门构造&quot;问其他业务人员工单&quot;场景验证拒绝。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-633"
+                     data-idx="633"
+                     data-search="Q044：RAG 检索是否做了权限过滤？ 27. RAG 检索是否做了权限过滤？ 27. RAG 检索是否做了权限过滤？    做了。Milvus 向量库每个 chunk 带 metadata：tenant_id、visible_roles、order_id。检索时按当前用户上下文过滤：①tenant_id = 用户所属企业；②visible_roles 包含用户角色；③order_id 在用户可见工单列表内。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q044</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：27. RAG 检索是否做了权限过滤？">RAG 检索是否做了权限过滤？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>做了。Milvus 向量库每个 chunk 带 metadata：tenant_id、visible_roles、order_id。检索时按当前用户上下文过滤：</p><ul class="point-list"><li>①tenant_id = 用户所属企业</li><li>②visible_roles 包含用户角色</li><li>③order_id 在用户可见工单列表内。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-634"
+                     data-idx="634"
+                     data-search="Q045：知识库文档是否按角色隔离？ 28. 知识库文档是否按角色隔离？ 28. 知识库文档是否按角色隔离？    是。公开知识和通用规范可开放；案例库按企业隔离；内部手册按部门隔离；工单文档按 owner_id 隔离。入库时打标签，检索时强制过滤，绕不开。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q045</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：28. 知识库文档是否按角色隔离？">知识库文档是否按角色隔离？</h3>
+                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p>是。公开知识和通用规范可开放；案例库按企业隔离；内部手册按部门隔离；工单文档按 owner_id 隔离。入库时打标签，检索时强制过滤，绕不开。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-635"
+                     data-idx="635"
+                     data-search="Q046：深挖：RAG 工程上真正决定效果的点（textbook 之外） 深挖：RAG 工程上真正决定效果的点（textbook 之外） 深挖：RAG 工程上真正决定效果的点（textbook 之外）    **1. 纯向量检索会&quot;语义相似但答非所问&quot;——要混合检索**：余弦相似度找的是语义相近，但对 **精确关键词**（错误码 `ORA-00942`、接口名 `createOrderV2`、版本号）很弱——这些 token 在向量空间里被&quot;平均&quot;掉了。生产 RAG 几乎都用 **混合检索：BM25(关键词) + 向量(语义)**，再用 RRF（Reciprocal Rank Fusion）融合排名。测试知识库里全是接口名/错误码/字段名，纯向量会漏得很惨。    **2. chunk 不是&quot;切多大&quot;而是&quot;按什么结构切&quot;**：固定 512 token 硬切会把一个接口的参数表拦腰截断。正确做法是 **按文档结构切**（Markdown 按标题层级、接口文档按单个接口、代码按函数），再配 **overlap（10~20%）** 防边界信息丢失。进阶用 **small-to-big / parent-child**：用小 chunk 检索（精准），返回时给 LLM 它所在的大 chunk（上下文完整）。这比纠结 chunk_size 的数字有用得多。    **3. rerank 的代价要算清**：cross-encoder rerank 精度高但 **慢且贵**（每个候选都要过一次模型），所以是&quot;向量粗召回 ~50 条 → rerank 精排到 5 条&quot;的 **两段式**，而不是对全库 rerank。要在延迟和精度间权衡。    **4. 最危险的失败模式是&quot;检索到了，但检索错了&quot;**：检索不到还能兜底说&quot;不知道&quot;；可怕的是召回了 **貌似相关实则错误/过期** 的片段，LLM 言之凿凿照着答、引用还煞有介事——这种幻觉最难发现。对抗：元数据按版本/时间过滤优先取最新、答案强制标注来源、对低相似度命中直接拒答。    **5. 多跳问题（multi-hop）单轮检索答不了**：&quot;A 接口依赖的 B 服务超时配置是多少&quot;要先查 A 再查 B，一次检索拿不全。靠 query 改写/分解或 agentic RAG 多轮检索。    **6. 怎么评估 RAG（不能只&quot;看着还行&quot;）**：分两层量化——  - **检索层**：context recall（该召回的相关片段召回了没）、context precision（召回的有多少真相关）。  - **生成层**：faithfulness（答案是否忠于检索内容、有没有脱离资料发挥）、answer relevance（答没答到点上）。  - 落地用 **RAGAS** 这类框架 + 标注评估集 + LLM-as-judge，每次改 chunk/rerank/prompt 都回归这套指标，横向可比——这才是&quot;持续优化&quot;的抓手，不是拍脑袋调。   ">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q046</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：深挖：RAG 工程上真正决定效果的点（textbook 之外）">深挖：RAG 工程上真正决定效果的点（textbook 之外）</h3>
+                  <div class="card-meta"><span>来源：09-AI_Agent基础.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>1. 纯向量检索会&quot;语义相似但答非所问&quot;——要混合检索</strong>：余弦相似度找的是语义相近，但对 <strong>精确关键词</strong>（错误码 <code>ORA-00942</code>、接口名 <code>createOrderV2</code>、版本号）很弱——这些 token 在向量空间里被&quot;平均&quot;掉了。生产 RAG 几乎都用 <strong>混合检索：BM25(关键词) + 向量(语义)</strong>，再用 RRF（Reciprocal Rank Fusion）融合排名。测试知识库里全是接口名/错误码/字段名，纯向量会漏得很惨。</p>
+<p><strong>2. chunk 不是&quot;切多大&quot;而是&quot;按什么结构切&quot;</strong>：固定 512 token 硬切会把一个接口的参数表拦腰截断。正确做法是 <strong>按文档结构切</strong>（Markdown 按标题层级、接口文档按单个接口、代码按函数），再配 <strong>overlap（10~20%）</strong> 防边界信息丢失。进阶用 <strong>small-to-big / parent-child</strong>：用小 chunk 检索（精准），返回时给 LLM 它所在的大 chunk（上下文完整）。这比纠结 chunk_size 的数字有用得多。</p>
+<p><strong>3. rerank 的代价要算清</strong>：cross-encoder rerank 精度高但 <strong>慢且贵</strong>（每个候选都要过一次模型），所以是&quot;向量粗召回 ~50 条 → rerank 精排到 5 条&quot;的 <strong>两段式</strong>，而不是对全库 rerank。要在延迟和精度间权衡。</p>
+<p><strong>4. 最危险的失败模式是&quot;检索到了，但检索错了&quot;</strong>：检索不到还能兜底说&quot;不知道&quot;；可怕的是召回了 <strong>貌似相关实则错误/过期</strong> 的片段，LLM 言之凿凿照着答、引用还煞有介事——这种幻觉最难发现。对抗：元数据按版本/时间过滤优先取最新、答案强制标注来源、对低相似度命中直接拒答。</p>
+<p><strong>5. 多跳问题（multi-hop）单轮检索答不了</strong>：&quot;A 接口依赖的 B 服务超时配置是多少&quot;要先查 A 再查 B，一次检索拿不全。靠 query 改写/分解或 agentic RAG 多轮检索。</p>
+<p><strong>6. 怎么评估 RAG（不能只&quot;看着还行&quot;）</strong>：分两层量化——</p>
+<ul><li><strong>检索层</strong>：context recall（该召回的相关片段召回了没）、context precision（召回的有多少真相关）。</li><li><strong>生成层</strong>：faithfulness（答案是否忠于检索内容、有没有脱离资料发挥）、answer relevance（答没答到点上）。</li><li>落地用 <strong>RAGAS</strong> 这类框架 + 标注评估集 + LLM-as-judge，每次改 chunk/rerank/prompt 都回归这套指标，横向可比——这才是&quot;持续优化&quot;的抓手，不是拍脑袋调。</li></ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-636"
+                     data-idx="636"
+                     data-search="Q047：文档为什么要切分 chunk？ Q29.1：文档为什么要切分 chunk？ Q29.1：文档为什么要切分 chunk？ 文档为什么要分块：文档太长塞不进上下文，且检索粒度太粗不精准；分块让检索能定位到 相关片段。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q047</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.1：文档为什么要切分 chunk？">文档为什么要切分 chunk？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>文档为什么要分块</strong>：文档太长塞不进上下文，且检索粒度太粗不精准；分块让检索能定位到 <strong>相关片段</strong>。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-637"
+                     data-idx="637"
+                     data-search="Q048：向量数据库中存储什么？ Q29.5：向量数据库中存储什么？ Q29.5：向量数据库中存储什么？ 向量数据库里存什么：向量 + 原文 chunk + 元数据（来源、标题、更新时间），检索命中向量后取回原文。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q048</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.5：向量数据库中存储什么？">向量数据库中存储什么？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>向量数据库里存什么</strong>：<strong>向量 + 原文 chunk + 元数据</strong>（来源、标题、更新时间），检索命中向量后取回原文。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-638"
+                     data-idx="638"
+                     data-search="Q049：Top-K 召回是什么意思？ Q29.7：Top-K 召回是什么意思？ Q29.7：Top-K 召回是什么意思？ Top-K 召回是什么意思：取相似度最高的 K 个片段 作为候选上下文。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q049</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.7：Top-K 召回是什么意思？">Top-K 召回是什么意思？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>Top-K 召回是什么意思</strong>：取相似度最高的 <strong>K 个片段</strong> 作为候选上下文。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-639"
+                     data-idx="639"
+                     data-search="Q050：rerank 为什么有必要？ Q29.8：rerank 为什么有必要？ Q29.8：rerank 为什么有必要？ rerank 为什么必要：向量召回是&amp;quot;粗排&amp;quot;，可能把相关性一般的也召回来；rerank（精排） 用更强的模型对候选重新打分排序，把最相关的排前面，显著提升质量。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q050</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.8：rerank 为什么有必要？">rerank 为什么有必要？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>rerank 为什么必要</strong>：向量召回是&quot;粗排&quot;，可能把相关性一般的也召回来；<strong>rerank（精排）</strong> 用更强的模型对候选重新打分排序，把最相关的排前面，显著提升质量。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-640"
+                     data-idx="640"
+                     data-search="Q051：RAG 如何降低幻觉？ Q29.10：RAG 如何降低幻觉？ Q29.10：RAG 如何降低幻觉？ RAG 如何降低幻觉：让 LLM 基于检索到的真实资料 回答，并 强制引用来源，约束它别凭空生成。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q051</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.10：RAG 如何降低幻觉？">RAG 如何降低幻觉？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>RAG 如何降低幻觉</strong>：让 LLM <strong>基于检索到的真实资料</strong> 回答，并 <strong>强制引用来源</strong>，约束它别凭空生成。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-641"
+                     data-idx="641"
+                     data-search="Q052：RAG 是否能够完全避免幻觉？ Q29.11：RAG 是否能够完全避免幻觉？ Q29.11：RAG 是否能够完全避免幻觉？ RAG 是否能完全避免幻觉：不能。检索内容不全/不准、或 LLM 没严格遵循资料时仍会幻觉。RAG 是 大幅降低，不是根除。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q052</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.11：RAG 是否能够完全避免幻觉？">RAG 是否能够完全避免幻觉？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>RAG 是否能完全避免幻觉</strong>：<strong>不能</strong>。检索内容不全/不准、或 LLM 没严格遵循资料时仍会幻觉。RAG 是 <strong>大幅降低</strong>，不是根除。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-642"
+                     data-idx="642"
+                     data-search="Q053：如何保证知识库内容的时效性？ Q29.13：如何保证知识库内容的时效性？ Q29.13：如何保证知识库内容的时效性？ 如何保证知识库内容时效性：定期更新 + 版本管理 + 增量同步，旧文档下线或标注失效，元数据带更新时间，避免基于过期文档作答。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q053</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q29.13：如何保证知识库内容的时效性？">如何保证知识库内容的时效性？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>如何保证知识库内容时效性</strong>：<strong>定期更新 + 版本管理 + 增量同步</strong>，旧文档下线或标注失效，元数据带更新时间，避免基于过期文档作答。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-643"
+                     data-idx="643"
+                     data-search="Q054：需要接入哪些企业内部知识库？ Q32.1：需要接入哪些企业内部知识库？ Q32.1：需要接入哪些企业内部知识库？ 接入哪些企业知识库：PRD、接口文档、历史缺陷库、测试规范、业务规则、过往用例。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q054</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.1：需要接入哪些企业内部知识库？">需要接入哪些企业内部知识库？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>接入哪些企业知识库</strong>：PRD、接口文档、历史缺陷库、测试规范、业务规则、过往用例。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-644"
+                     data-idx="644"
+                     data-search="Q055：不同类型文档如何清洗和切分？ Q32.3：不同类型文档如何清洗和切分？ Q32.3：不同类型文档如何清洗和切分？ 不同类型文档如何清洗和切分： 接口文档：按接口为单位切分（保持一个接口的完整性）。 PRD：按功能模块/章节切分。 历史缺陷：按单条缺陷切分，保留模块标签。 不同结构用不同切分策略，避免一刀切。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q055</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.3：不同类型文档如何清洗和切分？">不同类型文档如何清洗和切分？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>不同类型文档如何清洗和切分</strong>：</p>
+<ul><li>接口文档：按接口为单位切分（保持一个接口的完整性）。</li>
+<li>PRD：按功能模块/章节切分。</li>
+<li>历史缺陷：按单条缺陷切分，保留模块标签。</li>
+<li>不同结构用不同切分策略，避免一刀切。</li>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-645"
+                     data-idx="645"
+                     data-search="Q056：用户提问后如何进行检索？ Q32.4：用户提问后如何进行检索？ Q32.4：用户提问后如何进行检索？ 用户提问后如何检索：问题向量化 → 向量库检索 Top-K 相关片段。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q056</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.4：用户提问后如何进行检索？">用户提问后如何进行检索？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>用户提问后如何检索</strong>：问题向量化 → 向量库检索 Top-K 相关片段。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-646"
+                     data-idx="646"
+                     data-search="Q057：如何选择 Top-K？ Q32.5：如何选择 Top-K？ Q32.5：如何选择 Top-K？ 如何选择 Top-K：太小漏信息、太大引噪声，一般 3~5 起步，按效果调。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q057</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.5：如何选择 Top-K？">如何选择 Top-K？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>如何选择 Top-K</strong>：太小漏信息、太大引噪声，一般 3~5 起步，按效果调。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-647"
+                     data-idx="647"
+                     data-search="Q058：如何进行 rerank？ Q32.6：如何进行 rerank？ Q32.6：如何进行 rerank？ 如何 rerank：用重排模型对召回片段精排，提升相关性。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q058</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.6：如何进行 rerank？">如何进行 rerank？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>如何 rerank</strong>：用重排模型对召回片段精排，提升相关性。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-648"
+                     data-idx="648"
+                     data-search="Q059：如何保证召回内容和当前项目相关？ Q32.7：如何保证召回内容和当前项目相关？ Q32.7：如何保证召回内容和当前项目相关？ 如何保证召回内容和当前项目相关：用 元数据过滤（按项目/模块/版本先过滤再检索），避免召回到其他项目的文档。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q059</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.7：如何保证召回内容和当前项目相关？">如何保证召回内容和当前项目相关？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>如何保证召回内容和当前项目相关</strong>：用 <strong>元数据过滤</strong>（按项目/模块/版本先过滤再检索），避免召回到其他项目的文档。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-649"
+                     data-idx="649"
+                     data-search="Q060：如果检索不到答案怎么办？ Q32.8：如果检索不到答案怎么办？ Q32.8：如果检索不到答案怎么办？ 检索不到答案怎么办：明确告知&amp;quot;知识库中无相关信息&amp;quot;，不强行作答，可建议补充文档。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q060</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.8：如果检索不到答案怎么办？">如果检索不到答案怎么办？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>检索不到答案怎么办</strong>：明确告知&quot;知识库中无相关信息&quot;，不强行作答，可建议补充文档。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-650"
+                     data-idx="650"
+                     data-search="Q061：如何避免基于过期文档生成答案？ Q32.9：如何避免基于过期文档生成答案？ Q32.9：如何避免基于过期文档生成答案？ 如何避免基于过期文档生成答案：元数据带版本/时间，优先用最新版本，过期文档下线或降权。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q061</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.9：如何避免基于过期文档生成答案？">如何避免基于过期文档生成答案？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>如何避免基于过期文档生成答案</strong>：元数据带版本/时间，<strong>优先用最新版本</strong>，过期文档下线或降权。</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+            <article class="card"
+                     id="card-651"
+                     data-idx="651"
+                     data-search="Q062：如何展示答案引用来源？ Q32.10：如何展示答案引用来源？ Q32.10：如何展示答案引用来源？ 如何展示答案引用来源：回答末尾附 引用片段 + 来源链接（哪份文档/哪个接口），让使用者可核对、可追溯。">
+              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
+                <span class="card-index">Q062</span>
+                <div class="card-main">
+                  <h3 class="card-title" title="原题：Q32.10：如何展示答案引用来源？">如何展示答案引用来源？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
+                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
+                  <button type="button" class="toggle-btn">展开</button>
+                </div>
+              </header>
+              <div class="card-body" hidden>
+
+                <div class="answer-block">
+                  <span class="badge badge-answer">参考答案</span>
+                  <div class="answer-content">
+                    <p><strong>如何展示答案引用来源</strong>：回答末尾附 <strong>引用片段 + 来源链接</strong>（哪份文档/哪个接口），让使用者可核对、可追溯。</p>
                   </div>
                 </div>
               </div>

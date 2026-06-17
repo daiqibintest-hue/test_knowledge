@@ -33,7 +33,12 @@ TECH_CATEGORY_ORDER = [
     "CI/CD 与测试左移",
     "精准测试",
     "自动化测试平台",
-    "AI Agent / RAG / AI 测试",
+    "LLM 基础与 Prompt",
+    "RAG 知识增强",
+    "AI Agent 自动执行",
+    "AI 工具生态与能力扩展",
+    "AI 测试与评测",
+    "LLMOps 工程化工具",
     "UI 自动化",
     "兼容性 / 弱网",
     "安全权限",
@@ -56,6 +61,8 @@ SOURCE_CATEGORY_BY_FILE = {
     "12-综合追问.md": "综合追问 / 高频必问",
     "13-30分钟高频必问.md": "综合追问 / 高频必问",
     "14-补充题.md": "综合追问 / 高频必问",
+    "15-AI工程化工具.md": "LLMOps 工程化工具",
+    "16-AI工具生态与能力扩展.md": "AI 工具生态与能力扩展",
 }
 
 # 章节 -> 稳定的 ASCII slug，用于生成 chapters/<slug>.html 的文件名与跨页链接
@@ -71,7 +78,12 @@ CATEGORY_SLUG = {
     "CI/CD 与测试左移": "cicd",
     "精准测试": "precise-test",
     "自动化测试平台": "platform",
-    "AI Agent / RAG / AI 测试": "ai-agent",
+    "LLM 基础与 Prompt": "llm-prompt",
+    "RAG 知识增强": "rag",
+    "AI Agent 自动执行": "ai-agent",
+    "AI 工具生态与能力扩展": "ai-tools",
+    "AI 测试与评测": "ai-evaluation",
+    "LLMOps 工程化工具": "llmops",
     "UI 自动化": "ui-automation",
     "兼容性 / 弱网": "compatibility",
     "安全权限": "security",
@@ -604,7 +616,103 @@ def answer_depth_score(question: dict) -> int:
     return score
 
 
+def contains_any(text: str, keywords: list[str]) -> bool:
+    text = text.lower()
+    return any(keyword.lower() in text for keyword in keywords)
+
+
+def infer_ai_category(part_title: str, question_title: str, source_file: str) -> str:
+    """AI 方向按知识层拆分，避免 RAG / Agent / AI 测试继续混在同一章。"""
+    part = part_title.lower()
+    question = question_title.lower()
+    text = f"{part} {question}"
+    ai_source_files = {
+        "09-AI_Agent基础.md",
+        "10-AI与测试开发结合.md",
+        "15-AI工程化工具.md",
+        "16-AI工具生态与能力扩展.md",
+    }
+    ai_context_keywords = [
+        "ai", "agent", "rag", "mcp", "skill", "skills", "llm", "prompt",
+        "大模型", "知识库", "embedding", "function calling",
+        "function tools", "llmops", "toolops", "工程化工具", "能力扩展",
+        "智能通知", "业务文档智能生成",
+    ]
+    if source_file not in ai_source_files and not contains_any(text, ai_context_keywords):
+        return ""
+
+    tool_keywords = [
+        "mcp", "function calling", "function tools", "tool calling",
+        "skills", "skill", "plugins", "plugin", "toolops", "fastmcp",
+        "tools、resources、prompts", "resources、prompts", "playwright mcp",
+        "工具生态", "能力扩展", "工具接入", "工具注册", "工具路由",
+        "工具发现", "工具返回格式", "工具调用失败", "工具误调用", "mcp tool",
+    ]
+    if contains_any(question, tool_keywords):
+        return "AI 工具生态与能力扩展"
+
+    ai_eval_keywords = [
+        "ai 测试", "大模型应用测试", "llm-as-judge", "golden set",
+        "评测", "评估", "准确率", "召回率", "忠实度", "幻觉率",
+        "幻觉检测", "越狱", "prompt injection", "生成测试用例",
+        "用例质量", "测试集", "回归测试", "安全测试", "测试用例",
+        "怎么测试", "如何测试", "测试难点", "怎么验证", "如何验证",
+        "怎么发现", "如何发现", "如何判断", "怎么判断", "怎么评估",
+        "如何评估", "如何构造", "测试报告", "回归", "合规",
+        "准确", "敏感内容", "不确定", "错误", "失败", "不稳定",
+        "唯一答案", "人工评审", "审核", "质量", "用例", "阈值", "达标",
+        "校验", "归档", "怎么处理", "如何处理", "不严谨", "review",
+        "提交代码", "生产环境操作", "人工编辑", "人工确认", "风险", "拦截",
+    ]
+    if contains_any(question, ai_eval_keywords) or (
+        contains_any(part, ["大模型应用测试", "ai 测试"]) and contains_any(question, ["测试", "质量", "评估", "准确", "合规"])
+    ):
+        return "AI 测试与评测"
+
+    rag_keywords = [
+        "rag", "embedding", "向量", "向量数据库", "chunk", "topk", "top-k",
+        "rerank", "混合检索", "知识库", "检索", "召回", "引用来源",
+        "文档切分", "文档解析", "多跳", "faithfulness",
+        "文档清洗", "清洗和切分", "过期文档",
+    ]
+    if contains_any(question, rag_keywords) or contains_any(part, ["rag 知识库"]):
+        return "RAG 知识增强"
+
+    agent_keywords = [
+        "agent", "react", "planning", "memory", "workflow", "multi-agent",
+        "任务拆解", "自主决策", "工具选择", "无限循环", "记忆管理",
+        "自动化测试 agent", "帮我测试", "环境感知", "tools 模块",
+        "短期记忆", "长期记忆", "reflection", "feedback", "安全控制模块",
+    ]
+    if contains_any(question, agent_keywords):
+        return "AI Agent 自动执行"
+
+    llmops_keywords = [
+        "llmops", "工程化工具", "模型路由", "模型 fallback", "fallback",
+        "a/b", "灰度", "可观测", "链路追踪", "trace", "token",
+        "成本", "缓存", "部署", "服务化", "限流", "网关", "治理",
+        "审计", "监控", "日志", "版本管理",
+    ]
+    if contains_any(question, llmops_keywords):
+        return "LLMOps 工程化工具"
+
+    llm_keywords = [
+        "llm", "大模型", "prompt", "提示词", "temperature", "上下文窗口",
+        "多模态", "chatgpt",
+    ]
+    if contains_any(question, llm_keywords) or contains_any(part, ["ai / agent / skills", "ai 应用"]):
+        return "LLM 基础与 Prompt"
+
+    if source_file in {"09-AI_Agent基础.md", "10-AI与测试开发结合.md"}:
+        return "AI Agent 自动执行"
+    return ""
+
+
 def infer_category(part_title: str, question_title: str, source_file: str) -> str:
+    ai_category = infer_ai_category(part_title, question_title, source_file)
+    if ai_category:
+        return ai_category
+
     if source_file in SOURCE_CATEGORY_BY_FILE:
         return SOURCE_CATEGORY_BY_FILE[source_file]
 
@@ -619,7 +727,7 @@ def infer_category(part_title: str, question_title: str, source_file: str) -> st
         ("CI/CD 与测试左移", ["jenkins", "ci/cd", "cicd", "流水线", "质量门禁", "测试左移"]),
         ("精准测试", ["精准测试", "变更", "用例映射", "覆盖率"]),
         ("自动化测试平台", ["测试平台", "平台设计", "高可用", "任务调度"]),
-        ("AI Agent / RAG / AI 测试", ["ai", "agent", "rag", "大模型", "prompt", "知识库", "llm", "模型"]),
+        ("LLM 基础与 Prompt", ["ai", "大模型", "prompt", "llm", "模型"]),
         ("UI 自动化", ["ui 自动化", "playwright", "selenium", "page object", "locator"]),
         ("兼容性 / 弱网", ["兼容", "弱网", "charles", "移动端", "android", "ios"]),
         ("安全权限", ["安全", "权限", "越权", "rbac", "token 篡改", "prompt injection"]),

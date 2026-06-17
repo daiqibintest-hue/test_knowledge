@@ -1,6 +1,6 @@
 # 测试开发与 AI Agent 面试题解答
 
-> 适用方向：Python 测试开发、接口自动化、性能测试、CI/CD、测试平台、精准测试、AI Agent、RAG 与 AI 测试
+> 适用方向：Python 测试开发、接口自动化、性能测试、CI/CD、测试平台、精准测试、LLM、RAG、AI Agent、AI 评测、MCP / Skills 与 LLMOps
 > 技术栈参考：Python + requests + pytest + YAML + logging + Allure + JMeter
 
 本目录是对《测试开发与 AI Agent 面试题汇总》的逐题解答，按章节拆分。每题尽量给出 **实现细节 + 为什么这么做 + 异常/边界考虑**，而不是只罗列结论。
@@ -23,6 +23,8 @@
 | [12-综合追问.md](12-综合追问.md) | 框架亮点/不足/重构、测试开发 vs 普通测试 | Q37–Q40 |
 | [13-30分钟高频必问.md](13-30分钟高频必问.md) | 时间紧时的速记重点 | 高频 10 题 |
 | [14-补充题.md](14-补充题.md) | Python / HTTP / SQL / Linux / Docker / Git | 基础补充 |
+| [15-AI工程化工具.md](15-AI工程化工具.md) | LLMOps 工具分层、测试流程接入、传统平台差异 | Q41–Q43 |
+| [16-AI工具生态与能力扩展.md](16-AI工具生态与能力扩展.md) | Function Tools、MCP、Skills、Plugins、ToolOps | Q44–Q47 |
 
 ## 答题原则（贯穿全篇）
 
