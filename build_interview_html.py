@@ -651,6 +651,14 @@ def infer_ai_category(part_title: str, question_title: str, source_file: str) ->
     if contains_any(question, tool_keywords):
         return "AI 工具生态与能力扩展"
 
+    llm_foundation_keywords = [
+        "llm 是什么", "prompt 是什么", "高质量 prompt", "prompt 核心结构",
+        "常见 prompt 类型", "prompt 常用技巧", "chain-of-thought",
+        "prompt chaining", "zero-shot", "few-shot", "output format",
+    ]
+    if contains_any(question, llm_foundation_keywords):
+        return "LLM 基础与 Prompt"
+
     ai_eval_keywords = [
         "ai 测试", "大模型应用测试", "llm-as-judge", "golden set",
         "评测", "评估", "准确率", "召回率", "忠实度", "幻觉率",
