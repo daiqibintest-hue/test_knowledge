@@ -664,11 +664,319 @@ AI_EVAL_CANONICAL_RULES = [
 ]
 
 
+DROP_TITLE_KEYWORDS_BY_CATEGORY = {
+    "综合追问 / 高频必问": [
+        "迭代节奏", "是否涉及打包发布", "未来规划", "离职动机",
+        "期望薪资", "反问环节", "临场提醒", "红黑树", "握手问题",
+        "4 个罐子，一个药丸重 1g", "7 分钟和 11 分钟沙漏",
+        "三开关三灯",
+    ],
+    "性能测试": [
+        "GIL 是什么？对多线程有什么影响",
+    ],
+    "AI Agent 自动执行": [
+        "Agent 是否真的具备自我意识",
+    ],
+    "LLM 基础与 Prompt": [
+        "误发通知算什么级别问题", "错分通知会造成什么业务影响",
+    ],
+}
+
+
+CATEGORY_OVERRIDE_RULES = [
+    (
+        "代码实战",
+        [
+            "两数之和", "反转一个单链表", "判断字符串的括号是否匹配",
+            "二分查找", "第一个不重复的字符", "列表去重，并保持原有顺序",
+            "斐波那契", "找出第二大的数", "快排原理", "冒泡排序",
+            "最长连续递增子串", "用 A 替换字符串 B", "请求搜狐网下载页面所有 jpg",
+        ],
+    ),
+    (
+        "UI 自动化",
+        [
+            "Playwright 如何并发执行", "Web 自动化元素定位", "App 自动化怎么做",
+        ],
+    ),
+    (
+        "兼容性 / 弱网",
+        [
+            "Charles 如何抓 HTTPS", "App 端和 Web 端测试区别",
+        ],
+    ),
+    (
+        "接口测试",
+        [
+            "HTTP vs HTTPS",
+        ],
+    ),
+    (
+        "LLM 基础与 Prompt",
+        [
+            "LLM 输出为什么不完全确定", "temperature、top_p、max_tokens",
+            "如何把业务规则写进 Prompt", "如何约束 LLM 输出", "Zero-shot、Few-shot",
+            "Prompt 模板如何做版本管理", "Prompt 版本变更后如何做回归测试",
+            "上下文窗口不够", "Prompt 层面如何降低幻觉", "Prompt Injection 和普通异常输入",
+            "RAG 场景中 Prompt 如何组装", "Prompt Engineering 和 Harness Engineering",
+            "LLM 在 Agent 中负责什么",
+        ],
+    ),
+    (
+        "RAG 知识增强",
+        [
+            "PRD、接口文档、历史缺陷、测试规范如何入库",
+            "不同类型文档如何清洗和切分", "用户提问后如何进行检索",
+            "如何选择 Top-K", "如何进行 rerank", "如何保证召回内容和当前项目相关",
+            "如果检索不到答案怎么办", "如何避免基于过期文档生成答案",
+            "如何展示答案引用来源", "文档是规范条款、案例、内部制度，还是业务 FAQ",
+            "文档如何切分", "有没有重叠", "文档重复会带来什么问题",
+            "有没有展示引用片段",
+        ],
+    ),
+    (
+        "AI 测试与评测",
+        [
+            "策略命中率 95%+", "是否区分正样本和负样本",
+            "有没有人工标注标准", "AI 返回异常具体是什么异常",
+            "分类任务中 TP、FP、FN、TN", "如何构建 Golden Dataset",
+            "你们是否有标准答案集", "系统生成的业务文档具体包括哪些",
+            "业务文档生成的数据来源是什么", "是模型生成全文，还是模板填充 + 模型润色",
+            "智能通知通知的业务目标是什么", "通知策略命中是什么意思",
+            "通知自动分类有哪些类别", "通知内容是否由 AI 生成",
+            "通知分类是模型分类还是规则分类", "规则和模型冲突时，以谁为准",
+        ],
+    ),
+    (
+        "自动化测试平台",
+        [
+            "AI 如何生成缺陷描述", "AI 如何结合接口自动化", "AI 如何结合 UI 自动化",
+        ],
+    ),
+    (
+        "AI Agent 自动执行",
+        [
+            "AI 怎么做长时间执行任务",
+        ],
+    ),
+    (
+        "AI 工具生态与能力扩展",
+        [
+            "AI 应用场景 / 用过哪些 AI 工具",
+        ],
+    ),
+]
+
+
+CATEGORY_CANONICAL_RULES = {
+    "接口自动化框架": [
+        (
+            "Pytest 能力如何集成到接口自动化框架",
+            [
+                "Pytest 参数化你用过哪些方式", "Pytest 参数化怎么写",
+                "Pytest 如何控制用例执行顺序", "Pytest 如何按标签执行用例",
+                "Pytest 如何失败重跑", "Pytest 如何并发执行",
+                "pytest-xdist", "pytest-rerunfailures",
+                "如何结合 pytest 参数化执行 YAML 数据",
+            ],
+        ),
+        (
+            "Allure 报告如何集成和定位问题",
+            [
+                "Allure 报告里你关注哪些指标", "Allure 如何展示步骤",
+                "Allure 如何添加附件", "请求参数和响应结果写入 Allure",
+                "Allure 报告如何在 Jenkins 上展示", "Allure 历史趋势",
+                "Allure 报告如何发企业微信", "Allure 报告对开发定位",
+                "Allure 是怎么帮助定位", "Jenkins 如何生成 Allure 报告",
+                "断言失败后 Allure 报告", "日志如何和 Allure 报告关联",
+                "参数化后 Allure 报告", "如何指定 Allure 结果目录",
+                "Allure 报告如何生成", "如何总结 Allure 报告",
+            ],
+        ),
+        (
+            "YAML 数据驱动如何设计和维护",
+            [
+                "YAML 在你的框架里承担什么作用", "YAML 文件字段结构",
+                "YAML 测试数据设计", "一条 YAML 用例中包含哪些字段",
+                "请求参数、预期结果、断言规则是否都放在 YAML",
+                "如何通过 YAML 支持多组测试数据", "YAML 中出现 `${token}`",
+                "YAML 文件数量较多后如何按业务模块管理", "YAML 字段缺失",
+                "YAML 读取失败", "测试数据是否应该和环境配置放在一起",
+                "YAML、JSON、Excel", "参数化数据来自 YAML",
+                "一条 YAML 中有 10 组数据", "token 写入 YAML 是否安全",
+            ],
+        ),
+        (
+            "日志模块如何设计和脱敏",
+            [
+                "日志模块封装", "日志中会打印哪些请求信息",
+                "password、token 等敏感信息如何脱敏", "logging.getLogger",
+                "常见日志级别", "日志输出到控制台", "日志文件是否按照日期",
+                "多模块共用日志", "是否记录请求 URL", "身份证号等字段如何脱敏",
+                "并发执行时日志如何区分", "traceId、caseId",
+            ],
+        ),
+    ],
+    "综合追问 / 高频必问": [
+        (
+            "Python 基础数据结构和函数怎么理解",
+            [
+                "如何定义函数", "字典是什么", "list / tuple / set / dict",
+                "类方法 / 静态方法 / 实例方法", "可变对象和不可变对象",
+                "深拷贝和浅拷贝", "迭代器和生成器", "`is` 和 `==`",
+                "*args 和 **kwargs", "闭包是什么", "with 语句",
+                "列表推导式和生成器表达式",
+            ],
+        ),
+        (
+            "测试负责人如何做风险、进度和上线决策",
+            [
+                "如何评估测试工作量", "如何分配测试任务", "如何跟踪测试进度",
+                "如何控制测试风险", "如何做版本上线评估", "如何做测试总结",
+                "成员能力不同怎么分配任务", "成员进度慢", "研发延期",
+                "测试时间被压缩", "上线窗口紧张", "跨团队协作",
+                "如何向领导汇报", "测试负责人最重要的能力",
+            ],
+        ),
+    ],
+    "性能测试": [
+        (
+            "性能测试指标如何理解和判断异常",
+            [
+                "并发用户数、TPS、QPS、吞吐量、响应时间",
+                "平均响应时间和 90 线", "错误率多少算不可接受",
+                "平均响应时间、P95、P99", "性能测试核心指标",
+                "TPS 和 QPS 有什么区别", "并发用户数和 TPS 是什么关系",
+                "平均响应时间、P90、P95、P99", "为什么不能只看平均响应时间",
+                "错误率多少算异常",
+            ],
+        ),
+        (
+            "JMeter 压测计划和执行方式怎么设计",
+            [
+                "JMeter 测试计划包含哪些核心组件", "线程组怎么配置",
+                "HTTP 请求默认值", "CSV Data Set Config", "正则提取器 / JSON 提取器",
+                "BeanShell / JSR223", "如何做关联", "如何做断言",
+                "如何生成 HTML 报告", "JMeter 单机压不上去",
+                "分布式压测", "non-GUI 模式", "命令行怎么执行 JMeter",
+            ],
+        ),
+        (
+            "压测 500、超时和系统瓶颈如何定位",
+            [
+                "压测中大量 500", "场景 4：JMeter 压测大量超时",
+                "压测中出现大量 HTTP 500", "是所有接口出现 500",
+                "从什么并发量开始出现 500", "500 是否随着并发增加",
+                "是否存在请求超时", "是否存在空指针", "是否出现锁等待",
+                "是否触发限流", "是否为下游服务异常导致",
+            ],
+        ),
+    ],
+    "数据库与数据校验": [
+        (
+            "常见 SQL 查询和多表关联怎么写",
+            [
+                "常用 SQL 查询", "inner join、left join、right join",
+                "group by 和 having", "order by 和 limit", "求平均值",
+                "排序", "去重", "查 10–15 岁的人", "按年龄从大到小排序",
+                "多表连接方式",
+            ],
+        ),
+        (
+            "数据库性能和慢 SQL 如何排查",
+            [
+                "服务器 CPU、内存、数据库指标", "如何判断瓶颈在应用层、数据库层",
+                "SQL 慢导致接口慢", "数据库连接池耗尽", "是否看过数据库慢查询",
+                "事务数（TPS）", "数据库慢 SQL 如何排查",
+                "数据库连接池不足", "数据库连接数是否打满",
+            ],
+        ),
+    ],
+    "RAG 知识增强": [
+        (
+            "Chunk 如何切分和调优",
+            [
+                "Chunk 是什么", "Chunk 大小是多少", "文档切分怎么测试",
+                "Chunk 太大", "Chunk 太小", "文档为什么要切分 chunk",
+            ],
+        ),
+        (
+            "Top-K 如何选择和调优",
+            [
+                "TopK 是什么", "TopK 设置多少", "TopK 太大", "TopK 太小",
+                "Top-K 召回是什么意思", "如何选择 Top-K",
+            ],
+        ),
+        (
+            "Rerank 如何设计和评估",
+            [
+                "Rerank 是什么", "Rerank 效果怎么测试", "rerank 为什么有必要",
+                "如何进行 rerank",
+            ],
+        ),
+        (
+            "RAG 如何降低和识别幻觉",
+            [
+                "RAG 为什么能减少幻觉", "RAG 一定能解决幻觉吗",
+                "RAG 如何降低幻觉", "RAG 是否能够完全避免幻觉",
+            ],
+        ),
+    ],
+    "AI Agent 自动执行": [
+        (
+            "Agent 是什么以及和 LLM、Chatbot 的区别",
+            [
+                "什么是 Agent", "什么是 AI Agent", "Agent 和普通 Chatbot",
+                "AI Agent 和普通 LLM", "Agent 和 ChatGPT",
+                "Agent 和传统自动化脚本",
+            ],
+        ),
+        (
+            "Agent 核心模块如何协作",
+            [
+                "AI Agent 的核心模块", "Planning 模块", "Tools 模块",
+                "Memory 模块", "短期记忆和长期记忆", "Reflection 或 Feedback",
+                "安全控制模块",
+            ],
+        ),
+    ],
+    "AI 工具生态与能力扩展": [
+        (
+            "MCP 和 Function Calling 如何选型",
+            [
+                "MCP 和 Function Calling", "Function Tools、MCP、Skills、Plugins",
+                "Function Calling 和 MCP 怎么选型", "Function Calling 和 Tools",
+            ],
+        ),
+        (
+            "Skills 如何设计、复用和协作",
+            [
+                "你理解的 Skills", "了解 Skills", "Skills 和 MCP",
+                "Skills 适合封装", "Skills 是否一定需要联网", "Skills 和普通脚本",
+                "Skills 如何复用", "Skills 如何做权限控制", "Skill 的输入输出格式",
+                "Skill 如何和 Agent 配合", "Skill 出错后", "Skill 是否需要日志",
+                "Skills 如何和 MCP、Agent 配合",
+            ],
+        ),
+    ],
+}
+
+
 def should_drop_question(category: str, title: str) -> bool:
-    if category != "AI 测试与评测":
-        return False
     display_title = clean_title_for_display(title)
-    return contains_any(display_title, AI_EVAL_DROP_TITLE_KEYWORDS)
+    drop_keywords = []
+    if category == "AI 测试与评测":
+        drop_keywords.extend(AI_EVAL_DROP_TITLE_KEYWORDS)
+    drop_keywords.extend(DROP_TITLE_KEYWORDS_BY_CATEGORY.get(category, []))
+    return contains_any(display_title, drop_keywords)
+
+
+def override_category(category: str, title: str) -> str:
+    display_title = clean_title_for_display(title)
+    for target, snippets in CATEGORY_OVERRIDE_RULES:
+        if contains_any(display_title, snippets):
+            return target
+    return category
 
 
 def dedup_key_for_question(category: str, title: str, source_part: str = "") -> tuple[str, str]:
@@ -677,6 +985,9 @@ def dedup_key_for_question(category: str, title: str, source_part: str = "") -> 
         for canonical, snippets in AI_EVAL_CANONICAL_RULES:
             if contains_any(display_title, snippets):
                 return category, normalize_title(canonical)
+    for canonical, snippets in CATEGORY_CANONICAL_RULES.get(category, []):
+        if contains_any(display_title, snippets):
+            return category, normalize_title(canonical)
 
     key = normalize_title(title)
     if len(key) < 4:
@@ -1175,6 +1486,7 @@ def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
             part_title = part.get("title", "")
             for question in part.get("questions", []):
                 category = infer_category(part_title, question.get("title", ""), question.get("source_file", ""))
+                category = override_category(category, question.get("title", ""))
                 if should_drop_question(category, question.get("title", "")):
                     duplicates.append({
                         "category": category,
