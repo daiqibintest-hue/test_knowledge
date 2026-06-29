@@ -621,6 +621,69 @@ def contains_any(text: str, keywords: list[str]) -> bool:
     return any(keyword.lower() in text for keyword in keywords)
 
 
+AI_EVAL_DROP_TITLE_KEYWORDS = [
+    "1000+ 用例中，功能、接口、AI、性能分别占多少",
+    "测试集有多少条",
+    "生成业务文档是否支持人工编辑",
+    "业务文档生成结果如何归档",
+    "通知发送失败怎么处理",
+    "通知重复发送怎么测试",
+    "通知延迟发送怎么测试",
+    "通知频控怎么测试",
+    "场景 2：AI 业务文档生成金额错误",
+    "AI 生成的脚本是否可以直接提交代码仓库",
+    "哪些操作需要人工审核",
+]
+
+
+AI_EVAL_CANONICAL_RULES = [
+    (
+        "业务文档字段和内容如何校验",
+        [
+            "业务文档生成测试需要关注哪些字段",
+            "姓名、单据编号、金额、业务机构、日期怎么校验",
+            "生成业务文档内容怎么校验",
+            "如果金额字段错误，会造成什么风险",
+        ],
+    ),
+    (
+        "业务文档模板和格式如何校验",
+        [
+            "业务文档模板如何测试",
+            "模板变量缺失怎么测试",
+            "生成业务文档格式怎么校验",
+        ],
+    ),
+    (
+        "业务文档合规审核如何设计",
+        [
+            "业务文档合规性有没有审核规则",
+            "是否有业务专家人工审核环节",
+        ],
+    ),
+]
+
+
+def should_drop_question(category: str, title: str) -> bool:
+    if category != "AI 测试与评测":
+        return False
+    display_title = clean_title_for_display(title)
+    return contains_any(display_title, AI_EVAL_DROP_TITLE_KEYWORDS)
+
+
+def dedup_key_for_question(category: str, title: str, source_part: str = "") -> tuple[str, str]:
+    display_title = clean_title_for_display(title)
+    if category == "AI 测试与评测":
+        for canonical, snippets in AI_EVAL_CANONICAL_RULES:
+            if contains_any(display_title, snippets):
+                return category, normalize_title(canonical)
+
+    key = normalize_title(title)
+    if len(key) < 4:
+        key = normalize_title(title + source_part)
+    return category, key
+
+
 def infer_ai_category(part_title: str, question_title: str, source_file: str) -> str:
     """AI 方向按知识层拆分，避免 RAG / Agent / AI 测试继续混在同一章。"""
     part = part_title.lower()
@@ -640,6 +703,35 @@ def infer_ai_category(part_title: str, question_title: str, source_file: str) ->
     ]
     if source_file not in ai_source_files and not contains_any(text, ai_context_keywords):
         return ""
+
+    rag_question_keywords = [
+        "多版本规范条款冲突", "用户问题不规范", "业务问题没有唯一答案",
+        "规范条款引用错误", "专业建议不严谨", "不同地区规则差异",
+        "多轮追问", "AI 回答不确定",
+    ]
+    if contains_any(question, rag_question_keywords):
+        return "RAG 知识增强"
+
+    ai_security_keywords = [
+        "AI 系统有哪些安全风险",
+        "Prompt Injection 是什么",
+        "AI 输出违法违规内容如何拦截",
+    ]
+    if contains_any(question, ai_security_keywords):
+        return "安全权限"
+
+    ai_platform_keywords = [
+        "AI 测试平台", "AI 测试助手", "自然语言生成测试用例",
+        "AI 生成用例", "AI 生成脚本", "AI 如何推荐回归范围",
+        "AI 如何根据需求变更识别影响用例", "AI 生成的 locator",
+        "如何根据 PRD 自动生成测试点", "如何根据需求生成测试用例",
+        "如何生成测试数据和断言规则", "如何结合历史缺陷推荐测试场景",
+        "如何判断测试点覆盖是否全面", "如何判断是否覆盖正常、异常和边界场景",
+        "如何判断 AI 是否生成了不存在的业务规则",
+        "如何和人工测试用例进行对比",
+    ]
+    if contains_any(question, ai_platform_keywords):
+        return "自动化测试平台"
 
     tool_keywords = [
         "mcp", "function calling", "function tools", "tool calling",
@@ -1083,9 +1175,23 @@ def regroup_and_dedup(documents: list[dict]) -> tuple[dict, list[dict]]:
             part_title = part.get("title", "")
             for question in part.get("questions", []):
                 category = infer_category(part_title, question.get("title", ""), question.get("source_file", ""))
-                key = (category, normalize_title(question.get("title", "")))
-                if len(key[1]) < 4:
-                    key = (category, normalize_title(question.get("title", "") + question.get("source_part", "")))
+                if should_drop_question(category, question.get("title", "")):
+                    duplicates.append({
+                        "category": category,
+                        "key": normalize_title(question.get("title", "")),
+                        "kept": "已按精简规则移除",
+                        "duplicate": question.get("title", ""),
+                        "kept_source": "",
+                        "duplicate_source": question.get("source_file", ""),
+                        "action": "删除低价值细分题",
+                    })
+                    continue
+
+                key = dedup_key_for_question(
+                    category,
+                    question.get("title", ""),
+                    question.get("source_part", ""),
+                )
                 candidate = dict(question)
                 candidate["category"] = category
 
