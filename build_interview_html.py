@@ -659,31 +659,14 @@ def infer_ai_category(part_title: str, question_title: str, source_file: str) ->
     if contains_any(question, llm_foundation_keywords):
         return "LLM 基础与 Prompt"
 
-    ai_eval_keywords = [
-        "ai 测试", "大模型应用测试", "llm-as-judge", "golden set",
-        "评测", "评估", "准确率", "召回率", "忠实度", "幻觉率",
-        "幻觉检测", "越狱", "prompt injection", "生成测试用例",
-        "用例质量", "测试集", "回归测试", "安全测试", "测试用例",
-        "怎么测试", "如何测试", "测试难点", "怎么验证", "如何验证",
-        "怎么发现", "如何发现", "如何判断", "怎么判断", "怎么评估",
-        "如何评估", "如何构造", "测试报告", "回归", "合规",
-        "准确", "敏感内容", "不确定", "错误", "失败", "不稳定",
-        "唯一答案", "人工评审", "审核", "质量", "用例", "阈值", "达标",
-        "校验", "归档", "怎么处理", "如何处理", "不严谨", "review",
-        "提交代码", "生产环境操作", "人工编辑", "人工确认", "风险", "拦截",
-    ]
-    if contains_any(question, ai_eval_keywords) or (
-        contains_any(part, ["大模型应用测试", "ai 测试"]) and contains_any(question, ["测试", "质量", "评估", "准确", "合规"])
-    ):
-        return "AI 测试与评测"
-
     rag_keywords = [
         "rag", "embedding", "向量", "向量数据库", "chunk", "topk", "top-k",
-        "rerank", "混合检索", "知识库", "检索", "召回", "引用来源",
+        "rerank", "混合检索", "知识库", "检索", "检索召回",
+        "top-k 召回", "topk 召回", "召回结果", "召回内容", "引用来源",
         "文档切分", "文档解析", "多跳", "faithfulness",
         "文档清洗", "清洗和切分", "过期文档",
     ]
-    if contains_any(question, rag_keywords) or contains_any(part, ["rag 知识库"]):
+    if contains_any(question, rag_keywords):
         return "RAG 知识增强"
 
     agent_keywords = [
@@ -703,6 +686,24 @@ def infer_ai_category(part_title: str, question_title: str, source_file: str) ->
     ]
     if contains_any(question, llmops_keywords):
         return "LLMOps 工程化工具"
+
+    ai_eval_keywords = [
+        "ai 测试", "大模型应用测试", "llm-as-judge", "golden set",
+        "评测", "评估", "准确率", "召回率", "忠实度", "幻觉率",
+        "幻觉检测", "越狱", "prompt injection", "生成测试用例",
+        "用例质量", "测试集", "回归测试", "安全测试", "测试用例",
+        "怎么测试", "如何测试", "测试难点", "怎么验证", "如何验证",
+        "怎么发现", "如何发现", "如何判断", "怎么判断", "怎么评估",
+        "如何评估", "如何构造", "测试报告", "回归", "合规",
+        "准确", "敏感内容", "不确定", "错误", "失败", "不稳定",
+        "唯一答案", "人工评审", "审核", "质量", "用例", "阈值", "达标",
+        "校验", "归档", "怎么处理", "如何处理", "不严谨", "review",
+        "提交代码", "生产环境操作", "人工编辑", "人工确认", "风险", "拦截",
+    ]
+    if contains_any(question, ai_eval_keywords) or (
+        contains_any(part, ["大模型应用测试", "ai 测试"]) and contains_any(question, ["测试", "质量", "评估", "准确", "合规"])
+    ):
+        return "AI 测试与评测"
 
     llm_keywords = [
         "llm", "大模型", "prompt", "提示词", "temperature", "上下文窗口",
