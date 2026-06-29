@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LLM 基础与 Prompt · 测开面试题库（通用版）</title>
+  <title>中间件与微服务排障 · 测开面试题库（通用版）</title>
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -750,12 +750,12 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 <li><a class="nav-chapter" href="api-dependency.html">接口依赖与业务链路<span class="nav-count">42</span></a></li>
 <li><a class="nav-chapter" href="database.html">数据库与数据校验<span class="nav-count">51</span></a></li>
 <li><a class="nav-chapter" href="linux-log.html">Linux / 日志分析<span class="nav-count">38</span></a></li>
-<li><a class="nav-chapter" href="middleware.html">中间件与微服务排障<span class="nav-count">18</span></a></li>
+<li><a class="nav-chapter active" href="middleware.html">中间件与微服务排障<span class="nav-count">18</span></a></li>
 <li><a class="nav-chapter" href="performance.html">性能测试<span class="nav-count">59</span></a></li>
 <li><a class="nav-chapter" href="cicd.html">CI/CD 与测试左移<span class="nav-count">62</span></a></li>
 <li><a class="nav-chapter" href="precise-test.html">精准测试<span class="nav-count">25</span></a></li>
 <li><a class="nav-chapter" href="platform.html">自动化测试平台<span class="nav-count">45</span></a></li>
-<li><a class="nav-chapter active" href="llm-prompt.html">LLM 基础与 Prompt<span class="nav-count">23</span></a></li>
+<li><a class="nav-chapter" href="llm-prompt.html">LLM 基础与 Prompt<span class="nav-count">23</span></a></li>
 <li><a class="nav-chapter" href="rag.html">RAG 知识增强<span class="nav-count">77</span></a></li>
 <li><a class="nav-chapter" href="ai-agent.html">AI Agent 自动执行<span class="nav-count">34</span></a></li>
 <li><a class="nav-chapter" href="ai-tools.html">AI 工具生态与能力扩展<span class="nav-count">28</span></a></li>
@@ -793,19 +793,19 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
       <main class="content">
 
-        <section class="part-section" id="part-12">
-          <h2 class="part-title">LLM 基础与 Prompt</h2>
-          <p class="part-meta">23 题</p>
+        <section class="part-section" id="part-7">
+          <h2 class="part-title">中间件与微服务排障</h2>
+          <p class="part-meta">18 题</p>
           <div class="cards-grid">
 
             <article class="card"
-                     id="card-512"
-                     data-idx="512"
-                     data-search="Q001：你们如何防止模型自由发挥？ 94. 你们如何防止模型自由发挥？ 94. 你们如何防止模型自由发挥？    五招：①Prompt 强约束&quot;只基于上下文&quot;；②温度设为 0；③上下文中无相关信息时强制拒识；④答案必须包含可核对的引用；⑤后处理校验（如规范条款编号库交叉验证）。   ">
+                     id="card-303"
+                     data-idx="303"
+                     data-search="Q001：接口缓存如何验证？ 20. 接口缓存如何验证？ 20. 接口缓存如何验证？    ①第一次请求落库 + 第二次相同请求是否快速返回（看响应时间）；②直接读 Redis Key 看缓存是否写入；③修改 DB 数据后是否触发缓存失效；④缓存击穿（大量并发未命中）是否雪崩；⑤缓存过期时间是否合理。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q001</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：94. 你们如何防止模型自由发挥？">你们如何防止模型自由发挥？</h3>
+                  <h3 class="card-title" title="原题：20. 接口缓存如何验证？">接口缓存如何验证？</h3>
                   <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -819,7 +819,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>五招：</p><ul class="point-list"><li>①Prompt 强约束&quot;只基于上下文&quot;</li><li>②温度设为 0</li><li>③上下文中无相关信息时强制拒识</li><li>④答案必须包含可核对的引用</li><li>⑤后处理校验（如规范条款编号库交叉验证）。</li></ul>
+                    <ul class="point-list"><li>①第一次请求落库 + 第二次相同请求是否快速返回（看响应时间）</li><li>②直接读 Redis Key 看缓存是否写入</li><li>③修改 DB 数据后是否触发缓存失效</li><li>④缓存击穿（大量并发未命中）是否雪崩</li><li>⑤缓存过期时间是否合理。</li></ul>
                   </div>
                 </div>
               </div>
@@ -827,14 +827,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-513"
-                     data-idx="513"
-                     data-search="Q002：LLM 是什么？ LLM 是什么？ LLM 是什么？    LLM（Large Language Model，大语言模型）是基于 Transformer 架构训练出来的文本生成模型，本质上是在给定上下文后，按概率预测下一个 token，并不断生成后续内容。    它擅长文本生成与总结、代码生成、信息归纳、多轮对话和模式识别。但要注意，它不是传统意义上的逻辑引擎：不保证事实一定正确，不自带实时信息，复杂推理稳定性有限，涉及业务私有知识、实时数据或外部动作时，需要 RAG、工具调用、规则校验或人工审核来增强。   ">
+                     id="card-304"
+                     data-idx="304"
+                     data-search="Q002：降级测试多吗 / 除降级外的稳定性手段 16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段 16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段  除降级外还有：限流、熔断、超时控制、重试、兜底数据、开关（feature flag）、故障演练（混沌工程，如随机杀进程/注入延迟）、全链路压测、线上巡检与监控告警。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q002</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：LLM 是什么？">LLM 是什么？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：16&amp;17 / 降级测试多吗 / 除降级外的稳定性手段">降级测试多吗 / 除降级外的稳定性手段</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -847,8 +847,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>LLM（Large Language Model，大语言模型）是基于 Transformer 架构训练出来的文本生成模型，本质上是在给定上下文后，按概率预测下一个 token，并不断生成后续内容。</p>
-<p>它擅长文本生成与总结、代码生成、信息归纳、多轮对话和模式识别。但要注意，它不是传统意义上的逻辑引擎：不保证事实一定正确，不自带实时信息，复杂推理稳定性有限，涉及业务私有知识、实时数据或外部动作时，需要 RAG、工具调用、规则校验或人工审核来增强。</p>
+                    <p>除降级外还有：限流、熔断、超时控制、重试、兜底数据、开关（feature flag）、故障演练（混沌工程，如随机杀进程/注入延迟）、全链路压测、线上巡检与监控告警。</p>
                   </div>
                 </div>
               </div>
@@ -856,14 +855,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-514"
-                     data-idx="514"
-                     data-search="Q003：Prompt 是什么？ Prompt 是什么？ Prompt 是什么？    Prompt 是用户或系统给 LLM 的输入指令，用来描述任务、背景、约束和输出要求。相同模型在不同 Prompt 下，输出可能完全不同。    工程上我会把 Prompt 看成 AI 应用的&quot;行为配置&quot;之一：它能显著影响模型输出，但不是唯一影响因素，模型版本、temperature、上下文、RAG 召回结果、工具返回和后处理规则也会共同决定最终效果。   ">
+                     id="card-305"
+                     data-idx="305"
+                     data-search="Q003：24（同三 17）/ 除降级外稳定性手段 24（同三 17）/ 除降级外稳定性手段 24（同三 17）/ 除降级外稳定性手段  限流、熔断、超时、重试、兜底、开关、故障演练、巡检监控。  ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q003</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Prompt 是什么？">Prompt 是什么？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：24（同三 17）/ 除降级外稳定性手段">24（同三 17）/ 除降级外稳定性手段</h3>
+                  <div class="card-meta"><span>来源：测开面经.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -876,8 +875,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>Prompt 是用户或系统给 LLM 的输入指令，用来描述任务、背景、约束和输出要求。相同模型在不同 Prompt 下，输出可能完全不同。</p>
-<p>工程上我会把 Prompt 看成 AI 应用的&quot;行为配置&quot;之一：它能显著影响模型输出，但不是唯一影响因素，模型版本、temperature、上下文、RAG 召回结果、工具返回和后处理规则也会共同决定最终效果。</p>
+                    <p>限流、熔断、超时、重试、兜底、开关、故障演练、巡检监控。</p>
                   </div>
                 </div>
               </div>
@@ -885,14 +883,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-515"
-                     data-idx="515"
-                     data-search="Q004：一个高质量 Prompt 通常包含哪些要素？ 一个高质量 Prompt 通常包含哪些要素？ 一个高质量 Prompt 通常包含哪些要素？    高质量 Prompt 通常包含 5 个核心要素：    1. **Role（角色）**：定义模型以什么身份回答，比如测试开发工程师、业务审核员、客服助手。  2. **Task（任务）**：明确要完成什么，比如生成测试用例、总结缺陷原因、判断答案是否合规。  3. **Context（上下文）**：提供业务背景、输入数据、历史对话或知识片段。  4. **Constraint（约束）**：限制回答范围、禁止编造、要求只基于材料回答、控制长度和语气。  5. **Output Format（输出格式）**：规定输出结构，比如 JSON、表格、分点列表或固定字段。    面试里可以总结为：Prompt 核心结构不是&quot;一句话提问&quot;，而是把角色、任务、上下文、约束和输出格式交代清楚。   ">
+                     id="card-306"
+                     data-idx="306"
+                     data-search="Q004：Redis 缓存和数据库不一致怎么定位？ Q65：Redis 缓存和数据库不一致怎么定位？ Q65：Redis 缓存和数据库不一致怎么定位？    先确认不一致的类型：缓存旧、缓存空、缓存多、数据库没有、还是页面展示用了多级缓存。定位时同时看接口响应、Redis key、数据库记录和更新链路日志。    常见原因有四类。第一是更新策略问题，比如先删缓存再写 DB，中间有并发读把旧值重新写入缓存；更稳妥的策略通常是先写 DB 再删缓存，必要时延迟双删。第二是缓存过期时间过长，业务变更后没有主动失效。第三是多服务写同一份数据，但只有部分服务删了缓存。第四是读写分离延迟，缓存刷新时读到了从库旧数据。    测试设计要覆盖：更新后立即查询、并发更新查询、删除恢复、缓存击穿、服务重启、消息通知失败。验证不能只看接口返回，要同时校验 Redis 和 DB，并记录 traceId，方便证明问题发生在哪一层。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q004</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：一个高质量 Prompt 通常包含哪些要素？">一个高质量 Prompt 通常包含哪些要素？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q65：Redis 缓存和数据库不一致怎么定位？">Redis 缓存和数据库不一致怎么定位？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -905,9 +903,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>高质量 Prompt 通常包含 5 个核心要素：</p>
-<ol><li><strong>Role（角色）</strong>：定义模型以什么身份回答，比如测试开发工程师、业务审核员、客服助手。</li><li><strong>Task（任务）</strong>：明确要完成什么，比如生成测试用例、总结缺陷原因、判断答案是否合规。</li><li><strong>Context（上下文）</strong>：提供业务背景、输入数据、历史对话或知识片段。</li><li><strong>Constraint（约束）</strong>：限制回答范围、禁止编造、要求只基于材料回答、控制长度和语气。</li><li><strong>Output Format（输出格式）</strong>：规定输出结构，比如 JSON、表格、分点列表或固定字段。</li></ol>
-<p>面试里可以总结为：Prompt 核心结构不是&quot;一句话提问&quot;，而是把角色、任务、上下文、约束和输出格式交代清楚。</p>
+                    <p>先确认不一致的类型：缓存旧、缓存空、缓存多、数据库没有、还是页面展示用了多级缓存。定位时同时看接口响应、Redis key、数据库记录和更新链路日志。</p>
+<p>常见原因有四类。第一是更新策略问题，比如先删缓存再写 DB，中间有并发读把旧值重新写入缓存；更稳妥的策略通常是先写 DB 再删缓存，必要时延迟双删。第二是缓存过期时间过长，业务变更后没有主动失效。第三是多服务写同一份数据，但只有部分服务删了缓存。第四是读写分离延迟，缓存刷新时读到了从库旧数据。</p>
+<p>测试设计要覆盖：更新后立即查询、并发更新查询、删除恢复、缓存击穿、服务重启、消息通知失败。验证不能只看接口返回，要同时校验 Redis 和 DB，并记录 traceId，方便证明问题发生在哪一层。</p>
                   </div>
                 </div>
               </div>
@@ -915,14 +913,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-516"
-                     data-idx="516"
-                     data-search="Q005：常见 Prompt 类型有哪些？ 常见 Prompt 类型有哪些？ 常见 Prompt 类型有哪些？    常见类型有四类：    1. **Zero-shot Prompt**：不给示例，直接让模型完成任务，适合简单分类、总结、问答。  2. **Few-shot Prompt**：给几个输入输出示例，让模型模仿格式和判断标准，适合分类、抽取、格式化生成。  3. **Role Prompt**：指定模型扮演某个角色，比如&quot;你是测试负责人&quot;，让回答更贴近目标场景。  4. **Instruction Prompt**：用明确指令驱动模型执行任务，比如&quot;请按风险等级输出测试点&quot;。    实际项目里通常会组合使用，不会只依赖单一类型。   ">
+                     id="card-307"
+                     data-idx="307"
+                     data-search="Q005：Redis 缓存穿透、击穿、雪崩分别怎么测？ Q66：Redis 缓存穿透、击穿、雪崩分别怎么测？ Q66：Redis 缓存穿透、击穿、雪崩分别怎么测？    缓存穿透是大量查询不存在的数据，绕过缓存打到数据库。测试可以构造不存在的 id 高频请求，观察 DB QPS 是否异常升高，预期系统用空值缓存、布隆过滤器或参数校验拦截。    缓存击穿是热点 key 过期瞬间，大量请求同时打到 DB。测试可以设置一个短 TTL 热点 key，用 JMeter 在过期点附近并发请求，观察是否只有一个线程回源，其余等待或返回旧值。常见方案是互斥锁、逻辑过期、热点 key 预热。    缓存雪崩是大量 key 同时过期或 Redis 不可用。测试可以批量设置相同 TTL，或在测试环境模拟 Redis 连接失败，观察服务是否限流、降级、熔断，DB 是否被打爆。回答时要强调不要在生产随便做破坏性测试，必须在压测环境或演练环境进行。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q005</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：常见 Prompt 类型有哪些？">常见 Prompt 类型有哪些？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q66：Redis 缓存穿透、击穿、雪崩分别怎么测？">Redis 缓存穿透、击穿、雪崩分别怎么测？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -935,9 +933,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>常见类型有四类：</p>
-<ol><li><strong>Zero-shot Prompt</strong>：不给示例，直接让模型完成任务，适合简单分类、总结、问答。</li><li><strong>Few-shot Prompt</strong>：给几个输入输出示例，让模型模仿格式和判断标准，适合分类、抽取、格式化生成。</li><li><strong>Role Prompt</strong>：指定模型扮演某个角色，比如&quot;你是测试负责人&quot;，让回答更贴近目标场景。</li><li><strong>Instruction Prompt</strong>：用明确指令驱动模型执行任务，比如&quot;请按风险等级输出测试点&quot;。</li></ol>
-<p>实际项目里通常会组合使用，不会只依赖单一类型。</p>
+                    <p>缓存穿透是大量查询不存在的数据，绕过缓存打到数据库。测试可以构造不存在的 id 高频请求，观察 DB QPS 是否异常升高，预期系统用空值缓存、布隆过滤器或参数校验拦截。</p>
+<p>缓存击穿是热点 key 过期瞬间，大量请求同时打到 DB。测试可以设置一个短 TTL 热点 key，用 JMeter 在过期点附近并发请求，观察是否只有一个线程回源，其余等待或返回旧值。常见方案是互斥锁、逻辑过期、热点 key 预热。</p>
+<p>缓存雪崩是大量 key 同时过期或 Redis 不可用。测试可以批量设置相同 TTL，或在测试环境模拟 Redis 连接失败，观察服务是否限流、降级、熔断，DB 是否被打爆。回答时要强调不要在生产随便做破坏性测试，必须在压测环境或演练环境进行。</p>
                   </div>
                 </div>
               </div>
@@ -945,14 +943,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-517"
-                     data-idx="517"
-                     data-search="Q006：Prompt 常用技巧有哪些？ Prompt 常用技巧有哪些？ Prompt 常用技巧有哪些？    常用技巧可以分四类：    1. **分步骤推理**：让模型先拆解任务、再输出结论，适合复杂判断；对外展示时可以只保留结论和关键依据，不暴露冗长推理过程。  2. **Prompt Chaining**：把复杂任务拆成多个阶段，比如先抽取字段，再判断风险，最后生成报告。  3. **结构化输出**：要求输出 JSON、表格或固定字段，方便程序解析和后置校验。  4. **约束强化**：明确限制长度、格式、范围、引用来源和禁止事项，减少自由发挥。    测试时要重点验证这些技巧是否真的提升了稳定性，而不是只看一次回答是否顺眼。   ">
+                     id="card-308"
+                     data-idx="308"
+                     data-search="Q006：MQ 消息积压怎么排查？ Q67：MQ 消息积压怎么排查？ Q67：MQ 消息积压怎么排查？    先判断是生产太快、消费太慢、消费者异常，还是下游依赖慢。指标上看 topic/queue 积压量、生产速率、消费速率、消费者实例数、失败重试数和死信队列。    排查路径：第一看消费者是否在线，是否频繁重启；第二看消费日志是否有异常、超时、反序列化失败；第三看下游接口或数据库是否慢；第四看单条消息是否过大或顺序消费导致阻塞；第五看分区数、消费者并发数和消费组配置是否匹配。    测试用例要覆盖：正常消费、消费失败重试、重复投递、乱序、消息过期、死信转移、消费者重启、下游超时。验证重点是幂等性，消息重复消费不能重复扣款、重复发通知或重复生成单据。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q006</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Prompt 常用技巧有哪些？">Prompt 常用技巧有哪些？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q67：MQ 消息积压怎么排查？">MQ 消息积压怎么排查？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -965,9 +963,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>常用技巧可以分四类：</p>
-<ol><li><strong>分步骤推理</strong>：让模型先拆解任务、再输出结论，适合复杂判断；对外展示时可以只保留结论和关键依据，不暴露冗长推理过程。</li><li><strong>Prompt Chaining</strong>：把复杂任务拆成多个阶段，比如先抽取字段，再判断风险，最后生成报告。</li><li><strong>结构化输出</strong>：要求输出 JSON、表格或固定字段，方便程序解析和后置校验。</li><li><strong>约束强化</strong>：明确限制长度、格式、范围、引用来源和禁止事项，减少自由发挥。</li></ol>
-<p>测试时要重点验证这些技巧是否真的提升了稳定性，而不是只看一次回答是否顺眼。</p>
+                    <p>先判断是生产太快、消费太慢、消费者异常，还是下游依赖慢。指标上看 topic/queue 积压量、生产速率、消费速率、消费者实例数、失败重试数和死信队列。</p>
+<p>排查路径：第一看消费者是否在线，是否频繁重启；第二看消费日志是否有异常、超时、反序列化失败；第三看下游接口或数据库是否慢；第四看单条消息是否过大或顺序消费导致阻塞；第五看分区数、消费者并发数和消费组配置是否匹配。</p>
+<p>测试用例要覆盖：正常消费、消费失败重试、重复投递、乱序、消息过期、死信转移、消费者重启、下游超时。验证重点是幂等性，消息重复消费不能重复扣款、重复发通知或重复生成单据。</p>
                   </div>
                 </div>
               </div>
@@ -975,14 +973,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-518"
-                     data-idx="518"
-                     data-search="Q007：LLM 和 Prompt 面试时必须记住的核心结论是什么？ LLM 和 Prompt 面试时必须记住的核心结论是什么？ LLM 和 Prompt 面试时必须记住的核心结论是什么？    我会记住三句话：    1. **LLM 是概率生成模型，不是传统逻辑引擎**：它擅长语言模式生成，但事实性、实时性和强逻辑推理都需要额外约束。  2. **Prompt 是控制模型行为的重要手段**：好的 Prompt 能提升输出质量，但还要配合参数、上下文、RAG、工具和后处理。  3. **Prompt 质量决定输出质量上限的一部分**：写清角色、任务、上下文、约束和输出格式，才能让模型输出更稳定、更可测、更容易工程化。   ">
+                     id="card-309"
+                     data-idx="309"
+                     data-search="Q007：如何测试 MQ 消费幂等？ Q68：如何测试 MQ 消费幂等？ Q68：如何测试 MQ 消费幂等？    核心思路是让同一业务消息被消费多次，验证最终业务状态只生效一次。    操作方式可以有三种：用相同 messageId 或业务 id 手动投递多次；让消费者处理成功后在 ack 前异常退出，触发 broker 重投；在并发消费者下同时发送相同业务键。验证时不能只看接口返回，要看数据库唯一记录、状态机流转次数、通知发送次数、库存或金额变化。    幂等实现通常靠业务唯一键、去重表、唯一索引、状态机校验或分布式锁。面试回答要补风险：只靠 Redis 去重可能因过期或服务异常失效，关键业务最好有数据库唯一约束兜底。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q007</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：LLM 和 Prompt 面试时必须记住的核心结论是什么？">LLM 和 Prompt 面试时必须记住的核心结论是什么？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q68：如何测试 MQ 消费幂等？">如何测试 MQ 消费幂等？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -995,8 +993,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>我会记住三句话：</p>
-<ol><li><strong>LLM 是概率生成模型，不是传统逻辑引擎</strong>：它擅长语言模式生成，但事实性、实时性和强逻辑推理都需要额外约束。</li><li><strong>Prompt 是控制模型行为的重要手段</strong>：好的 Prompt 能提升输出质量，但还要配合参数、上下文、RAG、工具和后处理。</li><li><strong>Prompt 质量决定输出质量上限的一部分</strong>：写清角色、任务、上下文、约束和输出格式，才能让模型输出更稳定、更可测、更容易工程化。</li></ol>
+                    <p>核心思路是让同一业务消息被消费多次，验证最终业务状态只生效一次。</p>
+<p>操作方式可以有三种：用相同 messageId 或业务 id 手动投递多次；让消费者处理成功后在 ack 前异常退出，触发 broker 重投；在并发消费者下同时发送相同业务键。验证时不能只看接口返回，要看数据库唯一记录、状态机流转次数、通知发送次数、库存或金额变化。</p>
+<p>幂等实现通常靠业务唯一键、去重表、唯一索引、状态机校验或分布式锁。面试回答要补风险：只靠 Redis 去重可能因过期或服务异常失效，关键业务最好有数据库唯一约束兜底。</p>
                   </div>
                 </div>
               </div>
@@ -1004,14 +1003,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-519"
-                     data-idx="519"
-                     data-search="Q008：大模型在你们系统里扮演什么角色？ 11. 大模型在你们系统里扮演什么角色？ 11. 大模型在你们系统里扮演什么角色？    通用大模型在系统里担任 RAG 链路的生成层。检索完成后把用户 query 和召回片段一起送入模型，由它生成专业回答。优势是可结合企业知识库和业务上下文，表达更贴近真实业务。   ">
+                     id="card-310"
+                     data-idx="310"
+                     data-search="Q008：服务接口突然大量 502/504 怎么定位？ Q69：服务接口突然大量 502/504 怎么定位？ Q69：服务接口突然大量 502/504 怎么定位？    502 通常表示网关或代理拿到了上游异常响应，504 通常表示网关等待上游超时。定位要从入口到后端逐层看。    第一看 Nginx/API Gateway 日志，确认是全部接口还是单个接口，是所有实例还是某个实例。第二看服务注册发现，确认上游实例是否健康、端口是否可达。第三看应用日志和线程池，确认是否卡在数据库、RPC、外部接口或锁等待。第四看容器资源，CPU、内存、重启次数、探针失败都会导致网关拿不到正常响应。    测试侧需要补充超时、重试、降级、熔断用例。尤其要验证客户端重试是否会放大流量，POST 类接口是否有幂等保护，避免网络抖动时造成重复业务操作。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q008</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：11. 大模型在你们系统里扮演什么角色？">大模型在你们系统里扮演什么角色？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q69：服务接口突然大量 502/504 怎么定位？">服务接口突然大量 502/504 怎么定位？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1024,7 +1023,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>通用大模型在系统里担任 RAG 链路的生成层。检索完成后把用户 query 和召回片段一起送入模型，由它生成专业回答。优势是可结合企业知识库和业务上下文，表达更贴近真实业务。</p>
+                    <p>502 通常表示网关或代理拿到了上游异常响应，504 通常表示网关等待上游超时。定位要从入口到后端逐层看。</p>
+<p>第一看 Nginx/API Gateway 日志，确认是全部接口还是单个接口，是所有实例还是某个实例。第二看服务注册发现，确认上游实例是否健康、端口是否可达。第三看应用日志和线程池，确认是否卡在数据库、RPC、外部接口或锁等待。第四看容器资源，CPU、内存、重启次数、探针失败都会导致网关拿不到正常响应。</p>
+<p>测试侧需要补充超时、重试、降级、熔断用例。尤其要验证客户端重试是否会放大流量，POST 类接口是否有幂等保护，避免网络抖动时造成重复业务操作。</p>
                   </div>
                 </div>
               </div>
@@ -1032,14 +1033,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-520"
-                     data-idx="520"
-                     data-search="Q009：你们有没有 Prompt 模板？ 13. 你们有没有 Prompt 模板？ 13. 你们有没有 Prompt 模板？    有，分四套：①基础问答 Prompt（含角色定义、回答约束、引用要求）；②业务文档生成 Prompt（结构化字段必须填充）；③分类 Prompt（通知分类）；④拒识 Prompt（无法回答时的统一话术）。所有 Prompt 进 Git 版本管理。   ">
+                     id="card-311"
+                     data-idx="311"
+                     data-search="Q009：Kubernetes 中服务不可用怎么排查？ Q70：Kubernetes 中服务不可用怎么排查？ Q70：Kubernetes 中服务不可用怎么排查？    可以按 Pod、Service、Ingress、依赖四层排查。    Pod 层看状态是否 Running、是否 CrashLoopBackOff、Readiness Probe 是否失败、最近是否 OOMKilled。Service 层看 selector 是否匹配 Pod label，endpoint 是否为空，端口映射是否正确。Ingress/Gateway 层看路由规则、证书、域名解析和网关日志。依赖层看数据库、Redis、MQ、配置中心是否可达。    常用命令包括 `kubectl get pod -o wide`、`kubectl describe pod`、`kubectl logs`、`kubectl get svc/endpoints`。面试不一定要求你是运维专家，但要能讲出排查顺序和证据链，而不是只说&quot;重启一下&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q009</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：13. 你们有没有 Prompt 模板？">你们有没有 Prompt 模板？</h3>
-                  <div class="card-meta"><span>来源：测开面试_通用版_含答案.md</span></div>
+                  <h3 class="card-title" title="原题：Q70：Kubernetes 中服务不可用怎么排查？">Kubernetes 中服务不可用怎么排查？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1052,7 +1053,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>有，分四套：</p><ul class="point-list"><li>①基础问答 Prompt（含角色定义、回答约束、引用要求）</li><li>②业务文档生成 Prompt（结构化字段必须填充）</li><li>③分类 Prompt（通知分类）</li><li>④拒识 Prompt（无法回答时的统一话术）。所有 Prompt 进 Git 版本管理。</li></ul>
+                    <p>可以按 Pod、Service、Ingress、依赖四层排查。</p>
+<p>Pod 层看状态是否 Running、是否 CrashLoopBackOff、Readiness Probe 是否失败、最近是否 OOMKilled。Service 层看 selector 是否匹配 Pod label，endpoint 是否为空，端口映射是否正确。Ingress/Gateway 层看路由规则、证书、域名解析和网关日志。依赖层看数据库、Redis、MQ、配置中心是否可达。</p>
+<p>常用命令包括 <code>kubectl get pod -o wide</code>、<code>kubectl describe pod</code>、<code>kubectl logs</code>、<code>kubectl get svc/endpoints</code>。面试不一定要求你是运维专家，但要能讲出排查顺序和证据链，而不是只说&quot;重启一下&quot;。</p>
                   </div>
                 </div>
               </div>
@@ -1060,14 +1063,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-521"
-                     data-idx="521"
-                     data-search="Q010：LLM 输出为什么不完全确定？ Q44：LLM 输出为什么不完全确定？ Q44：LLM 输出为什么不完全确定？    LLM 本质是按概率预测下一个 token，同一个输入在不同采样参数、模型版本或上下文下可能得到不同输出。面试里可以从三点解释：一是模型输出是概率分布，不是固定规则；二是 `temperature`、`top_p` 会影响采样随机性；三是 Prompt、上下文顺序、检索片段和模型版本变化都会影响结果。所以测试时不能只跑一次，要用评测集、重复采样、稳定性指标和人工/规则校验综合判断。   ">
+                     id="card-312"
+                     data-idx="312"
+                     data-search="Q010：发布后部分用户报错，如何判断是灰度问题还是数据问题？ Q71：发布后部分用户报错，如何判断是灰度问题还是数据问题？ Q71：发布后部分用户报错，如何判断是灰度问题还是数据问题？    先圈定影响范围：用户、租户、地区、版本、渠道、角色、灰度批次。灰度问题通常和版本、实例、流量规则相关；数据问题通常和特定用户数据、历史脏数据、权限或配置相关。    定位动作：查用户请求落到哪个实例、哪个版本；看灰度规则是否按用户 id、租户或 header 生效；对比正常用户和异常用户的数据差异；用同一账号切换版本或同一版本换账号做交叉验证。若同一用户在新版本异常、旧版本正常，更像灰度代码问题；若新旧版本都异常，更像数据或配置问题。    测试策略要补灰度验证：灰度名单内外、不同租户、回滚后数据兼容、灰度开关关闭后的行为。上线前最好准备可观测字段，比如响应 header 带版本号或灰度标记，方便快速定位。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q010</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q44：LLM 输出为什么不完全确定？">LLM 输出为什么不完全确定？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q71：发布后部分用户报错，如何判断是灰度问题还是数据问题？">发布后部分用户报错，如何判断是灰度问题还是数据问题？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1080,7 +1083,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>LLM 本质是按概率预测下一个 token，同一个输入在不同采样参数、模型版本或上下文下可能得到不同输出。面试里可以从三点解释：一是模型输出是概率分布，不是固定规则；二是 <code>temperature</code>、<code>top_p</code> 会影响采样随机性；三是 Prompt、上下文顺序、检索片段和模型版本变化都会影响结果。所以测试时不能只跑一次，要用评测集、重复采样、稳定性指标和人工/规则校验综合判断。</p>
+                    <p>先圈定影响范围：用户、租户、地区、版本、渠道、角色、灰度批次。灰度问题通常和版本、实例、流量规则相关；数据问题通常和特定用户数据、历史脏数据、权限或配置相关。</p>
+<p>定位动作：查用户请求落到哪个实例、哪个版本；看灰度规则是否按用户 id、租户或 header 生效；对比正常用户和异常用户的数据差异；用同一账号切换版本或同一版本换账号做交叉验证。若同一用户在新版本异常、旧版本正常，更像灰度代码问题；若新旧版本都异常，更像数据或配置问题。</p>
+<p>测试策略要补灰度验证：灰度名单内外、不同租户、回滚后数据兼容、灰度开关关闭后的行为。上线前最好准备可观测字段，比如响应 header 带版本号或灰度标记，方便快速定位。</p>
                   </div>
                 </div>
               </div>
@@ -1088,14 +1093,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-522"
-                     data-idx="522"
-                     data-search="Q011：temperature、top_p、max_tokens 分别影响什么？ Q45：temperature、top_p、max_tokens 分别影响什么？ Q45：temperature、top_p、max_tokens 分别影响什么？    `temperature` 控制随机性，越低越稳定，越高越发散；`top_p` 控制候选 token 的累计概率范围，越小越保守；`max_tokens` 控制最大输出长度，太小会截断答案，太大可能增加成本和跑偏风险。测试开发场景下，生成测试用例、结构化摘要、分类判断一般倾向低 temperature；头脑风暴或补充边界场景可以适当提高。   ">
+                     id="card-313"
+                     data-idx="313"
+                     data-search="Q011：分布式事务异常怎么测试？ Q72：分布式事务异常怎么测试？ Q72：分布式事务异常怎么测试？    先搞清业务采用的是本地事务、TCC、Saga、消息最终一致性，还是简单的补偿任务。不同方案测试点不同。    以消息最终一致性为例，要覆盖：本地事务成功但消息发送失败、消息发送成功但消费失败、消费者重复消费、下游部分成功、补偿任务执行失败、人工补偿。验证不只看主表，还要看消息表、业务状态、补偿记录和告警。    面试里可以强调测试原则：分布式系统不要只验证&quot;一次成功&quot;，更要验证&quot;半成功后能不能恢复&quot;。测试开发可以通过 Mock 下游失败、注入超时、暂停消费者、制造重复消息来验证最终一致性。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q011</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q45：temperature、top_p、max_tokens 分别影响什么？">temperature、top_p、max_tokens 分别影响什么？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q72：分布式事务异常怎么测试？">分布式事务异常怎么测试？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1108,7 +1113,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p><code>temperature</code> 控制随机性，越低越稳定，越高越发散；<code>top_p</code> 控制候选 token 的累计概率范围，越小越保守；<code>max_tokens</code> 控制最大输出长度，太小会截断答案，太大可能增加成本和跑偏风险。测试开发场景下，生成测试用例、结构化摘要、分类判断一般倾向低 temperature；头脑风暴或补充边界场景可以适当提高。</p>
+                    <p>先搞清业务采用的是本地事务、TCC、Saga、消息最终一致性，还是简单的补偿任务。不同方案测试点不同。</p>
+<p>以消息最终一致性为例，要覆盖：本地事务成功但消息发送失败、消息发送成功但消费失败、消费者重复消费、下游部分成功、补偿任务执行失败、人工补偿。验证不只看主表，还要看消息表、业务状态、补偿记录和告警。</p>
+<p>面试里可以强调测试原则：分布式系统不要只验证&quot;一次成功&quot;，更要验证&quot;半成功后能不能恢复&quot;。测试开发可以通过 Mock 下游失败、注入超时、暂停消费者、制造重复消息来验证最终一致性。</p>
                   </div>
                 </div>
               </div>
@@ -1116,14 +1123,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-523"
-                     data-idx="523"
-                     data-search="Q012：如何把业务规则写进 Prompt，避免只给一句泛泛指令？ Q46：如何把业务规则写进 Prompt，避免只给一句泛泛指令？ Q46：如何把业务规则写进 Prompt，避免只给一句泛泛指令？    不要只写“帮我生成测试用例”，而要把业务规则拆进 Prompt：角色与目标、业务背景、输入数据、约束条件、覆盖维度、输出格式、示例和禁止项。测试开发里尤其要写清楚正常/异常/边界/权限/兼容/性能这些覆盖维度，以及“不能编造 PRD 不存在的规则”。这样模型不是自由发挥，而是在明确边界内补全测试思路。   ">
+                     id="card-314"
+                     data-idx="314"
+                     data-search="Q012：慢 SQL 如何从测试角度定位和推动修复？ Q73：慢 SQL 如何从测试角度定位和推动修复？ Q73：慢 SQL 如何从测试角度定位和推动修复？    测试侧先用现象证明问题：接口 P95 变高、数据库慢查询日志出现、执行计划显示全表扫描或索引失效。不要只说&quot;数据库慢&quot;，要提供 SQL、参数、数据量、执行耗时和 explain 结果。    常见原因包括：where 条件没有索引、组合索引顺序不对、函数或隐式转换导致索引失效、分页 offset 太大、返回字段过多、join 表数据量过大、锁等待。推动修复时可以和研发 DBA 一起看执行计划，评估加索引、改 SQL、拆查询、异步化或缓存。    回归验证要注意数据量。小数据量下 SQL 都很快，必须准备接近生产规模的数据，至少覆盖高频查询条件、边界分页和热点租户。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q012</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q46：如何把业务规则写进 Prompt，避免只给一句泛泛指令？">如何把业务规则写进 Prompt，避免只给一句泛泛指令？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q73：慢 SQL 如何从测试角度定位和推动修复？">慢 SQL 如何从测试角度定位和推动修复？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1136,7 +1143,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>不要只写“帮我生成测试用例”，而要把业务规则拆进 Prompt：角色与目标、业务背景、输入数据、约束条件、覆盖维度、输出格式、示例和禁止项。测试开发里尤其要写清楚正常/异常/边界/权限/兼容/性能这些覆盖维度，以及“不能编造 PRD 不存在的规则”。这样模型不是自由发挥，而是在明确边界内补全测试思路。</p>
+                    <p>测试侧先用现象证明问题：接口 P95 变高、数据库慢查询日志出现、执行计划显示全表扫描或索引失效。不要只说&quot;数据库慢&quot;，要提供 SQL、参数、数据量、执行耗时和 explain 结果。</p>
+<p>常见原因包括：where 条件没有索引、组合索引顺序不对、函数或隐式转换导致索引失效、分页 offset 太大、返回字段过多、join 表数据量过大、锁等待。推动修复时可以和研发 DBA 一起看执行计划，评估加索引、改 SQL、拆查询、异步化或缓存。</p>
+<p>回归验证要注意数据量。小数据量下 SQL 都很快，必须准备接近生产规模的数据，至少覆盖高频查询条件、边界分页和热点租户。</p>
                   </div>
                 </div>
               </div>
@@ -1144,14 +1153,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-524"
-                     data-idx="524"
-                     data-search="Q013：如何约束 LLM 输出为稳定的 JSON 或表格？ Q47：如何约束 LLM 输出为稳定的 JSON 或表格？ Q47：如何约束 LLM 输出为稳定的 JSON 或表格？    先在 Prompt 中给出明确 schema，例如字段名、类型、是否必填和枚举值；再要求“只输出 JSON，不要解释”；必要时给一个 few-shot 示例。工程上还要做二次校验：JSON 解析、schema 校验、字段缺失检查、枚举值检查。不要只依赖 Prompt 约束，模型输出必须经过程序校验和失败重试。   ">
+                     id="card-315"
+                     data-idx="315"
+                     data-search="Q013：服务降级和熔断怎么测？ Q74：服务降级和熔断怎么测？ Q74：服务降级和熔断怎么测？    降级是下游不可用时返回兜底结果或关闭非核心能力；熔断是错误率或超时达到阈值后短时间内不再请求下游，避免雪崩。    测试步骤：先让下游正常，确认主流程；再模拟下游超时、500、连接失败、慢响应，观察是否触发降级或熔断；继续请求确认熔断窗口内是否快速失败；等待恢复时间后确认半开探测和自动恢复。指标上看错误率、RT、熔断状态、降级次数和告警。    风险点是降级不能掩盖核心错误。例如商品推荐可以降级为空，支付扣款不能随便降级成功。回答时要按业务重要性区分，不要把所有异常都说成&quot;返回默认值&quot;。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q013</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q47：如何约束 LLM 输出为稳定的 JSON 或表格？">如何约束 LLM 输出为稳定的 JSON 或表格？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q74：服务降级和熔断怎么测？">服务降级和熔断怎么测？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1164,7 +1173,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>先在 Prompt 中给出明确 schema，例如字段名、类型、是否必填和枚举值；再要求“只输出 JSON，不要解释”；必要时给一个 few-shot 示例。工程上还要做二次校验：JSON 解析、schema 校验、字段缺失检查、枚举值检查。不要只依赖 Prompt 约束，模型输出必须经过程序校验和失败重试。</p>
+                    <p>降级是下游不可用时返回兜底结果或关闭非核心能力；熔断是错误率或超时达到阈值后短时间内不再请求下游，避免雪崩。</p>
+<p>测试步骤：先让下游正常，确认主流程；再模拟下游超时、500、连接失败、慢响应，观察是否触发降级或熔断；继续请求确认熔断窗口内是否快速失败；等待恢复时间后确认半开探测和自动恢复。指标上看错误率、RT、熔断状态、降级次数和告警。</p>
+<p>风险点是降级不能掩盖核心错误。例如商品推荐可以降级为空，支付扣款不能随便降级成功。回答时要按业务重要性区分，不要把所有异常都说成&quot;返回默认值&quot;。</p>
                   </div>
                 </div>
               </div>
@@ -1172,14 +1183,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-525"
-                     data-idx="525"
-                     data-search="Q014：Zero-shot、Few-shot、Chain-of-Thought 分别适合什么场景？ Q48：Zero-shot、Few-shot、Chain-of-Thought 分别适合什么场景？ Q48：Zero-shot、Few-shot、Chain-of-Thought 分别适合什么场景？    Zero-shot 适合规则清晰、答案格式简单的任务；Few-shot 适合希望模型模仿固定格式、口径或分类标准的任务；Chain-of-Thought 适合复杂推理，但生产环境通常不直接暴露完整推理过程，可以要求模型“先分析再输出结论”，或让模型输出可审计的关键依据。测试用例生成更常用 few-shot，因为示例能显著稳定输出格式。   ">
+                     id="card-316"
+                     data-idx="316"
+                     data-search="Q014：如何测试配置中心变更带来的风险？ Q75：如何测试配置中心变更带来的风险？ Q75：如何测试配置中心变更带来的风险？    配置中心风险在于变更快、影响面大、经常不走完整发布流程。测试要关注配置格式、默认值、热更新、回滚和权限。    用例包括：配置缺失、格式错误、非法值、边界值、灰度配置、热更新是否立即生效、旧实例是否同步、回滚后是否恢复。对于限流阈值、开关、路由、模型参数这类高风险配置，要有审批和审计记录。    面试可以补一句：配置变更也应该纳入质量门禁，至少要有 schema 校验、变更 diff、影响范围说明和线上监控，不然很多线上事故不是代码发布导致的，而是配置改错导致的。   ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q014</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q48：Zero-shot、Few-shot、Chain-of-Thought 分别适合什么场景？">Zero-shot、Few-shot、Chain-of-Thought 分别适合什么场景？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q75：如何测试配置中心变更带来的风险？">如何测试配置中心变更带来的风险？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1192,7 +1203,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>Zero-shot 适合规则清晰、答案格式简单的任务；Few-shot 适合希望模型模仿固定格式、口径或分类标准的任务；Chain-of-Thought 适合复杂推理，但生产环境通常不直接暴露完整推理过程，可以要求模型“先分析再输出结论”，或让模型输出可审计的关键依据。测试用例生成更常用 few-shot，因为示例能显著稳定输出格式。</p>
+                    <p>配置中心风险在于变更快、影响面大、经常不走完整发布流程。测试要关注配置格式、默认值、热更新、回滚和权限。</p>
+<p>用例包括：配置缺失、格式错误、非法值、边界值、灰度配置、热更新是否立即生效、旧实例是否同步、回滚后是否恢复。对于限流阈值、开关、路由、模型参数这类高风险配置，要有审批和审计记录。</p>
+<p>面试可以补一句：配置变更也应该纳入质量门禁，至少要有 schema 校验、变更 diff、影响范围说明和线上监控，不然很多线上事故不是代码发布导致的，而是配置改错导致的。</p>
                   </div>
                 </div>
               </div>
@@ -1200,14 +1213,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-526"
-                     data-idx="526"
-                     data-search="Q015：Prompt 模板如何做版本管理？ Q49：Prompt 模板如何做版本管理？ Q49：Prompt 模板如何做版本管理？    Prompt 应该像代码一样管理版本：模板文件入库，记录版本号、适用场景、输入变量、输出 schema、变更说明和评测结果。每次修改 Prompt 后，用固定 Golden Set 回归，比较准确率、覆盖率、格式合规率和人工采纳率。上线后还要记录线上 query、prompt 版本、模型版本和输出结果，方便问题追溯。   ">
+                     id="card-317"
+                     data-idx="317"
+                     data-search="Q015：接口偶发超时怎么定位？ Q76：接口偶发超时怎么定位？ Q76：接口偶发超时怎么定位？    偶发超时最怕只看平均值。先收集 P95/P99、慢请求 traceId、发生时间、实例、用户、参数和依赖耗时。    排查方向包括：线程池排队、连接池等待、GC 停顿、数据库锁等待、慢 SQL、下游 RPC 抖动、网络丢包、容器 CPU throttle。需要把一次请求拆成网关耗时、应用处理耗时、DB 耗时、缓存耗时、下游耗时。    测试侧可以通过压测、弱网、下游延迟注入、并发锁冲突来复现。结论要用证据闭环，比如某些 trace 显示 90% 时间花在 DB 连接等待，而不是凭感觉说&quot;可能是网络问题&quot;。 ">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q015</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q49：Prompt 模板如何做版本管理？">Prompt 模板如何做版本管理？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q76：接口偶发超时怎么定位？">接口偶发超时怎么定位？</h3>
+                  <div class="card-meta"><span>来源：19-中间件与微服务排障.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1220,7 +1233,9 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>Prompt 应该像代码一样管理版本：模板文件入库，记录版本号、适用场景、输入变量、输出 schema、变更说明和评测结果。每次修改 Prompt 后，用固定 Golden Set 回归，比较准确率、覆盖率、格式合规率和人工采纳率。上线后还要记录线上 query、prompt 版本、模型版本和输出结果，方便问题追溯。</p>
+                    <p>偶发超时最怕只看平均值。先收集 P95/P99、慢请求 traceId、发生时间、实例、用户、参数和依赖耗时。</p>
+<p>排查方向包括：线程池排队、连接池等待、GC 停顿、数据库锁等待、慢 SQL、下游 RPC 抖动、网络丢包、容器 CPU throttle。需要把一次请求拆成网关耗时、应用处理耗时、DB 耗时、缓存耗时、下游耗时。</p>
+<p>测试侧可以通过压测、弱网、下游延迟注入、并发锁冲突来复现。结论要用证据闭环，比如某些 trace 显示 90% 时间花在 DB 连接等待，而不是凭感觉说&quot;可能是网络问题&quot;。</p>
                   </div>
                 </div>
               </div>
@@ -1228,14 +1243,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-527"
-                     data-idx="527"
-                     data-search="Q016：Prompt 版本变更后如何做回归测试？ Q50：Prompt 版本变更后如何做回归测试？ Q50：Prompt 版本变更后如何做回归测试？    先准备一批稳定评测集，包括高频问题、边界问题、异常输入和历史线上 bad case；再固定模型版本和采样参数，对比新旧 Prompt 的输出质量。指标可以包括格式通过率、准确率、幻觉率、覆盖率、人工采纳率和严重错误数。只要出现高风险退化，比如编造业务规则或漏掉关键断言，就不应直接上线。   ">
+                     id="card-318"
+                     data-idx="318"
+                     data-search="Q016：MQ 消息堆积如何定位？ Q18.9：MQ 消息堆积如何定位？ Q18.9：MQ 消息堆积如何定位？ 先讲方法论，不要上来就猜。 TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻： &amp;gt; 由利特尔法则 TPS = 有效并发 / 响应时间(RT)，TPS 不涨 ⟺ 要么 RT 在变长，要么 有效并发被卡死（线程/连接/锁池满了，加压根本加不进去）。 所以我的定位顺序是：先拆 RT、再看饱和度，而不是一上来看 CPU。 第 0 步：先排除压力机自己 很多&amp;quot;TPS 上不去&amp;quot;是 JMeter 单机 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 TIME_WAIT）。先确认压力机 CPU &amp;lt; 60%、用分布式压力机，再谈被测系统。这一步不做，后面全是错的。 第 1 步：拆 RT，看时间花在哪一段（最快的定位手段） 用链路追踪（SkyWalking/Zipkin）把单请求 RT 拆成 网关 → 应用 → DB → 下游 各段耗时。哪段占大头就下钻哪段——这比盲目看一堆机器指标快得多。 第 2 步：按&amp;quot;两种根因&amp;quot;分别下钻">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q016</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q50：Prompt 版本变更后如何做回归测试？">Prompt 版本变更后如何做回归测试？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q18.9：MQ 消息堆积如何定位？">MQ 消息堆积如何定位？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1248,7 +1263,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>先准备一批稳定评测集，包括高频问题、边界问题、异常输入和历史线上 bad case；再固定模型版本和采样参数，对比新旧 Prompt 的输出质量。指标可以包括格式通过率、准确率、幻觉率、覆盖率、人工采纳率和严重错误数。只要出现高风险退化，比如编造业务规则或漏掉关键断言，就不应直接上线。</p>
+                    <p><strong>先讲方法论，不要上来就猜。</strong> TPS 上不去在数学上只有两种根因，先分清是哪一种再下钻：</p>
+<p>&gt; 由利特尔法则 <code>TPS = 有效并发 / 响应时间(RT)</code>，TPS 不涨 ⟺ 要么 <strong>RT 在变长</strong>，要么 <strong>有效并发被卡死</strong>（线程/连接/锁池满了，加压根本加不进去）。</p>
+<p>所以我的定位顺序是：<strong>先拆 RT、再看饱和度</strong>，而不是一上来看 CPU。</p>
+<h4 class="answer-subtitle">第 0 步：先排除压力机自己</h4>
+<p>很多&quot;TPS 上不去&quot;是 <strong>JMeter 单机</strong> 先到瓶颈了——压力机 CPU 打满、或端口耗尽（大量 <code>TIME_WAIT</code>）。先确认压力机 CPU &lt; 60%、用分布式压力机，再谈被测系统。<strong>这一步不做，后面全是错的。</strong></p>
+<h4 class="answer-subtitle">第 1 步：拆 RT，看时间花在哪一段（最快的定位手段）</h4>
+<p>用链路追踪（SkyWalking/Zipkin）把单请求 RT 拆成 <code>网关 → 应用 → DB → 下游</code> 各段耗时。哪段占大头就下钻哪段——这比盲目看一堆机器指标快得多。</p>
+<h4 class="answer-subtitle">第 2 步：按&quot;两种根因&quot;分别下钻</h4>
                   </div>
                 </div>
               </div>
@@ -1256,14 +1278,14 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-528"
-                     data-idx="528"
-                     data-search="Q017：上下文窗口不够时怎么办？ Q51：上下文窗口不够时怎么办？ Q51：上下文窗口不够时怎么办？    常见做法有四种：压缩历史对话、只保留相关上下文、用 RAG 检索外部知识、把长任务拆成多轮子任务。不能简单把所有资料都塞进 Prompt，因为会增加成本、稀释重点，还可能让模型忽略关键约束。测试时要覆盖超长输入、上下文丢失、历史冲突和资料过期等场景。   ">
+                     id="card-319"
+                     data-idx="319"
+                     data-search="Q017：是否触发限流、熔断、降级？ Q19.9：是否触发限流、熔断、降级？ Q19.9：是否触发限流、熔断、降级？ 是否触发限流/熔断/降级：被保护机制拦截后返回错误（注意这类可能是 429/503，但配置不当也会 500）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q017</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q51：上下文窗口不够时怎么办？">上下文窗口不够时怎么办？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
+                  <h3 class="card-title" title="原题：Q19.9：是否触发限流、熔断、降级？">是否触发限流、熔断、降级？</h3>
+                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
                 </div>
                 <div class="card-actions">
                   <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
@@ -1276,7 +1298,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p>常见做法有四种：压缩历史对话、只保留相关上下文、用 RAG 检索外部知识、把长任务拆成多轮子任务。不能简单把所有资料都塞进 Prompt，因为会增加成本、稀释重点，还可能让模型忽略关键约束。测试时要覆盖超长输入、上下文丢失、历史冲突和资料过期等场景。</p>
+                    <p><strong>是否触发限流/熔断/降级</strong>：被保护机制拦截后返回错误（注意这类可能是 429/503，但配置不当也会 500）。</p>
                   </div>
                 </div>
               </div>
@@ -1284,125 +1306,13 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
 
 
             <article class="card"
-                     id="card-529"
-                     data-idx="529"
-                     data-search="Q018：Prompt 层面如何降低幻觉和编造规则？ Q52：Prompt 层面如何降低幻觉和编造规则？ Q52：Prompt 层面如何降低幻觉和编造规则？    Prompt 层面要写清楚“只基于给定资料回答，不确定就说明无法判断”；RAG 层面要提供可靠来源并要求引用；工程层面要做输出校验、敏感词/合规规则拦截、人工审核和置信度阈值。面试里要强调：Prompt 只能降低风险，不能替代评测集、规则校验和人工兜底。   ">
+                     id="card-320"
+                     data-idx="320"
+                     data-search="Q018：是否需要 Redis、RabbitMQ、Kafka 等任务队列？ Q26.6：是否需要 Redis、RabbitMQ、Kafka 等任务队列？ Q26.6：是否需要 Redis、RabbitMQ、Kafka 等任务队列？ 任务队列与&amp;quot;至少一次&amp;quot;投递的代价：MQ 几乎都是 at-least-once——同一任务可能被投递多次、甚至被两个节点同时消费。这不是 bug，是常态，所以幂等是必选项不是可选项（见第 8 点）。选型：要可靠投递 + 延迟队列 → RabbitMQ（有 ack/nack/重入队）；要高吞吐 + 可回溯 → Kafka（offset + consumer group）；轻量小规模 → Redis Stream（consumer group + XACK + pending 列表）。">
               <header class="card-header" role="button" tabindex="0" aria-expanded="false">
                 <span class="card-index">Q018</span>
                 <div class="card-main">
-                  <h3 class="card-title" title="原题：Q52：Prompt 层面如何降低幻觉和编造规则？">Prompt 层面如何降低幻觉和编造规则？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
-                </div>
-                <div class="card-actions">
-                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
-                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
-                  <button type="button" class="toggle-btn">展开</button>
-                </div>
-              </header>
-              <div class="card-body" hidden>
-
-                <div class="answer-block">
-                  <span class="badge badge-answer">参考答案</span>
-                  <div class="answer-content">
-                    <p>Prompt 层面要写清楚“只基于给定资料回答，不确定就说明无法判断”；RAG 层面要提供可靠来源并要求引用；工程层面要做输出校验、敏感词/合规规则拦截、人工审核和置信度阈值。面试里要强调：Prompt 只能降低风险，不能替代评测集、规则校验和人工兜底。</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-
-            <article class="card"
-                     id="card-530"
-                     data-idx="530"
-                     data-search="Q019：Prompt Injection 和普通异常输入有什么区别？ Q53：Prompt Injection 和普通异常输入有什么区别？ Q53：Prompt Injection 和普通异常输入有什么区别？    普通异常输入通常是空值、超长、非法字符或格式错误；Prompt Injection 是用户试图改变模型原有指令或越过系统边界，例如“忽略以上规则”“输出隐藏提示词”“查询无权限资料”。它测试的不只是输入校验，还包括指令优先级、权限隔离、工具调用边界、RAG 文档可信度和输出拦截。   ">
-              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
-                <span class="card-index">Q019</span>
-                <div class="card-main">
-                  <h3 class="card-title" title="原题：Q53：Prompt Injection 和普通异常输入有什么区别？">Prompt Injection 和普通异常输入有什么区别？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
-                </div>
-                <div class="card-actions">
-                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
-                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
-                  <button type="button" class="toggle-btn">展开</button>
-                </div>
-              </header>
-              <div class="card-body" hidden>
-
-                <div class="answer-block">
-                  <span class="badge badge-answer">参考答案</span>
-                  <div class="answer-content">
-                    <p>普通异常输入通常是空值、超长、非法字符或格式错误；Prompt Injection 是用户试图改变模型原有指令或越过系统边界，例如“忽略以上规则”“输出隐藏提示词”“查询无权限资料”。它测试的不只是输入校验，还包括指令优先级、权限隔离、工具调用边界、RAG 文档可信度和输出拦截。</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-
-            <article class="card"
-                     id="card-531"
-                     data-idx="531"
-                     data-search="Q020：RAG 场景中 Prompt 如何组装？ Q54：RAG 场景中 Prompt 如何组装？ Q54：RAG 场景中 Prompt 如何组装？    典型结构是：系统规则 + 任务说明 + 检索片段 + 用户问题 + 输出格式要求。关键是把检索片段标清来源、版本和权限范围，并要求模型只基于片段回答；如果资料不足，要回答“不确定”或转人工。测试时重点看检索内容是否被正确引用、答案是否忠实于资料、是否会引用不存在的来源。   ">
-              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
-                <span class="card-index">Q020</span>
-                <div class="card-main">
-                  <h3 class="card-title" title="原题：Q54：RAG 场景中 Prompt 如何组装？">RAG 场景中 Prompt 如何组装？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
-                </div>
-                <div class="card-actions">
-                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
-                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
-                  <button type="button" class="toggle-btn">展开</button>
-                </div>
-              </header>
-              <div class="card-body" hidden>
-
-                <div class="answer-block">
-                  <span class="badge badge-answer">参考答案</span>
-                  <div class="answer-content">
-                    <p>典型结构是：系统规则 + 任务说明 + 检索片段 + 用户问题 + 输出格式要求。关键是把检索片段标清来源、版本和权限范围，并要求模型只基于片段回答；如果资料不足，要回答“不确定”或转人工。测试时重点看检索内容是否被正确引用、答案是否忠实于资料、是否会引用不存在的来源。</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-
-            <article class="card"
-                     id="card-532"
-                     data-idx="532"
-                     data-search="Q021：Prompt Engineering 和 Harness Engineering 有什么区别？ Q55：Prompt Engineering 和 Harness Engineering 有什么区别？ Q55：Prompt Engineering 和 Harness Engineering 有什么区别？    Prompt Engineering 解决“怎么把任务说清楚”，关注角色、指令、示例、输出格式和约束。Harness Engineering 解决“模型在什么工程环境里可靠执行”，包括工具调用、权限控制、上下文管理、状态保存、结果验证、日志追踪和人工审批。Prompt 再好也不能替代工具可靠性和结果校验，Agent 落地时两者都需要。 ">
-              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
-                <span class="card-index">Q021</span>
-                <div class="card-main">
-                  <h3 class="card-title" title="原题：Q55：Prompt Engineering 和 Harness Engineering 有什么区别？">Prompt Engineering 和 Harness Engineering 有什么区别？</h3>
-                  <div class="card-meta"><span>来源：17-LLM_Prompt深入.md</span></div>
-                </div>
-                <div class="card-actions">
-                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
-                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
-                  <button type="button" class="toggle-btn">展开</button>
-                </div>
-              </header>
-              <div class="card-body" hidden>
-
-                <div class="answer-block">
-                  <span class="badge badge-answer">参考答案</span>
-                  <div class="answer-content">
-                    <p>Prompt Engineering 解决“怎么把任务说清楚”，关注角色、指令、示例、输出格式和约束。Harness Engineering 解决“模型在什么工程环境里可靠执行”，包括工具调用、权限控制、上下文管理、状态保存、结果验证、日志追踪和人工审批。Prompt 再好也不能替代工具可靠性和结果校验，Agent 落地时两者都需要。</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-
-            <article class="card"
-                     id="card-533"
-                     data-idx="533"
-                     data-search="Q022：LLM 在 Agent 中负责什么？ Q28.1：LLM 在 Agent 中负责什么？ Q28.1：LLM 在 Agent 中负责什么？ LLM 负责什么：大脑——理解任务、推理、做决策、决定调用什么工具、生成最终回答。">
-              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
-                <span class="card-index">Q022</span>
-                <div class="card-main">
-                  <h3 class="card-title" title="原题：Q28.1：LLM 在 Agent 中负责什么？">LLM 在 Agent 中负责什么？</h3>
+                  <h3 class="card-title" title="原题：Q26.6：是否需要 Redis、RabbitMQ、Kafka 等任务队列？">是否需要 Redis、RabbitMQ、Kafka 等任务队列？</h3>
                   <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
                 </div>
                 <div class="card-actions">
@@ -1416,35 +1326,7 @@ mark.hl { background: rgba(253, 224, 71, 0.4); color: inherit; padding: 0 2px; b
                 <div class="answer-block">
                   <span class="badge badge-answer">参考答案</span>
                   <div class="answer-content">
-                    <p><strong>LLM 负责什么</strong>：<strong>大脑</strong>——理解任务、推理、做决策、决定调用什么工具、生成最终回答。</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-
-            <article class="card"
-                     id="card-534"
-                     data-idx="534"
-                     data-search="Q023：prompt 如何组装？ Q29.9：prompt 如何组装？ Q29.9：prompt 如何组装？ prompt 如何组装：把检索到的片段作为&amp;quot;参考资料&amp;quot; + 用户问题 + 指令（&amp;quot;仅根据以下资料回答，不要编造&amp;quot;)拼成 prompt 给 LLM。">
-              <header class="card-header" role="button" tabindex="0" aria-expanded="false">
-                <span class="card-index">Q023</span>
-                <div class="card-main">
-                  <h3 class="card-title" title="原题：Q29.9：prompt 如何组装？">prompt 如何组装？</h3>
-                  <div class="card-meta"><span>来源：测试开发与AI_Agent面试题汇总.md</span></div>
-                </div>
-                <div class="card-actions">
-                  <button type="button" class="action-btn master-btn" title="标记为已掌握">✓</button>
-                  <button type="button" class="action-btn star-btn" title="收藏">★</button>
-                  <button type="button" class="toggle-btn">展开</button>
-                </div>
-              </header>
-              <div class="card-body" hidden>
-
-                <div class="answer-block">
-                  <span class="badge badge-answer">参考答案</span>
-                  <div class="answer-content">
-                    <p><strong>prompt 如何组装</strong>：把检索到的片段作为&quot;参考资料&quot; + 用户问题 + 指令（&quot;仅根据以下资料回答，不要编造&quot;)拼成 prompt 给 LLM。</p>
+                    <p><strong>任务队列与&quot;至少一次&quot;投递的代价</strong>：MQ 几乎都是 <strong>at-least-once</strong>——同一任务可能被投递多次、甚至被两个节点同时消费。<strong>这不是 bug，是常态</strong>，所以幂等是必选项不是可选项（见第 8 点）。选型：要可靠投递 + 延迟队列 → RabbitMQ（有 ack/nack/重入队）；要高吞吐 + 可回溯 → Kafka（offset + consumer group）；轻量小规模 → Redis Stream（consumer group + XACK + pending 列表）。</p>
                   </div>
                 </div>
               </div>
