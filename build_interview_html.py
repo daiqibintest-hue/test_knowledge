@@ -1153,7 +1153,7 @@ def render_nav(parts: list[dict], prefix: str, current_slug: str | None) -> str:
 
     prefix 为相对路径前缀：首页为 "chapters/"，章节页为 ""（同级）。
     """
-    home_href = f"{prefix}index.html" if prefix else "../index.html"
+    home_href = "index.html" if current_slug is None else "../index.html"
     home_active = " active" if current_slug is None else ""
     items = [f'<li><a class="nav-home{home_active}" href="{home_href}">🏠 首页目录</a></li>']
     for part in parts:
