@@ -39,6 +39,7 @@ TECH_CATEGORY_ORDER = [
     "AI Agent 自动执行",
     "AI 工具生态与能力扩展",
     "AI 测试与评测",
+    "AI 评测平台与线上治理",
     "LLMOps 工程化工具",
     "UI 自动化",
     "兼容性 / 弱网",
@@ -66,6 +67,7 @@ SOURCE_CATEGORY_BY_FILE = {
     "16-AI工具生态与能力扩展.md": "AI 工具生态与能力扩展",
     "18-项目经历_STAR.md": "综合追问 / 高频必问",
     "19-中间件与微服务排障.md": "中间件与微服务排障",
+    "21-AI评测平台与线上治理.md": "AI 评测平台与线上治理",
 }
 
 # 章节 -> 稳定的 ASCII slug，用于生成 chapters/<slug>.html 的文件名与跨页链接
@@ -87,6 +89,7 @@ CATEGORY_SLUG = {
     "AI Agent 自动执行": "ai-agent",
     "AI 工具生态与能力扩展": "ai-tools",
     "AI 测试与评测": "ai-evaluation",
+    "AI 评测平台与线上治理": "ai-governance",
     "LLMOps 工程化工具": "llmops",
     "UI 自动化": "ui-automation",
     "兼容性 / 弱网": "compatibility",
@@ -1125,6 +1128,9 @@ def infer_ai_category(part_title: str, question_title: str, source_file: str) ->
 
 
 def infer_category(part_title: str, question_title: str, source_file: str) -> str:
+    if source_file == "21-AI评测平台与线上治理.md":
+        return "AI 评测平台与线上治理"
+
     ai_category = infer_ai_category(part_title, question_title, source_file)
     if ai_category:
         return ai_category
@@ -1144,6 +1150,7 @@ def infer_category(part_title: str, question_title: str, source_file: str) -> st
         ("CI/CD 与测试左移", ["jenkins", "ci/cd", "cicd", "流水线", "质量门禁", "测试左移"]),
         ("精准测试", ["精准测试", "变更", "用例映射", "覆盖率"]),
         ("自动化测试平台", ["测试平台", "平台设计", "高可用", "任务调度"]),
+        ("AI 评测平台与线上治理", ["ai 评测平台", "golden dataset", "线上治理", "人工标注", "评测指标体系", "线上反馈", "human-in-the-loop", "llm-as-judge"]),
         ("LLM 基础与 Prompt", ["ai", "大模型", "prompt", "llm", "模型"]),
         ("UI 自动化", ["ui 自动化", "playwright", "selenium", "page object", "locator"]),
         ("兼容性 / 弱网", ["兼容", "弱网", "charles", "移动端", "android", "ios"]),
